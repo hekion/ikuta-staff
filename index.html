@@ -8,30 +8,33 @@
 </head>
 <body>
 
-    <nav class="nav-menu">
-        <ul>
-            <li><a href="./">ホーム</a></li>
-            <li><a href="manual/">マニュアル</a></li>
-            <li><a href="inventory/">備品検索</a></li>
-            <li><a href="pop/">POP</a></li>
-            <li><a href="contacts/">連絡先</a></li>
-        </ul>
-    </nav>
+    <div class="sticky-header">
+        <header>
+            <img src="assets/images/ikutalogo.png" alt="FRONTOWN IKUTA">
+            <div class="sub-title">STAFF PORTAL</div>
+        </header>
 
-    <header>
-        <h1>FRONTOWN IKUTA STAFF PORTAL</h1>
-    </header>
+        <nav class="nav-menu">
+            <ul>
+                <li><a href="./">ホーム</a></li>
+                <li><a href="manual/">マニュアル</a></li>
+                <li><a href="inventory/">備品検索</a></li>
+                <li><a href="pop/">POP</a></li>
+                <li><a href="contacts/">連絡先</a></li>
+            </ul>
+        </nav>
+    </div>
 
     <main class="container">
         <section class="tool-links">
             <h2>管理システム</h2>
             <div class="grid">
                 <a href="https://ikuta-frontown-admin.hacomono.jp/#/schedule/tables/1/studio-rooms/4/" target="_blank" rel="noopener noreferrer" class="card">
-                    <img src="assets/images/hacomono.png" alt="hacomono">
+                    <img src="assets/images/hacomono.png" alt="hacomono" style="max-width: 100px;">
                     <span>hacomono 管理画面</span>
                 </a>
                 <a href="https://yoyaku.labola.jp/r/shop/manage/top/" target="_blank" rel="noopener noreferrer" class="card">
-                    <img src="assets/images/LaBOLA.png" alt="LaBOLA">
+                    <img src="assets/images/LaBOLA.png" alt="LaBOLA" style="max-width: 100px;">
                     <span>LaBOLA 管理画面</span>
                 </a>
             </div>
@@ -40,19 +43,19 @@
         <section class="internal-links">
             <h2>業務メニュー</h2>
             <div class="grid">
-                <a href="manual/" class="card menu-item">
+                <a href="manual/" class="card">
                     <div class="icon">📖</div>
                     <span>マニュアル</span>
                 </a>
-                <a href="inventory/" class="card menu-item">
+                <a href="inventory/" class="card">
                     <div class="icon">🔍</div>
                     <span>備品・物品検索</span>
                 </a>
-                <a href="pop/" class="card menu-item">
+                <a href="pop/" class="card">
                     <div class="icon">🖼️</div>
                     <span>POP置き場(Drive)</span>
                 </a>
-                <a href="contacts/" class="card menu-item">
+                <a href="contacts/" class="card">
                     <div class="icon">📞</div>
                     <span>連絡先・逆引き</span>
                 </a>
