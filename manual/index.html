@@ -106,8 +106,17 @@
             </div>
 
             <div id="accordionGroup">
+
+                <div class="accordion-item" data-title="基本業務 タイムテーブル 準備 更新">
+                    <button class="accordion-header" onclick="toggleAccordion(this)">基本業務について</button>
+                    <div class="accordion-content">
+                        <ul class="manual-list">
+                            <li><a href="maketimetable.html">タイムテーブル作成</a></li>
+                        </ul>
+                    </div>
+                </div>
                 
-                <div class="accordion-item" data-title="hacomono ハコモノ 予約 キャンセル">
+                <div class="accordion-item" data-title="hacomono ハコモノ 予約 キャンセル 現地決済">
                     <button class="accordion-header" onclick="toggleAccordion(this)">hacomonoについて</button>
                     <div class="accordion-content">
                         <ul class="manual-list">
@@ -118,7 +127,7 @@
                     </div>
                 </div>
 
-                <div class="accordion-item" data-title="labola ラボラ コート予約 大会">
+                <div class="accordion-item" data-title="labola ラボラ コート予約 大会 個人参加">
                     <button class="accordion-header" onclick="toggleAccordion(this)">LaBOLAについて</button>
                     <div class="accordion-content">
                         <ul class="manual-list">
@@ -128,7 +137,7 @@
                     </div>
                 </div>
 
-                <div class="accordion-item" data-title="fitness フィットネス 用意 準備 清掃">
+                <div class="accordion-item" data-title="fitness フィットネス 準備物 清掃 スタジオ">
                     <button class="accordion-header" onclick="toggleAccordion(this)">フィットネスについて</button>
                     <div class="accordion-content">
                         <ul class="manual-list">
@@ -147,13 +156,11 @@
     </footer>
 
     <script>
-        // アコーディオンの開閉
         function toggleAccordion(element) {
             const item = element.parentElement;
             item.classList.toggle('active');
         }
 
-        // 簡易検索機能
         function searchManual() {
             const input = document.getElementById('manualSearch').value.toLowerCase();
             const items = document.getElementsByClassName('accordion-item');
@@ -162,7 +169,6 @@
                 const title = items[i].getAttribute('data-title').toLowerCase();
                 if (title.includes(input)) {
                     items[i].style.display = "";
-                    // 検索中は中身を見せるために強制的に開く
                     if(input !== "") {
                         items[i].classList.add('active');
                     }
