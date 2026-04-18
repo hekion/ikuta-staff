@@ -5,6 +5,78 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manual | Ikuta-Portal</title>
     <link rel="stylesheet" href="../style.css">
+    <style>
+        /* マニュアル専用の追加スタイル */
+        .search-container {
+            margin-bottom: 20px;
+        }
+        #manualSearch {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #35A0D9;
+            border-radius: 8px;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        /* アコーディオン設定 */
+        .accordion-item {
+            margin-bottom: 10px;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .accordion-header {
+            width: 100%;
+            padding: 15px;
+            background: #fff;
+            border: none;
+            text-align: left;
+            font-weight: bold;
+            font-size: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+        .accordion-header::after {
+            content: '▼';
+            font-size: 0.8rem;
+            color: #35A0D9;
+            transition: transform 0.3s;
+        }
+        .accordion-item.active .accordion-header::after {
+            transform: rotate(180deg);
+        }
+        .accordion-content {
+            display: none;
+            padding: 0;
+            background: #f9f9f9;
+            border-top: 1px solid #eee;
+        }
+        .accordion-item.active .accordion-content {
+            display: block;
+        }
+
+        /* リストスタイル */
+        .manual-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .manual-list li a {
+            display: block;
+            padding: 12px 20px;
+            color: #333;
+            text-decoration: none;
+            border-bottom: 1px solid #eee;
+            font-size: 0.9rem;
+        }
+        .manual-list li a:active {
+            background-color: #eef2f3;
+        }
+    </style>
 </head>
 <body>
 
@@ -27,8 +99,46 @@
 
     <main class="container">
         <section>
-            <h2>業務マニュアル</h2>
-            <p>ここにマニュアルの目次や内容を記載していきます。</p>
+            <h2>BUSINESS MANUAL</h2>
+
+            <div class="search-container">
+                <input type="text" id="manualSearch" placeholder="マニュアルを検索..." onkeyup="searchManual()">
+            </div>
+
+            <div id="accordionGroup">
+                
+                <div class="accordion-item" data-title="hacomono ハコモノ 予約 キャンセル">
+                    <button class="accordion-header" onclick="toggleAccordion(this)">hacomonoについて</button>
+                    <div class="accordion-content">
+                        <ul class="manual-list">
+                            <li><a href="hacomono-basic.html">基本操作・ログイン</a></li>
+                            <li><a href="hacomono-cancel.html">予約キャンセル対応</a></li>
+                            <li><a href="hacomono-payment.html">現地決済の手順</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="accordion-item" data-title="labola ラボラ コート予約 大会">
+                    <button class="accordion-header" onclick="toggleAccordion(this)">LaBOLAについて</button>
+                    <div class="accordion-content">
+                        <ul class="manual-list">
+                            <li><a href="labola-check.html">予約状況の確認</a></li>
+                            <li><a href="labola-entry.html">大会・個人参加受付</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="accordion-item" data-title="fitness フィットネス 用意 準備 清掃">
+                    <button class="accordion-header" onclick="toggleAccordion(this)">フィットネスについて</button>
+                    <div class="accordion-content">
+                        <ul class="manual-list">
+                            <li><a href="fitness-setup.html">各レッスンの準備物</a></li>
+                            <li><a href="fitness-cleaning.html">スタジオ清掃ルール</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
         </section>
     </main>
 
@@ -36,5 +146,31 @@
         <p>&copy; 2026 FRONTOWN IKUTA</p>
     </footer>
 
+    <script>
+        // アコーディオンの開閉
+        function toggleAccordion(element) {
+            const item = element.parentElement;
+            item.classList.toggle('active');
+        }
+
+        // 簡易検索機能
+        function searchManual() {
+            const input = document.getElementById('manualSearch').value.toLowerCase();
+            const items = document.getElementsByClassName('accordion-item');
+
+            for (let i = 0; i < items.length; i++) {
+                const title = items[i].getAttribute('data-title').toLowerCase();
+                if (title.includes(input)) {
+                    items[i].style.display = "";
+                    // 検索中は中身を見せるために強制的に開く
+                    if(input !== "") {
+                        items[i].classList.add('active');
+                    }
+                } else {
+                    items[i].style.display = "none";
+                }
+            }
+        }
+    </script>
 </body>
 </html>
