@@ -3,21 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact | Ikuta-Portal</title>
+    <title>連絡先 | Ikuta-Portal</title>
     <link rel="stylesheet" href="../style.css">
+    <style>
+        /* 連絡先専用の追加スタイル */
+        .contact-group {
+            margin-bottom: 25px;
+        }
+        .contact-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 15px;
+            background: #fff;
+            border-bottom: 1px solid #eee;
+        }
+        .contact-row:last-child {
+            border-bottom: none;
+        }
+        .contact-info .name {
+            display: block;
+            font-weight: bold;
+            font-size: 0.95rem;
+        }
+        .contact-info .label {
+            font-size: 0.75rem;
+            color: #888;
+        }
+        .tel-link {
+            background-color: #35A0D9;
+            color: white;
+            text-decoration: none;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
 
     <div class="sticky-header">
         <header>
-            <img src="../assets/images/ikutalogo.png" alt="FRONTOWN IKUTA">
-            <div class="sub-title">STAFF PORTAL</div>
+            <a href="../" style="text-decoration: none; display: inline-block;">
+                <img src="../assets/images/ikutalogo.png" alt="FRONTOWN IKUTA">
+                <div class="sub-title">STAFF PORTAL</div>
+            </a>
         </header>
 
         <nav class="nav-menu">
             <ul>
-                <li><a href="../">ホーム</a></li>
                 <li><a href="../manual/">マニュアル</a></li>
+                <li><a href="../setup/">準備物</a></li>
+                <li><a href="../roster/">名簿</a></li>
                 <li><a href="../inventory/">備品検索</a></li>
                 <li><a href="../pop/">POP</a></li>
                 <li><a href="../contacts/">連絡先</a></li>
@@ -27,16 +65,51 @@
 
     <main class="container">
         <section>
-            <h2>緊急連絡先</h2>
-            <div class="card" style="align-items: flex-start; margin-bottom: 15px;">
-                <span>施設担当者</span>
-                <a href="tel:0000000000" style="color: #35A0D9; font-size: 1.2rem; text-decoration: none; font-weight: bold;">000-0000-0000</a>
-            </div>
-        </section>
+            <h2>連絡先・逆引き</h2>
+            <p style="font-size: 0.85rem; color: #666; margin-bottom: 20px;">
+                タップすると電話をかけられます。
+            </p>
 
-        <section>
-            <h2>逆引きトラブル</h2>
-            <p>よくある質問やトラブル対応をここに記載します。</p>
+            <div class="contact-group">
+                <h3 style="font-size: 0.9rem; color: #35A0D9; margin-bottom: 10px;">緊急・内線</h3>
+                <div style="border-radius: 10px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                    <div class="contact-row">
+                        <div class="contact-info">
+                            <span class="name">フロント直通</span>
+                            <span class="label">内線: 101</span>
+                        </div>
+                        <a href="tel:000-0000-0000" class="tel-link">発信</a>
+                    </div>
+                    <div class="contact-row">
+                        <div class="contact-info">
+                            <span class="name">警備室（夜間）</span>
+                            <span class="label">緊急連絡用</span>
+                        </div>
+                        <a href="tel:000-0000-0000" class="tel-link">発信</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-group">
+                <h3 style="font-size: 0.9rem; color: #35A0D9; margin-bottom: 10px;">部署・担当者</h3>
+                <div style="border-radius: 10px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                    <div class="contact-row">
+                        <div class="contact-info">
+                            <span class="name">施設管理担当</span>
+                            <span class="label">備品・修理依頼</span>
+                        </div>
+                        <a href="tel:000-0000-0000" class="tel-link">発信</a>
+                    </div>
+                    <div class="contact-row">
+                        <div class="contact-info">
+                            <span class="name">スクール事務局</span>
+                            <span class="label">欠席・振替関連</span>
+                        </div>
+                        <a href="tel:000-0000-0000" class="tel-link">発信</a>
+                    </div>
+                </div>
+            </div>
+            
         </section>
     </main>
 
