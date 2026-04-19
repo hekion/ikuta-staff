@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manual | Ikuta-Portal</title>
+    <title>マニュアル | Ikuta-Portal</title>
     <link rel="stylesheet" href="../style.css">
     <style>
         /* マニュアルページ専用の追加スタイル */
@@ -98,7 +98,7 @@
 
     <main class="container">
         <section>
-            <h2>BUSINESS MANUAL</h2>
+            <h2>マニュアルリスト</h2>
 
             <div class="search-container">
                 <input type="text" id="manualSearch" placeholder="キーワードで検索..." onkeyup="searchManual()">
@@ -110,6 +110,8 @@
                     <button class="accordion-header" onclick="toggleAccordion(this)">基本業務について</button>
                     <div class="accordion-content">
                         <ul class="manual-list">
+                            <li><a href="early.html">早番業務について</a></li>
+                            <li><a href="late.html">遅番業務について</a></li>
                             <li><a href="maketimetable.html">タイムテーブル作成</a></li>
                         </ul>
                     </div>
@@ -119,18 +121,31 @@
                     <button class="accordion-header" onclick="toggleAccordion(this)">hacomonoについて</button>
                     <div class="accordion-content">
                         <ul class="manual-list">
-                            <li><a href="hacomono-basic.html">基本操作・ログイン</a></li>
-                            <li><a href="hacomono-cancel.html">予約キャンセル対応</a></li>
+                            <li><a href="hacomono-basic.html">基本的なもの</a></li>
+                            <li><a href="hacomono-cancel.html">キャンセル対応</a></li>
                         </ul>
                     </div>
                 </div>
 
-                <div class="accordion-item" data-title="labola ラボラ コート予約 大会 個人参加">
+                <div class="accordion-item" data-title="labola ラボ-ラ コート予約 大会 個人参加">
                     <button class="accordion-header" onclick="toggleAccordion(this)">LaBOLAについて</button>
                     <div class="accordion-content">
                         <ul class="manual-list">
-                            <li><a href="labola-check.html">予約状況の確認</a></li>
-                            <li><a href="labola-entry.html">大会・個人参加受付</a></li>
+                            <li><a href="labola-basic.html">基本的なもの</a></li>
+                            <li><a href="labola-booking.html">予約の入れ方</a></li>
+                            <li><a href="labola-academy.html">アカデミーの登録</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="accordion-item" data-title="レジ 会計 返金 キャンセル 清算">
+                    <button class="accordion-header" onclick="toggleAccordion(this)">レジ操作について</button>
+                    <div class="accordion-content">
+                        <ul class="manual-list">
+                            <li><a href="register-basic.html">基本の操作</a></li>
+                            <li><a href="register-cancel.html">会計のキャンセル</a></li>
+                            <li><a href="register-receipt.html">領収書について</a></li>
+                            <li><a href="register-closing.html">レジ清算</a></li>
                         </ul>
                     </div>
                 </div>
