@@ -3,21 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inventory | Ikuta-Portal</title>
+    <title>備品検索 | Ikuta-Portal</title>
     <link rel="stylesheet" href="../style.css">
 </head>
 <body>
 
     <div class="sticky-header">
         <header>
-            <img src="../assets/images/ikutalogo.png" alt="FRONTOWN IKUTA">
-            <div class="sub-title">STAFF PORTAL</div>
+            <a href="../" style="text-decoration: none; display: inline-block;">
+                <img src="../assets/images/ikutalogo.png" alt="FRONTOWN IKUTA">
+                <div class="sub-title">STAFF PORTAL</div>
+            </a>
         </header>
 
         <nav class="nav-menu">
             <ul>
-                <li><a href="../">ホーム</a></li>
                 <li><a href="../manual/">マニュアル</a></li>
+                <li><a href="../setup/">準備物</a></li>
+                <li><a href="../roster/">名簿</a></li>
                 <li><a href="../inventory/">備品検索</a></li>
                 <li><a href="../pop/">POP</a></li>
                 <li><a href="../contacts/">連絡先</a></li>
@@ -28,17 +31,33 @@
     <main class="container">
         <section>
             <h2>備品・物品検索</h2>
-            <div style="margin-top: 15px;">
-                <input type="text" id="searchInput" placeholder="備品名や場所を入力..." 
-                       style="width: 100%; padding: 12px; border: 2px solid #35A0D9; border-radius: 8px; font-size: 1rem;">
+            <p style="font-size: 0.9rem; margin-bottom: 15px;">倉庫やフロントにある備品の場所を検索できます。</p>
+
+            <div style="margin-bottom: 20px;">
+                <input type="text" id="inventorySearch" placeholder="備品名、カテゴリー、場所で検索..." 
+                       style="width: 100%; padding: 12px; border: 2px solid #35A0D9; border-radius: 8px; font-size: 1rem; outline: none;">
             </div>
 
-            <div style="margin-top: 20px;">
-                <p style="font-size: 0.9rem; color: #666;">※スプレッドシート連携後に、ここにリストが表示されます。</p>
-                <div class="card" style="align-items: flex-start; margin-top: 10px;">
-                    <span style="color: #35A0D9;">[例] ビブス（黄）</span>
-                    <p style="margin: 5px 0 0; font-size: 0.85rem;">場所：倉庫 A-1棚</p>
+            <div id="inventoryList">
+                <div class="card" style="align-items: flex-start; margin-bottom: 10px; padding: 15px;">
+                    <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+                        <strong style="color: #35A0D9;">ビブス（一般・黄）</strong>
+                        <span style="font-size: 0.8rem; background: #eee; padding: 2px 8px; border-radius: 4px;">在庫あり</span>
+                    </div>
+                    <p style="margin-top: 5px; font-size: 0.85rem; color: #666;">保管場所：第1倉庫 A-3棚</p>
                 </div>
+
+                <div class="card" style="align-items: flex-start; margin-bottom: 10px; padding: 15px;">
+                    <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+                        <strong style="color: #35A0D9;">延長コード（10m）</strong>
+                        <span style="font-size: 0.8rem; background: #eee; padding: 2px 8px; border-radius: 4px;">在庫あり</span>
+                    </div>
+                    <p style="margin-top: 5px; font-size: 0.85rem; color: #666;">保管場所：フロントカウンター下</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 30px; text-align: center;">
+                <p style="font-size: 0.8rem; color: #999;">※データの反映には数分かかる場合があります。</p>
             </div>
         </section>
     </main>
