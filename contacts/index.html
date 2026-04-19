@@ -6,38 +6,43 @@
     <title>連絡先 | Ikuta-Portal</title>
     <link rel="stylesheet" href="../style.css">
     <style>
-        /* 連絡先専用の追加スタイル */
-        .contact-group {
-            margin-bottom: 25px;
+        /* 連絡先リストのスタイル */
+        .contact-section {
+            margin-bottom: 30px;
         }
-        .contact-row {
+        .contact-group-title {
+            font-size: 1rem;
+            font-weight: bold;
+            color: #35A0D9;
+            border-bottom: 2px solid #E3F2FD;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+        }
+        .contact-card {
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 12px 15px;
+            margin-bottom: 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 15px;
-            background: #fff;
-            border-bottom: 1px solid #eee;
         }
-        .contact-row:last-child {
-            border-bottom: none;
-        }
-        .contact-info .name {
-            display: block;
+        .contact-name {
             font-weight: bold;
-            font-size: 0.95rem;
+            color: #333;
         }
-        .contact-info .label {
-            font-size: 0.75rem;
-            color: #888;
+        .contact-number {
+            font-family: monospace;
+            color: #666;
+            font-size: 1rem;
+            /* リンクではないことを示すため、選択はできるがタップ反応はなし */
+            user-select: all;
         }
-        .tel-link {
-            background-color: #35A0D9;
-            color: white;
-            text-decoration: none;
-            padding: 6px 12px;
-            border-radius: 20px;
+        .no-number {
+            color: #ccc;
             font-size: 0.8rem;
-            font-weight: bold;
+            font-style: italic;
         }
     </style>
 </head>
@@ -50,7 +55,6 @@
                 <div class="sub-title">STAFF PORTAL</div>
             </a>
         </header>
-
         <nav class="nav-menu">
             <ul>
                 <li><a href="../manual/">マニュアル</a></li>
@@ -58,58 +62,68 @@
                 <li><a href="../roster/">名簿</a></li>
                 <li><a href="../inventory/">備品検索</a></li>
                 <li><a href="../pop/">POP</a></li>
-                <li><a href="../contacts/">連絡先</a></li>
+                <li><a href="../contacts/" class="active">連絡先</a></li>
             </ul>
         </nav>
     </div>
 
     <main class="container">
         <section>
-            <h2>連絡先・逆引き</h2>
-            <p style="font-size: 0.85rem; color: #666; margin-bottom: 20px;">
-                タップすると電話をかけられます。
-            </p>
+            <h2>連絡先一覧</h2>
 
-            <div class="contact-group">
-                <h3 style="font-size: 0.9rem; color: #35A0D9; margin-bottom: 10px;">緊急・内線</h3>
-                <div style="border-radius: 10px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
-                    <div class="contact-row">
-                        <div class="contact-info">
-                            <span class="name">フロント直通</span>
-                            <span class="label">内線: 101</span>
-                        </div>
-                        <a href="tel:000-0000-0000" class="tel-link">発信</a>
-                    </div>
-                    <div class="contact-row">
-                        <div class="contact-info">
-                            <span class="name">警備室（夜間）</span>
-                            <span class="label">緊急連絡用</span>
-                        </div>
-                        <a href="tel:000-0000-0000" class="tel-link">発信</a>
-                    </div>
+            <div class="contact-section">
+                <div class="contact-group-title">社員さん</div>
+                
+                <div class="contact-card">
+                    <span class="contact-name">杉本さん</span>
+                    <span class="contact-number">080-1234-5678</span>
+                </div>
+                
+                <div class="contact-card">
+                    <span class="contact-name">出口さん</span>
+                    <span class="contact-number no-number">番号未登録</span>
+                </div>
+                
+                <div class="contact-card">
+                    <span class="contact-name">杉山さん</span>
+                    <span class="contact-number no-number">番号未登録</span>
+                </div>
+                
+                <div class="contact-card">
+                    <span class="contact-name">池田さん</span>
+                    <span class="contact-number no-number">番号未登録</span>
+                </div>
+                
+                <div class="contact-card">
+                    <span class="contact-name">大平さん</span>
+                    <span class="contact-number no-number">番号未登録</span>
+                </div>
+                
+                <div class="contact-card">
+                    <span class="contact-name">星見さん</span>
+                    <span class="contact-number no-number">番号未登録</span>
                 </div>
             </div>
 
-            <div class="contact-group">
-                <h3 style="font-size: 0.9rem; color: #35A0D9; margin-bottom: 10px;">部署・担当者</h3>
-                <div style="border-radius: 10px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
-                    <div class="contact-row">
-                        <div class="contact-info">
-                            <span class="name">施設管理担当</span>
-                            <span class="label">備品・修理依頼</span>
-                        </div>
-                        <a href="tel:000-0000-0000" class="tel-link">発信</a>
-                    </div>
-                    <div class="contact-row">
-                        <div class="contact-info">
-                            <span class="name">スクール事務局</span>
-                            <span class="label">欠席・振替関連</span>
-                        </div>
-                        <a href="tel:000-0000-0000" class="tel-link">発信</a>
-                    </div>
+            <div class="contact-section">
+                <div class="contact-group-title">施設など</div>
+                
+                <div class="contact-card">
+                    <span class="contact-name">〇〇</span>
+                    <span class="contact-number no-number">--</span>
+                </div>
+                
+                <div class="contact-card">
+                    <span class="contact-name">◻︎◻︎</span>
+                    <span class="contact-number no-number">--</span>
+                </div>
+                
+                <div class="contact-card">
+                    <span class="contact-name">△△</span>
+                    <span class="contact-number no-number">--</span>
                 </div>
             </div>
-            
+
         </section>
     </main>
 
