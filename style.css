@@ -1,4 +1,6 @@
-/* ブラウザの基本余白をリセット */
+/* =========================================
+   1. 基本設定・リセット
+   ========================================= */
 * {
     margin: 0;
     padding: 0;
@@ -10,25 +12,27 @@ body {
     background-color: #f4f7f6;
     color: #333;
     /* 固定ヘッダーの高さ分、上部に余白を確保 */
-    padding-top: 130px; 
+    padding-top: 135px; 
 }
 
-/* スクロール追従固定エリア */
+/* =========================================
+   2. 固定ヘッダー（スクロール追従）
+   ========================================= */
 .sticky-header {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     z-index: 1000;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    background-color: #ffffff;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
-/* ロゴエリア（完全に白背景） */
+/* ロゴエリア（白背景） */
 header {
     background-color: #ffffff;
     text-align: center;
     padding: 15px 0 10px 0;
-    border: none;
 }
 
 header img {
@@ -46,7 +50,9 @@ header .sub-title {
     letter-spacing: 0.1rem;
 }
 
-/* ナビゲーションメニュー（青背景：#35A0D9） */
+/* =========================================
+   3. ナビゲーションメニュー
+   ========================================= */
 .nav-menu {
     background-color: #35A0D9;
 }
@@ -55,13 +61,15 @@ header .sub-title {
     list-style: none;
     display: flex;
     width: 100%;
-    margin: 0;
+    /* コンテンツと同じ最大幅に設定して中央寄せ */
+    max-width: 900px; 
+    margin: 0 auto;
     padding: 0;
 }
 
 .nav-menu li {
-    flex: 1; /* すべてのボタンを均等な幅にする */
-    border-right: 1px solid rgba(255, 255, 255, 0.2); /* 境界線 */
+    flex: 1;
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .nav-menu li:last-child {
@@ -71,7 +79,7 @@ header .sub-title {
 .nav-menu a {
     color: #ffffff;
     text-decoration: none;
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     font-weight: bold;
     display: block;
     padding: 12px 0;
@@ -79,33 +87,60 @@ header .sub-title {
     transition: background 0.2s;
 }
 
-.nav-menu a:active {
+.nav-menu a:hover, .nav-menu a:active {
     background: rgba(0, 0, 0, 0.1);
 }
 
-/* コンテンツエリア */
+/* =========================================
+   4. メインコンテンツエリア
+   ========================================= */
 .container {
     padding: 20px;
-    max-width: 600px;
+    width: 100%;
+    max-width: 900px; /* PCでの最大幅 */
     margin: 0 auto;
 }
 
 h2 {
-    font-size: 1rem;
+    font-size: 1.1rem;
     border-left: 5px solid #35A0D9;
-    padding-left: 10px;
-    margin-top: 1.5rem;
+    padding-left: 12px;
+    margin: 1.5rem 0 1rem 0;
     color: #333;
 }
 
-/* グリッドレイアウト */
+/* グリッドレイアウト（基本は2列、スマホは1列） */
 .grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: 15px;
-    margin-top: 10px;
 }
 
+/* =========================================
+   5. レスポンシブ調整（スマホ向け）
+   ========================================= */
+@media (max-width: 600px) {
+    body {
+        padding-top: 120px; /* スマホ用にヘッダー余白を微調整 */
+    }
+
+    .nav-menu a {
+        font-size: 0.65rem; /* 文字がはみ出さないよう少し小さく */
+        padding: 10px 0;
+    }
+
+    .grid {
+        grid-template-columns: 1fr; /* スマホでは1列にして押しやすくする */
+    }
+
+    .container {
+        padding: 15px;
+    }
+}
+
+/* =========================================
+   6. パーツデザイン（カード・ボタン）
+   ========================================= */
 .card {
     background: white;
     text-decoration: none;
@@ -117,9 +152,37 @@ h2 {
     justify-content: center;
     padding: 20px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.icon { font-size: 2rem; margin-bottom: 10px; }
-.card span { font-size: 0.8rem; font-weight: bold; }
+.card:active {
+    transform: scale(0.98);
+}
 
-footer { text-align: center; padding: 30px 20px; font-size: 0.7rem; color: #888; }
+.card img {
+    width: 100%;
+    max-width: 100px;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.icon {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+}
+
+.card span {
+    font-size: 0.85rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* =========================================
+   7. フッター
+   ========================================= */
+footer {
+    text-align: center;
+    padding: 40px 20px;
+    font-size: 0.75rem;
+    color: #888;
+}
