@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>木曜日の準備物 | Ikuta-Portal</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .day-selector { display: flex; gap: 5px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 10px; -webkit-overflow-scrolling: touch; }
+        .day-btn { flex: 1; min-width: 45px; padding: 10px 0; border: 1px solid #35A0D9; background: #fff; color: #35A0D9; text-decoration: none; border-radius: 5px; font-weight: bold; font-size: 0.85rem; text-align: center; }
+        .day-btn.active { background: #35A0D9; color: #fff; }
+
+        .setup-card { background: #fff; border: 1px solid #eee; border-radius: 12px; padding: 15px; margin-bottom: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); position: relative; }
+        .setup-time { font-size: 0.9rem; font-weight: bold; color: #666; margin-bottom: 5px; display: block; }
+        .setup-title { font-size: 1.1rem; font-weight: bold; color: #333; margin-bottom: 5px; padding-right: 100px; }
+        .setup-price { font-size: 0.85rem; color: #444; margin-bottom: 12px; }
+        .trial-price { color: #888; font-size: 0.8rem; margin-left: 5px; }
+
+        .place-label { position: absolute; top: 15px; right: 15px; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: bold; border: 1px solid transparent; }
+        .label-studio-b { background: #FFF3E0; border-color: #FFE0B2; color: #EF6C00; }
+
+        .item-list-box { background: #fafafa; border-top: 1px dashed #ddd; padding-top: 10px; margin-top: 5px; }
+        .item-list-title { font-size: 0.75rem; font-weight: bold; color: #999; margin-bottom: 5px; display: flex; align-items: center; }
+        .item-list-content { font-size: 0.9rem; color: #333; line-height: 1.5; }
+        .notice { color: #d32f2f; font-weight: bold; font-size: 0.85rem; }
+    </style>
+</head>
+<body>
+
+    <div class="sticky-header">
+        <header>
+            <a href="../" style="text-decoration: none; display: inline-block;">
+                <img src="../assets/images/ikutalogo.png" alt="FRONTOWN IKUTA">
+                <div class="sub-title">STAFF PORTAL</div>
+            </a>
+        </header>
+        <nav class="nav-menu">
+            <ul>
+                <li><a href="../manual/">マニュアル</a></li>
+                <li><a href="../setup/">準備物</a></li>
+                <li><a href="../roster/">名簿</a></li>
+                <li><a href="../inventory/">備品検索</a></li>
+                <li><a href="../pop/">POP</a></li>
+                <li><a href="../contacts/">連絡先</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <main class="container">
+        <section>
+            <h2>木曜日の準備リスト</h2>
+
+            <div class="day-selector">
+                <a href="sunday.html" class="day-btn">日</a>
+                <a href="monday.html" class="day-btn">月</a>
+                <a href="tuesday.html" class="day-btn">火</a>
+                <a href="wednesday.html" class="day-btn">水</a>
+                <a href="thursday.html" class="day-btn active">木</a>
+                <a href="friday.html" class="day-btn">金</a>
+                <a href="saturday.html" class="day-btn">土</a>
+            </div>
+
+            <div class="setup-card">
+                <span class="place-label label-studio-b">スタジオB</span>
+                <span class="setup-time">10:00 ~ 10:45</span>
+                <div class="setup-title">ZUMBA</div>
+                <div class="setup-price">880円/回 <span class="trial-price">(体験：550円)</span></div>
+                <div class="item-list-box">
+                    <div class="item-list-title">📦 準備リスト</div>
+                    <div class="item-list-content">スピーカー２つ(Soundcore)、<span class="notice">ドライヤー(講師更衣室に)</span></div>
+                </div>
+            </div>
+
+            <div class="setup-card">
+                <span class="place-label label-studio-b">スタジオB</span>
+                <span class="setup-time">11:00 ~ 12:00</span>
+                <div class="setup-title">リカバリーヨガ</div>
+                <div class="setup-price">880円/回 <span class="trial-price">(体験：550円)</span></div>
+                <div class="item-list-box">
+                    <div class="item-list-title">📦 準備リスト</div>
+                    <div class="item-list-content">ヨガマット</div>
+                </div>
+            </div>
+
+            <div class="setup-card">
+                <span class="place-label label-studio-b">スタジオB</span>
+                <span class="setup-time">13:30 ~ 14:30</span>
+                <div class="setup-title">美ウエスト習慣 ポールピラティス</div>
+                <div class="setup-price">880円/回 <span class="trial-price">(体験：550円)</span></div>
+                <div class="item-list-box">
+                    <div class="item-list-title">📦 準備リスト</div>
+                    <div class="item-list-content">ヨガマット、ストレッチポール</div>
+                </div>
+            </div>
+
+            <div class="setup-card">
+                <span class="place-label label-studio-b">スタジオB</span>
+                <span class="setup-time">16:30 ~ 17:30</span>
+                <div class="setup-title">はじめてのヒップホップ</div>
+                <div class="setup-price">1,650円×回数 <span class="trial-price">(体験：1,650円)</span></div>
+                <div class="item-list-box">
+                    <div class="item-list-title">📦 準備リスト</div>
+                    <div class="item-list-content">（特になし）</div>
+                </div>
+            </div>
+
+            <div class="setup-card">
+                <span class="place-label label-studio-b">スタジオB</span>
+                <span class="setup-time">19:30 ~ 20:15</span>
+                <div class="setup-title">セミパーソナル・サーフエクササイズ</div>
+                <div class="setup-price">13,200円/月 <span class="trial-price">(体験：1,650円)</span></div>
+                <div class="item-list-box">
+                    <div class="item-list-title">📦 準備リスト</div>
+                    <div class="item-list-content">サーフボード、ゴムボール、とげとげボール、ゴムチューブ、おしりバンド</div>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 FRONTOWN IKUTA</p>
+    </footer>
+
+</body>
+</html>
