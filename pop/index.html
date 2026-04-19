@@ -3,21 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>POP | Ikuta-Portal</title>
+    <title>POP置き場 | Ikuta-Portal</title>
     <link rel="stylesheet" href="../style.css">
 </head>
 <body>
 
     <div class="sticky-header">
         <header>
-            <img src="../assets/images/ikutalogo.png" alt="FRONTOWN IKUTA">
-            <div class="sub-title">STAFF PORTAL</div>
+            <a href="../" style="text-decoration: none; display: inline-block;">
+                <img src="../assets/images/ikutalogo.png" alt="FRONTOWN IKUTA">
+                <div class="sub-title">STAFF PORTAL</div>
+            </a>
         </header>
 
         <nav class="nav-menu">
             <ul>
-                <li><a href="../">ホーム</a></li>
                 <li><a href="../manual/">マニュアル</a></li>
+                <li><a href="../setup/">準備物</a></li>
+                <li><a href="../roster/">名簿</a></li>
                 <li><a href="../inventory/">備品検索</a></li>
                 <li><a href="../pop/">POP</a></li>
                 <li><a href="../contacts/">連絡先</a></li>
@@ -27,20 +30,41 @@
 
     <main class="container">
         <section>
-            <h2>POP・掲示物ライブラリ</h2>
-            <p style="font-size: 0.9rem; margin-bottom: 20px;">画像やパワポデータはGoogleドライブで一括管理しています。</p>
+            <h2>POP・掲示物データ</h2>
+            <p style="font-size: 0.9rem; margin-bottom: 20px;">印刷用のPOPデータ（Googleドライブ）へのリンクです。</p>
             
-            <a href="https://drive.google.com/drive/folders/YOUR_FOLDER_ID" target="_blank" rel="noopener noreferrer" class="card" style="background-color: #35A0D9; color: white;">
-                <div class="icon">📂</div>
-                <span>Googleドライブを開く</span>
-                <small style="margin-top: 5px; opacity: 0.8;">(別タブで開きます)</small>
-            </a>
+            <div class="grid">
+                <a href="https://drive.google.com/drive/folders/YOUR_DRIVE_ID" target="_blank" rel="noopener noreferrer" class="card" style="grid-column: 1 / -1; background: #eef7ff; border: 2px dashed #35A0D9;">
+                    <div class="icon">📂</div>
+                    <strong style="color: #35A0D9;">POP共有フォルダ全体を開く</strong>
+                </a>
 
-            <div style="margin-top: 30px; border-top: 1px solid #ddd; padding-top: 20px;">
-                <h3 style="font-size: 0.9rem; color: #2c3e50;">よく使うPOPのクイックリンク</h3>
-                <ul style="font-size: 0.9rem; margin-top: 10px; line-height: 2;">
-                    <li><a href="#" style="color: #35A0D9;">施設利用のルール（掲示用）</a></li>
-                    <li><a href="#" style="color: #35A0D9;">本日のイベント告知用</a></li>
+                <a href="#" class="card">
+                    <div class="icon">📢</div>
+                    <span>本日の案内・タイムテーブル</span>
+                </a>
+
+                <a href="#" class="card">
+                    <div class="icon">🌂</div>
+                    <span>忘れ物・落とし物案内</span>
+                </a>
+
+                <a href="#" class="card">
+                    <div class="icon">⚠️</div>
+                    <span>注意喚起・禁止事項</span>
+                </a>
+
+                <a href="#" class="card">
+                    <div class="icon">🧧</div>
+                    <span>キャンペーン・イベント</span>
+                </a>
+            </div>
+
+            <div class="memo-box" style="margin-top: 30px; background: #fff; padding: 15px; border-radius: 10px; font-size: 0.85rem; color: #666; border: 1px solid #eee;">
+                <strong>💡 運用ルール</strong>
+                <ul style="margin: 10px 0 0 18px;">
+                    <li>新しく作成したPOPは必ず共通フォルダへ格納してください。</li>
+                    <li>掲示期間が終了したものは「アーカイブ」フォルダへ移動。</li>
                 </ul>
             </div>
         </section>
