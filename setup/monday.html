@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>月曜日の準備物 | Ikuta-Portal</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        /* 曜日選択メニュー */
+        .day-selector {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 20px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            -webkit-overflow-scrolling: touch;
+        }
+        .day-btn {
+            flex: 1;
+            min-width: 45px;
+            padding: 10px 0;
+            border: 1px solid #35A0D9;
+            background: #fff;
+            color: #35A0D9;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 0.85rem;
+            text-align: center;
+        }
+        .day-btn.active {
+            background: #35A0D9;
+            color: #fff;
+        }
+
+        /* 準備物カードのデザイン */
+        .setup-card {
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            position: relative;
+        }
+
+        /* 開催時間のスタイル */
+        .setup-time {
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: #666;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        /* 講座名のスタイル */
+        .setup-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+            padding-right: 100px; /* ラベルと重ならないように */
+        }
+
+        /* 料金のスタイル */
+        .setup-price {
+            font-size: 0.85rem;
+            color: #444;
+            margin-bottom: 12px;
+        }
+        .trial-price {
+            color: #888;
+            font-size: 0.8rem;
+            margin-left: 5px;
+        }
+
+        /* 場所ラベル（薄い色味の枠） */
+        .place-label {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            border: 1px solid transparent;
+        }
+
+        /* エリア別カラー定義（薄い色味） */
+        .label-studio-a { background: #E3F2FD; border-color: #BBDEFB; color: #1976D2; } /* 水色 */
+        .label-studio-b { background: #FFF3E0; border-color: #FFE0B2; color: #EF6C00; } /* オレンジ */
+        .label-arena    { background: #F3E5F5; border-color: #E1BEE7; color: #7B1FA2; } /* 紫 */
+        .label-ground   { background: #E8F5E9; border-color: #C8E6C9; color: #388E3C; } /* 緑 */
+        .label-weight   { background: #F5F5F5; border-color: #E0E0E0; color: #616161; } /* グレー */
+        .label-multi    { background: #FFFDE7; border-color: #FFF9C4; color: #FBC02D; } /* 黄色 */
+
+        /* 準備リストのスタイル */
+        .item-list-box {
+            background: #fafafa;
+            border-top: 1px dashed #ddd;
+            padding-top: 10px;
+            margin-top: 5px;
+        }
+        .item-list-title {
+            font-size: 0.75rem;
+            font-weight: bold;
+            color: #999;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+        }
+        .item-list-content {
+            font-size: 0.9rem;
+            color: #333;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sticky-header">
+        <header>
+            <a href="../" style="text-decoration: none; display: inline-block;">
+                <img src="../assets/images/ikutalogo.png" alt="FRONTOWN IKUTA">
+                <div class="sub-title">STAFF PORTAL</div>
+            </a>
+        </header>
+        <nav class="nav-menu">
+            <ul>
+                <li><a href="../manual/">マニュアル</a></li>
+                <li><a href="../setup/">準備物</a></li>
+                <li><a href="../roster/">名簿</a></li>
+                <li><a href="../inventory/">備品検索</a></li>
+                <li><a href="../pop/">POP</a></li>
+                <li><a href="../contacts/">連絡先</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <main class="container">
+        <section>
+            <h2>月曜日の準備リスト</h2>
+
+            <div class="day-selector">
+                <a href="sunday.html" class="day-btn">日</a>
+                <a href="monday.html" class="day-btn active">月</a>
+                <a href="tuesday.html" class="day-btn">火</a>
+                <a href="wednesday.html" class="day-btn">水</a>
+                <a href="thursday.html" class="day-btn">木</a>
+                <a href="friday.html" class="day-btn">金</a>
+                <a href="saturday.html" class="day-btn">土</a>
+            </div>
+
+            <div class="setup-card">
+                <span class="place-label label-weight">ウェイトルーム</span>
+                <span class="setup-time">9:30 ~ 10:30</span>
+                <div class="setup-title">セミパーソナル・トレーニングジム</div>
+                <div class="setup-price">13,200円/月 <span class="trial-price">(体験：1,650円)</span></div>
+                <div class="item-list-box">
+                    <div class="item-list-title">📦 準備リスト</div>
+                    <div class="item-list-content">ダンベル(アカデミー棟倉庫内)、レジ横のスピーカー</div>
+                </div>
+            </div>
+
+            <div class="setup-card">
+                <span class="place-label label-studio-b">スタジオB</span>
+                <span class="setup-time">9:45 ~ 10:45</span>
+                <div class="setup-title">太極拳</div>
+                <div class="setup-price">880円/回 <span class="trial-price">(体験：550円)</span></div>
+                <div class="item-list-box">
+                    <div class="item-list-title">📦 準備リスト</div>
+                    <div class="item-list-content">CDプレーヤー</div>
+                </div>
+            </div>
+
+            <div class="setup-card">
+                <span class="place-label label-weight">ウェイトルーム</span>
+                <span class="setup-time">10:45 ~ 11:45</span>
+                <div class="setup-title">セミパーソナル・トレーニングジム</div>
+                <div class="setup-price">13,200円/月 <span class="trial-price">(体験：1,650円)</span></div>
+                <div class="item-list-box">
+                    <div class="item-list-title">📦 準備リスト</div>
+                    <div class="item-list-content">ダンベル(アカデミー棟倉庫内)、レジ横のスピーカー</div>
+                </div>
+            </div>
+
+            <div class="setup-card">
+                <span class="place-label label-studio-a">スタジオA</span>
+                <span class="setup-time">12:45 ~ 13:45</span>
+                <div class="setup-title">おしり体操</div>
+                <div class="setup-price">880円/回 <span class="trial-price">(体験：550円)</span></div>
+                <div class="item-list-box">
+                    <div class="item-list-title">📦 準備リスト</div>
+                    <div class="item-list-content">スピーカー、ヨガマット、おしりバンド</div>
+                </div>
+            </div>
+
+            <div class="setup-card">
+                <span class="place-label label-studio-b">スタジオB</span>
+                <span class="setup-time">13:00 ~ 14:00</span>
+                <div class="setup-title">ゴルフストレッチ</div>
+                <div class="setup-price">880円/回 <span class="trial-price">(体験：550円)</span></div>
+                <div class="item-list-box">
+                    <div class="item-list-title">📦 準備リスト</div>
+                    <div class="item-list-content">ヨガマット</div>
+                </div>
+            </div>
+
+            <div class="setup-card">
+                <span class="place-label label-studio-b">スタジオB</span>
+                <span class="setup-time">14:15 ~ 15:15</span>
+                <div class="setup-title">アフタヌーンストレッチ</div>
+                <div class="setup-price">880円/回 <span class="trial-price">(体験：550円)</span></div>
+                <div class="item-list-box">
+                    <div class="item-list-title">📦 準備リスト</div>
+                    <div class="item-list-content">ヨガマット</div>
+                </div>
+            </div>
+
+            <div class="setup-card">
+                <span class="place-label label-weight">ウェイトルーム</span>
+                <span class="setup-time">18:15 ~ 19:15</span>
+                <div class="setup-title">セミパーソナル・トレーニングジム</div>
+                <div class="setup-price">13,200円/月 <span class="trial-price">(体験：1,650円)</span></div>
+                <div class="item-list-box">
+                    <div class="item-list-title">📦 準備リスト</div>
+                    <div class="item-list-content">ダンベル(アカデミー棟倉庫内)、レジ横のスピーカー</div>
+                </div>
+            </div>
+
+            <div class="setup-card">
+                <span class="place-label label-weight">ウェイトルーム</span>
+                <span class="setup-time">19:30 ~ 20:30</span>
+                <div class="setup-title">セミパーソナル・トレーニングジム</div>
+                <div class="setup-price">13,200円/月 <span class="trial-price">(体験：1,650円)</span></div>
+                <div class="item-list-box">
+                    <div class="item-list-title">📦 準備リスト</div>
+                    <div class="item-list-content">ダンベル(アカデミー棟倉庫内)、レジ横のスピーカー</div>
+                </div>
+            </div>
+
+            <div class="setup-card">
+                <span class="place-label label-studio-b">スタジオB</span>
+                <span class="setup-time">19:30 ~ 20:15</span>
+                <div class="setup-title">UBOUND</div>
+                <div class="setup-price">1,100円/回 <span class="trial-price">(体験：550円)</span></div>
+                <div class="item-list-box">
+                    <div class="item-list-title">📦 準備リスト</div>
+                    <div class="item-list-content">スピーカー、トランポリン</div>
+                </div>
+            </div>
+
+            <div class="setup-card">
+                <span class="place-label label-ground">Anker北側半面</span>
+                <span class="setup-time">20:15 ~ 22:00</span>
+                <div class="setup-title">個人参加ソサイチ</div>
+                <div class="setup-price">2,200円/回</div>
+                <div class="item-list-box">
+                    <div class="item-list-title">📦 準備リスト</div>
+                    <div class="item-list-content">ゴール、ビブス、ボール、時計、靴、スタンプ</div>
+                </div>
+            </div>
+
+            <div class="setup-card">
+                <span class="place-label label-studio-a">スタジオA</span>
+                <span class="setup-time">20:30 ~ 21:15</span>
+                <div class="setup-title">FIGHT DO</div>
+                <div class="setup-price">1,100円/回 <span class="trial-price">(体験：550円)</span></div>
+                <div class="item-list-box">
+                    <div class="item-list-title">📦 準備リスト</div>
+                    <div class="item-list-content">スピーカー</div>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 FRONTOWN IKUTA</p>
+    </footer>
+
+</body>
+</html>
