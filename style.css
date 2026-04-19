@@ -28,30 +28,35 @@ body {
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
-/* ロゴエリア（白背景） */
+/* ロゴエリア */
 header {
     background-color: #ffffff;
     text-align: center;
-    padding: 15px 0 10px 0;
+    padding: 12px 0 8px 0;
+}
+
+header a {
+    text-decoration: none;
+    display: inline-block;
 }
 
 header img {
-    height: 40px;
+    height: 38px;
     width: auto;
     display: block;
-    margin: 0 auto 5px;
+    margin: 0 auto 3px;
 }
 
 header .sub-title {
     margin: 0;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     color: #000000;
     font-weight: bold;
-    letter-spacing: 0.1rem;
+    letter-spacing: 0.05rem;
 }
 
 /* =========================================
-   3. ナビゲーションメニュー
+   3. ナビゲーションメニュー（6等分）
    ========================================= */
 .nav-menu {
     background-color: #35A0D9;
@@ -61,7 +66,6 @@ header .sub-title {
     list-style: none;
     display: flex;
     width: 100%;
-    /* コンテンツと同じ最大幅に設定して中央寄せ */
     max-width: 900px; 
     margin: 0 auto;
     padding: 0;
@@ -79,12 +83,14 @@ header .sub-title {
 .nav-menu a {
     color: #ffffff;
     text-decoration: none;
-    font-size: 0.75rem;
+    /* 6個並びのために少しサイズダウン */
+    font-size: 0.7rem; 
     font-weight: bold;
     display: block;
-    padding: 12px 0;
+    padding: 12px 2px;
     text-align: center;
     transition: background 0.2s;
+    white-space: nowrap; /* 改行を防ぐ */
 }
 
 .nav-menu a:hover, .nav-menu a:active {
@@ -97,7 +103,7 @@ header .sub-title {
 .container {
     padding: 20px;
     width: 100%;
-    max-width: 900px; /* PCでの最大幅 */
+    max-width: 900px;
     margin: 0 auto;
 }
 
@@ -109,7 +115,6 @@ h2 {
     color: #333;
 }
 
-/* グリッドレイアウト（基本は2列、スマホは1列） */
 .grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -121,16 +126,17 @@ h2 {
    ========================================= */
 @media (max-width: 600px) {
     body {
-        padding-top: 120px; /* スマホ用にヘッダー余白を微調整 */
+        padding-top: 120px;
     }
 
     .nav-menu a {
-        font-size: 0.65rem; /* 文字がはみ出さないよう少し小さく */
-        padding: 10px 0;
+        /* スマホで6個並べるための限界サイズ */
+        font-size: 0.58rem; 
+        padding: 12px 0;
     }
 
     .grid {
-        grid-template-columns: 1fr; /* スマホでは1列にして押しやすくする */
+        grid-template-columns: 1fr;
     }
 
     .container {
@@ -139,7 +145,7 @@ h2 {
 }
 
 /* =========================================
-   6. パーツデザイン（カード・ボタン）
+   6. パーツデザイン・フッター（省略なし）
    ========================================= */
 .card {
     background: white;
@@ -155,9 +161,7 @@ h2 {
     transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.card:active {
-    transform: scale(0.98);
-}
+.card:active { transform: scale(0.98); }
 
 .card img {
     width: 100%;
@@ -166,10 +170,7 @@ h2 {
     margin-bottom: 10px;
 }
 
-.icon {
-    font-size: 2.2rem;
-    margin-bottom: 10px;
-}
+.icon { font-size: 2.2rem; margin-bottom: 10px; }
 
 .card span {
     font-size: 0.85rem;
@@ -177,9 +178,6 @@ h2 {
     text-align: center;
 }
 
-/* =========================================
-   7. フッター
-   ========================================= */
 footer {
     text-align: center;
     padding: 40px 20px;
