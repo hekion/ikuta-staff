@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日曜日の準備物 | Ikuta-Portal</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        /* 曜日選択メニュー */
+        .day-selector {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 20px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            -webkit-overflow-scrolling: touch;
+        }
+        .day-btn {
+            flex: 1;
+            min-width: 45px;
+            padding: 10px 0;
+            border: 1px solid #35A0D9;
+            background: #fff;
+            color: #35A0D9;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 0.85rem;
+            text-align: center;
+        }
+        .day-btn.active {
+            background: #35A0D9;
+            color: #fff;
+        }
+
+        /* 準備物カードのデザイン */
+        .setup-card {
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            position: relative;
+        }
+
+        .setup-time {
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: #666;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .setup-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+            padding-right: 100px;
+        }
+
+        .setup-price {
+            font-size: 0.85rem;
+            color: #444;
+            margin-bottom: 12px;
+        }
+        .trial-price {
+            color: #888;
+            font-size: 0.8rem;
+            margin-left: 5px;
+        }
+
+        /* 場所ラベル（薄い水色） */
+        .place-label {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            border: 1px solid transparent;
+        }
+        .label-studio-a { background: #E3F2FD; border-color: #BBDEFB; color: #1976D2; }
+
+        /* 準備リストのスタイル */
+        .item-list-box {
+            background: #fafafa;
+            border-top: 1px dashed #ddd;
+            padding-top: 10px;
+            margin-top: 5px;
+        }
+        .item-list-title {
+            font-size: 0.75rem;
+            font-weight: bold;
+            color: #999;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+        }
+        .item-list-content {
+            font-size: 0.9rem;
+            color: #333;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sticky-header">
+        <header>
+            <a href="../" style="text-decoration: none; display: inline-block;">
+                <img src="../assets/images/ikutalogo.png" alt="FRONTOWN IKUTA">
+                <div class="sub-title">STAFF PORTAL</div>
+            </a>
+        </header>
+        <nav class="nav-menu">
+            <ul>
+                <li><a href="../manual/">マニュアル</a></li>
+                <li><a href="../setup/">準備物</a></li>
+                <li><a href="../roster/">名簿</a></li>
+                <li><a href="../inventory/">備品検索</a></li>
+                <li><a href="../pop/">POP</a></li>
+                <li><a href="../contacts/">連絡先</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <main class="container">
+        <section>
+            <h2>日曜日の準備リスト</h2>
+
+            <div class="day-selector">
+                <a href="sunday.html" class="day-btn active">日</a>
+                <a href="monday.html" class="day-btn">月</a>
+                <a href="tuesday.html" class="day-btn">火</a>
+                <a href="wednesday.html" class="day-btn">水</a>
+                <a href="thursday.html" class="day-btn">木</a>
+                <a href="friday.html" class="day-btn">金</a>
+                <a href="saturday.html" class="day-btn">土</a>
+            </div>
+
+            <div class="setup-card">
+                <span class="place-label label-studio-a">スタジオA</span>
+                <span class="setup-time">12:30 ~ 13:30</span>
+                <div class="setup-title">楽ちん体操でカラダ楽々</div>
+                <div class="setup-price">600円/回</div>
+                <div class="item-list-box">
+                    <div class="item-list-title">📦 準備リスト</div>
+                    <div class="item-list-content">（特になし）</div>
+                </div>
+            </div>
+
+            <div class="setup-card">
+                <span class="place-label label-studio-a">スタジオA</span>
+                <span class="setup-time">14:00 ~ 14:50</span>
+                <div class="setup-title">カラダの動かし方教室</div>
+                <div class="setup-price">1,650円/回 <span class="trial-price">(体験：550円)</span></div>
+                <div class="item-list-box">
+                    <div class="item-list-title">📦 準備リスト</div>
+                    <div class="item-list-content">スピーカー、運動用具・トランポリン(参加者分)</div>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 FRONTOWN IKUTA</p>
+    </footer>
+
+</body>
+</html>
