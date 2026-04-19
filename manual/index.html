@@ -6,7 +6,7 @@
     <title>Manual | Ikuta-Portal</title>
     <link rel="stylesheet" href="../style.css">
     <style>
-        /* マニュアル専用の追加スタイル */
+        /* マニュアルページ専用の追加スタイル */
         .search-container {
             margin-bottom: 20px;
         }
@@ -18,8 +18,6 @@
             font-size: 1rem;
             outline: none;
         }
-
-        /* アコーディオン設定 */
         .accordion-item {
             margin-bottom: 10px;
             border-radius: 8px;
@@ -58,8 +56,6 @@
         .accordion-item.active .accordion-content {
             display: block;
         }
-
-        /* リストスタイル */
         .manual-list {
             list-style: none;
             padding: 0;
@@ -82,14 +78,17 @@
 
     <div class="sticky-header">
         <header>
-            <img src="../assets/images/ikutalogo.png" alt="FRONTOWN IKUTA">
-            <div class="sub-title">STAFF PORTAL</div>
+            <a href="../" style="text-decoration: none; display: inline-block;">
+                <img src="../assets/images/ikutalogo.png" alt="FRONTOWN IKUTA">
+                <div class="sub-title">STAFF PORTAL</div>
+            </a>
         </header>
 
         <nav class="nav-menu">
             <ul>
-                <li><a href="../">ホーム</a></li>
                 <li><a href="../manual/">マニュアル</a></li>
+                <li><a href="../setup/">準備物</a></li>
+                <li><a href="../roster/">名簿</a></li>
                 <li><a href="../inventory/">備品検索</a></li>
                 <li><a href="../pop/">POP</a></li>
                 <li><a href="../contacts/">連絡先</a></li>
@@ -102,7 +101,7 @@
             <h2>BUSINESS MANUAL</h2>
 
             <div class="search-container">
-                <input type="text" id="manualSearch" placeholder="マニュアルを検索..." onkeyup="searchManual()">
+                <input type="text" id="manualSearch" placeholder="キーワードで検索..." onkeyup="searchManual()">
             </div>
 
             <div id="accordionGroup">
@@ -122,7 +121,6 @@
                         <ul class="manual-list">
                             <li><a href="hacomono-basic.html">基本操作・ログイン</a></li>
                             <li><a href="hacomono-cancel.html">予約キャンセル対応</a></li>
-                            <li><a href="hacomono-payment.html">現地決済の手順</a></li>
                         </ul>
                     </div>
                 </div>
@@ -137,16 +135,6 @@
                     </div>
                 </div>
 
-                <div class="accordion-item" data-title="fitness フィットネス 準備物 清掃 スタジオ">
-                    <button class="accordion-header" onclick="toggleAccordion(this)">フィットネスについて</button>
-                    <div class="accordion-content">
-                        <ul class="manual-list">
-                            <li><a href="fitness-setup.html">各レッスンの準備物</a></li>
-                            <li><a href="fitness-cleaning.html">スタジオ清掃ルール</a></li>
-                        </ul>
-                    </div>
-                </div>
-
             </div>
         </section>
     </main>
@@ -156,11 +144,13 @@
     </footer>
 
     <script>
+        // アコーディオンの開閉
         function toggleAccordion(element) {
             const item = element.parentElement;
             item.classList.toggle('active');
         }
 
+        // 検索機能
         function searchManual() {
             const input = document.getElementById('manualSearch').value.toLowerCase();
             const items = document.getElementsByClassName('accordion-item');
