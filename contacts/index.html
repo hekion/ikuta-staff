@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
     <title>連絡先 | Ikuta-Portal</title>
     <link rel="stylesheet" href="../style.css">
     <style>
@@ -33,14 +34,16 @@
             color: #333;
         }
         .contact-number {
-            font-family: monospace;
-            color: #666;
+            font-family: sans-serif;
+            /* 強制的に黒（濃いグレー）にし、タップを無効化 */
+            color: #333 !important;
             font-size: 1rem;
-            /* リンクではないことを示すため、選択はできるがタップ反応はなし */
-            user-select: all;
+            text-decoration: none !important;
+            pointer-events: none; /* タップに反応しなくなります */
+            user-select: text;    /* コピーだけは可能です */
         }
         .no-number {
-            color: #ccc;
+            color: #ccc !important;
             font-size: 0.8rem;
             font-style: italic;
         }
