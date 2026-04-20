@@ -54,7 +54,6 @@
     <main class="container">
         <section>
             <h2>POP・掲示物データ</h2>
-            <p style="font-size: 0.9rem; margin-bottom: 20px;">イラレで作成したPOPの最新一覧です。スプシを更新すると自動で反映されます。</p>
             
             <div id="filter-container">
                 <button class="filter-btn active" onclick="filterPop('すべて')">すべて</button>
@@ -63,19 +62,11 @@
             <div id="loading">データを読み込み中...</div>
 
             <div id="pop-grid"></div>
-
-            <div class="memo-box" style="margin-top: 30px; background: #fff; padding: 15px; border-radius: 10px; font-size: 0.85rem; color: #666; border: 1px solid #eee;">
-                <strong>💡 運用ルール</strong>
-                <ul style="margin: 10px 0 0 18px;">
-                    <li>イラレから書き出した画像をドライブの専用フォルダへ保存。</li>
-                    <li>スプレッドシートの「掲示物」タブに「ファイル名」と「カテゴリ」を入力すれば完了。</li>
-                </ul>
-            </div>
         </section>
     </main>
 
     <footer>
-        <p>&copy; 2026 FRONTOWN IKUTA</p>
+        <p>© 2026 FRONTOWN IKUTA</p>
     </footer>
 
     <script>
@@ -134,8 +125,6 @@
             filtered.forEach(item => {
                 const card = document.createElement('div');
                 card.className = 'pop-card';
-                // ファイル名からプレビュー画像を表示する仕組み（※設定後に正しく表示されます）
-                const imgSrc = `https://lh3.googleusercontent.com/d/${FOLDER_ID}`; 
                 
                 card.innerHTML = `
                     <div style="height:130px; background:#f0f0f0; display:flex; align-items:center; justify-content:center; color:#ccc;">IMAGE</div>
