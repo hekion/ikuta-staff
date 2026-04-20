@@ -15,7 +15,7 @@
         .memo-box { background: #fff9e6; padding: 15px; border-radius: 5px; border: 1px solid #ffeeba; margin-top: 20px; }
         .back-btn { display: inline-block; margin-top: 20px; color: #35A0D9; text-decoration: none; font-weight: bold; }
         
-        /* --- 強制的はみ出し対策 --- */
+        /* --- 枠からはみ出さないための修正 --- */
         .calc-container { 
             background: #f0f4f8; 
             border-radius: 8px; 
@@ -23,12 +23,12 @@
             margin: 15px 0; 
             width: 100%;
             box-sizing: border-box;
-            overflow-x: auto; /* 万が一中身が大きくても横スクロールさせて枠は維持する */
+            display: flow-root; /* マージン相殺を防ぎ、枠を維持する */
         }
         
         .calc-inner {
             padding: 12px;
-            min-width: 0; /* 子要素の幅計算を正しくさせる */
+            box-sizing: border-box;
         }
 
         .calc-input { 
@@ -39,7 +39,7 @@
             border: 1px solid #ccc; 
             border-radius: 5px; 
             margin: 10px 0; 
-            box-sizing: border-box; /* paddingを含めた100%にする */
+            box-sizing: border-box; /* paddingを幅に含める */
             -webkit-appearance: none;
             appearance: none;
         }
