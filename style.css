@@ -56,7 +56,7 @@ header .sub-title {
 }
 
 /* =========================================
-   3. ナビゲーションメニュー（6等分）
+   3. ナビゲーションメニュー（6等分・高さ統一修正版）
    ========================================= */
 .nav-menu {
     background-color: #35A0D9;
@@ -73,6 +73,7 @@ header .sub-title {
 
 .nav-menu li {
     flex: 1;
+    display: flex; /* 子要素の a タグを高さ一杯に広げるため */
     border-right: 1px solid rgba(255, 255, 255, 0.2);
 }
 
@@ -83,11 +84,14 @@ header .sub-title {
 .nav-menu a {
     color: #ffffff;
     text-decoration: none;
-    /* 6個並びのために少しサイズダウン */
     font-size: 0.7rem; 
     font-weight: bold;
-    display: block;
-    padding: 12px 2px;
+    /* フレックスボックスで上下左右中央揃えを強制 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 48px; /* 高さを固定することでズレを解消 */
     text-align: center;
     transition: background 0.2s;
     white-space: nowrap; /* 改行を防ぐ */
@@ -132,7 +136,7 @@ h2 {
     .nav-menu a {
         /* スマホで6個並べるための限界サイズ */
         font-size: 0.58rem; 
-        padding: 12px 0;
+        height: 44px; /* スマホ用の高さ固定 */
     }
 
     .grid {
@@ -145,7 +149,7 @@ h2 {
 }
 
 /* =========================================
-   6. パーツデザイン・フッター（省略なし）
+   6. パーツデザイン・フッター
    ========================================= */
 .card {
     background: white;
