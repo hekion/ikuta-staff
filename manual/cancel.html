@@ -16,14 +16,32 @@
         .memo-box { background: #fff9e6; padding: 15px; border-radius: 5px; border: 1px solid #ffeeba; margin-top: 20px; }
         .back-btn { display: inline-block; margin-top: 20px; color: #35A0D9; text-decoration: none; font-weight: bold; }
         
-        .calc-container { background: #f0f4f8; padding: 12px; border-radius: 8px; border: 1px solid #35A0D9; margin: 15px 0; }
-        .calc-input { width: 100%; padding: 12px; font-size: 1rem; border: 1px solid #ccc; border-radius: 5px; margin: 10px 0; box-sizing: border-box; }
+        /* 【重要】はみ出し対策：box-sizingとwidth/max-widthの調整 */
+        .calc-container { 
+            background: #f0f4f8; 
+            padding: 12px; 
+            border-radius: 8px; 
+            border: 1px solid #35A0D9; 
+            margin: 15px 0; 
+            box-sizing: border-box;
+        }
+        .calc-input { 
+            display: block;
+            width: 100%; 
+            max-width: 100%; /* 親要素を超えない */
+            padding: 10px; 
+            font-size: 1rem; 
+            border: 1px solid #ccc; 
+            border-radius: 5px; 
+            margin: 10px 0; 
+            box-sizing: border-box; /* paddingを含めた幅計算 */
+        }
         
-        .result-table, .data-table { width: 100%; border-collapse: collapse; margin-top: 10px; table-layout: fixed; }
-        .result-table th, .result-table td, .data-table th, .data-table td { 
+        .data-table { width: 100%; border-collapse: collapse; margin-top: 10px; table-layout: fixed; }
+        .data-table th, .data-table td { 
             border: 1px solid #ddd; padding: 8px 4px; font-size: 0.8rem; text-align: center; word-wrap: break-word;
         }
-        .result-table th, .data-table th { background: #35A0D9; color: #fff; }
+        .data-table th { background: #35A0D9; color: #fff; }
         
         .danger-text { font-weight: bold; color: #d9534f; }
         #calcResult { display: none; }
@@ -55,16 +73,26 @@
             <section>
                 <span class="mid-title">キャンセルポリシー</span>
                 <div class="step-box">
-                    <p style="font-size: 0.85rem;">〜利用時間の8日前(192時間前)　無料<br>
-                    8日前(192時間前)〜3日前(72時間前)　50%<br>
-                    3日前(72時間前)〜当日(利用時間)　100%</p>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>期間</th>
+                                <th>キャンセル料</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>〜利用時間の8日前(192h前)</td><td>無料</td></tr>
+                            <tr><td>8日前(192h前)〜3日前(72h前)</td><td class="danger-text">50%</td></tr>
+                            <tr><td>3日前(72h前)〜当日(利用時間)</td><td class="danger-text">100%</td></tr>
+                        </tbody>
+                    </table>
                 </div>
 
                 <div class="calc-container">
                     <label style="font-weight: bold; font-size: 0.85rem;">期限計算ツール：</label>
                     <input type="datetime-local" id="usageDateTime" class="calc-input" onchange="calcCancelDeadlines()">
                     
-                    <table id="calcResult" class="result-table">
+                    <table id="calcResult" class="data-table">
                         <thead>
                             <tr>
                                 <th style="width: 30%;">区分</th>
