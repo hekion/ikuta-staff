@@ -8,20 +8,24 @@
     <style>
         .manual-content { background: #fff; padding: 15px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
         .step-box { margin-bottom: 20px; border-left: 4px solid #35A0D9; padding-left: 15px; }
-        .step-title { font-weight: bold; color: #35A0D9; display: block; margin-bottom: 5px; }
+        
+        /* 見出し階層のスタイル */
+        .mid-title { font-size: 1.15rem; font-weight: bold; color: #333; display: block; margin: 10px 0; border-bottom: 2px solid #35A0D9; padding-bottom: 3px; }
+        .small-title { font-size: 0.95rem; font-weight: bold; color: #35A0D9; display: block; margin-bottom: 5px; }
+        
         .memo-box { background: #fff9e6; padding: 15px; border-radius: 5px; border: 1px solid #ffeeba; margin-top: 20px; }
         .back-btn { display: inline-block; margin-top: 20px; color: #35A0D9; text-decoration: none; font-weight: bold; }
         
-        /* 計算ツール・テーブル調整 */
         .calc-container { background: #f0f4f8; padding: 12px; border-radius: 8px; border: 1px solid #35A0D9; margin: 15px 0; }
         .calc-input { width: 100%; padding: 12px; font-size: 1rem; border: 1px solid #ccc; border-radius: 5px; margin: 10px 0; box-sizing: border-box; }
         
-        .result-table, .data-table { width: 100%; border-collapse: collapse; margin-top: 10px; table-layout: fixed; } /* 横幅を固定 */
+        .result-table, .data-table { width: 100%; border-collapse: collapse; margin-top: 10px; table-layout: fixed; }
         .result-table th, .result-table td, .data-table th, .data-table td { 
             border: 1px solid #ddd; padding: 8px 4px; font-size: 0.8rem; text-align: center; word-wrap: break-word;
         }
         .result-table th, .data-table th { background: #35A0D9; color: #fff; }
-        .percent-badge { font-weight: bold; color: #d9534f; }
+        
+        .danger-text { font-weight: bold; color: #d9534f; }
         #calcResult { display: none; }
     </style>
 </head>
@@ -49,8 +53,8 @@
             <p style="font-size: 0.85rem; color: #666; margin-bottom: 20px;">更新日：2026/04/20</p>
 
             <section>
+                <span class="mid-title">キャンセルポリシー</span>
                 <div class="step-box">
-                    <span class="step-title">① キャンセルポリシー</span>
                     <p style="font-size: 0.85rem;">〜利用時間の8日前(192時間前)　無料<br>
                     8日前(192時間前)〜3日前(72時間前)　50%<br>
                     3日前(72時間前)〜当日(利用時間)　100%</p>
@@ -77,12 +81,12 @@
                             <tr>
                                 <td>3日前<br>(72h前)</td>
                                 <td id="deadline72">---</td>
-                                <td class="percent-badge">50%</td>
+                                <td class="danger-text">50%</td>
                             </tr>
                             <tr>
                                 <td>当日<br>(利用開始)</td>
                                 <td id="deadline0">---</td>
-                                <td class="percent-badge">100%</td>
+                                <td class="danger-text">100%</td>
                             </tr>
                         </tbody>
                     </table>
@@ -90,23 +94,23 @@
             </section>
 
             <section style="margin-top: 30px;">
-                <div class="step-box">
-                    <span class="step-title">② 雨天時の対応</span>
+                <span class="mid-title">雨天時の対応</span>
+                <div class="step-box" style="border: none; padding-left: 0;">
                     <p style="font-size: 0.9rem;">参照：<a href="https://weathernews.jp/onebox/35.624981/139.543124/q=神奈川県川崎市多摩区生田&v=5e823a09c3c55bf01471da1addfd83108c4e0eee04ae293b1e453db5dacfab88&temp=c&lang=ja" target="_blank" style="color: #35A0D9; word-break: break-all;">ウェザーニュース（生田）</a></p>
                 </div>
 
                 <div class="step-box">
-                    <span class="step-title">◻︎ キャンセル受付開始時刻</span>
+                    <span class="small-title">キャンセル受付開始時刻</span>
                     <p style="font-size: 0.85rem;">利用時刻の <strong>2時間前</strong> からお電話にて。</p>
                 </div>
 
                 <div class="step-box">
-                    <span class="step-title">◻︎ キャンセル料の決定</span>
+                    <span class="small-title">キャンセル料の決定</span>
                     <p style="font-size: 0.85rem;">電話を受けた時点での、利用開始時刻の予報降水量をもとに決定。</p>
                 </div>
 
                 <div class="step-box">
-                    <span class="step-title">◻︎ キャンセル料の割合</span>
+                    <span class="small-title">キャンセル料の割合</span>
                     <table class="data-table">
                         <thead>
                             <tr>
@@ -116,19 +120,19 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr><td rowspan="3">夏季<br>(4-10月)</td><td>〜2mm</td><td>100%</td></tr>
-                            <tr><td>3〜4mm</td><td class="percent-badge">50%</td></tr>
+                            <tr><td rowspan="3">夏季<br>(4-10月)</td><td>〜2mm</td><td class="danger-text">100%</td></tr>
+                            <tr><td>3〜4mm</td><td class="danger-text">50%</td></tr>
                             <tr><td>5mm〜</td><td>無料</td></tr>
-                            <tr style="border-top: 2px solid #ddd;"><td rowspan="3">冬季<br>(11-3月)</td><td>〜1mm</td><td>100%</td></tr>
-                            <tr><td>2mm</td><td class="percent-badge">50%</td></tr>
+                            <tr style="border-top: 2px solid #ddd;"><td rowspan="3">冬季<br>(11-3月)</td><td>〜1mm</td><td class="danger-text">100%</td></tr>
+                            <tr><td>2mm</td><td class="danger-text">50%</td></tr>
                             <tr><td>3mm〜</td><td>無料</td></tr>
                         </tbody>
                     </table>
-                    <p style="font-size: 0.75rem; margin-top: 5px;">※連絡なしは無断キャンセル(100%)</p>
+                    <p style="font-size: 0.75rem; margin-top: 5px;">※連絡なしは無断キャンセル(<span class="danger-text">100%</span>)</p>
                 </div>
 
                 <div class="step-box">
-                    <span class="step-title">◻︎ 利用料の割引き</span>
+                    <span class="small-title">利用料の割引き</span>
                     <table class="data-table">
                         <thead>
                             <tr>
