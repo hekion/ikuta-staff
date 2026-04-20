@@ -5,6 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>掲示物 | Ikuta-Portal</title>
     <link rel="stylesheet" href="../style.css">
+    <style>
+        /* 自動生成されるカード用の追加スタイル */
+        #filter-container { margin-bottom: 20px; display: flex; flex-wrap: wrap; gap: 8px; }
+        .filter-btn { 
+            padding: 6px 15px; border: 1px solid #35A0D9; background: #fff; 
+            color: #35A0D9; border-radius: 20px; cursor: pointer; font-size: 0.85rem; transition: 0.2s;
+        }
+        .filter-btn.active { background: #35A0D9; color: #fff; }
+        
+        #pop-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; }
+        .pop-card { 
+            background: #fff; border-radius: 10px; overflow: hidden; 
+            border: 1px solid #eee; transition: 0.2s; text-decoration: none; color: inherit; display: block;
+        }
+        .pop-card:hover { transform: translateY(-3px); box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .pop-card img { width: 100%; height: 130px; object-fit: cover; background: #f9f9f9; }
+        .pop-card-info { padding: 10px; border-top: 1px solid #eee; }
+        .pop-card-title { font-size: 0.85rem; font-weight: bold; display: block; margin-bottom: 4px; }
+        .pop-card-cat { font-size: 0.7rem; color: #35A0D9; background: #eef7ff; padding: 1px 6px; border-radius: 4px; }
+        
+        #loading { text-align: center; padding: 30px; color: #999; font-size: 0.9rem; }
+        .hidden { display: none; }
+    </style>
 </head>
 <body>
 
@@ -31,40 +54,21 @@
     <main class="container">
         <section>
             <h2>POP・掲示物データ</h2>
-            <p style="font-size: 0.9rem; margin-bottom: 20px;">印刷用のPOPデータ（Googleドライブ）へのリンクです。</p>
+            <p style="font-size: 0.9rem; margin-bottom: 20px;">イラレで作成したPOPの最新一覧です。スプシを更新すると自動で反映されます。</p>
             
-            <div class="grid">
-                <a href="https://drive.google.com/drive/folders/YOUR_DRIVE_ID" target="_blank" rel="noopener noreferrer" class="card" style="grid-column: 1 / -1; background: #eef7ff; border: 2px dashed #35A0D9;">
-                    <div class="icon">📂</div>
-                    <strong style="color: #35A0D9;">POP共有フォルダ全体を開く</strong>
-                </a>
-
-                <a href="#" class="card">
-                    <div class="icon">📢</div>
-                    <span>本日の案内・タイムテーブル</span>
-                </a>
-
-                <a href="#" class="card">
-                    <div class="icon">🌂</div>
-                    <span>忘れ物・落とし物案内</span>
-                </a>
-
-                <a href="#" class="card">
-                    <div class="icon">⚠️</div>
-                    <span>注意喚起・禁止事項</span>
-                </a>
-
-                <a href="#" class="card">
-                    <div class="icon">🧧</div>
-                    <span>キャンペーン・イベント</span>
-                </a>
+            <div id="filter-container">
+                <button class="filter-btn active" onclick="filterPop('すべて')">すべて</button>
             </div>
+
+            <div id="loading">データを読み込み中...</div>
+
+            <div id="pop-grid"></div>
 
             <div class="memo-box" style="margin-top: 30px; background: #fff; padding: 15px; border-radius: 10px; font-size: 0.85rem; color: #666; border: 1px solid #eee;">
                 <strong>💡 運用ルール</strong>
                 <ul style="margin: 10px 0 0 18px;">
-                    <li>新しく作成したPOPは必ず共通フォルダへ格納してください。</li>
-                    <li>掲示期間が終了したものは「アーカイブ」フォルダへ移動。</li>
+                    <li>イラレから書き出した画像をドライブの専用フォルダへ保存。</li>
+                    <li>スプレッドシートの「掲示物」タブに「ファイル名」と「カテゴリ」を入力すれば完了。</li>
                 </ul>
             </div>
         </section>
@@ -74,5 +78,77 @@
         <p>&copy; 2026 FRONTOWN IKUTA</p>
     </footer>
 
+    <script>
+        const API_KEY = 'ここを書き換える'; 
+        const SPREADSHEET_ID = 'ここを書き換える';
+        const FOLDER_ID = 'ここを書き換える';
+        const RANGE = '掲示物!A2:B100'; 
+
+        let allData = [];
+
+        async function loadData() {
+            try {
+                const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${encodeURIComponent(RANGE)}?key=${API_KEY}`;
+                const res = await fetch(url);
+                const json = await res.json();
+                
+                if (!json.values) {
+                    document.getElementById('loading').innerText = 'データがありません。スプシを確認してください。';
+                    return;
+                }
+
+                allData = json.values.map(row => ({
+                    name: row[0],
+                    category: row[1] || '未分類'
+                }));
+
+                createFilterButtons();
+                renderCards('すべて');
+                document.getElementById('loading').classList.add('hidden');
+            } catch (e) {
+                document.getElementById('loading').innerText = 'エラー：設定を確認してください。';
+            }
+        }
+
+        function createFilterButtons() {
+            const container = document.getElementById('filter-container');
+            const categories = [...new Set(allData.map(d => d.category))];
+            categories.forEach(cat => {
+                const btn = document.createElement('button');
+                btn.className = 'filter-btn';
+                btn.innerText = cat;
+                btn.onclick = (e) => {
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    e.target.classList.add('active');
+                    renderCards(cat);
+                };
+                container.appendChild(btn);
+            });
+        }
+
+        function renderCards(target) {
+            const grid = document.getElementById('pop-grid');
+            grid.innerHTML = '';
+            const filtered = target === 'すべて' ? allData : allData.filter(d => d.category === target);
+
+            filtered.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'pop-card';
+                // ファイル名からプレビュー画像を表示する仕組み（※設定後に正しく表示されます）
+                const imgSrc = `https://lh3.googleusercontent.com/d/${FOLDER_ID}`; 
+                
+                card.innerHTML = `
+                    <div style="height:130px; background:#f0f0f0; display:flex; align-items:center; justify-content:center; color:#ccc;">IMAGE</div>
+                    <div class="pop-card-info">
+                        <span class="pop-card-title">${item.name}</span>
+                        <span class="pop-card-cat">${item.category}</span>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        loadData();
+    </script>
 </body>
 </html>
