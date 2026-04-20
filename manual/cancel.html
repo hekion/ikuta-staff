@@ -9,33 +9,41 @@
         .manual-content { background: #fff; padding: 15px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
         .step-box { margin-bottom: 20px; border-left: 4px solid #35A0D9; padding-left: 15px; }
         
-        /* 見出し階層のスタイル */
         .mid-title { font-size: 1.15rem; font-weight: bold; color: #333; display: block; margin: 10px 0; border-bottom: 2px solid #35A0D9; padding-bottom: 3px; }
         .small-title { font-size: 0.95rem; font-weight: bold; color: #35A0D9; display: block; margin-bottom: 5px; }
         
         .memo-box { background: #fff9e6; padding: 15px; border-radius: 5px; border: 1px solid #ffeeba; margin-top: 20px; }
         .back-btn { display: inline-block; margin-top: 20px; color: #35A0D9; text-decoration: none; font-weight: bold; }
         
-        /* 【重要】はみ出し対策：box-sizingとwidth/max-widthの調整 */
+        /* --- 強制的はみ出し対策 --- */
         .calc-container { 
             background: #f0f4f8; 
-            padding: 12px; 
             border-radius: 8px; 
             border: 1px solid #35A0D9; 
             margin: 15px 0; 
+            width: 100%;
             box-sizing: border-box;
+            overflow-x: auto; /* 万が一中身が大きくても横スクロールさせて枠は維持する */
         }
+        
+        .calc-inner {
+            padding: 12px;
+            min-width: 0; /* 子要素の幅計算を正しくさせる */
+        }
+
         .calc-input { 
             display: block;
             width: 100%; 
-            max-width: 100%; /* 親要素を超えない */
-            padding: 10px; 
+            padding: 12px; 
             font-size: 1rem; 
             border: 1px solid #ccc; 
             border-radius: 5px; 
             margin: 10px 0; 
-            box-sizing: border-box; /* paddingを含めた幅計算 */
+            box-sizing: border-box; /* paddingを含めた100%にする */
+            -webkit-appearance: none;
+            appearance: none;
         }
+        /* ----------------------- */
         
         .data-table { width: 100%; border-collapse: collapse; margin-top: 10px; table-layout: fixed; }
         .data-table th, .data-table td { 
@@ -51,13 +59,16 @@
 
     <div class="sticky-header">
         <header>
-            <img src="../assets/images/ikutalogo.png" alt="FRONTOWN IKUTA">
-            <div class="sub-title">STAFF PORTAL</div>
+            <a href="../" style="text-decoration: none; display: inline-block;">
+                <img src="../assets/images/ikutalogo.png" alt="FRONTOWN IKUTA">
+                <div class="sub-title">STAFF PORTAL</div>
+            </a>
         </header>
         <nav class="nav-menu">
             <ul>
-                <li><a href="../">ホーム</a></li>
                 <li><a href="../manual/">マニュアル</a></li>
+                <li><a href="../setup/">準備物</a></li>
+                <li><a href="../roster/">名簿</a></li>
                 <li><a href="../inventory/">備品検索</a></li>
                 <li><a href="../pop/">掲示物</a></li>
                 <li><a href="../contacts/">連絡先</a></li>
@@ -89,35 +100,37 @@
                 </div>
 
                 <div class="calc-container">
-                    <label style="font-weight: bold; font-size: 0.85rem;">期限計算ツール：</label>
-                    <input type="datetime-local" id="usageDateTime" class="calc-input" onchange="calcCancelDeadlines()">
-                    
-                    <table id="calcResult" class="data-table">
-                        <thead>
-                            <tr>
-                                <th style="width: 30%;">区分</th>
-                                <th>期限（この時刻まで）</th>
-                                <th style="width: 20%;">料金</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>8日前<br>(192h前)</td>
-                                <td id="deadline192">---</td>
-                                <td>無料</td>
-                            </tr>
-                            <tr>
-                                <td>3日前<br>(72h前)</td>
-                                <td id="deadline72">---</td>
-                                <td class="danger-text">50%</td>
-                            </tr>
-                            <tr>
-                                <td>当日<br>(利用開始)</td>
-                                <td id="deadline0">---</td>
-                                <td class="danger-text">100%</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="calc-inner">
+                        <label style="font-weight: bold; font-size: 0.85rem;">期限計算ツール：</label>
+                        <input type="datetime-local" id="usageDateTime" class="calc-input" onchange="calcCancelDeadlines()">
+                        
+                        <table id="calcResult" class="data-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 30%;">区分</th>
+                                    <th>期限（この時刻まで）</th>
+                                    <th style="width: 20%;">料金</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>8日前<br>(192h前)</td>
+                                    <td id="deadline192">---</td>
+                                    <td>無料</td>
+                                </tr>
+                                <tr>
+                                    <td>3日前<br>(72h前)</td>
+                                    <td id="deadline72">---</td>
+                                    <td class="danger-text">50%</td>
+                                </tr>
+                                <tr>
+                                    <td>当日<br>(利用開始)</td>
+                                    <td id="deadline0">---</td>
+                                    <td class="danger-text">100%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </section>
 
