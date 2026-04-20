@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>キャンセル・雨天対応 | Ikuta-Portal</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .manual-content { background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .step-box { margin-bottom: 20px; border-left: 4px solid #35A0D9; padding-left: 15px; }
+        .step-title { font-weight: bold; color: #35A0D9; display: block; margin-bottom: 5px; }
+        .memo-box { background: #fff9e6; padding: 15px; border-radius: 5px; border: 1px solid #ffeeba; margin-top: 20px; }
+        .back-btn { display: inline-block; margin-top: 20px; color: #35A0D9; text-decoration: none; font-weight: bold; }
+        
+        /* 計算ツール用追加スタイル */
+        .calc-container { background: #f0f4f8; padding: 15px; border-radius: 8px; border: 1px solid #35A0D9; margin: 15px 0; }
+        .calc-input { width: 100%; padding: 12px; font-size: 1rem; border: 1px solid #ccc; border-radius: 5px; margin: 10px 0; }
+        .result-table { width: 100%; border-collapse: collapse; margin-top: 10px; display: none; background: #fff; }
+        .result-table th, .result-table td { border: 1px solid #ddd; padding: 10px; font-size: 0.85rem; text-align: center; }
+        .result-table th { background: #35A0D9; color: #fff; }
+        .percent-badge { font-weight: bold; color: #d9534f; }
+    </style>
+</head>
+<body>
+
+    <div class="sticky-header">
+        <header>
+            <img src="../assets/images/ikutalogo.png" alt="FRONTOWN IKUTA">
+            <div class="sub-title">STAFF PORTAL</div>
+        </header>
+        <nav class="nav-menu">
+            <ul>
+                <li><a href="../">ホーム</a></li>
+                <li><a href="../manual/">マニュアル</a></li>
+                <li><a href="../inventory/">備品検索</a></li>
+                <li><a href="../pop/">掲示物</a></li>
+                <li><a href="../contacts/">連絡先</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <main class="container">
+        <div class="manual-content">
+            <h2>キャンセル・雨天時の対応</h2>
+            <p style="font-size: 0.85rem; color: #666; margin-bottom: 20px;">更新日：2026/04/20</p>
+
+            <section>
+                <div class="step-box">
+                    <span class="step-title">① キャンセルポリシー</span>
+                    <p style="font-size: 0.9rem;">利用開始時刻を起点に、以下の通りキャンセル料が発生します。</p>
+                </div>
+
+                <div class="calc-container">
+                    <label style="font-weight: bold; font-size: 0.9rem;">利用開始日時を入力：</label>
+                    <input type="datetime-local" id="usageDateTime" class="calc-input" onchange="calcCancelDeadlines()">
+                    
+                    <table id="calcResult" class="result-table">
+                        <thead>
+                            <tr>
+                                <th>区分</th>
+                                <th>期限（この時刻まで）</th>
+                                <th>料金</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>8日前まで</td>
+                                <td id="deadline192">---</td>
+                                <td>無料</td>
+                            </tr>
+                            <tr>
+                                <td>3日前まで</td>
+                                <td id="deadline72">---</td>
+                                <td class="percent-badge">50%</td>
+                            </tr>
+                            <tr>
+                                <td>当日（利用時刻）</td>
+                                <td id="deadline0">---</td>
+                                <td class="percent-badge">100%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section style="margin-top: 30px;">
+                <div class="step-box">
+                    <span class="step-title">② 雨天時の対応</span>
+                    <p style="font-size: 0.9rem; margin-bottom: 10px;">判断基準：<a href="https://weathernews.jp/onebox/tenki/kanagawa/14135/" target="_blank" style="color: #35A0D9;">ウェザーニュース（川崎市多摩区生田）</a></p>
+                    
+                    <div style="font-size: 0.9rem; background: #f9f9f9; padding: 10px; border-radius: 5px;">
+                        <strong>■ キャンセル受付開始時刻</strong>
+                        <p>利用時刻の <strong>2時間前</strong> から。必ずお電話にて受付。</p>
+                        
+                        <strong style="display: block; margin-top: 10px;">■ キャンセル料の決定</strong>
+                        <p>電話を受けた時点での、利用開始時刻の予報降水量で判断。</p>
+                    </div>
+                </div>
+
+                <div class="step-box">
+                    <span class="step-title">雨天時の料金・割引表</span>
+                    <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem; margin-top: 10px;">
+                        <tr style="background: #eee;">
+                            <th style="border: 1px solid #ddd; padding: 5px;">時期</th>
+                            <th style="border: 1px solid #ddd; padding: 5px;">降水量</th>
+                            <th style="border: 1px solid #ddd; padding: 5px;">キャンセル料</th>
+                            <th style="border: 1px solid #ddd; padding: 5px;">利用時割引</th>
+                        </tr>
+                        <tr>
+                            <td rowspan="3" style="border: 1px solid #ddd; text-align: center;">夏季<br>(4-10月)</td>
+                            <td style="border: 1px solid #ddd; padding: 5px;">〜2mm</td>
+                            <td style="border: 1px solid #ddd; text-align: center;">100%</td>
+                            <td style="border: 1px solid #ddd; text-align: center;">通常</td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid #ddd; padding: 5px;">3〜4mm</td>
+                            <td style="border: 1px solid #ddd; text-align: center; color: #d9534f;">50%</td>
+                            <td rowspan="2" style="border: 1px solid #ddd; text-align: center; color: #35A0D9;">50%</td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid #ddd; padding: 5px;">5mm〜</td>
+                            <td style="border: 1px solid #ddd; text-align: center;">無料</td>
+                        </tr>
+                        <tr style="background: #fdfdfd;">
+                            <td rowspan="3" style="border: 1px solid #ddd; text-align: center;">冬季<br>(11-3月)</td>
+                            <td style="border: 1px solid #ddd; padding: 5px;">〜1mm</td>
+                            <td style="border: 1px solid #ddd; text-align: center;">100%</td>
+                            <td style="border: 1px solid #ddd; text-align: center;">通常</td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid #ddd; padding: 5px;">2mm</td>
+                            <td style="border: 1px solid #ddd; text-align: center; color: #d9534f;">50%</td>
+                            <td rowspan="2" style="border: 1px solid #ddd; text-align: center; color: #35A0D9;">50%</td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid #ddd; padding: 5px;">3mm〜</td>
+                            <td style="border: 1px solid #ddd; text-align: center;">無料</td>
+                        </tr>
+                    </table>
+                </div>
+            </section>
+
+            <div class="memo-box">
+                <strong>⚠️ 注意事項</strong>
+                <ul style="margin: 10px 0 0 20px; font-size: 0.85rem;">
+                    <li>連絡なしのキャンセルは無断キャンセルとして100%請求。</li>
+                    <li>利用受付時の降水量で最終判断。電話時と変わる可能性があることを必ず伝える。</li>
+                </ul>
+            </div>
+
+            <a href="./" class="back-btn">← マニュアル一覧に戻る</a>
+        </div>
+    </main>
+
+    <script>
+        function calcCancelDeadlines() {
+            const input = document.getElementById('usageDateTime').value;
+            if (!input) return;
+
+            const targetDate = new Date(input);
+            const resultTable = document.getElementById('calcResult');
+
+            // 各期限の計算 (192時間前, 72時間前)
+            const d192 = new Date(targetDate.getTime() - (192 * 60 * 60 * 1000));
+            const d72 = new Date(targetDate.getTime() - (72 * 60 * 60 * 1000));
+
+            document.getElementById('deadline192').innerText = formatDate(d192);
+            document.getElementById('deadline72').innerText = formatDate(d72);
+            document.getElementById('deadline0').innerText = formatDate(targetDate);
+
+            resultTable.style.display = 'table';
+        }
+
+        function formatDate(date) {
+            const y = date.getFullYear();
+            const m = ('0' + (date.getMonth() + 1)).slice(-2);
+            const d = ('0' + date.getDate()).slice(-2);
+            const hh = ('0' + date.getHours()).slice(-2);
+            const mm = ('0' + date.getMinutes()).slice(-2);
+            const dayNames = ['日', '月', '火', '水', '木', '金', '土'];
+            const day = dayNames[date.getDay()];
+            return `${y}/${m}/${d}(${day}) ${hh}:${mm}`;
+        }
+    </script>
+
+    <footer><p>&copy; 2026 FRONTOWN IKUTA</p></footer>
+</body>
+</html>
