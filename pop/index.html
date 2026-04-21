@@ -17,15 +17,18 @@
         .pop-card { 
             background: #fff; border-radius: 10px; overflow: hidden; 
             border: 1px solid #eee; transition: 0.2s; text-decoration: none; color: inherit; display: block;
-            cursor: pointer;
         }
         .pop-card:hover { transform: translateY(-3px); box-shadow: 0 4px 10px rgba(0,0,0,0.1); border-color: #35A0D9; }
         
-        /* プレビューアイコンエリア */
+        /* プレビュー画像エリア */
         .pop-card-thumb { 
-            height: 120px; background: #f0f7ff; display: flex; 
-            align-items: center; justify-content: center; font-size: 2.5rem;
+            height: 150px; background: #f0f7ff; overflow: hidden;
+            display: flex; align-items: center; justify-content: center;
         }
+        .pop-card-thumb img {
+            width: 100%; height: 100%; object-fit: cover;
+        }
+        .pop-card-thumb .no-img { font-size: 2.5rem; }
         
         .pop-card-info { padding: 10px; border-top: 1px solid #eee; }
         .pop-card-title { font-size: 0.85rem; font-weight: bold; display: block; margin-bottom: 4px; }
@@ -72,7 +75,7 @@
     <script>
         const API_KEY = 'AIzaSyDecF0oQvA5i82U8dZR66YOQ_QdRPxGEOY'; 
         const SPREADSHEET_ID = '1Fh4Z7f7Jau8d_FMT__sGjp-99Ks-IHKQl5kaGERM2Rg';
-        const RANGE = '掲示物!A2:C100'; // C列まで取得するように変更
+        const RANGE = '掲示物!A2:C100';
 
         let allData = [];
 
@@ -83,18 +86,57 @@
                 const json = await res.json();
                 if (!json.values) return;
 
-                allData = json.values.map(row => ({
-                    name: row[0],
-                    category: row[1] || '未分類',
-                    link: row[2] || '#' // C列のURL
-                }));
+                allData = json.values.map(row => {
+                    const link = row[2] || '';
+                    let thumbUrl = '';
+                    
+                    // GoogleドライブのURLからIDを抜き出してプレビュー画像URLを作る
+                    if (link.includes('drive.google.com')) {
+                        const fileId = link.match(/\/d\/([^/]+)/);
+                        if (fileId && fileId[1]) {
+                            thumbUrl = `https://drive.google.com/thumbnail?id=${fileId[1]}&sz=w400`;
+                        }
+                    }
+
+                    return {
+                        name: row[0],
+                        category: row[1] || '未分類',
+                        link: link,
+                        thumb: thumbUrl
+                    };
+                });
 
                 createFilterButtons();
                 renderCards('すべて');
                 document.getElementById('loading').classList.add('hidden');
-            } catch (e) {
-                console.error(e);
-            }
+            } catch (e) { console.error(e); }
+        }
+
+        function renderCards(target) {
+            const grid = document.getElementById('pop-grid');
+            grid.innerHTML = '';
+            const filtered = target === 'すべて' ? allData : allData.filter(d => d.category === target);
+
+            filtered.forEach(item => {
+                const card = document.createElement('a');
+                card.className = 'pop-card';
+                card.href = item.link;
+                card.target = '_blank';
+                
+                // 画像があれば表示、なければ書類アイコンを表示
+                const thumbContent = item.thumb 
+                    ? `<img src="${item.thumb}" alt="preview">` 
+                    : `<div class="no-img">📄</div>`;
+                
+                card.innerHTML = `
+                    <div class="pop-card-thumb">${thumbContent}</div>
+                    <div class="pop-card-info">
+                        <span class="pop-card-title">${item.name}</span>
+                        <span class="pop-card-cat">${item.category}</span>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
         }
 
         function createFilterButtons() {
@@ -110,28 +152,6 @@
                     renderCards(cat);
                 };
                 container.appendChild(btn);
-            });
-        }
-
-        function renderCards(target) {
-            const grid = document.getElementById('pop-grid');
-            grid.innerHTML = '';
-            const filtered = target === 'すべて' ? allData : allData.filter(d => d.category === target);
-
-            filtered.forEach(item => {
-                const card = document.createElement('a'); // aタグにしてクリック可能に
-                card.className = 'pop-card';
-                card.href = item.link;
-                card.target = '_blank'; // 別タブで開く
-                
-                card.innerHTML = `
-                    <div class="pop-card-thumb">📄</div>
-                    <div class="pop-card-info">
-                        <span class="pop-card-title">${item.name}</span>
-                        <span class="pop-card-cat">${item.category}</span>
-                    </div>
-                `;
-                grid.appendChild(card);
             });
         }
         loadData();
