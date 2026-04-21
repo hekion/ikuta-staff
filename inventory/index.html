@@ -17,7 +17,6 @@
             outline: none;
         }
 
-        /* テーブルの外側を囲って横スクロール対応 */
         .table-container {
             width: 100%;
             overflow-x: auto;
@@ -27,7 +26,7 @@
 
         .inventory-table {
             width: 100%;
-            table-layout: fixed; /* これで列幅を強制的に固定 */
+            table-layout: fixed;
             border-collapse: collapse;
             background: #fff;
         }
@@ -37,13 +36,12 @@
             padding: 12px;
             border-bottom: 1px solid #eee;
             font-size: 0.9rem;
-            word-wrap: break-word; /* 長い単語でも折り返す */
+            word-wrap: break-word;
         }
         
-        /* 列の幅を指定 */
         .col-name { width: 45%; }
-        .col-loc { width: 30%; }
-        .col-cat { width: 25%; }
+        .col-loc { width: 25%; }
+        .col-cat { width: 30%; }
 
         .inventory-table th {
             background: #35A0D9;
@@ -51,20 +49,24 @@
             font-weight: bold;
         }
         
-        .cat-badge {
-            font-size: 0.75rem;
-            background: #eef7ff;
-            color: #35A0D9;
-            padding: 4px 10px;
-            border-radius: 4px;
-            display: inline-block;
-            white-space: normal; /* 折り返しを許可 */
-        }
+        /* 商品リンクボタン（オレンジ） */
         .link-btn {
-            background: #FF9900 !important;
+            background: #FF9900;
             color: #fff !important;
             text-decoration: none;
             font-weight: bold;
+            font-size: 0.75rem;
+            padding: 5px 10px;
+            border-radius: 4px;
+            display: inline-block;
+            white-space: nowrap;
+        }
+
+        /* 通常のテキスト表示（黒字・囲みなし） */
+        .text-label {
+            color: #333;
+            font-size: 0.85rem;
+            white-space: normal;
         }
 
         #loading { text-align: center; padding: 30px; color: #999; }
@@ -106,7 +108,7 @@
                         <tr>
                             <th class="col-name">備品名</th>
                             <th class="col-loc">場所</th>
-                            <th class="col-cat">カテゴリ</th>
+                            <th class="col-cat">カテゴリ / 備考</th>
                         </tr>
                     </thead>
                     <tbody id="inventory-body"></tbody>
@@ -164,9 +166,11 @@
                 if (item.category) {
                     const content = item.category.trim();
                     if (content.startsWith('http')) {
-                        categoryHtml = `<a href="${content}" target="_blank" class="cat-badge link-btn">商品リンク 🔗</a>`;
+                        // URLならオレンジボタン
+                        categoryHtml = `<a href="${content}" target="_blank" class="link-btn">商品リンク 🔗</a>`;
                     } else {
-                        categoryHtml = `<span class="cat-badge">${content}</span>`;
+                        // それ以外ならただのテキスト（黒字）
+                        categoryHtml = `<span class="text-label">${content}</span>`;
                     }
                 }
 
