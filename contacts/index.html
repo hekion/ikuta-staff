@@ -7,45 +7,54 @@
     <title>連絡先 | Ikuta-Portal</title>
     <link rel="stylesheet" href="../style.css">
     <style>
-        /* 連絡先リストのスタイル */
         .contact-section {
             margin-bottom: 30px;
         }
+        
+        /* セクション見出し：背景色とラインで視認性アップ */
         .contact-group-title {
             font-size: 1rem;
             font-weight: bold;
-            color: #35A0D9;
-            border-bottom: 2px solid #E3F2FD;
-            padding-bottom: 5px;
+            color: #333;
+            padding: 10px 15px;
+            background: #f8f9fa;
+            border-left: 5px solid #35A0D9;
+            border-radius: 4px;
             margin-bottom: 15px;
         }
+
         .contact-card {
             background: #fff;
             border: 1px solid #eee;
             border-radius: 8px;
-            padding: 12px 15px;
+            padding: 15px;
             margin-bottom: 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
+
         .contact-name {
             font-weight: bold;
             color: #333;
+            font-size: 1rem;
         }
+
         .contact-number {
             font-family: sans-serif;
-            /* 強制的に黒（濃いグレー）にし、タップを無効化 */
             color: #333 !important;
-            font-size: 1rem;
+            font-size: 1.05rem;
+            font-weight: bold;
             text-decoration: none !important;
-            pointer-events: none; /* タップに反応しなくなります */
-            user-select: text;    /* コピーだけは可能です */
+            /* 誤タップ防止 */
+            pointer-events: none; 
+            user-select: text;
         }
-        .no-number {
-            color: #ccc !important;
-            font-size: 0.8rem;
-            font-style: italic;
+
+        /* 施設セクションのライン色を変更 */
+        .section-facility .contact-group-title {
+            border-left-color: #666;
         }
     </style>
 </head>
@@ -78,12 +87,12 @@
                 <div class="contact-group-title">社員さんなど</div>
 
                 <div class="contact-card">
-                    <span class="contact-name">外線</span>
+                    <span class="contact-name">代表外線</span>
                     <span class="contact-number">044-328-5771</span>
                 </div>
 
                 <div class="contact-card">
-                    <span class="contact-name">内線</span>
+                    <span class="contact-name">代表内線</span>
                     <span class="contact-number">044-328-5773</span>
                 </div>
 
@@ -111,8 +120,14 @@
                     <span class="contact-name">大平さん</span>
                     <span class="contact-number">090-2589-0529</span>
                 </div>
-                
-            <div class="contact-section">
+
+                <div class="contact-card">
+                    <span class="contact-name">星見さん</span>
+                    <span class="contact-number">080-8254-5749</span>
+                </div>
+            </div>
+
+            <div class="contact-section section-facility">
                 <div class="contact-group-title">施設など</div>
                 
                 <div class="contact-card">
@@ -131,6 +146,16 @@
                 </div>
 
                 <div class="contact-card">
+                    <span class="contact-name">キッズ大陸</span>
+                    <span class="contact-number">044-819-6613</span>
+                </div>
+
+                <div class="contact-card">
+                    <span class="contact-name">リオクリニック</span>
+                    <span class="contact-number">044-874-4022</span>
+                </div>
+
+                <div class="contact-card">
                     <span class="contact-name">オリーブ＆オリーブ</span>
                     <span class="contact-number">044-322-0809</span>
                 </div>
@@ -141,12 +166,12 @@
                 </div>
 
                 <div class="contact-card">
-                    <span class="contact-name">日本体育施設(吉野さん)</span>
+                    <span class="contact-name">日本体育施設(吉野)</span>
                     <span class="contact-number">070-8815-0581</span>
                 </div>
 
                 <div class="contact-card">
-                    <span class="contact-name">日本体育施設(後藤さん)</span>
+                    <span class="contact-name">日本体育施設(後藤)</span>
                     <span class="contact-number">070-3536-5742</span>
                 </div>
 
@@ -156,7 +181,7 @@
                 </div>
 
                 <div class="contact-card">
-                    <span class="contact-name">タクシー(川崎交通産業株式会社)</span>
+                    <span class="contact-name">タクシー(川崎交通)</span>
                     <span class="contact-number">044-966-9111</span>
                 </div>
 
