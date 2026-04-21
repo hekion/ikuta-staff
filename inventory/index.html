@@ -6,7 +6,6 @@
     <title>備品検索 | Ikuta-Portal</title>
     <link rel="stylesheet" href="../style.css">
     <style>
-        /* 検索ボックス */
         .search-box {
             width: 100%;
             padding: 12px 15px;
@@ -18,30 +17,40 @@
             outline: none;
         }
 
-        /* テーブル */
-        .inventory-table {
+        /* テーブルの外側を囲って横スクロール対応 */
+        .table-container {
             width: 100%;
-            border-collapse: collapse;
-            background: #fff;
+            overflow-x: auto;
             border-radius: 8px;
-            overflow: hidden;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
+
+        .inventory-table {
+            width: 100%;
+            table-layout: fixed; /* これで列幅を強制的に固定 */
+            border-collapse: collapse;
+            background: #fff;
+        }
+        
         .inventory-table th, .inventory-table td {
             text-align: left;
             padding: 12px;
             border-bottom: 1px solid #eee;
             font-size: 0.9rem;
+            word-wrap: break-word; /* 長い単語でも折り返す */
         }
+        
+        /* 列の幅を指定 */
+        .col-name { width: 45%; }
+        .col-loc { width: 30%; }
+        .col-cat { width: 25%; }
+
         .inventory-table th {
             background: #35A0D9;
             color: #fff;
             font-weight: bold;
         }
-        .inventory-table tr:last-child td { border-bottom: none; }
-        .inventory-table tr:hover { background: #f9f9f9; }
-
-        /* バッジスタイル */
+        
         .cat-badge {
             font-size: 0.75rem;
             background: #eef7ff;
@@ -49,9 +58,8 @@
             padding: 4px 10px;
             border-radius: 4px;
             display: inline-block;
-            white-space: nowrap;
+            white-space: normal; /* 折り返しを許可 */
         }
-        /* 商品リンク専用（オレンジ） */
         .link-btn {
             background: #FF9900 !important;
             color: #fff !important;
@@ -72,7 +80,6 @@
                 <div class="sub-title">STAFF PORTAL</div>
             </a>
         </header>
-
         <nav class="nav-menu">
             <ul>
                 <li><a href="../manual/">マニュアル</a></li>
@@ -89,20 +96,22 @@
         <section>
             <h2>備品・消耗品検索</h2>
             
-            <input type="text" id="search-input" class="search-box" placeholder="備品名、場所、カテゴリで検索..." oninput="filterInventory()">
+            <input type="text" id="search-input" class="search-box" placeholder="検索ワードを入力..." oninput="filterInventory()">
 
             <div id="loading">データを読み込み中...</div>
 
-            <table class="inventory-table hidden" id="inventory-table">
-                <thead>
-                    <tr>
-                        <th>備品名</th>
-                        <th>保管場所</th>
-                        <th>カテゴリ / リンク</th>
-                    </tr>
-                </thead>
-                <tbody id="inventory-body"></tbody>
-            </table>
+            <div class="table-container">
+                <table class="inventory-table hidden" id="inventory-table">
+                    <thead>
+                        <tr>
+                            <th class="col-name">備品名</th>
+                            <th class="col-loc">場所</th>
+                            <th class="col-cat">カテゴリ</th>
+                        </tr>
+                    </thead>
+                    <tbody id="inventory-body"></tbody>
+                </table>
+            </div>
         </section>
     </main>
 
@@ -111,7 +120,6 @@
     </footer>
 
     <script>
-        // --- 設定項目 ---
         const API_KEY = 'AIzaSyDecF0oQvA5i82U8dZR66YOQ_QdRPxGEOY'; 
         const SPREADSHEET_ID = '1Fh4Z7f7Jau8d_FMT__sGjp-99Ks-IHKQl5kaGERM2Rg';
         const RANGE = '備品検索!A2:D500'; 
@@ -125,7 +133,7 @@
                 const json = await res.json();
                 
                 if (!json.values) {
-                    document.getElementById('loading').innerText = 'データが見つかりません。';
+                    document.getElementById('loading').innerText = 'データがありません。';
                     return;
                 }
 
@@ -141,7 +149,7 @@
                 document.getElementById('inventory-table').classList.remove('hidden');
 
             } catch (e) {
-                document.getElementById('loading').innerText = '読み込みエラー。設定を確認してください。';
+                document.getElementById('loading').innerText = 'エラー：設定を確認してください。';
             }
         }
 
@@ -152,23 +160,20 @@
             data.forEach(item => {
                 const tr = document.createElement('tr');
                 
-                // C列の表示内容を判定
                 let categoryHtml = '';
                 if (item.category) {
                     const content = item.category.trim();
                     if (content.startsWith('http')) {
-                        // URLならオレンジ色のボタン
                         categoryHtml = `<a href="${content}" target="_blank" class="cat-badge link-btn">商品リンク 🔗</a>`;
                     } else {
-                        // 文字（「社員に相談」など）ならそのまま青バッジ
                         categoryHtml = `<span class="cat-badge">${content}</span>`;
                     }
                 }
 
                 tr.innerHTML = `
-                    <td><strong>${item.name}</strong><br><small style="color:#888">${item.note}</small></td>
-                    <td>${item.location}</td>
-                    <td>${categoryHtml}</td>
+                    <td class="col-name"><strong>${item.name}</strong><br><small style="color:#888">${item.note}</small></td>
+                    <td class="col-loc">${item.location}</td>
+                    <td class="col-cat">${categoryHtml}</td>
                 `;
                 tbody.appendChild(tr);
             });
