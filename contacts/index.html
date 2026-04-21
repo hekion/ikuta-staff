@@ -3,39 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>掲示物 | Ikuta-Portal</title>
+    <meta name="format-detection" content="telephone=no">
+    <title>連絡先 | Ikuta-Portal</title>
     <link rel="stylesheet" href="../style.css">
     <style>
-        #filter-container { margin-bottom: 20px; display: flex; flex-wrap: wrap; gap: 8px; }
-        .filter-btn { 
-            padding: 6px 15px; border: 1px solid #35A0D9; background: #fff; 
-            color: #35A0D9; border-radius: 20px; cursor: pointer; font-size: 0.85rem; transition: 0.2s;
+        /* 連絡先リストのスタイル */
+        .contact-section {
+            margin-bottom: 30px;
         }
-        .filter-btn.active { background: #35A0D9; color: #fff; }
-        
-        #pop-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; }
-        .pop-card { 
-            background: #fff; border-radius: 10px; overflow: hidden; 
-            border: 1px solid #eee; transition: 0.2s; text-decoration: none; color: inherit; display: block;
+        .contact-group-title {
+            font-size: 1rem;
+            font-weight: bold;
+            color: #35A0D9;
+            border-bottom: 2px solid #E3F2FD;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
         }
-        .pop-card:hover { transform: translateY(-3px); box-shadow: 0 4px 10px rgba(0,0,0,0.1); border-color: #35A0D9; }
-        
-        /* プレビュー画像エリア */
-        .pop-card-thumb { 
-            height: 150px; background: #f0f7ff; overflow: hidden;
-            display: flex; align-items: center; justify-content: center;
+        .contact-card {
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-        .pop-card-thumb img {
-            width: 100%; height: 100%; object-fit: cover;
+        .contact-name {
+            font-weight: bold;
+            color: #333;
         }
-        .pop-card-thumb .no-img { font-size: 2.5rem; }
-        
-        .pop-card-info { padding: 10px; border-top: 1px solid #eee; }
-        .pop-card-title { font-size: 0.85rem; font-weight: bold; display: block; margin-bottom: 4px; }
-        .pop-card-cat { font-size: 0.7rem; color: #35A0D9; background: #eef7ff; padding: 1px 6px; border-radius: 4px; }
-        
-        #loading { text-align: center; padding: 30px; color: #999; }
-        .hidden { display: none; }
+        .contact-number {
+            font-family: sans-serif;
+            /* 強制的に黒（濃いグレー）にし、タップを無効化 */
+            color: #333 !important;
+            font-size: 1rem;
+            text-decoration: none !important;
+            pointer-events: none; /* タップに反応しなくなります */
+            user-select: text;    /* コピーだけは可能です */
+        }
+        .no-number {
+            color: #ccc !important;
+            font-size: 0.8rem;
+            font-style: italic;
+        }
     </style>
 </head>
 <body>
@@ -54,107 +65,113 @@
                 <li><a href="../roster/">名簿</a></li>
                 <li><a href="../inventory/">備品検索</a></li>
                 <li><a href="../pop/">掲示物</a></li>
-                <li><a href="../contacts/">連絡先</a></li>
+                <li><a href="../contacts/" class="active">連絡先</a></li>
             </ul>
         </nav>
     </div>
 
     <main class="container">
         <section>
-            <h2>掲示物・POP作成データ</h2>
-            <div id="filter-container">
-                <button class="filter-btn active" onclick="filterPop('すべて')">すべて</button>
+            <h2>連絡先一覧</h2>
+
+            <div class="contact-section">
+                <div class="contact-group-title">社員さんなど</div>
+
+                <div class="contact-card">
+                    <span class="contact-name">外線</span>
+                    <span class="contact-number">044-328-5771</span>
+                </div>
+
+                <div class="contact-card">
+                    <span class="contact-name">内線</span>
+                    <span class="contact-number">044-328-5773</span>
+                </div>
+
+                <div class="contact-card">
+                    <span class="contact-name">杉本さん</span>
+                    <span class="contact-number">070-6441-3882</span>
+                </div>
+
+                <div class="contact-card">
+                    <span class="contact-name">出口さん</span>
+                    <span class="contact-number">080-2300-8324</span>
+                </div>
+
+                <div class="contact-card">
+                    <span class="contact-name">杉山さん</span>
+                    <span class="contact-number">070-2791-4889</span>
+                </div>
+
+                <div class="contact-card">
+                    <span class="contact-name">池田さん</span>
+                    <span class="contact-number">080-2568-6325</span>
+                </div>
+
+                <div class="contact-card">
+                    <span class="contact-name">大平さん</span>
+                    <span class="contact-number">090-2589-0529</span>
+@@ -113,11 +123,16 @@
+
+                <div class="contact-card">
+                    <span class="contact-name">生田浄水場</span>
+                    <span class="contact-number">044-944-2131</span>
+                </div>
+
+                <div class="contact-card">
+                    <span class="contact-name">第三配水工事事務所</span>
+                    <span class="contact-number">044-945-8277</span>
+                </div>
+
+                <div class="contact-card">
+                    <span class="contact-name">インドアテニス</span>
+                    <span class="contact-number">044-281-4551</span>
+                </div>
+
+                </div>
+
+                <div class="contact-card">
+
+                    <span class="contact-name">オリーブ＆オリーブ</span>
+                    <span class="contact-number">044-322-0809</span>
+                </div>
+
+                <div class="contact-card">
+                    <span class="contact-name">Baluko Laundry</span>
+                    <span class="contact-number">0120-237-180</span>
+                </div>
+
+                <div class="contact-card">
+                    <span class="contact-name">日本体育施設(吉野さん)</span>
+                    <span class="contact-number">070-8815-0581</span>
+                </div>
+
+                <div class="contact-card">
+                    <span class="contact-name">日本体育施設(後藤さん)</span>
+                    <span class="contact-number">070-3536-5742</span>
+                </div>
+
+                <div class="contact-card">
+                    <span class="contact-name">タイムズ緊急連絡先</span>
+                    <span class="contact-number">0120-77-8924</span>
+                </div>
+
+                <div class="contact-card">
+                    <span class="contact-name">タクシー(川崎交通産業株式会社)</span>
+                    <span class="contact-number">044-966-9111</span>
+                </div>
+
+                <div class="contact-card">
+                    <span class="contact-name">ヤマト運輸(集荷)</span>
+                    <span class="contact-number">080-5068-2183</span>
+                </div>
             </div>
-            <div id="loading">データを読み込み中...</div>
-            <div id="pop-grid"></div>
+
         </section>
     </main>
 
-    <footer><p>© 2026 FRONTOWN IKUTA</p></footer>
+    <footer>
+        <p>&copy; 2026 FRONTOWN IKUTA</p>
+    </footer>
 
-    <script>
-        const API_KEY = 'AIzaSyDecF0oQvA5i82U8dZR66YOQ_QdRPxGEOY'; 
-        const SPREADSHEET_ID = '1Fh4Z7f7Jau8d_FMT__sGjp-99Ks-IHKQl5kaGERM2Rg';
-        const RANGE = '掲示物!A2:C100';
-
-        let allData = [];
-
-        async function loadData() {
-            try {
-                const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${encodeURIComponent(RANGE)}?key=${API_KEY}`;
-                const res = await fetch(url);
-                const json = await res.json();
-                if (!json.values) return;
-
-                allData = json.values.map(row => {
-                    const link = row[2] || '';
-                    let thumbUrl = '';
-                    
-                    // GoogleドライブのURLからIDを抜き出してプレビュー画像URLを作る
-                    if (link.includes('drive.google.com')) {
-                        const fileId = link.match(/\/d\/([^/]+)/);
-                        if (fileId && fileId[1]) {
-                            thumbUrl = `https://drive.google.com/thumbnail?id=${fileId[1]}&sz=w400`;
-                        }
-                    }
-
-                    return {
-                        name: row[0],
-                        category: row[1] || '未分類',
-                        link: link,
-                        thumb: thumbUrl
-                    };
-                });
-
-                createFilterButtons();
-                renderCards('すべて');
-                document.getElementById('loading').classList.add('hidden');
-            } catch (e) { console.error(e); }
-        }
-
-        function renderCards(target) {
-            const grid = document.getElementById('pop-grid');
-            grid.innerHTML = '';
-            const filtered = target === 'すべて' ? allData : allData.filter(d => d.category === target);
-
-            filtered.forEach(item => {
-                const card = document.createElement('a');
-                card.className = 'pop-card';
-                card.href = item.link;
-                card.target = '_blank';
-                
-                // 画像があれば表示、なければ書類アイコンを表示
-                const thumbContent = item.thumb 
-                    ? `<img src="${item.thumb}" alt="preview">` 
-                    : `<div class="no-img">📄</div>`;
-                
-                card.innerHTML = `
-                    <div class="pop-card-thumb">${thumbContent}</div>
-                    <div class="pop-card-info">
-                        <span class="pop-card-title">${item.name}</span>
-                        <span class="pop-card-cat">${item.category}</span>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-        }
-
-        function createFilterButtons() {
-            const container = document.getElementById('filter-container');
-            const categories = [...new Set(allData.map(d => d.category))];
-            categories.forEach(cat => {
-                const btn = document.createElement('button');
-                btn.className = 'filter-btn';
-                btn.innerText = cat;
-                btn.onclick = (e) => {
-                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                    e.target.classList.add('active');
-                    renderCards(cat);
-                };
-                container.appendChild(btn);
-            });
-        }
-        loadData();
-    </script>
 </body>
 </html>
