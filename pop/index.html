@@ -70,10 +70,12 @@
     </footer>
 
     <script>
-        const API_KEY = 'ここを書き換える'; 
-        const SPREADSHEET_ID = 'ここを書き換える';
+        // --- 設定項目（書き換え済み） ---
+        const API_KEY = 'AIzaSyDecF0oQvA5i82U8dZR66YOQ_QdRPxGEOY'; 
+        const SPREADSHEET_ID = '1Fh4Z7f7Jau8d_FMT__sGjp-99Ks-IHKQl5kaGERM2Rg';
         const FOLDER_ID = '1mBJ6NWpvlpxAImrmMdG0ZDiG1JxNwDN5';
         const RANGE = '掲示物!A2:B100'; 
+        // -----------------------------
 
         let allData = [];
 
@@ -84,7 +86,7 @@
                 const json = await res.json();
                 
                 if (!json.values) {
-                    document.getElementById('loading').innerText = 'データがありません。スプシを確認してください。';
+                    document.getElementById('loading').innerText = 'スプレッドシートの「掲示物」タブにデータがありません。';
                     return;
                 }
 
@@ -97,6 +99,7 @@
                 renderCards('すべて');
                 document.getElementById('loading').classList.add('hidden');
             } catch (e) {
+                console.error(e);
                 document.getElementById('loading').innerText = 'エラー：設定を確認してください。';
             }
         }
@@ -105,6 +108,7 @@
             const container = document.getElementById('filter-container');
             const categories = [...new Set(allData.map(d => d.category))];
             categories.forEach(cat => {
+                if(!cat) return;
                 const btn = document.createElement('button');
                 btn.className = 'filter-btn';
                 btn.innerText = cat;
@@ -126,18 +130,6 @@
                 const card = document.createElement('div');
                 card.className = 'pop-card';
                 
+                // 現時点では枠だけ表示。後にドライブの画像を表示する設定も可能です
                 card.innerHTML = `
-                    <div style="height:130px; background:#f0f0f0; display:flex; align-items:center; justify-content:center; color:#ccc;">IMAGE</div>
-                    <div class="pop-card-info">
-                        <span class="pop-card-title">${item.name}</span>
-                        <span class="pop-card-cat">${item.category}</span>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-        }
-
-        loadData();
-    </script>
-</body>
-</html>
+                    <div style="height:13
