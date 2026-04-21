@@ -20,19 +20,19 @@
         }
         .pop-card:hover { transform: translateY(-3px); box-shadow: 0 4px 10px rgba(0,0,0,0.1); border-color: #35A0D9; }
         
-        /* プレビュー画像エリア */
         .pop-card-thumb { 
             height: 150px; background: #f0f7ff; overflow: hidden;
             display: flex; align-items: center; justify-content: center;
         }
-        .pop-card-thumb img {
-            width: 100%; height: 100%; object-fit: cover;
-        }
+        .pop-card-thumb img { width: 100%; height: 100%; object-fit: cover; }
         .pop-card-thumb .no-img { font-size: 2.5rem; }
         
         .pop-card-info { padding: 10px; border-top: 1px solid #eee; }
         .pop-card-title { font-size: 0.85rem; font-weight: bold; display: block; margin-bottom: 4px; }
-        .pop-card-cat { font-size: 0.7rem; color: #35A0D9; background: #eef7ff; padding: 1px 6px; border-radius: 4px; }
+        
+        /* カテゴリラベルを表示するエリア */
+        .cat-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+        .pop-card-cat { font-size: 0.65rem; color: #35A0D9; background: #eef7ff; padding: 1px 6px; border-radius: 4px; }
         
         #loading { text-align: center; padding: 30px; color: #999; }
         .hidden { display: none; }
@@ -63,7 +63,7 @@
         <section>
             <h2>掲示物・POP作成データ</h2>
             <div id="filter-container">
-                <button class="filter-btn active" onclick="filterPop('すべて')">すべて</button>
+                <button class="filter-btn active" onclick="filterPop('すべて', this)">すべて</button>
             </div>
             <div id="loading">データを読み込み中...</div>
             <div id="pop-grid"></div>
@@ -88,9 +88,9 @@
 
                 allData = json.values.map(row => {
                     const link = row[2] || '';
+                    const categories = row[1] ? row[1].split(',').map(s => s.trim()) : ['未分類'];
                     let thumbUrl = '';
                     
-                    // GoogleドライブのURLからIDを抜き出してプレビュー画像URLを作る
                     if (link.includes('drive.google.com')) {
                         const fileId = link.match(/\/d\/([^/]+)/);
                         if (fileId && fileId[1]) {
@@ -100,7 +100,7 @@
 
                     return {
                         name: row[0],
-                        category: row[1] || '未分類',
+                        categories: categories, // 配列として保持
                         link: link,
                         thumb: thumbUrl
                     };
@@ -112,10 +112,35 @@
             } catch (e) { console.error(e); }
         }
 
+        function createFilterButtons() {
+            const container = document.getElementById('filter-container');
+            // すべてのカテゴリをバラバラにして重複を消す
+            const flatCats = allData.flatMap(d => d.categories);
+            const uniqueCats = [...new Set(flatCats)];
+            
+            uniqueCats.forEach(cat => {
+                const btn = document.createElement('button');
+                btn.className = 'filter-btn';
+                btn.innerText = cat;
+                btn.onclick = (e) => filterPop(cat, e.target);
+                container.appendChild(btn);
+            });
+        }
+
+        function filterPop(target, btn) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderCards(target);
+        }
+
         function renderCards(target) {
             const grid = document.getElementById('pop-grid');
             grid.innerHTML = '';
-            const filtered = target === 'すべて' ? allData : allData.filter(d => d.category === target);
+            
+            // カテゴリ配列のなかに選択したカテゴリが含まれているかチェック
+            const filtered = target === 'すべて' 
+                ? allData 
+                : allData.filter(d => d.categories.includes(target));
 
             filtered.forEach(item => {
                 const card = document.createElement('a');
@@ -123,35 +148,21 @@
                 card.href = item.link;
                 card.target = '_blank';
                 
-                // 画像があれば表示、なければ書類アイコンを表示
                 const thumbContent = item.thumb 
                     ? `<img src="${item.thumb}" alt="preview">` 
                     : `<div class="no-img">📄</div>`;
                 
+                // カード内のタグ表示用
+                const tagsHtml = item.categories.map(c => `<span class="pop-card-cat">${c}</span>`).join('');
+
                 card.innerHTML = `
                     <div class="pop-card-thumb">${thumbContent}</div>
                     <div class="pop-card-info">
                         <span class="pop-card-title">${item.name}</span>
-                        <span class="pop-card-cat">${item.category}</span>
+                        <div class="cat-tags">${tagsHtml}</div>
                     </div>
                 `;
                 grid.appendChild(card);
-            });
-        }
-
-        function createFilterButtons() {
-            const container = document.getElementById('filter-container');
-            const categories = [...new Set(allData.map(d => d.category))];
-            categories.forEach(cat => {
-                const btn = document.createElement('button');
-                btn.className = 'filter-btn';
-                btn.innerText = cat;
-                btn.onclick = (e) => {
-                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                    e.target.classList.add('active');
-                    renderCards(cat);
-                };
-                container.appendChild(btn);
             });
         }
         loadData();
