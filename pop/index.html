@@ -6,7 +6,6 @@
     <title>掲示物 | Ikuta-Portal</title>
     <link rel="stylesheet" href="../style.css">
     <style>
-        /* 自動生成されるカード用の追加スタイル */
         #filter-container { margin-bottom: 20px; display: flex; flex-wrap: wrap; gap: 8px; }
         .filter-btn { 
             padding: 6px 15px; border: 1px solid #35A0D9; background: #fff; 
@@ -14,18 +13,25 @@
         }
         .filter-btn.active { background: #35A0D9; color: #fff; }
         
-        #pop-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; }
+        #pop-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; }
         .pop-card { 
             background: #fff; border-radius: 10px; overflow: hidden; 
             border: 1px solid #eee; transition: 0.2s; text-decoration: none; color: inherit; display: block;
+            cursor: pointer;
         }
-        .pop-card:hover { transform: translateY(-3px); box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .pop-card img { width: 100%; height: 130px; object-fit: cover; background: #f9f9f9; }
+        .pop-card:hover { transform: translateY(-3px); box-shadow: 0 4px 10px rgba(0,0,0,0.1); border-color: #35A0D9; }
+        
+        /* プレビューアイコンエリア */
+        .pop-card-thumb { 
+            height: 120px; background: #f0f7ff; display: flex; 
+            align-items: center; justify-content: center; font-size: 2.5rem;
+        }
+        
         .pop-card-info { padding: 10px; border-top: 1px solid #eee; }
         .pop-card-title { font-size: 0.85rem; font-weight: bold; display: block; margin-bottom: 4px; }
         .pop-card-cat { font-size: 0.7rem; color: #35A0D9; background: #eef7ff; padding: 1px 6px; border-radius: 4px; }
         
-        #loading { text-align: center; padding: 30px; color: #999; font-size: 0.9rem; }
+        #loading { text-align: center; padding: 30px; color: #999; }
         .hidden { display: none; }
     </style>
 </head>
@@ -38,7 +44,6 @@
                 <div class="sub-title">STAFF PORTAL</div>
             </a>
         </header>
-
         <nav class="nav-menu">
             <ul>
                 <li><a href="../manual/">マニュアル</a></li>
@@ -53,29 +58,21 @@
 
     <main class="container">
         <section>
-            <h2>POP・掲示物データ</h2>
-            
+            <h2>掲示物・POP作成データ</h2>
             <div id="filter-container">
                 <button class="filter-btn active" onclick="filterPop('すべて')">すべて</button>
             </div>
-
             <div id="loading">データを読み込み中...</div>
-
             <div id="pop-grid"></div>
         </section>
     </main>
 
-    <footer>
-        <p>© 2026 FRONTOWN IKUTA</p>
-    </footer>
+    <footer><p>© 2026 FRONTOWN IKUTA</p></footer>
 
     <script>
-        // --- 設定項目（書き換え済み） ---
         const API_KEY = 'AIzaSyDecF0oQvA5i82U8dZR66YOQ_QdRPxGEOY'; 
         const SPREADSHEET_ID = '1Fh4Z7f7Jau8d_FMT__sGjp-99Ks-IHKQl5kaGERM2Rg';
-        const FOLDER_ID = '1mBJ6NWpvlpxAImrmMdG0ZDiG1JxNwDN5';
-        const RANGE = '掲示物!A2:B100'; 
-        // -----------------------------
+        const RANGE = '掲示物!A2:C100'; // C列まで取得するように変更
 
         let allData = [];
 
@@ -84,15 +81,12 @@
                 const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${encodeURIComponent(RANGE)}?key=${API_KEY}`;
                 const res = await fetch(url);
                 const json = await res.json();
-                
-                if (!json.values) {
-                    document.getElementById('loading').innerText = 'スプレッドシートの「掲示物」タブにデータがありません。';
-                    return;
-                }
+                if (!json.values) return;
 
                 allData = json.values.map(row => ({
                     name: row[0],
-                    category: row[1] || '未分類'
+                    category: row[1] || '未分類',
+                    link: row[2] || '#' // C列のURL
                 }));
 
                 createFilterButtons();
@@ -100,7 +94,6 @@
                 document.getElementById('loading').classList.add('hidden');
             } catch (e) {
                 console.error(e);
-                document.getElementById('loading').innerText = 'エラー：設定を確認してください。';
             }
         }
 
@@ -108,7 +101,6 @@
             const container = document.getElementById('filter-container');
             const categories = [...new Set(allData.map(d => d.category))];
             categories.forEach(cat => {
-                if(!cat) return;
                 const btn = document.createElement('button');
                 btn.className = 'filter-btn';
                 btn.innerText = cat;
@@ -127,9 +119,22 @@
             const filtered = target === 'すべて' ? allData : allData.filter(d => d.category === target);
 
             filtered.forEach(item => {
-                const card = document.createElement('div');
+                const card = document.createElement('a'); // aタグにしてクリック可能に
                 card.className = 'pop-card';
+                card.href = item.link;
+                card.target = '_blank'; // 別タブで開く
                 
-                // 現時点では枠だけ表示。後にドライブの画像を表示する設定も可能です
                 card.innerHTML = `
-                    <div style="height:13
+                    <div class="pop-card-thumb">📄</div>
+                    <div class="pop-card-info">
+                        <span class="pop-card-title">${item.name}</span>
+                        <span class="pop-card-cat">${item.category}</span>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+        loadData();
+    </script>
+</body>
+</html>
