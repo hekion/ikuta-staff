@@ -9,6 +9,10 @@
         .manual-content { background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
         .category-title { font-size: 1.1rem; font-weight: bold; background: #35A0D9; color: #fff; padding: 5px 15px; border-radius: 20px; display: inline-block; margin: 20px 0 15px 0; }
         .input-area { background: #f9f9f9; border: 1px solid #eee; padding: 15px; border-radius: 5px; font-size: 0.95rem; line-height: 1.6; color: #333; margin-top: 5px; }
+        
+        /* リストのズレ防止用 */
+        .input-area ul, .input-area ol { margin: 0; padding-left: 1.5em; }
+        
         .color-sample { display: inline-block; width: 100px; padding: 2px 8px; border-radius: 4px; color: #fff; font-weight: bold; text-align: center; margin-right: 10px; font-size: 0.85rem; }
         .back-btn { display: inline-block; margin-top: 20px; color: #35A0D9; text-decoration: none; font-weight: bold; }
     </style>
@@ -26,14 +30,15 @@
     <main class="container">
         <div class="manual-content">
             <h2>LaBOLA 基本事項</h2>
-            
+            <p style="font-size: 0.85rem; color: #666; margin-bottom: 20px;">更新日：2026/04/22</p>
+
             <section>
                 <span class="category-title">LaBOLAの主な用途</span>
                 <div class="input-area">
                     <ul>
-                        <li>一般のお客様の施設利用予約（コート・多目的広場など）</li>
+                        <li>一般のお客様の施設利用予約</li>
                         <li>社員から依頼されたアカデミー・スクールの予約管理</li>
-                        <li>個人参加プログラムの人数確認および予約管理</li>
+                        <li>個人参加プログラムの人数確認・予約管理</li>
                     </ul>
                 </div>
             </section>
@@ -41,27 +46,22 @@
             <section>
                 <span class="category-title">カレンダーの色別表示</span>
                 <div class="input-area">
-                    <p>枠の色で予約の種類を判別します。</p>
-                    <div style="margin-top: 10px;">
-                        <p><span class="color-sample" style="background: #3399ff;">#3399ff</span> 川崎フロンターレアカデミー</p>
-                        <p><span class="color-sample" style="background: #ff3300;">#ff3300</span> 個人参加</p>
-                        <p><span class="color-sample" style="background: #33ccff;">#33ccff</span> 川崎フロンターレスクール</p>
-                        <p style="margin-left: 5px; font-size: 0.9rem; color: #666;">※その他：一般予約、フィットネス、定期利用団体など</p>
-                    </div>
+                    <p><span class="color-sample" style="background: #3399ff;">#3399ff</span> 川崎フロンターレアカデミー</p>
+                    <p><span class="color-sample" style="background: #ff3300;">#ff3300</span> 個人参加</p>
+                    <p><span class="color-sample" style="background: #33ccff;">#33ccff</span> 川崎フロンターレスクール</p>
+                    <p style="margin-top: 10px; font-size: 0.9rem; color: #666;">※その他：一般予約、定期利用団体など</p>
                 </div>
             </section>
 
             <section>
                 <span class="category-title">予約ルールの基本</span>
                 <div class="input-area">
-                    <strong>■ 予約開始タイミング</strong><br>
-                    利用日の <strong>60日前（深夜 0:00〜）</strong> より受付開始。<br><br>
-                    <strong>■ 注意事項</strong><br>
-                    優先団体（川崎フロンターレ関連等）の予約が先に入っている場合があるため、カレンダーの空き状況には常に注意すること。
+                    予約開始日：利用日の <strong>60日前（深夜 0:00〜）</strong><br>
+                    ※優先団体の予約が先に入っている場合があるため注意
                 </div>
             </section>
 
-            <a href="./" class="back-btn">← 一覧に戻る</a>
+            <a href="./" class="back-btn">← マニュアル一覧に戻る</a>
         </div>
     </main>
 </body>
