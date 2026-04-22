@@ -9,26 +9,23 @@
         .manual-content { background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
         .category-title { font-size: 1.1rem; font-weight: bold; background: #35A0D9; color: #fff; padding: 5px 15px; border-radius: 20px; display: inline-block; margin: 20px 0 15px 0; }
         
-        /* グレーの枠を廃止し、左線と余白で構成 */
-        .content-body { padding-left: 20px; margin-bottom: 30px; line-height: 1.8; color: #333; font-size: 0.95rem; border-left: 3px solid #eee; }
-        .content-body ul, .content-body ol { margin: 0; padding-left: 1.2em; }
+        /* 左線を廃止し、余白のみに修正 */
+        .content-body { padding-left: 0; margin-bottom: 30px; line-height: 1.8; color: #333; font-size: 0.95rem; }
+        .content-body ul, .content-body ol { margin: 0; padding-left: 1.5em; }
 
         .step-box { margin-bottom: 20px; }
         .step-title { font-weight: bold; color: #35A0D9; margin-bottom: 5px; display: block; }
         
-        /* 開催概要用の表 */
         .summary-table { width: 100%; border-collapse: collapse; margin-top: 5px; background: #fff; border: 1px solid #eee; }
-        .summary-table th { background: #f0f9ff; color: #35A0D9; width: 100px; padding: 10px; border: 1px solid #eee; font-size: 0.9rem; }
+        .summary-table th { background: #f0f9ff; color: #35A0D9; width: 100px; padding: 10px; border: 1px solid #eee; font-size: 0.9rem; text-align: left; }
         .summary-table td { padding: 10px; border: 1px solid #eee; font-size: 0.95rem; }
 
-        /* タイムテーブル用の装飾 */
         .tt-container { display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
         .tt-card { background: #fff; border: 1px solid #35A0D9; border-radius: 8px; padding: 10px; min-width: 150px; flex: 1; }
         .tt-card span { display: block; background: #35A0D9; color: #fff; font-size: 0.8rem; padding: 2px 8px; border-radius: 4px; margin-bottom: 5px; text-align: center; }
         .tt-order { font-weight: bold; font-size: 1.1rem; text-align: center; color: #333; letter-spacing: 2px; }
 
-        /* 割り振りテーブル */
-        .allocation-table { width: 100%; border-collapse: collapse; background: #fff; margin-left: 20px; width: calc(100% - 20px); }
+        .allocation-table { width: 100%; border-collapse: collapse; background: #fff; margin-top: 10px; }
         .allocation-table th { background: #35A0D9; color: #fff; padding: 10px; text-align: center; width: 60px; font-weight: bold; border: 1px solid #35A0D9; }
         .allocation-table td { padding: 10px 15px; border: 1px solid #eee; font-weight: 500; font-size: 0.95rem; }
         .allocation-table tr:nth-child(even) { background: #fcfcfc; }
@@ -36,12 +33,11 @@
 
         .back-btn { display: inline-block; margin-top: 20px; color: #35A0D9; text-decoration: none; font-weight: bold; }
         
-        /* 回し文用の強調スタイル */
-        .speech-bubble { border-left: 4px solid #35A0D9; background: #eef7fc; padding: 15px; border-radius: 0 5px 5px 0; font-size: 0.95rem; line-height: 1.6; }
+        /* 吹き出しスタイルから左線を削除し、枠線に変更 */
+        .speech-bubble { border: 1px solid #35A0D9; background: #f0f9ff; padding: 15px; border-radius: 10px; font-size: 0.95rem; line-height: 1.6; }
     </style>
 </head>
 <body>
-
     <div class="sticky-header">
         <header>
             <a href="../" style="text-decoration: none; display: inline-block;">
@@ -152,7 +148,7 @@
 
             <section>
                 <span class="category-title">人数割り振り：個サル</span>
-                <div class="content-body" style="border-left: none; padding-left: 0;">
+                <div class="content-body">
                     <table class="allocation-table">
                         <tr><th>9人</th><td><span class="staff-plus">＋スタッフ入(10人)</span> 2チーム</td></tr>
                         <tr><th>10人</th><td>2チーム</td></tr>
@@ -169,7 +165,7 @@
 
             <section>
                 <span class="category-title">人数割り振り：個ソサ</span>
-                <div class="content-body" style="border-left: none; padding-left: 0;">
+                <div class="content-body">
                     <table class="allocation-table">
                         <tr><th>13人</th><td><span class="staff-plus">＋スタッフ入(14人)</span> 2チーム</td></tr>
                         <tr><th>14人</th><td>7人制 2チーム</td></tr>
