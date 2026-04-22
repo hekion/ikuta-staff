@@ -9,15 +9,27 @@
         .manual-content { background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
         .category-title { font-size: 1.1rem; font-weight: bold; background: #35A0D9; color: #fff; padding: 5px 15px; border-radius: 20px; display: inline-block; margin: 20px 0 15px 0; }
         
-        /* 左線を廃止し、余白のみに修正 */
         .content-body { padding-left: 0; margin-bottom: 30px; line-height: 1.8; color: #333; font-size: 0.95rem; }
-        .content-body ul, .content-body ol { margin: 0; padding-left: 1.5em; }
+        .content-body ul, .content-body ol { margin: 0; padding-left: 0; list-style: none; }
 
-        .step-box { margin-bottom: 20px; }
-        .step-title { font-weight: bold; color: #35A0D9; margin-bottom: 5px; display: block; }
+        .step-item { display: flex; align-items: flex-start; margin-bottom: 12px; }
+        .step-badge { 
+            background: #35A0D9; color: #fff; font-size: 0.7rem; font-weight: bold; 
+            padding: 2px 8px; border-radius: 4px; margin-right: 12px; margin-top: 4px;
+            flex-shrink: 0; line-height: 1.4;
+        }
+
+        .ui-label { 
+            background: #f0f7ff; border: 1px solid #35A0D9; color: #35A0D9;
+            padding: 1px 6px; border-radius: 4px; font-weight: bold; font-size: 0.9rem;
+            margin: 0 2px;
+        }
+
+        .step-box { margin-bottom: 25px; }
+        .step-title { font-weight: bold; color: #35A0D9; margin-bottom: 10px; display: block; border-bottom: 1px dashed #35A0D9; padding-bottom: 3px; width: fit-content; }
         
         .summary-table { width: 100%; border-collapse: collapse; margin-top: 5px; background: #fff; border: 1px solid #eee; }
-        .summary-table th { background: #f0f9ff; color: #35A0D9; width: 100px; padding: 10px; border: 1px solid #eee; font-size: 0.9rem; text-align: left; }
+        .summary-table th { background: #f0f9ff; color: #35A0D9; width: 100px; padding: 10px; border: 1px solid #eee; font-size: 0.9rem; }
         .summary-table td { padding: 10px; border: 1px solid #eee; font-size: 0.95rem; }
 
         .tt-container { display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
@@ -25,19 +37,18 @@
         .tt-card span { display: block; background: #35A0D9; color: #fff; font-size: 0.8rem; padding: 2px 8px; border-radius: 4px; margin-bottom: 5px; text-align: center; }
         .tt-order { font-weight: bold; font-size: 1.1rem; text-align: center; color: #333; letter-spacing: 2px; }
 
-        .allocation-table { width: 100%; border-collapse: collapse; background: #fff; margin-top: 10px; }
+        .allocation-table { width: 100%; border-collapse: collapse; background: #fff; margin-left: 0; width: 100%; }
         .allocation-table th { background: #35A0D9; color: #fff; padding: 10px; text-align: center; width: 60px; font-weight: bold; border: 1px solid #35A0D9; }
         .allocation-table td { padding: 10px 15px; border: 1px solid #eee; font-weight: 500; font-size: 0.95rem; }
         .allocation-table tr:nth-child(even) { background: #fcfcfc; }
         .staff-plus { color: #d9534f; font-weight: bold; font-size: 0.85rem; }
 
         .back-btn { display: inline-block; margin-top: 20px; color: #35A0D9; text-decoration: none; font-weight: bold; }
-        
-        /* 吹き出しスタイルから左線を削除し、枠線に変更 */
-        .speech-bubble { border: 1px solid #35A0D9; background: #f0f9ff; padding: 15px; border-radius: 10px; font-size: 0.95rem; line-height: 1.6; }
+        .speech-bubble { border: 1px solid #35A0D9; background: #eef7fc; padding: 15px; border-radius: 5px; font-size: 0.95rem; line-height: 1.6; }
     </style>
 </head>
 <body>
+
     <div class="sticky-header">
         <header>
             <a href="../" style="text-decoration: none; display: inline-block;">
@@ -79,20 +90,16 @@
                 <div class="content-body">
                     <div class="step-box">
                         <span class="step-title">参加者の追加（スタッフ操作）</span>
-                        <ol>
-                            <li>LaBOLAの該当枠をスクロールし、下部にある「参加者を追加」ボタンを押す</li>
-                            <li>会員番号の有無を確認し、通常の予約手順と同様に入力を行う</li>
-                        </ol>
+                        <div class="step-item"><span class="step-badge">STEP 1</span><div>LaBOLAの該当枠をスクロールし、下部にある<span class="ui-label">参加者を追加</span>ボタンを押す</div></div>
+                        <div class="step-item"><span class="step-badge">STEP 2</span><div>会員番号の有無を確認し、通常の予約手順と同様に入力を行う</div></div>
                     </div>
                     <div class="step-box">
                         <span class="step-title">中止時のキャンセルメール配信</span>
-                        <ol>
-                            <li>締め切り時間を確認し、開催人数に満たない場合に配信作業を行う</li>
-                            <li>左メニューの「メール配信」→「メールの新規作成」を選択</li>
-                            <li>件名と本文を入力（配信待ちにある過去のメールをコピーまたは参考にする）</li>
-                            <li>宛先で「都度入力」を選択</li>
-                            <li>連絡先欄にあるメールアドレスをコピーし、改行しながら貼り付けて送信する</li>
-                        </ol>
+                        <div class="step-item"><span class="step-badge">STEP 1</span><div>締め切り時間を確認し、開催人数に満たない場合に配信作業を行う</div></div>
+                        <div class="step-item"><span class="step-badge">STEP 2</span><div>左メニューの<span class="ui-label">メール配信</span>→<span class="ui-label">メールの新規作成</span>を選択</div></div>
+                        <div class="step-item"><span class="step-badge">STEP 3</span><div>件名と本文を入力（配信待ちにある過去のメールをコピーまたは参考にする）</div></div>
+                        <div class="step-item"><span class="step-badge">STEP 4</span><div>宛先で<span class="ui-label">都度入力</span>を選択</div></div>
+                        <div class="step-item"><span class="step-badge">STEP 5</span><div>連絡先欄にあるメールアドレスをコピーし、改行しながら貼り付けて送信する</div></div>
                     </div>
                 </div>
             </section>
@@ -100,13 +107,11 @@
             <section>
                 <span class="category-title">名簿の準備</span>
                 <div class="content-body">
-                    <ol>
-                        <li>LaBOLAのCSVをダウンロード</li>
-                        <li>「61_個人参加受付フォーマット」を使用</li>
-                        <li>ふりがな・電話番号を入力</li>
-                        <li>昇順（名前順）にして境界線を引く</li>
-                        <li>印刷する</li>
-                    </ol>
+                    <div class="step-item"><span class="step-badge">STEP 1</span><div>LaBOLAの<span class="ui-label">CSV</span>をダウンロード</div></div>
+                    <div class="step-item"><span class="step-badge">STEP 2</span><div><span class="ui-label">61_個人参加受付フォーマット</span>を使用</div></div>
+                    <div class="step-item"><span class="step-badge">STEP 3</span><div>ふりがな・電話番号を入力</div></div>
+                    <div class="step-item"><span class="step-badge">STEP 4</span><div>昇順（名前順）にして境界線を引く</div></div>
+                    <div class="step-item"><span class="step-badge">STEP 5</span><div>印刷する</div></div>
                 </div>
             </section>
 
