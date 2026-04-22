@@ -7,9 +7,14 @@
     <link rel="stylesheet" href="../style.css">
     <style>
         .manual-content { background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .category-title { font-size: 1.1rem; font-weight: bold; background: #35A0D9; color: #fff; padding: 5px 15px; border-radius: 20px; display: inline-block; margin-bottom: 15px; }
         .step-box { margin-bottom: 25px; border-left: 4px solid #35A0D9; padding-left: 15px; }
-        .step-title { font-weight: bold; color: #35A0D9; display: block; margin-bottom: 8px; }
+        .step-title { font-weight: bold; color: #35A0D9; margin-bottom: 8px; display: block; }
+        .input-area { background: #f9f9f9; border: 1px solid #eee; padding: 15px; border-radius: 5px; font-size: 0.95rem; line-height: 1.6; color: #333; margin-top: 5px; }
         
+        /* リストのズレ防止 */
+        .input-area ul { margin: 0; padding-left: 1.5em; }
+
         .manual-img { 
             width: 100%; 
             max-width: 400px; 
@@ -18,17 +23,6 @@
             border: 1px solid #ddd; 
             border-radius: 5px; 
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .category-title { 
-            font-size: 1.1rem; 
-            font-weight: bold; 
-            background: #35A0D9; 
-            color: #fff; 
-            padding: 5px 15px; 
-            border-radius: 20px; 
-            display: inline-block; 
-            margin-bottom: 15px; 
         }
 
         .back-btn { display: inline-block; margin-top: 20px; color: #35A0D9; text-decoration: none; font-weight: bold; }
@@ -66,6 +60,17 @@
         <div class="manual-content">
             <h2>基本的な操作 (hacomono)</h2>
             <p style="font-size: 0.85rem; color: #666; margin-bottom: 20px;">更新日：2026/04/22</p>
+
+            <section>
+                <span class="category-title">hacomonoの主な用途</span>
+                <div class="input-area">
+                    <ul>
+                        <li>フロンタウンフィットネスの予約管理・決済確認</li>
+                    </ul>
+                </div>
+            </section>
+
+            <div style="margin: 40px 0;"></div>
 
             <section id="walk-in">
                 <h3 style="border-bottom: 2px solid #35A0D9; padding-bottom: 5px; margin-bottom: 20px;">予約なし当日参加の対応</h3>
