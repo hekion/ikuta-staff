@@ -8,11 +8,8 @@
     <style>
         .manual-content { background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
         .category-title { font-size: 1.1rem; font-weight: bold; background: #35A0D9; color: #fff; padding: 5px 15px; border-radius: 20px; display: inline-block; margin: 20px 0 15px 0; }
-        .step-box { margin-bottom: 25px; border-left: 4px solid #35A0D9; padding-left: 15px; }
-        .step-title { font-weight: bold; color: #35A0D9; margin-bottom: 8px; display: block; }
-        .input-area { background: #f9f9f9; border: 1px solid #eee; padding: 15px; border-radius: 5px; font-size: 0.95rem; line-height: 1.6; color: #333; margin-top: 5px; }
-        
-        .input-area ol { margin: 0; padding-left: 1.5em; }
+        .content-body { padding-left: 20px; margin-bottom: 30px; line-height: 1.8; color: #333; font-size: 0.95rem; border-left: 3px solid #eee; }
+        .content-body ol { margin: 0; padding-left: 1.2em; }
         .alert-text { color: #d9534f; font-weight: bold; }
         .back-btn { display: inline-block; margin-top: 20px; color: #35A0D9; text-decoration: none; font-weight: bold; }
     </style>
@@ -34,7 +31,7 @@
 
             <section>
                 <span class="category-title">予約のステップ</span>
-                <div class="input-area">
+                <div class="content-body">
                     <ol>
                         <li>空き枠（「○」表示）を選択</li>
                         <li>会員確認（会員番号の有無を確認）</li>
@@ -45,29 +42,23 @@
 
             <section>
                 <span class="category-title">会員番号がある場合</span>
-                <div class="input-area">
+                <div class="content-body">
                     番号入力後、<strong>「会員データを読み込む」</strong>を押すと情報が自動反映されます。
                 </div>
             </section>
 
             <section>
                 <span class="category-title">情報の記録（メモと備考）</span>
-                <div class="step-box">
-                    <span class="step-title">メモ欄（スタッフ用）</span>
-                    <div class="input-area">
-                        スタッフ間の共有事項を記入。お客様には届きません。<br>
-                        <span class="alert-text">※必ず「記入日」と「記入者名」を添えること。</span>
-                    </div>
-                </div>
-                <div class="step-box">
-                    <span class="step-title">備考欄（対外用）</span>
-                    <div class="input-area">
-                        お客様へのメールに反映されます。対外的な案内のみを記入。
-                    </div>
+                <div class="content-body">
+                    <strong>■ メモ欄（スタッフ用）</strong><br>
+                    スタッフ間の共有事項を記入。お客様には届きません。<br>
+                    <span class="alert-text">※必ず「記入日」と「記入者名」を添えること。</span><br><br>
+                    <strong>■ 備考欄（対外用）</strong><br>
+                    お客様へのメールに反映されます。対外的な案内のみを記入。
                 </div>
             </section>
 
-            <a href="./" class="back-btn">← マニュアル一覧に戻る</a>
+            <a href="./" class="back-btn">← 一覧に戻る</a>
         </div>
     </main>
 </body>
