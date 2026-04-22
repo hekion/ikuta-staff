@@ -8,9 +8,20 @@
     <style>
         .manual-content { background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
         .category-title { font-size: 1.1rem; font-weight: bold; background: #35A0D9; color: #fff; padding: 5px 15px; border-radius: 20px; display: inline-block; margin: 20px 0 15px 0; }
+        
         .step-box { margin-bottom: 25px; border-left: 4px solid #35A0D9; padding-left: 15px; }
         .step-title { font-weight: bold; color: #35A0D9; margin-bottom: 8px; display: block; }
-        .input-area { background: #f9f9f9; border: 1px solid #eee; padding: 10px; border-radius: 5px; min-height: 50px; font-size: 0.95rem; line-height: 1.6; color: #333; margin-top: 5px; }
+        
+        /* グレーボックスを廃止し、記入スペースを確保 */
+        .step-details { 
+            font-size: 0.95rem; 
+            line-height: 1.6; 
+            color: #333; 
+            margin-top: 5px; 
+            padding: 5px 0;
+            min-height: 1.6em;
+        }
+        
         .back-btn { display: inline-block; margin-top: 20px; color: #35A0D9; text-decoration: none; font-weight: bold; }
     </style>
 </head>
@@ -23,6 +34,17 @@
                 <div class="sub-title">STAFF PORTAL</div>
             </a>
         </header>
+
+        <nav class="nav-menu">
+            <ul>
+                <li><a href="../manual/">マニュアル</a></li>
+                <li><a href="../setup/">準備物</a></li>
+                <li><a href="../roster/">名簿</a></li>
+                <li><a href="../inventory/">備品検索</a></li>
+                <li><a href="../pop/">掲示物</a></li>
+                <li><a href="../contacts/">連絡先</a></li>
+            </ul>
+        </nav>
     </div>
 
     <main class="container">
@@ -32,17 +54,17 @@
 
             <section>
                 <span class="category-title">◯内勤</span>
-                <div class="step-box"><span class="step-title">タイムテーブル作成</span><div class="input-area"></div></div>
-                <div class="step-box"><span class="step-title">忘れ物処理</span><div class="input-area"></div></div>
-                <div class="step-box"><span class="step-title">退館十分前アナウンス</span><div class="input-area"></div></div>
-                <div class="step-box"><span class="step-title">洗濯物取り込み</span><div class="input-area"></div></div>
-                <div class="step-box"><span class="step-title">コート入れ替え確認</span><div class="input-area"></div></div>
-                <div class="step-box"><span class="step-title">バナー、ポップ、ネット修理</span><div class="input-area"></div></div>
-                <div class="step-box"><span class="step-title">電話対応</span><div class="input-area"></div></div>
-                <div class="step-box"><span class="step-title">宅配対応</span><div class="input-area"></div></div>
-                <div class="step-box"><span class="step-title">ラミネート作業</span><div class="input-area"></div></div>
-                <div class="step-box"><span class="step-title">アイシングの氷わたす</span><div class="input-area"></div></div>
-                <div class="step-box"><span class="step-title">ゴミ捨て</span><div class="input-area"></div></div>
+                <div class="step-box"><span class="step-title">タイムテーブル作成</span><div class="step-details"></div></div>
+                <div class="step-box"><span class="step-title">忘れ物処理</span><div class="step-details"></div></div>
+                <div class="step-box"><span class="step-title">退館十分前アナウンス</span><div class="step-details"></div></div>
+                <div class="step-box"><span class="step-title">洗濯物取り込み</span><div class="step-details"></div></div>
+                <div class="step-box"><span class="step-title">コート入れ替え確認</span><div class="step-details"></div></div>
+                <div class="step-box"><span class="step-title">バナー、ポップ、ネット修理</span><div class="step-details"></div></div>
+                <div class="step-box"><span class="step-title">電話対応</span><div class="step-details"></div></div>
+                <div class="step-box"><span class="step-title">宅配対応</span><div class="step-details"></div></div>
+                <div class="step-box"><span class="step-title">ラミネート作業</span><div class="step-details"></div></div>
+                <div class="step-box"><span class="step-title">アイシングの氷わたす</span><div class="step-details"></div></div>
+                <div class="step-box"><span class="step-title">ゴミ捨て</span><div class="step-details"></div></div>
             </section>
 
             <a href="./" class="back-btn">← マニュアル一覧に戻る</a>
