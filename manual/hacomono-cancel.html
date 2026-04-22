@@ -7,9 +7,12 @@
     <link rel="stylesheet" href="../style.css">
     <style>
         .manual-content { background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .step-box { margin-bottom: 25px; border-left: 4px solid #35A0D9; padding-left: 15px; }
-        .step-title { font-weight: bold; color: #35A0D9; display: block; margin-bottom: 8px; }
+        .category-title { font-size: 1.1rem; font-weight: bold; background: #35A0D9; color: #fff; padding: 5px 15px; border-radius: 20px; display: inline-block; margin: 20px 0 15px 0; }
         
+        .step-box { margin-bottom: 25px; border-left: 4px solid #35A0D9; padding-left: 15px; }
+        .step-title { font-weight: bold; color: #35A0D9; margin-bottom: 8px; display: block; }
+        .step-details { font-size: 0.95rem; line-height: 1.6; color: #333; margin-top: 5px; }
+
         .image-placeholder {
             width: 100%;
             max-width: 450px;
@@ -25,22 +28,21 @@
             font-size: 0.85rem;
         }
 
-        .category-title { 
-            font-size: 1.1rem; 
-            font-weight: bold; 
-            background: #35A0D9; 
-            color: #fff; 
-            padding: 5px 15px; 
-            border-radius: 20px; 
-            display: inline-block; 
-            margin-bottom: 15px; 
+        .important-box { 
+            background: #fdf2f2; 
+            border: 1px solid #f5c6cb; 
+            padding: 12px; 
+            border-radius: 5px; 
+            margin: 10px 0; 
+            font-size: 0.9rem;
         }
+        .important-label { color: #d9534f; font-weight: bold; display: block; margin-bottom: 3px; }
+
+        .memo-box { background: #fff9e6; padding: 15px; border-radius: 5px; border: 1px solid #ffeeba; margin-top: 20px; }
+        .sub-step { list-style-type: disc; margin-left: 20px; font-size: 0.9rem; color: #444; margin-top: 5px; }
 
         .back-btn { display: inline-block; margin-top: 20px; color: #35A0D9; text-decoration: none; font-weight: bold; }
-        .info-text { font-size: 0.95rem; line-height: 1.6; color: #333; margin-bottom: 5px; }
-        .important-note { color: #d9534f; font-weight: bold; }
-        .memo-box { background: #fff9e6; padding: 15px; border-radius: 5px; border: 1px solid #ffeeba; margin-top: 15px; }
-        .section-divider { border: 0; border-top: 2px solid #eee; margin: 40px 0; }
+        .section-divider { border: 0; border-top: 2px solid #eee; margin: 30px 0; }
     </style>
 </head>
 <body>
@@ -72,8 +74,10 @@
             <section id="cancel-before">
                 <span class="category-title">① 前日までのキャンセル</span>
                 <div class="step-box">
-                    <p class="info-text"><strong>キャンセル料：なし</strong></p>
-                    <p class="info-text">参加者リストから該当者の「キャンセル」ボタンを押せば完了です。</p>
+                    <div class="step-details">
+                        <p><strong>キャンセル料：なし</strong></p>
+                        参加者リストから該当者の「キャンセル」ボタンを押せば完了です。
+                    </div>
                     <div class="image-placeholder">画像：参加者リスト・キャンセルボタン（準備中）</div>
                 </div>
             </section>
@@ -83,47 +87,55 @@
             <section id="cancel-today">
                 <span class="category-title">② 当日キャンセル</span>
                 
-                <div class="memo-box">
-                    <p class="info-text"><span class="important-note">キャンセル料がかかる旨を必ずお伝えしてください。</span></p>
-                    <p style="font-size: 0.9rem; margin-top: 5px; color: #d9534f; font-weight: bold;">
-                        ※「キャンセル」ボタンは絶対に押さないでください。
-                    </p>
-                </div>
-
-                <div style="margin-top: 20px;">
-                    <div class="step-box">
-                        <span class="step-title">1. 申し送りの記入</span>
-                        <p class="info-text">予約詳細を開き、キャンセルの申し送りのみを残します。</p>
-                        <div class="image-placeholder">画像：申し送り記入画面（準備中）</div>
-                    </div>
-
-                    <div class="step-box">
-                        <span class="step-title">2. レッスン編集</span>
-                        <p class="info-text">該当レッスンの「編集」をクリックします。</p>
-                        <div class="image-placeholder">画像：レッスン編集ボタン（準備中）</div>
-                    </div>
-
-                    <div class="step-box">
-                        <span class="step-title">3. ポリシー設定</span>
-                        <p class="info-text">「バッチによる無断キャンセル判定ポリシー」にて、<br><strong>『無断キャンセル扱いとするが、メールは送信しない』</strong>を選択して保存します。</p>
-                        <div class="image-placeholder">画像：判定ポリシー選択画面（準備中）</div>
-                    </div>
-
-                    <div class="step-box">
-                        <span class="step-title">4. 支払いがあった場合の対応</span>
-                        <p class="info-text">後ほど支払いがあった場合は、以下の通りステータスを変更してください。</p>
-                        <p class="info-text"><strong>「無断キャンセルを取り消し」→「チェックイン」</strong></p>
-                        <div class="image-placeholder">画像：ステータス変更操作（準備中）</div>
-                    </div>
-                </div>
-
-                <div class="memo-box" style="background-color: #f8f9fa; border-color: #ddd;">
-                    <p style="font-size: 0.9rem;"><strong>【特殊なケース・補足】</strong></p>
-                    <ul style="font-size: 0.85rem; margin-top: 5px; color: #555;">
-                        <li><strong>連絡なしの欠席：</strong>電話連絡を徹底してください。夜間の場合は翌日のスタッフへ引き継ぐなど柔軟に対応してください。</li>
-                        <li><strong>体験チケット：</strong>当日キャンセルの時点で「使用済み」扱いとなります。</li>
-                        <li><strong>体験の再予約案内：</strong>「受講していないので次回も体験料金にしてほしい」という要望があっても、<strong>通常料金</strong>での案内を徹底してください。</li>
+                <div class="important-box">
+                    <span class="important-label">《重要》</span>
+                    <ul class="sub-step">
+                        <li>キャンセル料がかかる旨を必ずお伝えしてください。</li>
+                        <li><strong>「キャンセル」ボタンは絶対に押さないでください。</strong></li>
                     </ul>
+                </div>
+
+                <div class="step-box">
+                    <span class="step-title">1. 申し送りの記入</span>
+                    <div class="step-details">予約詳細を開き、キャンセルの申し送りのみを残します。</div>
+                    <div class="image-placeholder">画像：申し送り記入画面（準備中）</div>
+                </div>
+
+                <div class="step-box">
+                    <span class="step-title">2. レッスン編集</span>
+                    <div class="step-details">該当レッスンの「編集」をクリックします。</div>
+                    <div class="image-placeholder">画像：レッスン編集ボタン（準備中）</div>
+                </div>
+
+                <div class="step-box">
+                    <span class="step-title">3. ポリシー設定</span>
+                    <div class="step-details">
+                        「バッチによる無断キャンセル判定ポリシー」にて、<br>
+                        <strong>『無断キャンセル扱いとするが、メールは送信しない』</strong>を選択して保存します。
+                    </div>
+                    <div class="image-placeholder">画像：判定ポリシー選択画面（準備中）</div>
+                </div>
+
+                <div class="step-box">
+                    <span class="step-title">4. 支払いがあった場合の対応</span>
+                    <div class="step-details">
+                        後ほど支払いがあった場合は、以下の通りステータスを変更してください。<br>
+                        <strong>「無断キャンセルを取り消し」→「チェックイン」</strong>
+                    </div>
+                    <div class="image-placeholder">画像：ステータス変更操作（準備中）</div>
+                </div>
+            </section>
+
+            <section>
+                <span class="category-title">特殊なケース・補足</span>
+                <div class="step-box">
+                    <div class="step-details">
+                        <ul class="sub-step">
+                            <li><strong>連絡なしの欠席：</strong>電話連絡を徹底してください。夜間の場合は翌日のスタッフへ引き継ぐなど柔軟に対応してください。</li>
+                            <li><strong>体験チケット：</strong>当日キャンセルの時点で「使用済み」扱いとなります。</li>
+                            <li><strong>体験の再予約案内：</strong>「受講していないので次回も体験料金にしてほしい」という要望があっても、<strong>通常料金</strong>での案内を徹底してください。</li>
+                        </ul>
+                    </div>
                 </div>
             </section>
 
