@@ -8,9 +8,13 @@
     <style>
         .manual-content { background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
         .category-title { font-size: 1.1rem; font-weight: bold; background: #35A0D9; color: #fff; padding: 5px 15px; border-radius: 20px; display: inline-block; margin: 20px 0 15px 0; }
-        .step-box { margin-bottom: 25px; border-left: 4px solid #35A0D9; padding-left: 15px; }
-        .step-title { font-weight: bold; color: #35A0D9; margin-bottom: 8px; display: block; }
-        .input-area { background: #f9f9f9; border: 1px solid #eee; padding: 15px; border-radius: 5px; font-size: 0.95rem; line-height: 1.6; color: #333; margin-top: 5px; }
+        
+        /* グレーの枠を廃止し、左線と余白で構成 */
+        .content-body { padding-left: 20px; margin-bottom: 30px; line-height: 1.8; color: #333; font-size: 0.95rem; border-left: 3px solid #eee; }
+        .content-body ul, .content-body ol { margin: 0; padding-left: 1.2em; }
+
+        .step-box { margin-bottom: 20px; }
+        .step-title { font-weight: bold; color: #35A0D9; margin-bottom: 5px; display: block; }
         
         /* 開催概要用の表 */
         .summary-table { width: 100%; border-collapse: collapse; margin-top: 5px; background: #fff; border: 1px solid #eee; }
@@ -24,13 +28,16 @@
         .tt-order { font-weight: bold; font-size: 1.1rem; text-align: center; color: #333; letter-spacing: 2px; }
 
         /* 割り振りテーブル */
-        .allocation-table { width: 100%; border-collapse: collapse; background: #fff; }
+        .allocation-table { width: 100%; border-collapse: collapse; background: #fff; margin-left: 20px; width: calc(100% - 20px); }
         .allocation-table th { background: #35A0D9; color: #fff; padding: 10px; text-align: center; width: 60px; font-weight: bold; border: 1px solid #35A0D9; }
         .allocation-table td { padding: 10px 15px; border: 1px solid #eee; font-weight: 500; font-size: 0.95rem; }
         .allocation-table tr:nth-child(even) { background: #fcfcfc; }
         .staff-plus { color: #d9534f; font-weight: bold; font-size: 0.85rem; }
 
         .back-btn { display: inline-block; margin-top: 20px; color: #35A0D9; text-decoration: none; font-weight: bold; }
+        
+        /* 回し文用の強調スタイル */
+        .speech-bubble { border-left: 4px solid #35A0D9; background: #eef7fc; padding: 15px; border-radius: 0 5px 5px 0; font-size: 0.95rem; line-height: 1.6; }
     </style>
 </head>
 <body>
@@ -51,82 +58,92 @@
 
             <section>
                 <span class="category-title">ソサイチ</span>
-                <table class="summary-table">
-                    <tr><th>日時</th><td>月曜日 20:15〜22:00</td></tr>
-                    <tr><th>料金</th><td>2,200円</td></tr>
-                    <tr><th>開催判断</th><td>13人未満は中止</td></tr>
-                </table>
+                <div class="content-body">
+                    <table class="summary-table">
+                        <tr><th>日時</th><td>月曜日 20:15〜22:00</td></tr>
+                        <tr><th>料金</th><td>2,200円</td></tr>
+                        <tr><th>開催判断</th><td>13人未満は中止</td></tr>
+                    </table>
+                </div>
             </section>
 
             <section>
                 <span class="category-title">フットサル</span>
-                <table class="summary-table">
-                    <tr><th>日時</th><td>土曜日 19:10〜20:50</td></tr>
-                    <tr><th>料金</th><td>1,760円</td></tr>
-                    <tr><th>開催判断</th><td>9人未満は中止</td></tr>
-                </table>
+                <div class="content-body">
+                    <table class="summary-table">
+                        <tr><th>日時</th><td>土曜日 19:10〜20:50</td></tr>
+                        <tr><th>料金</th><td>1,760円</td></tr>
+                        <tr><th>開催判断</th><td>9人未満は中止</td></tr>
+                    </table>
+                </div>
             </section>
 
             <section>
                 <span class="category-title">LaBOLA：予約管理手順</span>
-                <div class="step-box">
-                    <span class="step-title">参加者の追加（スタッフ操作）</span>
-                    <div class="input-area">
-                        1. LaBOLAの該当枠をスクロールし、下部にある「参加者を追加」ボタンを押す<br>
-                        2. 会員番号の有無を確認し、通常の予約手順と同様に入力を行う
+                <div class="content-body">
+                    <div class="step-box">
+                        <span class="step-title">参加者の追加（スタッフ操作）</span>
+                        <ol>
+                            <li>LaBOLAの該当枠をスクロールし、下部にある「参加者を追加」ボタンを押す</li>
+                            <li>会員番号の有無を確認し、通常の予約手順と同様に入力を行う</li>
+                        </ol>
                     </div>
-                </div>
-                <div class="step-box">
-                    <span class="step-title">中止時のキャンセルメール配信</span>
-                    <div class="input-area">
-                        1. 締め切り時間を確認し、開催人数に満たない場合に配信作業を行う<br>
-                        2. 左メニューの「メール配信」→「メールの新規作成」を選択<br>
-                        3. 件名と本文を入力（配信待ちにある過去のメールをコピーまたは参考にする）<br>
-                        4. 宛先で「都度入力」を選択<br>
-                        5. 連絡先欄にあるメールアドレスをコピーし、改行しながら貼り付けて送信する
+                    <div class="step-box">
+                        <span class="step-title">中止時のキャンセルメール配信</span>
+                        <ol>
+                            <li>締め切り時間を確認し、開催人数に満たない場合に配信作業を行う</li>
+                            <li>左メニューの「メール配信」→「メールの新規作成」を選択</li>
+                            <li>件名と本文を入力（配信待ちにある過去のメールをコピーまたは参考にする）</li>
+                            <li>宛先で「都度入力」を選択</li>
+                            <li>連絡先欄にあるメールアドレスをコピーし、改行しながら貼り付けて送信する</li>
+                        </ol>
                     </div>
                 </div>
             </section>
 
             <section>
                 <span class="category-title">名簿の準備</span>
-                <div class="input-area">
-                    1. LaBOLAのCSVをダウンロード<br>
-                    2. 「61_個人参加受付フォーマット」を使用<br>
-                    3. ふりがな・電話番号を入力<br>
-                    4. 昇順（名前順）にして境界線を引く<br>
-                    5. 印刷する
+                <div class="content-body">
+                    <ol>
+                        <li>LaBOLAのCSVをダウンロード</li>
+                        <li>「61_個人参加受付フォーマット」を使用</li>
+                        <li>ふりがな・電話番号を入力</li>
+                        <li>昇順（名前順）にして境界線を引く</li>
+                        <li>印刷する</li>
+                    </ol>
                 </div>
             </section>
 
             <section>
                 <span class="category-title">プログラムの回し文</span>
-                <div class="input-area" style="border-left: 4px solid #35A0D9; background: #eef7fc;">
-                    「本日の個人参加〇〇を担当します〇〇です。このプログラムは保険対象外のイベントになりますので十分怪我には気をつけてください。よろしくお願いします。本日、〇〇人なので番号〇お願いします。」
+                <div class="content-body">
+                    <div class="speech-bubble">
+                        「本日の個人参加〇〇を担当します〇〇です。このプログラムは保険対象外のイベントになりますので十分怪我には気をつけてください。よろしくお願いします。本日、〇〇人なので番号〇お願いします。」
+                    </div>
                 </div>
             </section>
 
             <section>
                 <span class="category-title">タイムスケジュール</span>
-                
-                <div class="step-box">
-                    <span class="step-title">個サル（5分×2）</span>
-                    <div class="tt-container">
-                        <div class="tt-card"><span>1セット目</span><div class="tt-order">1-2 → 1-3 → 2-3</div></div>
-                        <div class="tt-card" style="border-color: #d9534f;"><span style="background:#d9534f;">チーム替え</span><div class="tt-order">入れ替え</div></div>
-                        <div class="tt-card"><span>2セット目</span><div class="tt-order">1-2 → 1-3 → 2-3</div></div>
+                <div class="content-body">
+                    <div class="step-box">
+                        <span class="step-title">個サル（5分×2）</span>
+                        <div class="tt-container">
+                            <div class="tt-card"><span>1セット目</span><div class="tt-order">1-2 → 1-3 → 2-3</div></div>
+                            <div class="tt-card" style="border-color: #d9534f;"><span style="background:#d9534f;">チーム替え</span><div class="tt-order">入れ替え</div></div>
+                            <div class="tt-card"><span>2セット目</span><div class="tt-order">1-2 → 1-3 → 2-3</div></div>
+                        </div>
                     </div>
-                </div>
-
-                <div class="step-box">
-                    <span class="step-title">個ソサ（8〜9分）</span>
-                    <div class="tt-container">
-                        <div class="tt-card"><span>3チーム</span><div class="tt-order">1-2 → 1-3 → 2-3</div></div>
-                        <div class="tt-card" style="min-width: 250px;">
-                            <span>4チーム</span>
-                            <div class="tt-order">
-                                1-2 → 3-4 → 1-3<br>
-                                2-4 → 1-4 → 2-3
+                    <div class="step-box">
+                        <span class="step-title">個ソサ（8〜9分）</span>
+                        <div class="tt-container">
+                            <div class="tt-card"><span>3チーム</span><div class="tt-order">1-2 → 1-3 → 2-3</div></div>
+                            <div class="tt-card" style="min-width: 250px;">
+                                <span>4チーム</span>
+                                <div class="tt-order">
+                                    1-2 → 3-4 → 1-3<br>
+                                    2-4 → 1-4 → 2-3
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -135,44 +152,47 @@
 
             <section>
                 <span class="category-title">人数割り振り：個サル</span>
-                <table class="allocation-table">
-                    <tr><th>9人</th><td><span class="staff-plus">＋スタッフ入(10人)</span> 2チーム</td></tr>
-                    <tr><th>10人</th><td>2チーム</td></tr>
-                    <tr><th>11人</th><td><span class="staff-plus">＋スタッフ入(12人)</span> 2チーム</td></tr>
-                    <tr><th>12人</th><td>6人制 2チーム</td></tr>
-                    <tr><th>13人</th><td></td></tr>
-                    <tr><th>14人</th><td><span class="staff-plus">＋スタッフ入(15人)</span> 3チーム</td></tr>
-                    <tr><th>15人</th><td>5人制 3チーム</td></tr>
-                    <tr><th>16人</th><td>助っ人参加 3チーム (6vs5の調整用)</td></tr>
-                    <tr><th>17人</th><td><span class="staff-plus">＋スタッフ入(18人)</span> 3チーム</td></tr>
-                    <tr><th>18人</th><td>6人制 3チーム</td></tr>
-                </table>
+                <div class="content-body" style="border-left: none; padding-left: 0;">
+                    <table class="allocation-table">
+                        <tr><th>9人</th><td><span class="staff-plus">＋スタッフ入(10人)</span> 2チーム</td></tr>
+                        <tr><th>10人</th><td>2チーム</td></tr>
+                        <tr><th>11人</th><td><span class="staff-plus">＋スタッフ入(12人)</span> 2チーム</td></tr>
+                        <tr><th>12人</th><td>6人制 2チーム</td></tr>
+                        <tr><th>14人</th><td><span class="staff-plus">＋スタッフ入(15人)</span> 3チーム</td></tr>
+                        <tr><th>15人</th><td>5人制 3チーム</td></tr>
+                        <tr><th>16人</th><td>助っ人参加 3チーム (6vs5の調整用)</td></tr>
+                        <tr><th>17人</th><td><span class="staff-plus">＋スタッフ入(18人)</span> 3チーム</td></tr>
+                        <tr><th>18人</th><td>6人制 3チーム</td></tr>
+                    </table>
+                </div>
             </section>
 
             <section>
                 <span class="category-title">人数割り振り：個ソサ</span>
-                <table class="allocation-table">
-                    <tr><th>13人</th><td><span class="staff-plus">＋スタッフ入(14人)</span> 2チーム</td></tr>
-                    <tr><th>14人</th><td>7人制 2チーム</td></tr>
-                    <tr><th>15人</th><td><span class="staff-plus">＋スタッフ入(16人)</span> 2チーム</td></tr>
-                    <tr><th>16人</th><td>8人制 2チーム</td></tr>
-                    <tr><th>17人</th><td><span class="staff-plus">＋スタッフ入(18人)</span> GK助っ人 3チーム</td></tr>
-                    <tr><th>18人</th><td>7人制 GK助っ人 3チーム</td></tr>
-                    <tr><th>19人</th><td>7人制 GK助っ人 3チーム</td></tr>
-                    <tr><th>20人</th><td><span class="staff-plus">＋スタッフ入(21人)</span> 3チーム</td></tr>
-                    <tr><th>21人</th><td>7人制 3チーム</td></tr>
-                    <tr><th>22人</th><td>7人制 GK助っ人 3チーム</td></tr>
-                    <tr><th>23人</th><td><span class="staff-plus">＋スタッフ入(24人)</span> 3チーム</td></tr>
-                    <tr><th>24人</th><td>8人制 3チーム</td></tr>
-                    <tr><th>25人</th><td>7人制 GK助っ人 4チーム</td></tr>
-                    <tr><th>26人</th><td>7人制 GK助っ人 4チーム</td></tr>
-                    <tr><th>27人</th><td><span class="staff-plus">＋スタッフ入(28人)</span> 4チーム</td></tr>
-                    <tr><th>28人</th><td>7人制 4チーム</td></tr>
-                    <tr><th>29人</th><td>8人制 GK助っ人 4チーム</td></tr>
-                    <tr><th>30人</th><td>8人制 GK助っ人 4チーム</td></tr>
-                    <tr><th>31人</th><td><span class="staff-plus">＋スタッフ入(32人)</span> 4チーム</td></tr>
-                    <tr><th>32人</th><td>8人制 4チーム</td></tr>
-                </table>
+                <div class="content-body" style="border-left: none; padding-left: 0;">
+                    <table class="allocation-table">
+                        <tr><th>13人</th><td><span class="staff-plus">＋スタッフ入(14人)</span> 2チーム</td></tr>
+                        <tr><th>14人</th><td>7人制 2チーム</td></tr>
+                        <tr><th>15人</th><td><span class="staff-plus">＋スタッフ入(16人)</span> 2チーム</td></tr>
+                        <tr><th>16人</th><td>8人制 2チーム</td></tr>
+                        <tr><th>17人</th><td><span class="staff-plus">＋スタッフ入(18人)</span> GK助っ人 3チーム</td></tr>
+                        <tr><th>18人</th><td>7人制 GK助っ人 3チーム</td></tr>
+                        <tr><th>19人</th><td>7人制 GK助っ人 3チーム</td></tr>
+                        <tr><th>20人</th><td><span class="staff-plus">＋スタッフ入(21人)</span> 3チーム</td></tr>
+                        <tr><th>21人</th><td>7人制 3チーム</td></tr>
+                        <tr><th>22人</th><td>7人制 GK助っ人 3チーム</td></tr>
+                        <tr><th>23人</th><td><span class="staff-plus">＋スタッフ入(24人)</span> 3チーム</td></tr>
+                        <tr><th>24人</th><td>8人制 3チーム</td></tr>
+                        <tr><th>25人</th><td>7人制 GK助っ人 4チーム</td></tr>
+                        <tr><th>26人</th><td>7人制 GK助っ人 4チーム</td></tr>
+                        <tr><th>27人</th><td><span class="staff-plus">＋スタッフ入(28人)</span> 4チーム</td></tr>
+                        <tr><th>28人</th><td>7人制 4チーム</td></tr>
+                        <tr><th>29人</th><td>8人制 GK助っ人 4チーム</td></tr>
+                        <tr><th>30人</th><td>8人制 GK助っ人 4チーム</td></tr>
+                        <tr><th>31人</th><td><span class="staff-plus">＋スタッフ入(32人)</span> 4チーム</td></tr>
+                        <tr><th>32人</th><td>8人制 4チーム</td></tr>
+                    </table>
+                </div>
             </section>
 
             <a href="./" class="back-btn">← マニュアル一覧に戻る</a>
