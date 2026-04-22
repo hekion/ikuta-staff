@@ -7,9 +7,11 @@
     <link rel="stylesheet" href="../style.css">
     <style>
         .manual-content { background: #fff; padding: 15px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .step-box { margin-bottom: 20px; border-left: 4px solid #35A0D9; padding-left: 15px; }
         
-        .mid-title { font-size: 1.15rem; font-weight: bold; color: #333; display: block; margin: 10px 0; border-bottom: 2px solid #35A0D9; padding-bottom: 3px; }
+        /* 他のHTMLと共通のカテゴリータイトルスタイル */
+        .category-title { font-size: 1.1rem; font-weight: bold; background: #35A0D9; color: #fff; padding: 5px 15px; border-radius: 20px; display: inline-block; margin: 20px 0 15px 0; }
+        
+        .step-box { margin-bottom: 20px; border-left: 4px solid #35A0D9; padding-left: 15px; }
         .small-title { font-size: 0.95rem; font-weight: bold; color: #35A0D9; display: block; margin-bottom: 5px; }
         
         .memo-box { background: #fff9e6; padding: 15px; border-radius: 5px; border: 1px solid #ffeeba; margin-top: 20px; }
@@ -23,7 +25,7 @@
             margin: 15px 0; 
             width: 100%;
             box-sizing: border-box;
-            display: flow-root; /* マージン相殺を防ぎ、枠を維持する */
+            display: flow-root;
         }
         
         .calc-inner {
@@ -39,11 +41,10 @@
             border: 1px solid #ccc; 
             border-radius: 5px; 
             margin: 10px 0; 
-            box-sizing: border-box; /* paddingを幅に含める */
+            box-sizing: border-box;
             -webkit-appearance: none;
             appearance: none;
         }
-        /* ----------------------- */
         
         .data-table { width: 100%; border-collapse: collapse; margin-top: 10px; table-layout: fixed; }
         .data-table th, .data-table td { 
@@ -82,7 +83,7 @@
             <p style="font-size: 0.85rem; color: #666; margin-bottom: 20px;">更新日：2026/04/20</p>
 
             <section>
-                <span class="mid-title">キャンセルポリシー</span>
+                <span class="category-title">キャンセルポリシー</span>
                 <div class="step-box">
                     <table class="data-table">
                         <thead>
@@ -134,8 +135,8 @@
                 </div>
             </section>
 
-            <section style="margin-top: 30px;">
-                <span class="mid-title">雨天時の対応</span>
+            <section style="margin-top: 10px;">
+                <span class="category-title">雨天時の対応</span>
                 <div class="step-box" style="border: none; padding-left: 0;">
                     <p style="font-size: 0.9rem;">参照：<a href="https://weathernews.jp/onebox/35.624981/139.543124/q=神奈川県川崎市多摩区生田&v=5e823a09c3c55bf01471da1addfd83108c4e0eee04ae293b1e453db5dacfab88&temp=c&lang=ja" target="_blank" style="color: #35A0D9; word-break: break-all;">ウェザーニュース（生田）</a></p>
                 </div>
