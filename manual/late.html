@@ -8,9 +8,20 @@
     <style>
         .manual-content { background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
         .category-title { font-size: 1.1rem; font-weight: bold; background: #35A0D9; color: #fff; padding: 5px 15px; border-radius: 20px; display: inline-block; margin: 20px 0 15px 0; }
+        
         .step-box { margin-bottom: 25px; border-left: 4px solid #35A0D9; padding-left: 15px; }
         .step-title { font-weight: bold; color: #35A0D9; margin-bottom: 8px; display: block; }
-        .input-area { background: #f9f9f9; border: 1px solid #eee; padding: 10px; border-radius: 5px; min-height: 50px; font-size: 0.95rem; line-height: 1.6; color: #333; margin-top: 5px; }
+        
+        /* グレーボックスを廃止し、記入スペースを確保 */
+        .step-details { 
+            font-size: 0.95rem; 
+            line-height: 1.6; 
+            color: #333; 
+            margin-top: 5px; 
+            padding: 5px 0;
+            min-height: 1.6em;
+        }
+        
         .back-btn { display: inline-block; margin-top: 20px; color: #35A0D9; text-decoration: none; font-weight: bold; }
     </style>
 </head>
@@ -23,6 +34,17 @@
                 <div class="sub-title">STAFF PORTAL</div>
             </a>
         </header>
+
+        <nav class="nav-menu">
+            <ul>
+                <li><a href="../manual/">マニュアル</a></li>
+                <li><a href="../setup/">準備物</a></li>
+                <li><a href="../roster/">名簿</a></li>
+                <li><a href="../inventory/">備品検索</a></li>
+                <li><a href="../pop/">掲示物</a></li>
+                <li><a href="../contacts/">連絡先</a></li>
+            </ul>
+        </nav>
     </div>
 
     <main class="container">
@@ -31,61 +53,61 @@
             <p style="font-size: 0.85rem; color: #666; margin-bottom: 20px;">更新日：2026/04/22</p>
 
             <section>
-                <span class="category-title">〇外回り</span>
-                <div class="step-box"><span class="step-title">自販機横ゴミ箱チェック</span><div class="input-area"></div></div>
-                <div class="step-box"><span class="step-title">バスケコート利用状況</span><div class="input-area"></div></div>
-                <div class="step-box"><span class="step-title">駐車場利用状況</span><div class="input-area"></div></div>
-                <div class="step-box"><span class="step-title">各グラウンドのテープ付きベンチの数(Anker6,Nebula4)</span><div class="input-area"></div></div>
-                <div class="step-box"><span class="step-title">バナー、ポップ確認</span><div class="input-area"></div></div>
-                <div class="step-box"><span class="step-title">ゴミ、落とし物チェック</span><div class="input-area"></div></div>
-                <div class="step-box"><span class="step-title">芝生エリア利用状況</span><div class="input-area"></div></div>
-                <div class="step-box"><span class="step-title">公園のボール注意</span><div class="input-area"></div></div>
-                <div class="step-box"><span class="step-title">ジョギングコースの立ち止まり注意</span><div class="input-area"></div></div>
-                <div class="step-box"><span class="step-title">ポスター掲示物確認</span><div class="input-area"></div></div>
+                <span class="category-title">外回り</span>
+                <div class="step-box"><span class="step-title">自販機横ゴミ箱チェック</span><div class="step-details"></div></div>
+                <div class="step-box"><span class="step-title">バスケコート利用状況</span><div class="step-details"></div></div>
+                <div class="step-box"><span class="step-title">駐車場利用状況</span><div class="step-details"></div></div>
+                <div class="step-box"><span class="step-title">各グラウンドのテープ付きベンチの数(Anker6,Nebula4)</span><div class="step-details"></div></div>
+                <div class="step-box"><span class="step-title">バナー、ポップ確認</span><div class="step-details"></div></div>
+                <div class="step-box"><span class="step-title">ゴミ、落とし物チェック</span><div class="step-details"></div></div>
+                <div class="step-box"><span class="step-title">芝生エリア利用状況</span><div class="step-details"></div></div>
+                <div class="step-box"><span class="step-title">公園のボール注意</span><div class="step-details"></div></div>
+                <div class="step-box"><span class="step-title">ジョギングコースの立ち止まり注意</span><div class="step-details"></div></div>
+                <div class="step-box"><span class="step-title">ポスター掲示物確認</span><div class="step-details"></div></div>
             </section>
 
             <section>
-                <span class="category-title">〇締め</span>
-                <div class="step-box"><span class="step-title">サイネージ準備</span><div class="input-area"></div></div>
-                <div class="step-box"><span class="step-title">コーヒーマシン片付け</span><div class="input-area"></div></div>
+                <span class="category-title">締め</span>
+                <div class="step-box"><span class="step-title">サイネージ準備</span><div class="step-details"></div></div>
+                <div class="step-box"><span class="step-title">コーヒーマシン片付け</span><div class="step-details"></div></div>
             </section>
 
             <section>
                 <span class="category-title">建物周り</span>
-                <div class="step-box"><span class="step-title">アカデミー棟施錠</span><div class="input-area"></div></div>
-                <div class="step-box"><span class="step-title">トーカン出入り口施錠(屋上ドアの施錠確認)</span><div class="input-area"></div></div>
-                <div class="step-box"><span class="step-title">アリーナ裏トイレ施錠</span><div class="input-area"></div></div>
-                <div class="step-box"><span class="step-title">グラウンドネット閉め</span><div class="input-area"></div></div>
+                <div class="step-box"><span class="step-title">アカデミー棟施錠</span><div class="step-details"></div></div>
+                <div class="step-box"><span class="step-title">トーカン出入り口施錠(屋上ドアの施錠確認)</span><div class="step-details"></div></div>
+                <div class="step-box"><span class="step-title">アリーナ裏トイレ施錠</span><div class="step-details"></div></div>
+                <div class="step-box"><span class="step-title">グラウンドネット閉め</span><div class="step-details"></div></div>
             </section>
 
             <section>
                 <span class="category-title">外回り</span>
-                <div class="step-box"><span class="step-title">・受付側自動ドア施錠</span><div class="input-area"></div></div>
-                <div class="step-box"><span class="step-title">・南門施錠</span><div class="input-area"></div></div>
-                <div class="step-box"><span class="step-title">・駐車場確認</span><div class="input-area"></div></div>
-                <div class="step-box"><span class="step-title">・駐車場入り口施錠</span><div class="input-area"></div></div>
-                <div class="step-box"><span class="step-title">・正門を半分以上閉じる</span><div class="input-area"></div></div>
-                <div class="step-box"><span class="step-title">・噴水ベンチ、公園見回り</span><div class="input-area"></div></div>
-                <div class="step-box"><span class="step-title">・みんなのトイレ見回り、施錠</span><div class="input-area"></div></div>
-                <div class="step-box"><span class="step-title">・郵便物確認</span><div class="input-area"></div></div>
-                <div class="step-box"><span class="step-title">・スタジオA、アリーナ施錠確認</span><div class="input-area"></div></div>
-                <div class="step-box"><span class="step-title">・エレベーター前自動ドア施錠</span><div class="input-area"></div></div>
+                <div class="step-box"><span class="step-title">・受付側自動ドア施錠</span><div class="step-details"></div></div>
+                <div class="step-box"><span class="step-title">・南門施錠</span><div class="step-details"></div></div>
+                <div class="step-box"><span class="step-title">・駐車場確認</span><div class="step-details"></div></div>
+                <div class="step-box"><span class="step-title">・駐車場入り口施錠</span><div class="step-details"></div></div>
+                <div class="step-box"><span class="step-title">・正門を半分以上閉じる</span><div class="step-details"></div></div>
+                <div class="step-box"><span class="step-title">・噴水ベンチ、公園見回り</span><div class="step-details"></div></div>
+                <div class="step-box"><span class="step-title">・みんなのトイレ見回り、施錠</span><div class="step-details"></div></div>
+                <div class="step-box"><span class="step-title">・郵便物確認</span><div class="step-details"></div></div>
+                <div class="step-box"><span class="step-title">・スタジオA、アリーナ施錠確認</span><div class="step-details"></div></div>
+                <div class="step-box"><span class="step-title">・エレベーター前自動ドア施錠</span><div class="step-details"></div></div>
             </section>
 
             <section>
                 <span class="category-title">退勤直前</span>
-                <div class="step-box"><span class="step-title">マスターキー片付け</span><div class="input-area"></div></div>
-                <div class="step-box"><span class="step-title">受付事務所の空調オフ</span><div class="input-area"></div></div>
-                <div class="step-box"><span class="step-title">2階空調、電源関係確認</span><div class="input-area"></div></div>
-                <div class="step-box"><span class="step-title">洗濯スペース周辺の施錠確認</span><div class="input-area"></div></div>
-                <div class="step-box"><span class="step-title">窓施錠確認</span><div class="input-area"></div></div>
+                <div class="step-box"><span class="step-title">マスターキー片付け</span><div class="step-details"></div></div>
+                <div class="step-box"><span class="step-title">受付事務所の空調オフ</span><div class="step-details"></div></div>
+                <div class="step-box"><span class="step-title">2階空調、電源関係確認</span><div class="step-details"></div></div>
+                <div class="step-box"><span class="step-title">洗濯スペース周辺の施錠確認</span><div class="step-details"></div></div>
+                <div class="step-box"><span class="step-title">窓施錠確認</span><div class="step-details"></div></div>
                 <div class="step-box">
                     <span class="step-title">ALSOK</span>
-                    <div class="input-area">※オリーブさんがいればやらない</div>
+                    <div class="step-details">※オリーブさんがいればやらない</div>
                 </div>
                 <div class="step-box">
                     <span class="step-title">正門施錠</span>
-                    <div class="input-area">※オリーブさんがいればやらない</div>
+                    <div class="step-details">※オリーブさんがいればやらない</div>
                 </div>
             </section>
 
