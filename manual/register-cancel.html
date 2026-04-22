@@ -1,1 +1,169 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>レジ取消・返金対応 | Ikuta-Portal</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .manual-content { background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .category-title { font-size: 1.1rem; font-weight: bold; background: #35A0D9; color: #fff; padding: 5px 15px; border-radius: 20px; display: inline-block; margin: 20px 0 15px 0; }
+        
+        .step-box { margin-bottom: 25px; border-left: 4px solid #35A0D9; padding-left: 15px; }
+        .step-title { font-weight: bold; color: #35A0D9; margin-bottom: 8px; display: block; }
+        .step-details { font-size: 0.95rem; line-height: 1.6; color: #333; margin-top: 5px; }
+
+        .important-box { 
+            background: #fdf2f2; 
+            border: 1px solid #f5c6cb; 
+            padding: 12px; 
+            border-radius: 5px; 
+            margin: 10px 0; 
+            font-size: 0.9rem;
+        }
+        .important-label { color: #d9534f; font-weight: bold; display: block; margin-bottom: 3px; }
+        
+        .sub-step { list-style-type: disc; margin-left: 20px; font-size: 0.9rem; color: #444; line-height: 1.6; margin-top: 5px; }
+        .back-btn { display: inline-block; margin-top: 20px; color: #35A0D9; text-decoration: none; font-weight: bold; }
+        .section-divider { border: 0; border-top: 2px solid #eee; margin: 30px 0; }
+    </style>
+</head>
+<body>
+
+    <div class="sticky-header">
+        <header>
+            <a href="../" style="text-decoration: none; display: inline-block;">
+                <img src="../assets/images/ikutalogo.png" alt="FRONTOWN IKUTA">
+                <div class="sub-title">STAFF PORTAL</div>
+            </a>
+        </header>
+        <nav class="nav-menu">
+            <ul>
+                <li><a href="../manual/">マニュアル</a></li>
+                <li><a href="../setup/">準備物</a></li>
+                <li><a href="../roster/">名簿</a></li>
+                <li><a href="../inventory/">備品検索</a></li>
+                <li><a href="../pop/">掲示物</a></li>
+                <li><a href="../contacts/">連絡先</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <main class="container">
+        <div class="manual-content">
+            <h2>レジ取消・返金対応</h2>
+            <p style="font-size: 0.85rem; color: #666; margin-bottom: 20px;">更新日：2026/04/22</p>
+
+            <section id="rakuten-pay">
+                <span class="category-title">① 楽天ペイアプリでの操作</span>
+                
+                <div class="step-box">
+                    <span class="step-title">1. 決済直後または当日の取り消し</span>
+                    <div class="step-details">
+                        当日中の操作であれば、レジ端末側で直接取り消しが可能です。
+                        <ul class="sub-step">
+                            <li><strong>決済完了直後の場合：</strong>決済完了画面にある [取引の取消] ＞ [この取引を取り消す] を選択。</li>
+                            <li><strong>決済履歴から取り消す場合：</strong>メニューボタン ＞ [取引履歴・取消] ＞ 該当決済を選択 ＞ [この取引を取り消す] を選択。</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="step-box">
+                    <span class="step-title">2. クレジットカード決済の取り消し（翌日以降）</span>
+                    <div class="step-details">
+                        翌日以降はアプリから「申請」を行い、後日センターで処理されます。
+                        <ol class="sub-step" style="list-style-type: decimal;">
+                            <li>メニュー ＞ [取引履歴・取消] ＞ [カード決済] を選び、期間を指定して該当取引をタップ。</li>
+                            <li>[取引の取消] ＞ [取消申請する] を順にタップ。</li>
+                            <li>必須項目を入力し、内容を確認して [はい] をタップ。</li>
+                        </ol>
+                        <div class="important-box">
+                            <span class="important-label">《注意》</span>
+                            一度申請すると取り下げはできません。結果は翌々営業日以降にアプリ等で確認してください。
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-box">
+                    <span class="step-title">3. 電子マネー決済の取り消し</span>
+                    <div class="step-details">
+                        <p><strong>■ QUICPay / iD の場合（当日のみ可）</strong></p>
+                        <ul class="sub-step">
+                            <li>メニュー ＞ [取引履歴・取消] ＞ [電子マネー] から該当取引を選択。</li>
+                            <li>[取引の取消] ＞ [この取引を取消する] ＞ [はい] を選択。</li>
+                            <li>端末にカードやスマホを音が鳴るまでタッチしてもらい、[控えを印刷] してお渡しする。</li>
+                        </ul>
+                        
+                        <p style="margin-top: 10px;"><strong>■ 楽天Edy / 交通系 / nanaco / WAON の場合</strong></p>
+                        <div class="important-box">
+                            <span class="important-label">《取消不可》</span>
+                            システム上の取消ができないため、<strong>現金での返金（返品販売）</strong>で対応してください。
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <hr class="section-divider">
+
+            <section id="smaregi">
+                <span class="category-title">② スマレジでの操作（取引取消）</span>
+                <div class="step-box">
+                    <div class="step-details">
+                        レジ側の売上データを取り消す手順です。
+                        <ol class="sub-step" style="list-style-type: decimal;">
+                            <li>[取引履歴] から該当する取引を選択。</li>
+                            <li>[キャンセル] を押す。</li>
+                            <li>[取消] を押す。</li>
+                        </ol>
+                    </div>
+                </div>
+            </section>
+
+            <hr class="section-divider">
+
+            <section id="cash-refund">
+                <span class="category-title">③ 現金での返金方法（スマレジ：返品販売）</span>
+                
+                <div class="step-box">
+                    <span class="step-title">1. 返品販売の開始</span>
+                    <div class="step-details">
+                        オプションメニューの [返品販売] アイコンをタップし、「カートに返品商品を追加してください」と表示されたら [OK] を押します。
+                    </div>
+                </div>
+
+                <div class="step-box">
+                    <span class="step-title">2. 商品の選択と情報の入力</span>
+                    <div class="step-details">
+                        返品する商品をカートに入れ、その商品をタップして詳細画面を開きます。
+                        <div class="important-box">
+                            <span class="important-label">《インボイス対応：重要》</span>
+                            詳細画面の<strong>『メモ』欄</strong>に、実際に販売した日付を入力してください。<br>
+                            例： 団体名or個人名 2026/01/31
+                        </div>
+                        入力後、明細枠の外をタップして確定させます。
+                    </div>
+                </div>
+
+                <div class="step-box">
+                    <span class="step-title">3. チェックアウト（精算）</span>
+                    <div class="step-details">
+                        金額がマイナスであることを確認し、[預り金入力] をタップ。返金額（お釣り）が自動入力されているので、そのまま [返品販売] をタップして完了です。
+                    </div>
+                </div>
+
+                <div class="step-box">
+                    <span class="step-title">4. レシートの発行</span>
+                    <div class="step-details">
+                        「返品販売」と印字されたマイナス表記のレシートが発行されます。メモ欄に入力した販売日も印字されていることを確認してください。
+                    </div>
+                </div>
+            </section>
+
+            <a href="./" class="back-btn">← マニュアル一覧に戻る</a>
+        </div>
+    </main>
+
+    <footer><p>&copy; 2026 FRONTOWN IKUTA</p></footer>
+</body>
+</html>
 
