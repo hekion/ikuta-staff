@@ -3,8 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>名簿 | Ikuta-Portal</title>
+    <title>名簿テンプレ | Ikuta-Portal</title>
     <link rel="stylesheet" href="../style.css">
+    <style>
+        /* テンプレエリアのスタイル */
+        #filter-container { margin-bottom: 20px; display: flex; flex-wrap: wrap; gap: 8px; }
+        .filter-btn { 
+            padding: 6px 15px; border: 1px solid #35A0D9; background: #fff; 
+            color: #35A0D9; border-radius: 20px; cursor: pointer; font-size: 0.85rem; transition: 0.2s;
+        }
+        .filter-btn.active { background: #35A0D9; color: #fff; }
+        
+        #roster-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; margin-bottom: 40px; }
+        .roster-card { 
+            background: #fff; border-radius: 10px; overflow: hidden; 
+            border: 1px solid #eee; transition: 0.2s; text-decoration: none; color: inherit; display: block;
+        }
+        .roster-card:hover { transform: translateY(-3px); box-shadow: 0 4px 10px rgba(0,0,0,0.1); border-color: #35A0D9; }
+        
+        .roster-card-icon { 
+            height: 100px; background: #f8f9fa; border-bottom: 1px solid #eee;
+            display: flex; align-items: center; justify-content: center; font-size: 2.5rem;
+        }
+        
+        .roster-card-info { padding: 12px; }
+        .roster-card-title { font-size: 0.85rem; font-weight: bold; display: block; margin-bottom: 6px; }
+        
+        .cat-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+        .roster-card-cat { font-size: 0.65rem; color: #666; background: #f0f0f0; padding: 1px 6px; border-radius: 4px; }
+
+        /* 下部クイックリンク（ロゴのみ）のスタイル */
+        .quick-links-area {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        .quick-links-title {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .quick-links { 
+            display: flex; 
+            justify-content: center; 
+            gap: 20px; 
+        }
+        .quick-logo-card { 
+            background: #fff; 
+            border: 1px solid #eee; 
+            border-radius: 12px; 
+            width: 120px;
+            height: 80px;
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            text-decoration: none; 
+            transition: 0.2s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .quick-logo-card:hover { border-color: #35A0D9; transform: scale(1.05); }
+        .quick-logo-card img { max-width: 80%; max-height: 60%; object-fit: contain; }
+        
+        #loading { text-align: center; padding: 30px; color: #999; }
+        .hidden { display: none; }
+    </style>
 </head>
 <body>
 
@@ -15,12 +78,11 @@
                 <div class="sub-title">STAFF PORTAL</div>
             </a>
         </header>
-
         <nav class="nav-menu">
             <ul>
                 <li><a href="../manual/">マニュアル</a></li>
                 <li><a href="../setup/">準備物</a></li>
-                <li><a href="../roster/">名簿</a></li>
+                <li><a href="../roster/" class="active">名簿</a></li>
                 <li><a href="../inventory/">備品検索</a></li>
                 <li><a href="../pop/">掲示物</a></li>
                 <li><a href="../contacts/">連絡先</a></li>
@@ -30,33 +92,109 @@
 
     <main class="container">
         <section>
-            <h2>名簿・予約確認</h2>
-            <p style="font-size: 0.9rem; margin-bottom: 20px;">各プログラムの参加者名簿、および管理システムへのクイックリンクです。</p>
-            
-            <div class="grid">
-                <a href="https://yoyaku.labola.jp/r/shop/manage/top/" target="_blank" rel="noopener noreferrer" class="card">
-                    <img src="../assets/images/LaBOLA.png" alt="LaBOLA" style="max-width: 80px;">
-                    <span>LaBOLA 名簿確認</span>
-                </a>
+            <h2>名簿テンプレート・資料</h2>
+            <p style="font-size: 0.8rem; color: #666; margin-bottom: 20px;">
+                スプレッドシートから自動更新されます。必要なテンプレをダウンロードして使用してください。
+            </p>
 
-                <a href="https://ikuta-frontown-admin.hacomono.jp/" target="_blank" rel="noopener noreferrer" class="card">
-                    <img src="../assets/images/hacomono.png" alt="hacomono" style="max-width: 80px;">
-                    <span>hacomono 名簿確認</span>
-                </a>
+            <div id="filter-container">
+                <button class="filter-btn active" onclick="filterRoster('すべて', this)">すべて</button>
+            </div>
 
-                <div class="card" style="opacity: 0.6;">
-                    <div class="icon">📝</div>
-                    <span>スクール欠席者リスト</span>
-                    <small>(準備中)</small>
+            <div id="loading">データを読み込み中...</div>
+            <div id="roster-grid"></div>
+
+            <div class="quick-links-area">
+                <div class="quick-links-title">外部システム名簿確認</div>
+                <div class="quick-links">
+                    <a href="https://yoyaku.labola.jp/r/shop/manage/top/" target="_blank" class="quick-logo-card">
+                        <img src="../assets/images/LaBOLA.png" alt="LaBOLA">
+                    </a>
+                    <a href="https://ikuta-frontown-admin.hacomono.jp/" target="_blank" class="quick-logo-card">
+                        <img src="../assets/images/hacomono.png" alt="hacomono">
+                    </a>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer>
-        <p>&copy; 2026 FRONTOWN IKUTA</p>
-    </footer>
+    <footer><p>© 2026 FRONTOWN IKUTA</p></footer>
 
+    <script>
+        const API_KEY = 'AIzaSyDecF0oQvA5i82U8dZR66YOQ_QdRPxGEOY'; 
+        const SPREADSHEET_ID = '1Fh4Z7f7Jau8d_FMT__sGjp-99Ks-IHKQl5kaGERM2Rg';
+        const RANGE = '名簿!A2:C100';
+
+        let allData = [];
+
+        async function loadData() {
+            try {
+                const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${encodeURIComponent(RANGE)}?key=${API_KEY}`;
+                const res = await fetch(url);
+                const json = await res.json();
+                if (!json.values) {
+                    document.getElementById('loading').innerText = '表示するデータがありません。';
+                    return;
+                }
+
+                allData = json.values.map(row => ({
+                    name: row[0],
+                    categories: row[1] ? row[1].split(',').map(s => s.trim()) : ['未分類'],
+                    link: row[2] || '#'
+                }));
+
+                createFilterButtons();
+                renderCards('すべて');
+                document.getElementById('loading').classList.add('hidden');
+            } catch (e) { console.error(e); }
+        }
+
+        function createFilterButtons() {
+            const container = document.getElementById('filter-container');
+            const uniqueCats = [...new Set(allData.flatMap(d => d.categories))];
+            
+            uniqueCats.forEach(cat => {
+                const btn = document.createElement('button');
+                btn.className = 'filter-btn';
+                btn.innerText = cat;
+                btn.onclick = (e) => filterRoster(cat, e.target);
+                container.appendChild(btn);
+            });
+        }
+
+        function filterRoster(target, btn) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderCards(target);
+        }
+
+        function renderCards(target) {
+            const grid = document.getElementById('roster-grid');
+            grid.innerHTML = '';
+            
+            const filtered = target === 'すべて' 
+                ? allData 
+                : allData.filter(d => d.categories.includes(target));
+
+            filtered.forEach(item => {
+                const card = document.createElement('a');
+                card.className = 'roster-card';
+                card.href = item.link;
+                card.target = '_blank';
+                
+                const tagsHtml = item.categories.map(c => `<span class="roster-card-cat">${c}</span>`).join('');
+
+                card.innerHTML = `
+                    <div class="roster-card-icon">📄</div>
+                    <div class="roster-card-info">
+                        <span class="roster-card-title">${item.name}</span>
+                        <div class="cat-tags">${tagsHtml}</div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+        loadData();
+    </script>
 </body>
 </html>
-
