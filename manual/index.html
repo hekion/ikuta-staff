@@ -7,17 +7,6 @@
     <link rel="stylesheet" href="../style.css">
     <style>
         /* マニュアルページ専用の追加スタイル */
-        .search-container {
-            margin-bottom: 20px;
-        }
-        #manualSearch {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #35A0D9;
-            border-radius: 8px;
-            font-size: 1rem;
-            outline: none;
-        }
         .accordion-item {
             margin-bottom: 10px;
             border-radius: 8px;
@@ -37,8 +26,8 @@
             justify-content: space-between;
             align-items: center;
             cursor: pointer;
-            color: #333; /* ← これを追加して黒に固定する */
-            -webkit-appearance: none; /* iOS特有のボタンのテカリなどをリセット */
+            color: #333;
+            -webkit-appearance: none;
         }
         .accordion-header::after {
             content: '▼';
@@ -100,15 +89,11 @@
 
     <main class="container">
         <section>
-            <h2>マニュアルリスト</h2>
-
-            <div class="search-container">
-                <input type="text" id="manualSearch" placeholder="キーワードで検索..." onkeyup="searchManual()">
-            </div>
+            <h2 style="margin-bottom: 20px;">マニュアルリスト</h2>
 
             <div id="accordionGroup">
 
-                <div class="accordion-item" data-title="基本業務 タイムテーブル 準備 更新">
+                <div class="accordion-item">
                     <button class="accordion-header" onclick="toggleAccordion(this)">基本業務について</button>
                     <div class="accordion-content">
                         <ul class="manual-list">
@@ -123,7 +108,7 @@
                     </div>
                 </div>
                 
-                <div class="accordion-item" data-title="hacomono ハコモノ 予約 キャンセル 現地決済">
+                <div class="accordion-item">
                     <button class="accordion-header" onclick="toggleAccordion(this)">hacomonoについて</button>
                     <div class="accordion-content">
                         <ul class="manual-list">
@@ -135,7 +120,7 @@
                     </div>
                 </div>
 
-                <div class="accordion-item" data-title="labola ラボ-ラ コート予約 大会 個人参加">
+                <div class="accordion-item">
                     <button class="accordion-header" onclick="toggleAccordion(this)">LaBOLAについて</button>
                     <div class="accordion-content">
                         <ul class="manual-list">
@@ -146,7 +131,7 @@
                     </div>
                 </div>
 
-                <div class="accordion-item" data-title="レジ 会計 返金 キャンセル 清算">
+                <div class="accordion-item">
                     <button class="accordion-header" onclick="toggleAccordion(this)">レジ操作について</button>
                     <div class="accordion-content">
                         <ul class="manual-list">
@@ -171,24 +156,6 @@
         function toggleAccordion(element) {
             const item = element.parentElement;
             item.classList.toggle('active');
-        }
-
-        // 検索機能
-        function searchManual() {
-            const input = document.getElementById('manualSearch').value.toLowerCase();
-            const items = document.getElementsByClassName('accordion-item');
-
-            for (let i = 0; i < items.length; i++) {
-                const title = items[i].getAttribute('data-title').toLowerCase();
-                if (title.includes(input)) {
-                    items[i].style.display = "";
-                    if(input !== "") {
-                        items[i].classList.add('active');
-                    }
-                } else {
-                    items[i].style.display = "none";
-                }
-            }
         }
     </script>
 </body>
