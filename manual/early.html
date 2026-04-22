@@ -8,9 +8,21 @@
     <style>
         .manual-content { background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
         .category-title { font-size: 1.1rem; font-weight: bold; background: #35A0D9; color: #fff; padding: 5px 15px; border-radius: 20px; display: inline-block; margin: 20px 0 15px 0; }
-        .step-box { margin-bottom: 25px; border-left: 4px solid #35A0D9; padding-left: 15px; }
+        
+        /* グレーボックスを廃止し、余白と左線でスッキリさせる */
+        .step-box { margin-bottom: 25px; padding-left: 15px; border-left: 4px solid #35A0D9; }
         .step-title { font-weight: bold; color: #35A0D9; margin-bottom: 8px; display: block; }
-        .input-area { background: #f9f9f9; border: 1px solid #eee; padding: 10px; border-radius: 5px; min-height: 50px; font-size: 0.95rem; line-height: 1.6; color: #333; margin-top: 5px; }
+        
+        /* 手順を書くスペース：枠を消して余白を確保 */
+        .step-details { 
+            font-size: 0.95rem; 
+            line-height: 1.6; 
+            color: #333; 
+            margin-top: 5px;
+            padding: 5px 0;
+            min-height: 1.6em; /* 内容がなくてもスペースを確保 */
+        }
+        
         .back-btn { display: inline-block; margin-top: 20px; color: #35A0D9; text-decoration: none; font-weight: bold; }
     </style>
 </head>
@@ -23,6 +35,17 @@
                 <div class="sub-title">STAFF PORTAL</div>
             </a>
         </header>
+
+        <nav class="nav-menu">
+            <ul>
+                <li><a href="../manual/">マニュアル</a></li>
+                <li><a href="../setup/">準備物</a></li>
+                <li><a href="../roster/">名簿</a></li>
+                <li><a href="../inventory/">備品検索</a></li>
+                <li><a href="../pop/">掲示物</a></li>
+                <li><a href="../contacts/">連絡先</a></li>
+            </ul>
+        </nav>
     </div>
 
     <main class="container">
@@ -31,41 +54,41 @@
             <p style="font-size: 0.85rem; color: #666; margin-bottom: 20px;">更新日：2026/04/22</p>
 
             <section>
-                <span class="category-title">◯鍵開け</span>
+                <span class="category-title">鍵開け</span>
                 
                 <div class="step-box">
                     <span class="step-title">ALSOK解除</span>
-                    <div class="input-area"></div>
+                    <div class="step-details">ここに解除手順を記入</div>
                 </div>
 
                 <div class="step-box">
                     <span class="step-title">シャワー元電源オン</span>
-                    <div class="input-area"></div>
+                    <div class="step-details">操作場所や手順を記入</div>
                 </div>
 
                 <div class="step-box">
                     <span class="step-title">自動ドア開ける</span>
-                    <div class="input-area"></div>
+                    <div class="step-details">スイッチの場所などを記入</div>
                 </div>
 
                 <div class="step-box">
                     <span class="step-title">トイレを開ける</span>
-                    <div class="input-area"></div>
+                    <div class="step-details"></div>
                 </div>
 
                 <div class="step-box">
                     <span class="step-title">トーカン出入り口開ける</span>
-                    <div class="input-area"></div>
+                    <div class="step-details"></div>
                 </div>
 
                 <div class="step-box">
                     <span class="step-title">ポスターなどの掲示物を外に出す</span>
-                    <div class="input-area"></div>
+                    <div class="step-details"></div>
                 </div>
 
                 <div class="step-box">
                     <span class="step-title">更衣室準備</span>
-                    <div class="input-area">
+                    <div class="step-details">
                         ・鍵開け<br>
                         ・シャワー出し<br>
                         ・電気、換気扇、空気清浄機、エアコンつける<br>
@@ -75,27 +98,27 @@
 
                 <div class="step-box">
                     <span class="step-title">コーヒーマシンのセッティング</span>
-                    <div class="input-area"></div>
+                    <div class="step-details"></div>
                 </div>
 
                 <div class="step-box">
                     <span class="step-title">パソコン(新)をつけてサイネージに繋ぐ</span>
-                    <div class="input-area"></div>
+                    <div class="step-details"></div>
                 </div>
 
                 <div class="step-box">
                     <span class="step-title">外回り(ゴミ箱確認)</span>
-                    <div class="input-area"></div>
+                    <div class="step-details"></div>
                 </div>
 
                 <div class="step-box">
                     <span class="step-title">フィットネス準備</span>
-                    <div class="input-area"></div>
+                    <div class="step-details"></div>
                 </div>
 
                 <div class="step-box">
                     <span class="step-title">遅番からの連絡確認</span>
-                    <div class="input-area"></div>
+                    <div class="step-details"></div>
                 </div>
             </section>
 
