@@ -7,15 +7,41 @@
     <link rel="stylesheet" href="../style.css">
     <style>
         .manual-content { background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .category-title { font-size: 1.1rem; font-weight: bold; background: #35A0D9; color: #fff; padding: 5px 15px; border-radius: 20px; display: inline-block; margin-bottom: 15px; }
+        .category-title { font-size: 1.1rem; font-weight: bold; background: #35A0D9; color: #fff; padding: 5px 15px; border-radius: 20px; display: inline-block; margin: 20px 0 15px 0; }
+        
         .step-box { margin-bottom: 25px; border-left: 4px solid #35A0D9; padding-left: 15px; }
         .step-title { font-weight: bold; color: #35A0D9; margin-bottom: 8px; display: block; }
-        .image-placeholder { width: 100%; max-width: 500px; height: 150px; background: #eee; display: flex; align-items: center; justify-content: center; border: 2px dashed #ccc; border-radius: 5px; margin: 10px 0; color: #666; font-size: 0.85rem; text-align: center; }
-        .code-table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 0.9rem; }
-        .code-table th, .code-table td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-        .code-table th { background: #f4f4f4; }
-        .memo-box { background: #fff9e6; padding: 15px; border-radius: 5px; border: 1px solid #ffeeba; margin: 15px 0; font-size: 0.9rem; }
-        .important { color: #d9534f; font-weight: bold; }
+        .step-details { font-size: 0.95rem; line-height: 1.6; color: #333; margin-top: 5px; }
+
+        .image-placeholder { 
+            width: 100%; 
+            max-width: 500px; 
+            height: 150px; 
+            background: #eee; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            border: 2px dashed #ccc; 
+            border-radius: 5px; 
+            margin: 10px 0; 
+            color: #666; 
+            font-size: 0.85rem; 
+            text-align: center; 
+        }
+
+        .important-box { 
+            background: #fdf2f2; 
+            border: 1px solid #f5c6cb; 
+            padding: 12px; 
+            border-radius: 5px; 
+            margin: 10px 0; 
+            font-size: 0.9rem;
+        }
+        .important-label { color: #d9534f; font-weight: bold; display: block; margin-bottom: 3px; }
+
+        .memo-box { background: #fff9e6; padding: 15px; border-radius: 5px; border: 1px solid #ffeeba; margin-top: 20px; }
+        .sub-step { list-style-type: disc; margin-left: 20px; font-size: 0.9rem; color: #444; margin-top: 5px; }
+
         .back-btn { display: inline-block; margin-top: 20px; color: #35A0D9; text-decoration: none; font-weight: bold; }
     </style>
 </head>
@@ -23,7 +49,7 @@
 
 <div class="sticky-header">
     <header>
-        <a href="../" style="text-decoration: none;">
+        <a href="../" style="text-decoration: none; display: inline-block;">
             <img src="../assets/images/ikutalogo.png" alt="FRONTOWN IKUTA">
             <div class="sub-title">STAFF PORTAL</div>
         </a>
@@ -41,44 +67,55 @@
 </div>
 
 <main class="container">
-    <article class="manual-content">
+    <div class="manual-content">
         <h2>一括予約のやり方 (hacomono)</h2>
-        <p style="font-size: 0.85rem; color: #666;">更新日：2026/04/22</p>
+        <p style="font-size: 0.85rem; color: #666; margin-bottom: 20px;">更新日：2026/04/22</p>
 
-        <div class="memo-box" style="background: #eef7fc; border-color: #35A0D9;">
-            <b>対象プログラム（2026年3月時点）</b><br>
-            キッズチア、かけっこ、ヒップホップ
+        <div class="memo-box" style="background: #eef7fc; border-color: #35A0D9; margin-top: 0;">
+            <p><strong>対象プログラム（2026年3月時点）</strong></p>
+            <ul class="sub-step">
+                <li>キッズチア、かけっこ、ヒップホップ</li>
+            </ul>
         </div>
 
         <section>
-            <h3 class="category-title">1. CSVファイルの準備</h3>
+            <span class="category-title">1. CSVファイルの準備</span>
             <div class="step-box">
-                <b class="step-title">テンプレートの用意</b>
-                <p>予約スケジュールの「インポート」から「予約」を選び、雛形をダウンロードします。</p>
+                <span class="step-title">テンプレートの用意</span>
+                <div class="step-details">
+                    予約スケジュールの「インポート」から「予約」を選び、雛形をダウンロードします。
+                </div>
                 <div class="image-placeholder">画像1：インポート画面（準備中）</div>
                 <div class="image-placeholder">画像2：雛形DL手順（準備中）</div>
             </div>
 
             <div class="step-box">
-                <b class="step-title">入力ルール</b>
-                <p>メールアドレス、予約カテゴリ（場所別コード）、開始日時、チケットコードの4項目を入力します。</p>
-                <ul style="font-size: 0.9rem; margin: 10px 0;">
-                    <li><b>カテゴリ例：</b>スタジオA[S0001_R0001]、アリーナ[S0001_R0003] など</li>
-                    <li><b>チケット例：</b>チア・ヒップホップ[T0051]、かけっこ[T0010]</li>
-                </ul>
+                <span class="step-title">入力ルール</span>
+                <div class="step-details">
+                    メールアドレス、予約カテゴリ（場所別コード）、開始日時、チケットコードの4項目を入力します。
+                    <ul class="sub-step">
+                        <li><strong>カテゴリ例：</strong>スタジオA[S0001_R0001]、アリーナ[S0001_R0003] など</li>
+                        <li><strong>チケット例：</strong>チア・ヒップホップ[T0051]、かけっこ[T0010]</li>
+                    </ul>
+                </div>
                 <div class="image-placeholder">画像：CSV入力例（準備中）</div>
                 
-                <div class="memo-box">
-                    ・レッスン回数分の行を作成してください。<br>
-                    ・保存形式は <strong class="important">CSV UTF-8（コンマ区切り）</strong> にすること。
+                <div class="important-box">
+                    <span class="important-label">《重要》</span>
+                    <ul class="sub-step">
+                        <li>レッスン回数分の行を作成してください。</li>
+                        <li>保存形式は <strong>CSV UTF-8（コンマ区切り）</strong> にすること。</li>
+                    </ul>
                 </div>
             </div>
         </section>
 
         <section>
-            <h3 class="category-title">2. チケットの付与</h3>
+            <span class="category-title">2. チケットの付与</span>
             <div class="step-box">
-                <p>メンバー詳細画面から、該当チケットをレッスンの回数分あらかじめ付与しておきます。</p>
+                <div class="step-details">
+                    メンバー詳細画面から、該当チケットをレッスンの回数分あらかじめ付与しておきます。
+                </div>
                 <div class="image-placeholder">画像1：メンバー検索（準備中）</div>
                 <div class="image-placeholder">画像2：チケット付与画面（準備中）</div>
                 <div class="image-placeholder">画像3：付与完了の確認（準備中）</div>
@@ -86,16 +123,18 @@
         </section>
 
         <section>
-            <h3 class="category-title">3. インポート・確認</h3>
+            <span class="category-title">3. インポート・確認</span>
             <div class="step-box">
-                <p>「インポート検証」でエラーがないか確認してから実行し、スケジュールへの反映を確認して完了です。</p>
+                <div class="step-details">
+                    「インポート検証」でエラーがないか確認してから実行し、スケジュールへの反映を確認して完了です。
+                </div>
                 <div class="image-placeholder">画像1：インポート検証画面（準備中）</div>
                 <div class="image-placeholder">画像2：スケジュール反映確認（準備中）</div>
             </div>
         </section>
 
         <a href="./" class="back-btn">← マニュアル一覧に戻る</a>
-    </article>
+    </div>
 </main>
 
 <footer><p>&copy; 2026 FRONTOWN IKUTA</p></footer>
