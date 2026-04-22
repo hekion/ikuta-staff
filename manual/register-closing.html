@@ -24,6 +24,18 @@
         .important-label { color: #d9534f; font-weight: bold; display: block; margin-bottom: 3px; }
         
         .sub-step { list-style-type: disc; margin-left: 20px; font-size: 0.9rem; color: #444; line-height: 1.6; margin-top: 5px; }
+        
+        /* サーバー室用STEPデザイン */
+        .process-step { margin-bottom: 15px; position: relative; padding-left: 60px; min-height: 40px; }
+        .step-number { 
+            position: absolute; left: 0; top: 0; 
+            background: #35A0D9; color: #fff; 
+            width: 50px; height: 24px; 
+            border-radius: 4px; font-size: 0.75rem; 
+            font-weight: bold; display: flex; 
+            align-items: center; justify-content: center; 
+        }
+
         .back-btn { display: inline-block; margin-top: 20px; color: #35A0D9; text-decoration: none; font-weight: bold; }
         .section-divider { border: 0; border-top: 2px solid #eee; margin: 30px 0; }
     </style>
@@ -97,7 +109,7 @@
                     <div class="step-details">
                         <ol class="sub-step" style="list-style-type: decimal;">
                             <li>青鍵を紙幣投入口近くの青い部分へ差し込み、<strong>「保守」</strong>に回します。</li>
-                            <li>黄色いレバーに指を差し、紙幣箱を完全に取り出します。</li>
+                            <li><strong>四角い方の鍵を黄色いところに差し込み</strong>、紙幣箱を取り出します。</li>
                             <li>丸鍵を赤いところに差し込み、中の紙幣をすべて回収します。</li>
                             <li>回収後、 <strong>[終了]</strong> ボタンを押して精算機の電源を切ります。</li>
                         </ol>
@@ -109,18 +121,39 @@
 
             <section>
                 <span class="category-title">4. サーバー室での精算処理</span>
-                
                 <div class="step-box">
-                    <div class="step-details">
-                        出金レシートと精算レシートを持ってサーバー室へ移動し、作業を開始します。
-                        <ol class="sub-step" style="list-style-type: decimal;">
-                            <li>テンキーで <strong>「1997」</strong> を入力し、投入。</li>
-                            <li>「1番」 を選択 ＞ <strong>「釣銭準備金」</strong> を指定します。</li>
-                            <li>お札・硬貨を投入し、画面の [はい] をタップ。</li>
-                            <li>[印字] をタップして内容を出力します。</li>
-                            <li>テンキーで再度 <strong>「1997」</strong> を入力。</li>
-                            <li>右へ移動して <strong>[締め] ＞ [印字]</strong> をタップします。</li>
-                        </ol>
+                    <div class="step-details" style="margin-bottom: 20px;">
+                        出金レシートと精算レシートを持って作業を開始します。
+                    </div>
+
+                    <div class="process-step">
+                        <span class="step-number">STEP 1</span>
+                        <div class="step-details">テンキーで <strong>「1997」</strong> を入力し、投入します。</div>
+                    </div>
+
+                    <div class="process-step">
+                        <span class="step-number">STEP 2</span>
+                        <div class="step-details">「1番」 を選択 ＞ <strong>「釣銭準備金」</strong> を指定します。</div>
+                    </div>
+
+                    <div class="process-step">
+                        <span class="step-number">STEP 3</span>
+                        <div class="step-details">お札・硬貨を投入し、画面の [はい] をタップ。</div>
+                    </div>
+
+                    <div class="process-step">
+                        <span class="step-number">STEP 4</span>
+                        <div class="step-details">[印字] をタップして内容を出力します。</div>
+                    </div>
+
+                    <div class="process-step">
+                        <span class="step-number">STEP 5</span>
+                        <div class="step-details">テンキーで再度 <strong>「1997」</strong> を入力します。</div>
+                    </div>
+
+                    <div class="process-step">
+                        <span class="step-number">STEP 6</span>
+                        <div class="step-details">右へ移動して <strong>[締め] ＞ [印字]</strong> をタップします。</div>
                     </div>
                 </div>
             </section>
@@ -141,4 +174,3 @@
     <footer><p>&copy; 2026 FRONTOWN IKUTA</p></footer>
 </body>
 </html>
-
