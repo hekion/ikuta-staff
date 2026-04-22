@@ -7,13 +7,43 @@
     <link rel="stylesheet" href="../style.css">
     <style>
         .manual-content { background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .category-title { font-size: 1.1rem; font-weight: bold; background: #35A0D9; color: #fff; padding: 5px 15px; border-radius: 20px; display: inline-block; margin: 20px 0 15px 0; }
-        .input-area { background: #f9f9f9; border: 1px solid #eee; padding: 15px; border-radius: 5px; font-size: 0.95rem; line-height: 1.6; color: #333; margin-top: 5px; }
         
-        /* リストのズレ防止用 */
-        .input-area ul, .input-area ol { margin: 0; padding-left: 1.5em; }
+        /* 見出し：背景色をなくし、下線のみでスッキリさせる */
+        .category-title { 
+            font-size: 1.2rem; 
+            font-weight: bold; 
+            color: #35A0D9; 
+            border-bottom: 2px solid #35A0D9;
+            display: block;
+            margin: 30px 0 15px 0;
+            padding-bottom: 5px;
+        }
         
-        .color-sample { display: inline-block; width: 100px; padding: 2px 8px; border-radius: 4px; color: #fff; font-weight: bold; text-align: center; margin-right: 10px; font-size: 0.85rem; }
+        /* コンテンツ部分：左線と余白で表現（グレーの四角を廃止） */
+        .content-body { 
+            padding-left: 20px; 
+            margin-bottom: 30px;
+            line-height: 1.8;
+            color: #333;
+            font-size: 0.95rem;
+            border-left: 3px solid #eee; /* 薄いグレーの線でガイドを作る */
+        }
+
+        .content-body ul, .content-body ol { margin: 0; padding-left: 1.2em; }
+        
+        .color-sample { 
+            display: inline-block; 
+            width: 110px; 
+            padding: 2px 8px; 
+            border-radius: 4px; 
+            color: #fff; 
+            font-weight: bold; 
+            text-align: center; 
+            margin-right: 10px; 
+            font-size: 0.85rem; 
+        }
+
+        .important { color: #d9534f; font-weight: bold; }
         .back-btn { display: inline-block; margin-top: 20px; color: #35A0D9; text-decoration: none; font-weight: bold; }
     </style>
 </head>
@@ -34,7 +64,7 @@
 
             <section>
                 <span class="category-title">LaBOLAの主な用途</span>
-                <div class="input-area">
+                <div class="content-body">
                     <ul>
                         <li>一般のお客様の施設利用予約</li>
                         <li>社員から依頼されたアカデミー・スクールの予約管理</li>
@@ -45,7 +75,7 @@
 
             <section>
                 <span class="category-title">カレンダーの色別表示</span>
-                <div class="input-area">
+                <div class="content-body">
                     <p><span class="color-sample" style="background: #3399ff;">#3399ff</span> 川崎フロンターレアカデミー</p>
                     <p><span class="color-sample" style="background: #ff3300;">#ff3300</span> 個人参加</p>
                     <p><span class="color-sample" style="background: #33ccff;">#33ccff</span> 川崎フロンターレスクール</p>
@@ -55,9 +85,9 @@
 
             <section>
                 <span class="category-title">予約ルールの基本</span>
-                <div class="input-area">
-                    予約開始日：利用日の <strong>60日前（深夜 0:00〜）</strong><br>
-                    ※優先団体の予約が先に入っている場合があるため注意
+                <div class="content-body">
+                    予約開始日：利用日の <strong class="important">60日前（深夜 0:00〜）</strong><br>
+                    <span class="important">※優先団体の予約が先に入っている場合があるため注意</span>
                 </div>
             </section>
 
