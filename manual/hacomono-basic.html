@@ -7,13 +7,11 @@
     <link rel="stylesheet" href="../style.css">
     <style>
         .manual-content { background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .category-title { font-size: 1.1rem; font-weight: bold; background: #35A0D9; color: #fff; padding: 5px 15px; border-radius: 20px; display: inline-block; margin-bottom: 15px; }
+        .category-title { font-size: 1.1rem; font-weight: bold; background: #35A0D9; color: #fff; padding: 5px 15px; border-radius: 20px; display: inline-block; margin: 20px 0 15px 0; }
+        
         .step-box { margin-bottom: 25px; border-left: 4px solid #35A0D9; padding-left: 15px; }
         .step-title { font-weight: bold; color: #35A0D9; margin-bottom: 8px; display: block; }
-        .input-area { background: #f9f9f9; border: 1px solid #eee; padding: 15px; border-radius: 5px; font-size: 0.95rem; line-height: 1.6; color: #333; margin-top: 5px; }
-        
-        /* リストのズレ防止 */
-        .input-area ul { margin: 0; padding-left: 1.5em; }
+        .step-details { font-size: 0.95rem; line-height: 1.6; color: #333; margin-top: 5px; }
 
         .manual-img { 
             width: 100%; 
@@ -25,14 +23,22 @@
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
-        .back-btn { display: inline-block; margin-top: 20px; color: #35A0D9; text-decoration: none; font-weight: bold; }
-        .info-text { font-size: 0.95rem; line-height: 1.6; color: #333; margin-bottom: 5px; }
-        .important-note { color: #d9534f; font-weight: bold; }
+        .important-box { 
+            background: #fdf2f2; 
+            border: 1px solid #f5c6cb; 
+            padding: 12px; 
+            border-radius: 5px; 
+            margin: 10px 0; 
+            font-size: 0.9rem;
+        }
+        .important-label { color: #d9534f; font-weight: bold; display: block; margin-bottom: 3px; }
         
-        .section-divider { border: 0; border-top: 2px solid #eee; margin: 40px 0; }
-        
-        .sub-step { list-style-type: disc; margin-left: 20px; font-size: 0.9rem; color: #444; line-height: 1.6; }
         .memo-box { background: #fff9e6; padding: 15px; border-radius: 5px; border: 1px solid #ffeeba; margin-top: 20px; }
+        .sub-step { list-style-type: disc; margin-left: 20px; font-size: 0.9rem; color: #444; line-height: 1.6; margin-top: 5px; }
+
+        .back-btn { display: inline-block; margin-top: 20px; color: #35A0D9; text-decoration: none; font-weight: bold; }
+        .section-divider { border: 0; border-top: 2px solid #eee; margin: 30px 0; }
+        .important-note { color: #d9534f; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -63,91 +69,95 @@
 
             <section>
                 <span class="category-title">hacomonoの主な用途</span>
-                <div class="input-area">
-                    <ul>
-                        <li>フロンタウンフィットネスの予約管理・決済確認</li>
-                    </ul>
+                <div class="step-box">
+                    <div class="step-details">
+                        <ul class="sub-step">
+                            <li>フロンタウンフィットネスの予約管理・決済確認</li>
+                        </ul>
+                    </div>
                 </div>
             </section>
 
-            <div style="margin: 40px 0;"></div>
-
             <section id="walk-in">
-                <h3 style="border-bottom: 2px solid #35A0D9; padding-bottom: 5px; margin-bottom: 20px;">予約なし当日参加の対応</h3>
+                <span class="category-title">予約なし当日参加の対応</span>
                 
-                <span class="category-title">① hacomono登録済みの方</span>
+                <p style="font-weight: bold; color: #35A0D9; margin: 15px 0 10px 5px;">① hacomono登録済みの方</p>
                 
                 <div class="step-box">
                     <span class="step-title">1. 数字選択</span>
-                    <p class="info-text">hacomonoの空いている数字を選択します。</p>
+                    <div class="step-details">hacomonoの空いている数字を選択します。</div>
                     <img src="../assets/images/hacomono/basic-1.png" alt="画像①" class="manual-img">
                 </div>
 
                 <div class="step-box">
                     <span class="step-title">2. メンバー検索</span>
-                    <p class="info-text">「メンバー検索」ボタンから、お客様を検索します。</p>
+                    <div class="step-details">「メンバー検索」ボタンから、お客様を検索します。</div>
                     <img src="../assets/images/hacomono/basic-2.png" alt="画像②" class="manual-img">
                 </div>
 
                 <div class="step-box">
                     <span class="step-title">3. 支払い方法・予約確定</span>
-                    <p class="info-text">支払い方法にチェックを入れ、チケット商品を確認して「チケット予約」を押します。</p>
+                    <div class="step-details">支払い方法にチェックを入れ、チケット商品を確認して「チケット予約」を押します。</div>
                     <img src="../assets/images/hacomono/basic-3.png" alt="画像③" class="manual-img">
                 </div>
 
-                <div style="margin: 30px 0;"></div>
-
-                <span class="category-title">② hacomono登録がない方</span>
+                <p style="font-weight: bold; color: #35A0D9; margin: 30px 0 10px 5px;">② hacomono登録がない方</p>
                 
                 <div class="step-box">
                     <span class="step-title">(1) ダミー登録を行う場合</span>
-                    <p class="info-text">「運営タブ」の「メンバー」を開きます。</p>
+                    <div class="step-details">
+                        「運営タブ」の「メンバー」を開き、「新規登録」ボタンを押します。<br>
+                        氏名、メールアドレス、パスワード（<span class="important-note">12345678</span>）、電話番号を入力します。
+                    </div>
                     <img src="../assets/images/hacomono/basic-4.png" alt="画像④" class="manual-img">
-                    
-                    <p class="info-text">「新規登録」ボタンを押します。</p>
                     <img src="../assets/images/hacomono/basic-5.png" alt="画像⑤" class="manual-img">
-                    
-                    <p class="info-text">氏名、メールアドレス、パスワード（<span class="important-note">12345678</span>）、電話番号を入力します。</p>
                     <img src="../assets/images/hacomono/basic-6.png" alt="画像⑥" class="manual-img">
                     
-                    <p class="info-text" style="font-weight: bold; background: #f9f9f9; padding: 10px; border-radius: 5px;">
-                        ★ 保存完了後、上記「①登録済みの方」の流れで予約を進めてください。
-                    </p>
+                    <div class="memo-box" style="margin-top: 15px; background: #eef7fc; border-color: #35A0D9;">
+                        <strong>★ 保存完了後の流れ</strong>
+                        <p style="font-size: 0.85rem; margin-top: 5px;">
+                            上記「①登録済みの方」の流れに戻って予約を進めてください。
+                        </p>
+                    </div>
                 </div>
 
                 <div class="step-box">
                     <span class="step-title">(2) お客様ご自身で登録する場合</span>
-                    <p class="info-text">LINEのQRコードを読み込んでいただき、ご自身で登録作業をしていただきます。</p>
+                    <div class="step-details">LINEのQRコードを読み込んでいただき、ご自身で登録作業をしていただきます。</div>
                 </div>
             </section>
 
             <hr class="section-divider">
 
             <section id="cancellation">
-                <h3 style="border-bottom: 2px solid #35A0D9; padding-bottom: 5px; margin-bottom: 20px;">レッスン休講・振替時の対応</h3>
+                <span class="category-title">レッスン休講・振替時の対応</span>
                 
                 <div class="step-box">
                     <span class="step-title">STEP 1：hacomonoの操作</span>
-                    <ul class="sub-step">
-                        <li class="info-text">対象のレッスンを<strong>「非公開」</strong>に設定する。</li>
-                        <li class="info-text">振替開催がある場合は、振替後の日程に新しくレッスン枠を設定する。</li>
-                    </ul>
+                    <div class="step-details">
+                        <ul class="sub-step">
+                            <li>対象のレッスンを<strong>「非公開」</strong>に設定する。</li>
+                            <li>振替開催がある場合は、振替後の日程に新しくレッスン枠を設定する。</li>
+                        </ul>
+                    </div>
                 </div>
 
                 <div class="step-box">
                     <span class="step-title">STEP 2：LaBOLAの操作</span>
-                    <p class="info-text">hacomono完了後、LaBOLA側も以下の通り修正します。</p>
-                    <ul class="sub-step">
-                        <li class="info-text">休講になった日の<strong>「レッスン確保時間」を削除</strong>する。</li>
-                        <li class="info-text">振替開催がある場合は、振替開催日に新たに<strong>レッスン用の枠を登録</strong>する。</li>
-                    </ul>
+                    <div class="step-details">
+                        hacomono完了後、LaBOLA側も以下の通り修正します。
+                        <ul class="sub-step">
+                            <li>休講になった日の<strong>「レッスン確保時間」を削除</strong>する。</li>
+                            <li>振替開催がある場合は、振替開催日に新たに<strong>レッスン用の枠を登録</strong>する。</li>
+                        </ul>
+                    </div>
                 </div>
 
-                <div class="memo-box">
-                    <strong>💡 ポイント</strong>
-                    <p style="font-size: 0.85rem; margin-top: 5px;">
+                <div class="important-box">
+                    <span class="important-label">《重要》</span>
+                    <div class="step-details" style="font-size: 0.9rem;">
                         LaBOLAの枠を削除しないと、一般予約の空き状況に反映されないため注意してください。
-                    </p>
+                    </div>
                 </div>
             </section>
 
