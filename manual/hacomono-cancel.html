@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>キャンセル対応 | Ikuta-Portal</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .manual-content { background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .step-box { margin-bottom: 25px; border-left: 4px solid #35A0D9; padding-left: 15px; }
+        .step-title { font-weight: bold; color: #35A0D9; display: block; margin-bottom: 8px; }
+        
+        .image-placeholder {
+            width: 100%;
+            max-width: 450px;
+            height: 180px;
+            background: #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed #ccc;
+            border-radius: 5px;
+            margin: 10px 0;
+            color: #666;
+            font-size: 0.85rem;
+        }
+
+        .category-title { 
+            font-size: 1.1rem; 
+            font-weight: bold; 
+            background: #35A0D9; 
+            color: #fff; 
+            padding: 5px 15px; 
+            border-radius: 20px; 
+            display: inline-block; 
+            margin-bottom: 15px; 
+        }
+
+        .back-btn { display: inline-block; margin-top: 20px; color: #35A0D9; text-decoration: none; font-weight: bold; }
+        .info-text { font-size: 0.95rem; line-height: 1.6; color: #333; margin-bottom: 5px; }
+        .important-note { color: #d9534f; font-weight: bold; }
+        .memo-box { background: #fff9e6; padding: 15px; border-radius: 5px; border: 1px solid #ffeeba; margin-top: 15px; }
+        .section-divider { border: 0; border-top: 2px solid #eee; margin: 40px 0; }
+    </style>
+</head>
+<body>
+
+    <div class="sticky-header">
+        <header>
+            <a href="../" style="text-decoration: none; display: inline-block;">
+                <img src="../assets/images/ikutalogo.png" alt="FRONTOWN IKUTA">
+                <div class="sub-title">STAFF PORTAL</div>
+            </a>
+        </header>
+        <nav class="nav-menu">
+            <ul>
+                <li><a href="../manual/">マニュアル</a></li>
+                <li><a href="../setup/">準備物</a></li>
+                <li><a href="../roster/">名簿</a></li>
+                <li><a href="../inventory/">備品検索</a></li>
+                <li><a href="../pop/">掲示物</a></li>
+                <li><a href="../contacts/">連絡先</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <main class="container">
+        <div class="manual-content">
+            <h2>キャンセル対応 (hacomono)</h2>
+            <p style="font-size: 0.85rem; color: #666; margin-bottom: 20px;">更新日：2026/04/22</p>
+
+            <section id="cancel-before">
+                <span class="category-title">① 前日までのキャンセル</span>
+                <div class="step-box">
+                    <p class="info-text"><strong>キャンセル料：なし</strong></p>
+                    <p class="info-text">参加者リストから該当者の「キャンセル」ボタンを押せば完了です。</p>
+                    <div class="image-placeholder">画像：参加者リスト・キャンセルボタン（準備中）</div>
+                </div>
+            </section>
+
+            <hr class="section-divider">
+
+            <section id="cancel-today">
+                <span class="category-title">② 当日キャンセル</span>
+                
+                <div class="memo-box">
+                    <p class="info-text"><span class="important-note">キャンセル料がかかる旨を必ずお伝えしてください。</span></p>
+                    <p style="font-size: 0.9rem; margin-top: 5px; color: #d9534f; font-weight: bold;">
+                        ※「キャンセル」ボタンは絶対に押さないでください。
+                    </p>
+                </div>
+
+                <div style="margin-top: 20px;">
+                    <div class="step-box">
+                        <span class="step-title">1. 申し送りの記入</span>
+                        <p class="info-text">予約詳細を開き、キャンセルの申し送りのみを残します。</p>
+                        <div class="image-placeholder">画像：申し送り記入画面（準備中）</div>
+                    </div>
+
+                    <div class="step-box">
+                        <span class="step-title">2. レッスン編集</span>
+                        <p class="info-text">該当レッスンの「編集」をクリックします。</p>
+                        <div class="image-placeholder">画像：レッスン編集ボタン（準備中）</div>
+                    </div>
+
+                    <div class="step-box">
+                        <span class="step-title">3. ポリシー設定</span>
+                        <p class="info-text">「無断キャンセル扱いとするが、メールは送信しない」を選択して保存します。</p>
+                        <div class="image-placeholder">画像：判定ポリシー選択画面（準備中）</div>
+                    </div>
+                </div>
+
+                <div class="memo-box" style="background-color: #f8f9fa; border-color: #ddd;">
+                    <p style="font-size: 0.9rem;"><strong>【特殊なケース】</strong></p>
+                    <ul style="font-size: 0.85rem; margin-top: 5px; color: #555;">
+                        <li><strong>連絡なしの欠席：</strong>電話連絡を徹底（夜間は翌日に引き継ぎ可）。</li>
+                        <li><strong>体験チケット：</strong>当日キャンセルの時点で「使用済み」扱い。次回予約は通常料金で案内。</li>
+                    </ul>
+                </div>
+            </section>
+
+            <a href="./" class="back-btn">← マニュアル一覧に戻る</a>
+        </div>
+    </main>
+
+    <footer><p>&copy; 2026 FRONTOWN IKUTA</p></footer>
+</body>
+</html>
