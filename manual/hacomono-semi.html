@@ -7,9 +7,12 @@
     <link rel="stylesheet" href="../style.css">
     <style>
         .manual-content { background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .step-box { margin-bottom: 20px; border-left: 4px solid #35A0D9; padding-left: 15px; }
-        .step-title { font-weight: bold; color: #35A0D9; display: block; margin-bottom: 5px; }
+        .category-title { font-size: 1.1rem; font-weight: bold; background: #35A0D9; color: #fff; padding: 5px 15px; border-radius: 20px; display: inline-block; margin: 20px 0 15px 0; }
         
+        .step-box { margin-bottom: 25px; border-left: 4px solid #35A0D9; padding-left: 15px; }
+        .step-title { font-weight: bold; color: #35A0D9; margin-bottom: 8px; display: block; }
+        .step-details { font-size: 0.95rem; line-height: 1.6; color: #333; margin-top: 5px; }
+
         .price-list { list-style: none; padding: 0; margin: 10px 0; }
         .price-list li { 
             background: #f0f4f8; 
@@ -19,15 +22,27 @@
             display: flex;
             justify-content: space-between;
             font-weight: bold;
+            font-size: 0.95rem;
         }
 
+        .important-box { 
+            background: #fdf2f2; 
+            border: 1px solid #f5c6cb; 
+            padding: 12px; 
+            border-radius: 5px; 
+            margin: 10px 0; 
+            font-size: 0.9rem;
+        }
+        .important-label { color: #d9534f; font-weight: bold; display: block; margin-bottom: 3px; }
+
         .memo-box { background: #fff9e6; padding: 15px; border-radius: 5px; border: 1px solid #ffeeba; margin-top: 20px; }
-        .back-btn { display: inline-block; margin-top: 20px; color: #35A0D9; text-decoration: none; font-weight: bold; }
+        .sub-step { list-style-type: disc; margin-left: 20px; font-size: 0.9rem; color: #444; margin-top: 5px; }
         
-        .sub-step { list-style-type: disc; margin-left: 20px; font-size: 0.9rem; color: #444; line-height: 1.6; }
         .tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; margin-right: 5px; font-weight: bold; }
         .tag-blue { background: #35A0D9; color: #fff; }
         .tag-orange { background: #ff9800; color: #fff; }
+
+        .back-btn { display: inline-block; margin-top: 20px; color: #35A0D9; text-decoration: none; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -57,41 +72,53 @@
             <p style="font-size: 0.85rem; color: #666; margin-bottom: 20px;">更新日：2026/04/22</p>
 
             <section>
-                <span class="step-title">料金体系</span>
-                <p style="font-size: 0.9rem;">月初めに支払いを行う。</p>
-                <ul class="price-list">
-                    <li><span>1プログラム受講 / 月</span><span>13,200円</span></li>
-                    <li><span>2プログラム受講 / 月</span><span>19,800円</span></li>
-                </ul>
-                <div class="memo-box" style="margin-top: 10px; padding: 10px;">
-                    <p style="font-size: 0.85rem;"><strong>【月途中での入会】</strong><br>3,300円 / 回で計算して支払い。</p>
+                <span class="category-title">料金体系</span>
+                <div class="step-box">
+                    <div class="step-details">
+                        月初めに支払いを行う。
+                        <ul class="price-list">
+                            <li><span>1プログラム受講 / 月</span><span>13,200円</span></li>
+                            <li><span>2プログラム受講 / 月</span><span>19,800円</span></li>
+                        </ul>
+                    </div>
+                    <div class="memo-box" style="margin-top: 10px; padding: 10px;">
+                        <p style="font-size: 0.85rem;"><strong>【月途中での入会】</strong><br>3,300円 / 回で計算して支払い。</p>
+                    </div>
                 </div>
             </section>
 
-            <section style="margin-top: 30px;">
-                <span class="step-title">予約・更新ルール</span>
+            <section>
+                <span class="category-title">予約・更新ルール</span>
                 <div class="step-box">
-                    <p style="font-size: 0.9rem;"><strong>月末の予約確保</strong></p>
-                    <p style="font-size: 0.85rem;">参加者から「更新しない」という申し出がない限り、月末に翌月分の予約を入れる。</p>
+                    <span class="step-title">月末の予約確保</span>
+                    <div class="step-details">
+                        参加者から「更新しない」という申し出がない限り、月末に翌月分の予約を入れる。
+                    </div>
                 </div>
                 <div class="step-box">
-                    <p style="font-size: 0.9rem;"><strong>hacomonoチケットの使い分け</strong></p>
-                    <ul class="sub-step">
-                        <li><span class="tag tag-blue">初回分</span> 月の初回プログラム日に<strong>13,200円チケット</strong>（または19,800円チケット）で1枠確保する。</li>
-                        <li><span class="tag tag-orange">残り分</span> その月の残りのレッスンは<strong>【予約確保分0円チケット】</strong>を使用して確保する。</li>
-                    </ul>
+                    <span class="step-title">hacomonoチケットの使い分け</span>
+                    <div class="step-details">
+                        <ul class="sub-step">
+                            <li><span class="tag tag-blue">初回分</span> 月の初回プログラム日に<strong>13,200円チケット</strong>（または19,800円チケット）で1枠確保する。</li>
+                            <li><span class="tag tag-orange">残り分</span> その月の残りのレッスンは<strong>【予約確保分0円チケット】</strong>を使用して確保する。</li>
+                        </ul>
+                    </div>
                 </div>
             </section>
 
-            <section style="margin-top: 30px;">
-                <span class="step-title">体験の方への対応</span>
+            <section>
+                <span class="category-title">体験の方への対応</span>
                 <div class="step-box">
-                    <p style="font-size: 0.9rem;"><strong>1. 事前アンケート</strong></p>
-                    <p style="font-size: 0.85rem;">記入後、スタッフが受け取り<strong>講師へ渡す。</strong></p>
+                    <span class="step-title">1. 事前アンケート</span>
+                    <div class="step-details">
+                        記入後、スタッフが受け取り<strong>講師へ渡す。</strong>
+                    </div>
                 </div>
                 <div class="step-box">
-                    <p style="font-size: 0.9rem;"><strong>2. 事後アンケート</strong></p>
-                    <p style="font-size: 0.85rem;">紙形式、またはQRコード形式がある。読み込んでもらい回答してもらう。</p>
+                    <span class="step-title">2. 事後アンケート</span>
+                    <div class="step-details">
+                        紙形式、またはQRコード形式がある。読み込んでもらい回答してもらう。
+                    </div>
                 </div>
             </section>
 
@@ -102,4 +129,3 @@
     <footer><p>&copy; 2026 FRONTOWN IKUTA</p></footer>
 </body>
 </html>
-
