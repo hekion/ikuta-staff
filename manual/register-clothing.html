@@ -1,1 +1,144 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>レジ締め作業マニュアル | Ikuta-Portal</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .manual-content { background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .category-title { font-size: 1.1rem; font-weight: bold; background: #35A0D9; color: #fff; padding: 5px 15px; border-radius: 20px; display: inline-block; margin: 20px 0 15px 0; }
+        
+        .step-box { margin-bottom: 25px; border-left: 4px solid #35A0D9; padding-left: 15px; }
+        .step-title { font-weight: bold; color: #35A0D9; margin-bottom: 8px; display: block; }
+        .step-details { font-size: 0.95rem; line-height: 1.6; color: #333; margin-top: 5px; }
+
+        .important-box { 
+            background: #fdf2f2; 
+            border: 1px solid #f5c6cb; 
+            padding: 12px; 
+            border-radius: 5px; 
+            margin: 10px 0; 
+            font-size: 0.9rem;
+        }
+        .important-label { color: #d9534f; font-weight: bold; display: block; margin-bottom: 3px; }
+        
+        .sub-step { list-style-type: disc; margin-left: 20px; font-size: 0.9rem; color: #444; line-height: 1.6; margin-top: 5px; }
+        .back-btn { display: inline-block; margin-top: 20px; color: #35A0D9; text-decoration: none; font-weight: bold; }
+        .section-divider { border: 0; border-top: 2px solid #eee; margin: 30px 0; }
+    </style>
+</head>
+<body>
+
+    <div class="sticky-header">
+        <header>
+            <a href="../" style="text-decoration: none; display: inline-block;">
+                <img src="../assets/images/ikutalogo.png" alt="FRONTOWN IKUTA">
+                <div class="sub-title">STAFF PORTAL</div>
+            </a>
+        </header>
+        <nav class="nav-menu">
+            <ul>
+                <li><a href="../manual/">マニュアル</a></li>
+                <li><a href="../setup/">準備物</a></li>
+                <li><a href="../roster/">名簿</a></li>
+                <li><a href="../inventory/">備品検索</a></li>
+                <li><a href="../pop/">掲示物</a></li>
+                <li><a href="../contacts/">連絡先</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <main class="container">
+        <div class="manual-content">
+            <h2>レジ締め作業マニュアル</h2>
+            <p style="font-size: 0.85rem; color: #666; margin-bottom: 20px;">更新日：2026/04/22</p>
+
+            <section>
+                <span class="category-title">1. 事前準備</span>
+                <div class="step-box">
+                    <div class="step-details">
+                        サーバー室から鍵を持ってきます。
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <span class="category-title">2. iPad操作（スマレジ）</span>
+                <div class="step-box">
+                    <div class="step-details">
+                        <ol class="sub-step" style="list-style-type: decimal;">
+                            <li>iPadのスマレジアプリで <strong>[精算] ＞ [精算]</strong> をタップ。</li>
+                            <li><strong>[現金過不足チェック] ＞ [実行]</strong> をタップ。</li>
+                        </ol>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <span class="category-title">3. 自動精算機の操作（硬貨・紙幣の回収）</span>
+                
+                <div class="step-box">
+                    <span class="step-title">【硬貨の回収】</span>
+                    <div class="step-details">
+                        <ol class="sub-step" style="list-style-type: decimal;">
+                            <li>青鍵を差し込み、<strong>「管理」</strong>に回します。</li>
+                            <li>画面の <strong>[全回収]</strong> を選択し、 [決定] をタップ。</li>
+                        </ol>
+                        <div class="important-box">
+                            <span class="important-label">《注意》</span>
+                            [決定] を押すと硬貨が勢いよく落下するので、必ず受け皿を確認してください。
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-box">
+                    <span class="step-title">【紙幣の回収】</span>
+                    <div class="step-details">
+                        <ol class="sub-step" style="list-style-type: decimal;">
+                            <li>青鍵を紙幣投入口近くの青い部分へ差し込み、<strong>「保守」</strong>に回します。</li>
+                            <li>黄色いレバーに指を差し、紙幣箱を完全に取り出します。</li>
+                            <li>丸鍵を赤いところに差し込み、中の紙幣をすべて回収します。</li>
+                            <li>回収後、 <strong>[終了]</strong> ボタンを押して精算機の電源を切ります。</li>
+                        </ol>
+                    </div>
+                </div>
+            </section>
+
+            <hr class="section-divider">
+
+            <section>
+                <span class="category-title">4. サーバー室での精算処理</span>
+                
+                <div class="step-box">
+                    <div class="step-details">
+                        出金レシートと精算レシートを持ってサーバー室へ移動し、作業を開始します。
+                        <ol class="sub-step" style="list-style-type: decimal;">
+                            <li>テンキーで <strong>「1997」</strong> を入力し、投入。</li>
+                            <li>「1番」 を選択 ＞ <strong>「釣銭準備金」</strong> を指定します。</li>
+                            <li>お札・硬貨を投入し、画面の [はい] をタップ。</li>
+                            <li>[印字] をタップして内容を出力します。</li>
+                            <li>テンキーで再度 <strong>「1997」</strong> を入力。</li>
+                            <li>右へ移動して <strong>[締め] ＞ [印字]</strong> をタップします。</li>
+                        </ol>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <span class="category-title">5. 完了作業</span>
+                <div class="step-box">
+                    <div class="step-details">
+                        発行されたすべてのレシートをホチキス留めして保管します。
+                    </div>
+                </div>
+            </section>
+
+            <a href="./" class="back-btn">← マニュアル一覧に戻る</a>
+        </div>
+    </main>
+
+    <footer><p>&copy; 2026 FRONTOWN IKUTA</p></footer>
+</body>
+</html>
 
