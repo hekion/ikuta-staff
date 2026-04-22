@@ -8,14 +8,29 @@
     <style>
         .manual-content { background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
         .category-title { font-size: 1.1rem; font-weight: bold; background: #35A0D9; color: #fff; padding: 5px 15px; border-radius: 20px; display: inline-block; margin: 20px 0 15px 0; }
-        .content-body { padding-left: 20px; margin-bottom: 30px; line-height: 1.8; color: #333; font-size: 0.95rem; border-left: 3px solid #eee; }
-        .content-body ul, .content-body ol { margin: 0; padding-left: 1.2em; }
-        .color-sample { display: inline-block; width: 110px; padding: 2px 8px; border-radius: 4px; color: #fff; font-weight: bold; text-align: center; margin-right: 10px; font-size: 0.85rem; }
-        .important { color: #d9534f; font-weight: bold; }
+        
+        .step-box { margin-bottom: 25px; border-left: 4px solid #35A0D9; padding-left: 15px; }
+        .step-title { font-weight: bold; color: #35A0D9; margin-bottom: 8px; display: block; }
+        .step-details { font-size: 0.95rem; line-height: 1.6; color: #333; margin-top: 5px; }
+
+        .color-sample { display: inline-block; width: 80px; padding: 2px 8px; border-radius: 4px; color: #fff; font-weight: bold; text-align: center; margin-right: 10px; font-size: 0.75rem; vertical-align: middle; }
+        
+        .important-box { 
+            background: #fdf2f2; 
+            border: 1px solid #f5c6cb; 
+            padding: 12px; 
+            border-radius: 5px; 
+            margin: 10px 0; 
+            font-size: 0.9rem;
+        }
+        .important-label { color: #d9534f; font-weight: bold; display: block; margin-bottom: 3px; }
+        
+        .sub-step { list-style-type: disc; margin-left: 20px; font-size: 0.9rem; color: #444; line-height: 1.6; margin-top: 5px; }
         .back-btn { display: inline-block; margin-top: 20px; color: #35A0D9; text-decoration: none; font-weight: bold; }
     </style>
 </head>
 <body>
+
     <div class="sticky-header">
         <header>
             <a href="../" style="text-decoration: none; display: inline-block;">
@@ -23,6 +38,16 @@
                 <div class="sub-title">STAFF PORTAL</div>
             </a>
         </header>
+        <nav class="nav-menu">
+            <ul>
+                <li><a href="../manual/">マニュアル</a></li>
+                <li><a href="../setup/">準備物</a></li>
+                <li><a href="../roster/">名簿</a></li>
+                <li><a href="../inventory/">備品検索</a></li>
+                <li><a href="../pop/">掲示物</a></li>
+                <li><a href="../contacts/">連絡先</a></li>
+            </ul>
+        </nav>
     </div>
 
     <main class="container">
@@ -32,35 +57,48 @@
 
             <section>
                 <span class="category-title">LaBOLAの主な用途</span>
-                <div class="content-body">
-                    <ul>
-                        <li>一般のお客様の施設利用予約</li>
-                        <li>社員から依頼されたアカデミー・スクールの予約管理</li>
-                        <li>個人参加プログラムの人数確認・予約管理</li>
-                    </ul>
+                <div class="step-box">
+                    <div class="step-details">
+                        <ul class="sub-step">
+                            <li>一般のお客様の施設利用予約</li>
+                            <li>社員から依頼されたアカデミー・スクールの予約管理</li>
+                            <li>個人参加プログラムの人数確認・予約管理</li>
+                        </ul>
+                    </div>
                 </div>
             </section>
 
             <section>
                 <span class="category-title">カレンダーの色別表示</span>
-                <div class="content-body">
-                    <p><span class="color-sample" style="background: #3399ff;">#3399ff</span> 川崎フロンターレアカデミー</p>
-                    <p><span class="color-sample" style="background: #ff3300;">#ff3300</span> 個人参加</p>
-                    <p><span class="color-sample" style="background: #33ccff;">#33ccff</span> 川崎フロンターレスクール</p>
-                    <p style="margin-top: 10px; font-size: 0.9rem; color: #666;">※その他：一般予約、定期利用団体など</p>
+                <div class="step-box">
+                    <div class="step-details">
+                        <p style="margin-bottom: 8px;"><span class="color-sample" style="background: #3399ff;">#3399ff</span> 川崎フロンターレアカデミー</p>
+                        <p style="margin-bottom: 8px;"><span class="color-sample" style="background: #ff3300;">#ff3300</span> 個人参加</p>
+                        <p style="margin-bottom: 8px;"><span class="color-sample" style="background: #33ccff;">#33ccff</span> 川崎フロンターレスクール</p>
+                        <p style="margin-top: 10px; font-size: 0.85rem; color: #666;">※その他：一般予約、定期利用団体など</p>
+                    </div>
                 </div>
             </section>
 
             <section>
                 <span class="category-title">予約ルールの基本</span>
-                <div class="content-body">
-                    予約開始日：利用日の <strong class="important">60日前（深夜 0:00〜）</strong><br>
-                    <span class="important">※優先団体の予約が先に入っている場合があるため注意</span>
+                <div class="step-box">
+                    <div class="step-details">
+                        予約開始日：利用日の <strong>60日前（深夜 0:00〜）</strong>
+                    </div>
+                </div>
+                <div class="important-box">
+                    <span class="important-label">《注意》</span>
+                    <div class="step-details" style="font-size: 0.9rem;">
+                        優先団体の予約が先に入っている場合があるため、予約状況の確認を徹底してください。
+                    </div>
                 </div>
             </section>
 
             <a href="./" class="back-btn">← マニュアル一覧に戻る</a>
         </div>
     </main>
+
+    <footer><p>&copy; 2026 FRONTOWN IKUTA</p></footer>
 </body>
 </html>
