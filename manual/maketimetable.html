@@ -7,15 +7,17 @@
     <link rel="stylesheet" href="../style.css">
     <style>
         .manual-content { background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .step-box { margin-bottom: 20px; border-left: 4px solid #35A0D9; padding-left: 15px; }
-        .step-title { font-weight: bold; color: #35A0D9; display: block; margin-bottom: 5px; }
+        .category-title { font-size: 1.1rem; font-weight: bold; background: #35A0D9; color: #fff; padding: 5px 15px; border-radius: 20px; display: inline-block; margin: 20px 0 15px 0; }
         
-        /* 箇条書きや補足のスタイル */
-        .step-detail { font-size: 0.95rem; line-height: 1.6; margin: 5px 0; }
+        .step-box { margin-bottom: 25px; border-left: 4px solid #35A0D9; padding-left: 15px; }
+        .step-title { font-weight: bold; color: #35A0D9; margin-bottom: 8px; display: block; }
+        
+        .step-details { font-size: 0.95rem; line-height: 1.6; color: #333; margin-top: 5px; }
+        
         .important-box { 
             background: #fdf2f2; 
             border: 1px solid #f5c6cb; 
-            padding: 10px; 
+            padding: 12px; 
             border-radius: 5px; 
             margin: 10px 0; 
             font-size: 0.9rem;
@@ -23,9 +25,9 @@
         .important-label { color: #d9534f; font-weight: bold; display: block; margin-bottom: 3px; }
         
         .memo-box { background: #fff9e6; padding: 15px; border-radius: 5px; border: 1px solid #ffeeba; margin-top: 20px; }
-        .back-btn { display: inline-block; margin-top: 20px; color: #35A0D9; text-decoration: none; font-weight: bold; }
+        .sub-step { list-style-type: disc; margin-left: 20px; font-size: 0.9rem; color: #444; margin-top: 5px; }
         
-        .sub-step { list-style-type: disc; margin-left: 20px; font-size: 0.9rem; color: #444; }
+        .back-btn { display: inline-block; margin-top: 20px; color: #35A0D9; text-decoration: none; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -54,46 +56,58 @@
             <h2>タイムテーブル作成手順</h2>
             <p style="font-size: 0.85rem; color: #666; margin-bottom: 20px;">更新日：2026/04/20</p>
 
-            <div class="step-box">
-                <span class="step-title">STEP 1：Excelを開く</span>
-                <p class="step-detail">Box ＞ IK：フロンタウン生田【開業準備→開業】 ＞ 32_タイムテーブルの順でExcelファイルを開いて、翌日の「曜日」に対応するシートを開く。</p>
-            </div>
+            <section>
+                <span class="category-title">作成フロー</span>
 
-            <div class="step-box">
-                <span class="step-title">STEP 2：Excelに入力する</span>
-                <p class="step-detail">LaBOLAも開き、翌日のグラウンド予約状況をExcelに入力する。</p>
-                <p class="step-detail">入力完了後、社員さんに確認してもらい、OKが出たら、A4サイズで2枚出力する。</p>
-                
-                <div class="important-box">
-                    <span class="important-label">《重要》</span>
-                    <ul class="sub-step">
-                        <li>マルチスペースはアカデミーのグラウンド利用2時間前から1時間後までアカデミーの利用とする。</li>
-                        <li>多目的広場は、ホワイトボードに貼ってある表を確認する。</li>
-                    </ul>
+                <div class="step-box">
+                    <span class="step-title">STEP 1：Excelを開く</span>
+                    <div class="step-details">
+                        Box ＞ IK：フロンタウン生田【開業準備→開業】 ＞ 32_タイムテーブルの順でExcelファイルを開いて、翌日の「曜日」に対応するシートを開く。
+                    </div>
                 </div>
-            </div>
 
-             <div class="step-box">
-                <span class="step-title">STEP 3：サイネージ用の作成</span>
-                <p class="step-detail">同じExcel内の「サイネージサイズシート」に完成した内容を貼り付ける。</p>
-                <p class="step-detail">Excelと同じフォルダにあるPowerPointを2つ開いて、Excelからコピーして「図」として貼り付けて位置を調整する。</p>
-                <ul class="sub-step" style="margin-bottom: 10px;">
-                    <li><strong>中用：</strong>Anker & Nebula</li>
-                    <li><strong>右用：</strong>スタジオA ～ 多目的広場</li>
-                </ul>
-                <p class="step-detail" style="color: #d9534f; font-weight: bold;">※Excelは上書き保存しない。</p>
-                <p class="step-detail" style="font-weight: bold;">※PowerPointは上書き保存して閉じる。</p>
-            </div>
+                <div class="step-box">
+                    <span class="step-title">STEP 2：Excelに入力する</span>
+                    <div class="step-details">
+                        LaBOLAも開き、翌日のグラウンド予約状況をExcelに入力する。<br>
+                        入力完了後、社員さんに確認してもらい、OKが出たら、A4サイズで2枚出力する。
+                        
+                        <div class="important-box">
+                            <span class="important-label">《重要》</span>
+                            <ul class="sub-step">
+                                <li>マルチスペースはアカデミーのグラウンド利用2時間前から1時間後までアカデミーの利用とする。</li>
+                                <li>多目的広場は、ホワイトボードに貼ってある表を確認する。</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
 
-            <div class="step-box">
-                <span class="step-title">STEP 4：書き込み・保管</span>
-                <p class="step-detail">印刷した2枚のうち、1枚をホワイトボードへ掲示する。</p>
-                <p class="step-detail">残りの1枚に、LaBOLAのメモを参照しながら以下を<strong>赤のボールペン</strong>で記入する。</p>
-                <ul class="sub-step" style="margin-bottom: 10px;">
-                    <li>現地払い / 請求書払い、初利用、サイレントタイムなど</li>
-                </ul>
-                <p class="step-detail">終わったらバインダーに挟む。当日の書き込みがある分は、穴あけパンチでリングファイルへ綴じて保管する。</p>
-            </div>
+                <div class="step-box">
+                    <span class="step-title">STEP 3：サイネージ用の作成</span>
+                    <div class="step-details">
+                        同じExcel内の「サイネージサイズシート」に完成した内容を貼り付ける。<br>
+                        Excelと同じフォルダにあるPowerPointを2つ開いて、Excelからコピーして「図」として貼り付けて位置を調整する。
+                        <ul class="sub-step">
+                            <li><strong>中用：</strong>Anker & Nebula</li>
+                            <li><strong>右用：</strong>スタジオA ～ 多目的広場</li>
+                        </ul>
+                        <p style="color: #d9534f; font-weight: bold; margin-top: 8px;">※Excelは上書き保存しない。</p>
+                        <p style="font-weight: bold;">※PowerPointは上書き保存して閉じる。</p>
+                    </div>
+                </div>
+
+                <div class="step-box">
+                    <span class="step-title">STEP 4：書き込み・保管</span>
+                    <div class="step-details">
+                        印刷した2枚のうち、1枚をホワイトボードへ掲示する。<br>
+                        残りの1枚に、LaBOLAのメモを参照しながら以下を<strong>赤のボールペン</strong>で記入する。
+                        <ul class="sub-step">
+                            <li>現地払い / 請求書払い、初利用、サイレントタイムなど</li>
+                        </ul>
+                        <p style="margin-top: 8px;">終わったらバインダーに挟む。当日の書き込みがある分は、穴あけパンチでリングファイルへ綴じて保管する。</p>
+                    </div>
+                </div>
+            </section>
 
             <div class="memo-box">
                 <strong>⚠️ 注意事項</strong>
