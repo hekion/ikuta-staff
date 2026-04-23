@@ -27,13 +27,14 @@
         .sub-step li { position: relative; padding-left: 1.5em; margin-bottom: 4px; }
         .sub-step li::before { content: "・"; position: absolute; left: 0; color: #35A0D9; font-weight: bold; }
 
-        .important-box { 
-            background: #fdf2f2; 
-            border: 1px solid #f5c6cb; 
-            padding: 12px; 
-            border-radius: 5px; 
-            margin: 10px 0; 
+        /* ポート指定用の強調デザイン */
+        .port-guide {
+            background: #f8f9fa;
+            border: 1px dashed #35A0D9;
+            padding: 10px;
+            margin-top: 8px;
             font-size: 0.9rem;
+            border-radius: 5px;
         }
 
         .back-btn { display: inline-block; margin-top: 20px; color: #35A0D9; text-decoration: none; font-weight: bold; }
@@ -88,7 +89,7 @@
     <main class="container">
         <div class="manual-content">
             <h2>早番業務マニュアル</h2>
-            <p style="font-size: 0.85rem; color: #666; margin-bottom: 20px;">更新日：2026/04/23</p>
+            <p style="font-size: 0.85rem; color: #666; margin-bottom: 20px;">更新日：2026/04/24</p>
 
             <section>
                 <span class="category-title">開館・セキュリティ解除</span>
@@ -169,9 +170,14 @@
                 <div class="step-box">
                     <span class="step-title">💻 パソコン・サイネージ設定</span>
                     <div class="step-details">
-                        1. カウンターのパソコン(新)を電源に繋ぐ<br>
-                        2. <span class="highlight-blue">HDMI発信機</span>を接続する<br>
-                        3. パワーポイントを起動し、モニターに表示させる
+                        1. <span class="highlight-blue">カウンターの電源にパソコン(新)をつなぐ</span><br>
+                        2. HDMI発信機を接続し、パワーポイントをモニターに表示させる
+                        
+                        <div class="port-guide">
+                            <strong>【PC接続ポートの指定】</strong><br>
+                            ・<span class="highlight-blue">上から1番目</span>のポート：HDMI発信機<br>
+                            ・<span class="highlight-blue">上から2番目</span>のポート：電源ケーブル
+                        </div>
                     </div>
                 </div>
 
