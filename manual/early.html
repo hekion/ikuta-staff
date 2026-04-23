@@ -9,21 +9,58 @@
         .manual-content { background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
         .category-title { font-size: 1.1rem; font-weight: bold; background: #35A0D9; color: #fff; padding: 5px 15px; border-radius: 20px; display: inline-block; margin: 20px 0 15px 0; }
         
-        /* グレーボックスを廃止し、余白と左線でスッキリさせる */
         .step-box { margin-bottom: 25px; padding-left: 15px; border-left: 4px solid #35A0D9; }
-        .step-title { font-weight: bold; color: #35A0D9; margin-bottom: 8px; display: block; }
+        .step-title { font-weight: bold; color: #35A0D9; margin-bottom: 8px; display: block; font-size: 1.05rem; }
         
-        /* 手順を書くスペース：枠を消して余白を確保 */
         .step-details { 
             font-size: 0.95rem; 
             line-height: 1.6; 
             color: #333; 
             margin-top: 5px;
             padding: 5px 0;
-            min-height: 1.6em; /* 内容がなくてもスペースを確保 */
         }
-        
+
+        .highlight-blue { color: #35A0D9; font-weight: bold; }
+        .highlight-red { color: #d9534f; font-weight: bold; }
+
+        .sub-step { list-style-type: none; padding-left: 0; margin-top: 5px; }
+        .sub-step li { position: relative; padding-left: 1.5em; margin-bottom: 4px; }
+        .sub-step li::before { content: "・"; position: absolute; left: 0; color: #35A0D9; font-weight: bold; }
+
+        .important-box { 
+            background: #fdf2f2; 
+            border: 1px solid #f5c6cb; 
+            padding: 12px; 
+            border-radius: 5px; 
+            margin: 10px 0; 
+            font-size: 0.9rem;
+        }
+
         .back-btn { display: inline-block; margin-top: 20px; color: #35A0D9; text-decoration: none; font-weight: bold; }
+
+        /* 画像拡大（モーダル）のスタイル */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            cursor: zoom-out;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            max-width: 95%;
+            max-height: 95%;
+            object-fit: contain;
+            animation: zoom 0.3s;
+        }
+        @keyframes zoom {
+            from {transform: scale(0.8); opacity: 0;}
+            to {transform: scale(1); opacity: 1;}
+        }
+        .manual-img { cursor: zoom-in; max-width: 100%; height: auto; border-radius: 5px; margin-top: 10px; border: 1px solid #ddd; }
     </style>
 </head>
 <body>
@@ -50,75 +87,111 @@
 
     <main class="container">
         <div class="manual-content">
-            <h2>早番業務について</h2>
-            <p style="font-size: 0.85rem; color: #666; margin-bottom: 20px;">更新日：2026/04/22</p>
+            <h2>早番業務マニュアル</h2>
+            <p style="font-size: 0.85rem; color: #666; margin-bottom: 20px;">更新日：2026/04/23</p>
 
             <section>
-                <span class="category-title">鍵開け</span>
+                <span class="category-title">開館・セキュリティ解除</span>
                 
                 <div class="step-box">
-                    <span class="step-title">ALSOK解除</span>
-                    <div class="step-details">ここに解除手順を記入</div>
-                </div>
-
-                <div class="step-box">
-                    <span class="step-title">シャワー元電源オン</span>
-                    <div class="step-details">操作場所や手順を記入</div>
-                </div>
-
-                <div class="step-box">
-                    <span class="step-title">自動ドア開ける</span>
-                    <div class="step-details">スイッチの場所などを記入</div>
-                </div>
-
-                <div class="step-box">
-                    <span class="step-title">トイレを開ける</span>
-                    <div class="step-details"></div>
-                </div>
-
-                <div class="step-box">
-                    <span class="step-title">トーカン出入り口開ける</span>
-                    <div class="step-details"></div>
-                </div>
-
-                <div class="step-box">
-                    <span class="step-title">ポスターなどの掲示物を外に出す</span>
-                    <div class="step-details"></div>
-                </div>
-
-                <div class="step-box">
-                    <span class="step-title">更衣室準備</span>
+                    <span class="step-title">🔑 ALSOKの解除</span>
                     <div class="step-details">
-                        ・鍵開け<br>
-                        ・シャワー出し<br>
-                        ・電気、換気扇、空気清浄機、エアコンつける<br>
-                        ・仕切りのロック確認
+                        1. 入口ドアの鍵を開ける<br>
+                        2. 消火器置き場から<span class="highlight-blue">ALSOKキー</span>を取り出す<br>
+                        3. 「警備解除」ボタンを押してから、キーをかざす
                     </div>
                 </div>
 
                 <div class="step-box">
-                    <span class="step-title">コーヒーマシンのセッティング</span>
-                    <div class="step-details"></div>
+                    <span class="step-title">🔌 シャワー元電源オン</span>
+                    <div class="step-details">
+                        サーバー室前にある、<span class="highlight-blue">「早番つける」</span>のシートが貼ってあるスイッチを押し、シャワーブースの電源を入れます。
+                    </div>
                 </div>
 
                 <div class="step-box">
-                    <span class="step-title">パソコン(新)をつけてサイネージに繋ぐ</span>
-                    <div class="step-details"></div>
+                    <span class="step-title">🚪 自動ドアの開放</span>
+                    <div class="step-details">
+                        <span class="highlight-blue">カウンター前</span>と<span class="highlight-blue">エレベーター前</span>の2箇所を操作。<br>
+                        マスターキーを使って解錠した上で、電源をオンにします。
+                    </div>
                 </div>
 
                 <div class="step-box">
-                    <span class="step-title">外回り(ゴミ箱確認)</span>
-                    <div class="step-details"></div>
+                    <span class="step-title">🚽 トイレの開錠</span>
+                    <div class="step-details">
+                        以下の2箇所の鍵を開けます。<br>
+                        ・キッズ大陸横（みんなのトイレ）<br>
+                        ・アリーナ倉庫横
+                    </div>
                 </div>
 
                 <div class="step-box">
-                    <span class="step-title">フィットネス準備</span>
-                    <div class="step-details"></div>
+                    <span class="step-title">🏢 トーカン出入り口</span>
+                    <div class="step-details">トーカン側の出入り口の鍵を開けます。</div>
+                </div>
+            </section>
+
+            <section>
+                <span class="category-title">館内・更衣室準備</span>
+
+                <div class="step-box">
+                    <span class="step-title">📋 掲示物の設置</span>
+                    <div class="step-details">
+                        自動ドア開放後、ポスターなどの掲示物を外に出します。<br>
+                        <span class="highlight-red">※雨風が強い日は、濡れたり飛んだりする恐れがあるため出しません。</span>
+                    </div>
                 </div>
 
                 <div class="step-box">
-                    <span class="step-title">遅番からの連絡確認</span>
-                    <div class="step-details"></div>
+                    <span class="step-title">👕 更衣室の準備</span>
+                    <div class="step-details">
+                        <ul class="sub-step">
+                            <li>鍵を開ける</li>
+                            <li><span class="highlight-blue">シャワー出し</span>（お湯が出るまで出し続ける）</li>
+                            <li>電気、換気扇、空気清浄機、エアコンをつける</li>
+                            <li>仕切りのロック状態を確認する</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="step-box">
+                    <span class="step-title">☕ コーヒーマシンのセッティング</span>
+                    <div class="step-details">
+                        前日夜に洗浄・乾燥させている部品を元に戻し、給水して電源を入れます。
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <span class="category-title">システム・その他</span>
+
+                <div class="step-box">
+                    <span class="step-title">💻 パソコン・サイネージ設定</span>
+                    <div class="step-details">
+                        1. カウンターのパソコン(新)を電源に繋ぐ<br>
+                        2. <span class="highlight-blue">HDMI発信機</span>を接続する<br>
+                        3. パワーポイントを起動し、モニターに表示させる
+                    </div>
+                </div>
+
+                <div class="step-box">
+                    <span class="step-title">🧹 外回りチェック</span>
+                    <div class="step-details">
+                        ゴミ箱の状態、バナーのズレ、ネットの破れなどがないか確認します。
+                    </div>
+                </div>
+
+                <div class="step-box">
+                    <span class="step-title">💪 フィットネス準備</span>
+                    <div class="step-details">朝一番で開催されるプログラムの準備（用具出し等）を行います。</div>
+                </div>
+
+                <div class="step-box">
+                    <span class="step-title">✍️ 引き継ぎ確認</span>
+                    <div class="step-details">
+                        ホワイトボードやメモ用紙に残されている、遅番スタッフからの連絡事項を必ず確認してください。
+                    </div>
                 </div>
             </section>
 
@@ -126,6 +199,22 @@
         </div>
     </main>
 
+    <div id="imageModal" class="modal" onclick="this.style.display='none'">
+        <img class="modal-content" id="modalImg">
+    </div>
+
     <footer><p>&copy; 2026 FRONTOWN IKUTA</p></footer>
+
+    <script>
+        // 画像拡大機能
+        document.querySelectorAll('.manual-img').forEach(img => {
+            img.onclick = function() {
+                const modal = document.getElementById("imageModal");
+                const modalImg = document.getElementById("modalImg");
+                modal.style.display = "flex";
+                modalImg.src = this.src;
+            }
+        });
+    </script>
 </body>
 </html>
