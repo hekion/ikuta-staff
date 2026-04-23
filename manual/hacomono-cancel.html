@@ -13,19 +13,15 @@
         .step-title { font-weight: bold; color: #35A0D9; margin-bottom: 8px; display: block; }
         .step-details { font-size: 0.95rem; line-height: 1.6; color: #333; margin-top: 5px; }
 
-        .image-placeholder {
+        /* 画像表示スタイル */
+        .manual-image {
             width: 100%;
-            max-width: 450px;
-            height: 180px;
-            background: #eee;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px dashed #ccc;
-            border-radius: 5px;
-            margin: 10px 0;
-            color: #666;
-            font-size: 0.85rem;
+            max-width: 500px;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin: 12px 0;
+            display: block;
         }
 
         .important-box { 
@@ -38,9 +34,7 @@
         }
         .important-label { color: #d9534f; font-weight: bold; display: block; margin-bottom: 3px; }
 
-        .memo-box { background: #fff9e6; padding: 15px; border-radius: 5px; border: 1px solid #ffeeba; margin-top: 20px; }
         .sub-step { list-style-type: disc; margin-left: 20px; font-size: 0.9rem; color: #444; margin-top: 5px; }
-
         .back-btn { display: inline-block; margin-top: 20px; color: #35A0D9; text-decoration: none; font-weight: bold; }
         .section-divider { border: 0; border-top: 2px solid #eee; margin: 30px 0; }
     </style>
@@ -69,7 +63,7 @@
     <main class="container">
         <div class="manual-content">
             <h2>キャンセル対応 (hacomono)</h2>
-            <p style="font-size: 0.85rem; color: #666; margin-bottom: 20px;">更新日：2026/04/22</p>
+            <p style="font-size: 0.85rem; color: #666; margin-bottom: 20px;">更新日：2026/04/23</p>
 
             <section id="cancel-before">
                 <span class="category-title">① 前日までのキャンセル</span>
@@ -78,7 +72,7 @@
                         <p><strong>キャンセル料：なし</strong></p>
                         参加者リストから該当者の「キャンセル」ボタンを押せば完了です。
                     </div>
-                    <div class="image-placeholder">画像：参加者リスト・キャンセルボタン（準備中）</div>
+                    <img src="../assets/images/hacomono/cancel-1.png" alt="参加者リスト・キャンセルボタン" class="manual-image">
                 </div>
             </section>
 
@@ -98,13 +92,13 @@
                 <div class="step-box">
                     <span class="step-title">1. 申し送りの記入</span>
                     <div class="step-details">予約詳細を開き、キャンセルの申し送りのみを残します。</div>
-                    <div class="image-placeholder">画像：申し送り記入画面（準備中）</div>
+                    <img src="../assets/images/hacomono/cancel-2.png" alt="申し送り記入画面" class="manual-image">
                 </div>
 
                 <div class="step-box">
                     <span class="step-title">2. レッスン編集</span>
                     <div class="step-details">該当レッスンの「編集」をクリックします。</div>
-                    <div class="image-placeholder">画像：レッスン編集ボタン（準備中）</div>
+                    <img src="../assets/images/hacomono/cancel-3.png" alt="レッスン編集ボタン" class="manual-image">
                 </div>
 
                 <div class="step-box">
@@ -113,7 +107,7 @@
                         「バッチによる無断キャンセル判定ポリシー」にて、<br>
                         <strong>『無断キャンセル扱いとするが、メールは送信しない』</strong>を選択して保存します。
                     </div>
-                    <div class="image-placeholder">画像：判定ポリシー選択画面（準備中）</div>
+                    <img src="../assets/images/hacomono/cancel-4.png" alt="判定ポリシー選択画面" class="manual-image">
                 </div>
             </section>
 
@@ -137,7 +131,7 @@
                         キャンセル料の支払いが行われた場合は、以下の通りステータスを変更してください。<br>
                         <strong>「無断キャンセルを取り消し」→「チェックイン」</strong>
                     </div>
-                    <div class="image-placeholder">画像：ステータス変更操作（準備中）</div>
+                    <img src="../assets/images/hacomono/cancel-5.png" alt="ステータス変更操作" class="manual-image">
                 </div>
             </section>
 
