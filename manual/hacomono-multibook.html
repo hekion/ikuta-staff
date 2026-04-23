@@ -21,6 +21,7 @@
             border-radius: 8px;
             margin: 12px 0;
             display: block;
+            cursor: zoom-in;
         }
 
         .important-box { 
@@ -35,8 +36,30 @@
 
         .memo-box { background: #eef7fc; padding: 15px; border-radius: 5px; border: 1px solid #35A0D9; margin-bottom: 20px; }
         .sub-step { list-style-type: disc; margin-left: 20px; font-size: 0.9rem; color: #444; margin-top: 5px; }
-
         .back-btn { display: inline-block; margin-top: 20px; color: #35A0D9; text-decoration: none; font-weight: bold; }
+
+        /* 画像拡大（モーダル）のスタイル */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            cursor: zoom-out;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            max-width: 95%;
+            max-height: 95%;
+            object-fit: contain;
+            animation: zoom 0.3s;
+        }
+        @keyframes zoom {
+            from {transform: scale(0.8); opacity: 0;}
+            to {transform: scale(1); opacity: 1;}
+        }
     </style>
 </head>
 <body>
@@ -88,9 +111,9 @@
                 <div class="step-details">
                     <ul class="sub-step">
                         <li><strong>メールアドレス：</strong>hacomonoに登録されているメールアドレス</li>
-                        <li><strong>予約カテゴリ：</strong>プログラムの開催場所の分類（スタジオA：S0001_R0001 など）</li>
+                        <li><strong>予約カテゴリ：</strong>プログラムの開催場所の分類</li>
                         <li><strong>開始日時：</strong>プログラムが始まる時間</li>
-                        <li><strong>チケットコード：</strong>各プログラムの該当チケットコード（キッズチア：T0051 など）</li>
+                        <li><strong>チケットコード：</strong>各プログラムの該当チケットコード</li>
                     </ul>
                 </div>
                 <img src="../assets/images/hacomono/multibook-3.png" alt="CSV入力例" class="manual-image">
@@ -131,6 +154,22 @@
     </div>
 </main>
 
+<div id="imageModal" class="modal" onclick="this.style.display='none'">
+    <img class="modal-content" id="modalImg">
+</div>
+
 <footer><p>&copy; 2026 FRONTOWN IKUTA</p></footer>
+
+<script>
+    // 画像拡大機能
+    document.querySelectorAll('.manual-image').forEach(img => {
+        img.onclick = function() {
+            const modal = document.getElementById("imageModal");
+            const modalImg = document.getElementById("modalImg");
+            modal.style.display = "flex";
+            modalImg.src = this.src;
+        }
+    });
+</script>
 </body>
 </html>
