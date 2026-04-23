@@ -14,53 +14,36 @@
         }
         .filter-btn.active { background: #35A0D9; color: #fff; }
         
-        #roster-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; margin-bottom: 40px; }
+        #roster-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; margin-bottom: 40px; }
         .roster-card { 
             background: #fff; border-radius: 10px; overflow: hidden; 
             border: 1px solid #eee; transition: 0.2s; text-decoration: none; color: inherit; display: block;
         }
         .roster-card:hover { transform: translateY(-3px); box-shadow: 0 4px 10px rgba(0,0,0,0.1); border-color: #35A0D9; }
         
-        .roster-card-icon { 
-            height: 100px; background: #f8f9fa; border-bottom: 1px solid #eee;
-            display: flex; align-items: center; justify-content: center; font-size: 2.5rem;
+        /* サムネイル表示エリア */
+        .roster-card-thumb { 
+            height: 150px; background: #f8f9fa; overflow: hidden;
+            display: flex; align-items: center; justify-content: center;
+            border-bottom: 1px solid #eee;
         }
+        .roster-card-thumb img { width: 100%; height: 100%; object-fit: cover; }
+        .roster-card-thumb .no-img { font-size: 2.5rem; }
         
         .roster-card-info { padding: 12px; }
         .roster-card-title { font-size: 0.85rem; font-weight: bold; display: block; margin-bottom: 6px; }
         
         .cat-tags { display: flex; flex-wrap: wrap; gap: 4px; }
-        .roster-card-cat { font-size: 0.65rem; color: #666; background: #f0f0f0; padding: 1px 6px; border-radius: 4px; }
+        .roster-card-cat { font-size: 0.65rem; color: #35A0D9; background: #eef7ff; padding: 1px 6px; border-radius: 4px; }
 
-        /* 下部クイックリンク（ロゴのみ）のスタイル */
-        .quick-links-area {
-            margin-top: 50px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
-        }
-        .quick-links-title {
-            font-size: 0.9rem;
-            color: #666;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-        .quick-links { 
-            display: flex; 
-            justify-content: center; 
-            gap: 20px; 
-        }
+        /* 下部クイックリンク */
+        .quick-links-area { margin-top: 50px; padding-top: 20px; border-top: 1px solid #eee; }
+        .quick-links-title { font-size: 0.9rem; color: #666; margin-bottom: 15px; text-align: center; }
+        .quick-links { display: flex; justify-content: center; gap: 20px; }
         .quick-logo-card { 
-            background: #fff; 
-            border: 1px solid #eee; 
-            border-radius: 12px; 
-            width: 120px;
-            height: 80px;
-            display: flex; 
-            align-items: center; 
-            justify-content: center;
-            text-decoration: none; 
-            transition: 0.2s;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            background: #fff; border: 1px solid #eee; border-radius: 12px; 
+            width: 120px; height: 80px; display: flex; align-items: center; 
+            justify-content: center; text-decoration: none; transition: 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
         .quick-logo-card:hover { border-color: #35A0D9; transform: scale(1.05); }
         .quick-logo-card img { max-width: 80%; max-height: 60%; object-fit: contain; }
@@ -137,11 +120,27 @@
                     return;
                 }
 
-                allData = json.values.map(row => ({
-                    name: row[0],
-                    categories: row[1] ? row[1].split(',').map(s => s.trim()) : ['未分類'],
-                    link: row[2] || '#'
-                }));
+                allData = json.values.map(row => {
+                    const link = row[2] || '';
+                    const categories = row[1] ? row[1].split(',').map(s => s.trim()) : ['未分類'];
+                    let thumbUrl = '';
+                    
+                    // URLからファイルIDを抽出してサムネイルURLを作成
+                    if (link.includes('drive.google.com') || link.includes('docs.google.com')) {
+                        const fileIdMatch = link.match(/\/d\/([^/]+)/);
+                        if (fileIdMatch && fileIdMatch[1]) {
+                            // ExcelであってもGoogleドライブが生成するプレビュー画像を取得
+                            thumbUrl = `https://drive.google.com/thumbnail?id=${fileIdMatch[1]}&sz=w400`;
+                        }
+                    }
+
+                    return {
+                        name: row[0],
+                        categories: categories,
+                        link: link,
+                        thumb: thumbUrl
+                    };
+                });
 
                 createFilterButtons();
                 renderCards('すべて');
@@ -152,7 +151,6 @@
         function createFilterButtons() {
             const container = document.getElementById('filter-container');
             const uniqueCats = [...new Set(allData.flatMap(d => d.categories))];
-            
             uniqueCats.forEach(cat => {
                 const btn = document.createElement('button');
                 btn.className = 'filter-btn';
@@ -182,10 +180,14 @@
                 card.href = item.link;
                 card.target = '_blank';
                 
+                const thumbContent = item.thumb 
+                    ? `<img src="${item.thumb}" alt="preview">` 
+                    : `<div class="no-img">📄</div>`;
+                
                 const tagsHtml = item.categories.map(c => `<span class="roster-card-cat">${c}</span>`).join('');
 
                 card.innerHTML = `
-                    <div class="roster-card-icon">📄</div>
+                    <div class="roster-card-thumb">${thumbContent}</div>
                     <div class="roster-card-info">
                         <span class="roster-card-title">${item.name}</span>
                         <div class="cat-tags">${tagsHtml}</div>
