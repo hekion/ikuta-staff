@@ -10,19 +10,23 @@
         .category-title { font-size: 1.1rem; font-weight: bold; background: #35A0D9; color: #fff; padding: 5px 15px; border-radius: 20px; display: inline-block; margin: 20px 0 15px 0; }
         
         .step-box { margin-bottom: 25px; border-left: 4px solid #35A0D9; padding-left: 15px; }
-        .step-title { font-weight: bold; color: #35A0D9; margin-bottom: 8px; display: block; }
+        .step-title { font-weight: bold; color: #35A0D9; margin-bottom: 8px; display: block; font-size: 1.05rem; }
         
-        /* グレーボックスを廃止し、記入スペースを確保 */
         .step-details { 
             font-size: 0.95rem; 
             line-height: 1.6; 
             color: #333; 
             margin-top: 5px; 
             padding: 5px 0;
-            min-height: 1.6em;
         }
-        
+
+        .highlight-red { color: #d9534f; font-weight: bold; }
+        .highlight-blue { color: #35A0D9; font-weight: bold; }
+
         .back-btn { display: inline-block; margin-top: 20px; color: #35A0D9; text-decoration: none; font-weight: bold; }
+
+        /* リンクボタン */
+        .manual-link-btn { display: inline-block; margin-top: 5px; padding: 5px 12px; background: #35A0D9; color: #fff; text-decoration: none; border-radius: 4px; font-size: 0.85rem; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -49,22 +53,92 @@
 
     <main class="container">
         <div class="manual-content">
-            <h2>早番＆遅番共通業務</h2>
-            <p style="font-size: 0.85rem; color: #666; margin-bottom: 20px;">更新日：2026/04/22</p>
+            <h2>早番＆遅番 共通業務</h2>
+            <p style="font-size: 0.85rem; color: #666; margin-bottom: 20px;">更新日：2026/04/24</p>
 
             <section>
-                <span class="category-title">内勤</span>
-                <div class="step-box"><span class="step-title">タイムテーブル作成</span><div class="step-details"></div></div>
-                <div class="step-box"><span class="step-title">忘れ物処理</span><div class="step-details"></div></div>
-                <div class="step-box"><span class="step-title">退館十分前アナウンス</span><div class="step-details"></div></div>
-                <div class="step-box"><span class="step-title">洗濯物取り込み</span><div class="step-details"></div></div>
-                <div class="step-box"><span class="step-title">コート入れ替え確認</span><div class="step-details"></div></div>
-                <div class="step-box"><span class="step-title">バナー、ポップ、ネット修理</span><div class="step-details"></div></div>
-                <div class="step-box"><span class="step-title">電話対応</span><div class="step-details"></div></div>
-                <div class="step-box"><span class="step-title">宅配対応</span><div class="step-details"></div></div>
-                <div class="step-box"><span class="step-title">ラミネート作業</span><div class="step-details"></div></div>
-                <div class="step-box"><span class="step-title">アイシングの氷わたす</span><div class="step-details"></div></div>
-                <div class="step-box"><span class="step-title">ゴミ捨て</span><div class="step-details"></div></div>
+                <span class="category-title">内勤・窓口業務</span>
+
+                <div class="step-box">
+                    <span class="step-title">タイムテーブル作成</span>
+                    <div class="step-details">
+                        サイネージ等への反映作業。<br>
+                        <a href="maketimetable.html" class="manual-link-btn">専用マニュアルを確認</a>
+                    </div>
+                </div>
+
+                <div class="step-box">
+                    <span class="step-title">忘れ物処理</span>
+                    <div class="step-details">
+                        利用者・施設スタッフ・トーカンさん等から届いた落とし物は、<strong>iPadでの登録</strong>および<strong>管理用紙への記入</strong>をセットで行う。
+                    </div>
+                </div>
+
+                <div class="step-box">
+                    <span class="step-title">退館十分前アナウンス</span>
+                    <div class="step-details">
+                        初利用の団体がいる場合や、後の利用が詰まっている時は、スムーズな入れ替えのために館内放送を入れる。
+                    </div>
+                </div>
+
+                <div class="step-box">
+                    <span class="step-title">洗濯物取り込み</span>
+                    <div class="step-details">
+                        干してあるビブスや、日曜日に使用したモップなどがあれば、乾き次第取り込んで片付ける。
+                    </div>
+                </div>
+
+                <div class="step-box">
+                    <span class="step-title">コート入れ替え確認</span>
+                    <div class="step-details">
+                        予約が連続している時は特に注意して確認する。アカデミー利用前など、時間に余裕がある際はコート内のゴミ拾いも実施する。
+                    </div>
+                </div>
+
+                <div class="step-box">
+                    <span class="step-title">バナー・ポップ・ネット修理</span>
+                    <div class="step-details">
+                        外回りで気づいた破損箇所を修理する。<br>
+                        <span class="highlight-blue">※スポンサーバナーの修理は脚立を使用し、必ず2人体制で作業すること。</span>
+                    </div>
+                </div>
+
+                <div class="step-box">
+                    <span class="step-title">電話対応</span>
+                    <div class="step-details">
+                        問い合わせ内容は多岐にわたるため、不明な点は「確認いたします」と伝え、一旦保留にして周囲のスタッフに確認してから答える。
+                    </div>
+                </div>
+
+                <div class="step-box">
+                    <span class="step-title">宅配対応</span>
+                    <div class="step-details">
+                        カウンターにて受取対応を行う（アカデミー宛の荷物も含む）。必要に応じて集荷の依頼連絡も行う。
+                    </div>
+                </div>
+
+                <div class="step-box">
+                    <span class="step-title">ラミネート作業</span>
+                    <div class="step-details">
+                        新規POP作成や、アカデミーから依頼された資料等のラミネート加工を行う。
+                    </div>
+                </div>
+
+                <div class="step-box">
+                    <span class="step-title">アイシングの氷管理</span>
+                    <div class="step-details">
+                        <strong>【作成】</strong>残りが少なくなったら早めに製氷室で作る。<br>
+                        <strong>【保管】</strong>エレベーター前のクーラーボックスに入れておく。<br>
+                        <strong>【対応】</strong>利用者から要望があった際に手渡す。
+                    </div>
+                </div>
+
+                <div class="step-box">
+                    <span class="step-title">ゴミ捨て</span>
+                    <div class="step-details">
+                        事務所内のゴミ箱がいっぱいになったら、テニスコート横の専用ゴミ捨てスペースへ廃棄しに行く。
+                    </div>
+                </div>
             </section>
 
             <a href="./" class="back-btn">← マニュアル一覧に戻る</a>
