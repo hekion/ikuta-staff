@@ -6,25 +6,35 @@
     <title>カギの保管・使用場所 | Ikuta-Portal</title>
     <link rel="stylesheet" href="../style.css">
     <style>
-        .manual-section { background: #fff; padding: 20px; border-radius: 10px; margin-bottom: 20px; }
-        h3 { color: #35A0D9; border-left: 4px solid #35A0D9; padding-left: 10px; margin-bottom: 15px; }
+        .manual-content { background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .category-title { font-size: 1.1rem; font-weight: bold; background: #35A0D9; color: #fff; padding: 5px 15px; border-radius: 20px; display: inline-block; margin: 20px 0 15px 0; }
         
-        /* マップ画像エリア */
-        .map-container { text-align: center; margin-bottom: 30px; background: #f8f9fa; padding: 10px; border-radius: 8px; }
-        .map-container img { max-width: 100%; border-radius: 5px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .map-container { text-align: center; margin: 15px 0 25px 0; background: #f8f9fa; padding: 10px; border-radius: 8px; border: 1px solid #eee; }
+        .manual-img { max-width: 100%; height: auto; border-radius: 5px; cursor: zoom-in; }
 
-        /* カギ一覧テーブル */
-        .key-table-container { overflow-x: auto; }
-        .key-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
-        .key-table th, .key-table td { border-bottom: 1px solid #eee; padding: 12px 8px; text-align: left; }
-        .key-table th { background: #f0f7ff; color: #35A0D9; position: sticky; top: 0; }
+        /* カギ一覧テーブル（3列構成） */
+        .key-table-container { overflow-x: auto; margin-top: 10px; }
+        .key-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; min-width: 500px; }
+        .key-table th, .key-table td { border-bottom: 1px solid #eee; padding: 12px 8px; text-align: left; vertical-align: middle; }
+        .key-table th { background: #f0f7ff; color: #35A0D9; position: sticky; top: 0; white-space: nowrap; }
+        
         .num-circle { 
             display: inline-block; width: 22px; height: 22px; 
             background: #35A0D9; color: #fff; border-radius: 50%; 
             text-align: center; line-height: 22px; font-weight: bold; font-size: 0.75rem;
-            margin-right: 5px;
+            margin-right: 8px;
         }
-        .key-group { background: #f9f9f9; font-weight: bold; font-size: 0.8rem; color: #666; }
+        .key-group { background: #f9f9f9; font-weight: bold; font-size: 0.85rem; color: #666; }
+        
+        /* 詳細・備考欄のスタイル */
+        .key-memo { color: #666; font-size: 0.8rem; line-height: 1.4; }
+
+        .back-btn { display: inline-block; margin-top: 20px; color: #35A0D9; text-decoration: none; font-weight: bold; }
+
+        /* モーダル */
+        .modal { display: none; position: fixed; z-index: 2000; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); cursor: zoom-out; align-items: center; justify-content: center; }
+        .modal-content { max-width: 95%; max-height: 95%; object-fit: contain; animation: zoom 0.3s; }
+        @keyframes zoom { from {transform: scale(0.8); opacity: 0;} to {transform: scale(1); opacity: 1;} }
     </style>
 </head>
 <body>
@@ -38,7 +48,7 @@
         </header>
         <nav class="nav-menu">
             <ul>
-                <li><a href="../manual/" class="active">マニュアル</a></li>
+                <li><a href="../manual/">マニュアル</a></li>
                 <li><a href="../setup/">準備物</a></li>
                 <li><a href="../roster/">名簿</a></li>
                 <li><a href="../inventory/">備品検索</a></li>
@@ -49,60 +59,80 @@
     </div>
 
     <main class="container">
-        <div class="back-link">
-            <a href="./">← マニュアル一覧へ戻る</a>
+        <div class="manual-content">
+            <h2>カギの保管・使用場所</h2>
+            <p style="font-size: 0.85rem; color: #666; margin-bottom: 20px;">更新日：2026/04/23</p>
+
+            <section>
+                <span class="category-title">カギ・解錠場所マップ</span>
+                <div class="map-container">
+                    <img src="../assets/images/key-map.jpg" alt="カギ場所マップ" class="manual-img">
+                    <p style="font-size: 0.75rem; color: #999; margin-top: 8px;">※画像をタップで拡大 / 番号は下の表と対応</p>
+                </div>
+            </section>
+
+            <section>
+                <span class="category-title">カギ詳細・備考一覧</span>
+                <div class="key-table-container">
+                    <table class="key-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 50px;">No</th>
+                                <th style="width: 180px;">カギの名称 / 使用場所</th>
+                                <th>詳細・備考（保管場所・コツ等）</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="key-group"><td colspan="3">【1段目】</td></tr>
+                            <tr><td><span class="num-circle">1</span></td><td>Times</td><td class="key-memo"></td></tr>
+                            <tr><td><span class="num-circle">2</span></td><td>水景機械室・目隠しフェンス</td><td class="key-memo"></td></tr>
+                            <tr><td><span class="num-circle">3</span></td><td>クリニック 1</td><td class="key-memo"></td></tr>
+                            <tr><td><span class="num-circle">4</span></td><td>クリニック 2</td><td class="key-memo"></td></tr>
+                            <tr><td><span class="num-circle">5</span></td><td>収納 1 (左) ガス</td><td class="key-memo"></td></tr>
+                            <tr><td><span class="num-circle">6</span></td><td>収納 2 (右) ガス</td><td class="key-memo"></td></tr>
+
+                            <tr class="key-group"><td colspan="3">【2段目】</td></tr>
+                            <tr><td><span class="num-circle">7</span></td><td>アリーナSMボックス</td><td class="key-memo"></td></tr>
+                            <tr><td><span class="num-circle">8</span></td><td>アリーナシャッター</td><td class="key-memo"></td></tr>
+                            <tr><td><span class="num-circle">9</span></td><td>体育館 (北)</td><td class="key-memo"></td></tr>
+                            <tr><td><span class="num-circle">10</span></td><td>更衣室コインシャワー</td><td class="key-memo"></td></tr>
+                            <tr><td><span class="num-circle">11</span></td><td>U-12, U-15キー</td><td class="key-memo"></td></tr>
+                            <tr><td><span class="num-circle">12</span></td><td>U-18ロッカー</td><td class="key-memo"></td></tr>
+                            <tr><td><span class="num-circle">13</span></td><td>更衣室 (外) ロッカー</td><td class="key-memo"></td></tr>
+
+                            <tr class="key-group"><td colspan="3">【3段目】</td></tr>
+                            <tr><td><span class="num-circle">14</span></td><td>外部コンセント</td><td class="key-memo"></td></tr>
+                            <tr><td><span class="num-circle">15</span></td><td>1Fブレーカー</td><td class="key-memo"></td></tr>
+                            <tr><td><span class="num-circle">16</span></td><td>緊急車両用門</td><td class="key-memo"></td></tr>
+                            <tr><td><span class="num-circle">17</span></td><td>ミーティングルーム</td><td class="key-memo"></td></tr>
+                            <tr><td><span class="num-circle">18</span></td><td>車止め 9基</td><td class="key-memo"></td></tr>
+                            <tr><td><span class="num-circle">19</span></td><td>多目的南京錠</td><td class="key-memo"></td></tr>
+                            <tr><td><span class="num-circle">20</span></td><td>ユーティリティスペース 1</td><td class="key-memo"></td></tr>
+                            <tr><td><span class="num-circle">21</span></td><td>2F事務所 中央ロッカー</td><td class="key-memo"></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <a href="./" class="back-btn">← マニュアル一覧に戻る</a>
         </div>
-
-        <section class="manual-section">
-            <h3>カギ・解錠場所マップ</h3>
-            <div class="map-container">
-                <img src="../assets/images/key-map.jpg" alt="カギ場所マップ">
-                <p style="font-size: 0.75rem; color: #999; margin-top: 8px;">※番号は下の表と対応しています</p>
-            </div>
-
-            <h3>カギ使用場所一覧</h3>
-            <div class="key-table-container">
-                <table class="key-table">
-                    <thead>
-                        <tr>
-                            <th style="width: 40px;">No</th>
-                            <th>カギの名称 / 使用場所</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="key-group"><td colspan="2">【1段目】</td></tr>
-                        <tr><td><span class="num-circle">1</span></td><td>Times</td></tr>
-                        <tr><td><span class="num-circle">2</span></td><td>水景機械室・目隠しフェンス</td></tr>
-                        <tr><td><span class="num-circle">3</span></td><td>クリニック 1</td></tr>
-                        <tr><td><span class="num-circle">4</span></td><td>クリニック 2</td></tr>
-                        <tr><td><span class="num-circle">5</span></td><td>収納 1 (左) ガス</td></tr>
-                        <tr><td><span class="num-circle">6</span></td><td>収納 2 (右) ガス</td></tr>
-
-                        <tr class="key-group"><td colspan="2">【2段目】</td></tr>
-                        <tr><td><span class="num-circle">7</span></td><td>アリーナSMボックス</td></tr>
-                        <tr><td><span class="num-circle">8</span></td><td>アリーナシャッター</td></tr>
-                        <tr><td><span class="num-circle">9</span></td><td>体育館 (北)</td></tr>
-                        <tr><td><span class="num-circle">10</span></td><td>更衣室コインシャワー</td></tr>
-                        <tr><td><span class="num-circle">11</span></td><td>U-12, U-15キー</td></tr>
-                        <tr><td><span class="num-circle">12</span></td><td>U-18ロッカー</td></tr>
-                        <tr><td><span class="num-circle">13</span></td><td>更衣室 (外) ロッカー</td></tr>
-
-                        <tr class="key-group"><td colspan="2">【3段目】</td></tr>
-                        <tr><td><span class="num-circle">14</span></td><td>外部コンセント</td></tr>
-                        <tr><td><span class="num-circle">15</span></td><td>1Fブレーカー</td></tr>
-                        <tr><td><span class="num-circle">16</span></td><td>緊急車両用門</td></tr>
-                        <tr><td><span class="num-circle">17</span></td><td>ミーティングルーム</td></tr>
-                        <tr><td><span class="num-circle">18</span></td><td>車止め 9基</td></tr>
-                        <tr><td><span class="num-circle">19</span></td><td>多目的南京錠</td></tr>
-                        <tr><td><span class="num-circle">20</span></td><td>ユーティリティスペース 1</td></tr>
-                        <tr><td><span class="num-circle">21</span></td><td>2F事務所 中央ロッカー</td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
     </main>
 
-    <footer><p>© 2026 FRONTOWN IKUTA</p></footer>
+    <div id="imageModal" class="modal" onclick="this.style.display='none'">
+        <img class="modal-content" id="modalImg">
+    </div>
 
+    <footer><p>&copy; 2026 FRONTOWN IKUTA</p></footer>
+
+    <script>
+        document.querySelectorAll('.manual-img').forEach(img => {
+            img.onclick = function() {
+                const modal = document.getElementById("imageModal");
+                const modalImg = document.getElementById("modalImg");
+                modal.style.display = "flex";
+                modalImg.src = this.src;
+            }
+        });
+    </script>
 </body>
 </html>
