@@ -14,6 +14,10 @@
         
         .step-details { font-size: 0.95rem; line-height: 1.6; color: #333; margin-top: 5px; padding: 5px 0; }
 
+        /* リンクボタン */
+        .manual-link-btn { display: inline-block; margin-top: 10px; padding: 8px 15px; background: #35A0D9; color: #fff; text-decoration: none; border-radius: 5px; font-weight: bold; font-size: 0.9rem; }
+        .manual-link-btn:hover { background: #2a8abf; }
+
         .highlight-blue { color: #35A0D9; font-weight: bold; }
         .highlight-red { color: #d9534f; font-weight: bold; }
 
@@ -21,7 +25,7 @@
         .sub-step li { position: relative; padding-left: 1.5em; margin-bottom: 4px; }
         .sub-step li::before { content: "・"; position: absolute; left: 0; color: #35A0D9; font-weight: bold; }
 
-        /* 外回りフロー用（早番準拠） */
+        /* 外回りフロー */
         .flow-route { background: #f8f9fa; border: 1px solid #dee2e6; padding: 15px; border-radius: 8px; }
         .route-step { position: relative; padding-bottom: 15px; }
         .route-step:last-child { padding-bottom: 0; }
@@ -29,10 +33,11 @@
         .route-step:last-child::after { content: ""; }
         .route-label { font-weight: bold; color: #35A0D9; display: block; }
 
-        /* ALSOK用特殊レイアウト */
-        .alsok-flow { background: #fff; border: 1px solid #35A0D9; border-radius: 5px; padding: 12px; margin-top: 10px; }
-        .alsok-item { display: block; padding: 4px 0; border-bottom: 1px solid #eee; }
-        .alsok-item:last-child { border-bottom: none; }
+        /* ALSOKリスト形式 */
+        .alsok-list { list-style: none; padding: 0; margin: 10px 0; border: 1px solid #35A0D9; border-radius: 5px; overflow: hidden; }
+        .alsok-list li { padding: 10px 15px; border-bottom: 1px solid #eef7fc; background: #fff; }
+        .alsok-list li:last-child { border-bottom: none; }
+        .alsok-num { font-weight: bold; color: #35A0D9; margin-right: 8px; }
 
         .back-btn { display: inline-block; margin-top: 20px; color: #35A0D9; text-decoration: none; font-weight: bold; }
     </style>
@@ -93,7 +98,9 @@
                     <span class="step-title">💻 システム・備品片付け</span>
                     <div class="step-details">
                         <ul class="sub-step">
-                            <li><strong>タイムテーブル作成＆サイネージ準備：</strong>詳しくは、manual/maketimetable.htmlを確認</li>
+                            <li><strong>タイムテーブル作成＆サイネージ準備：</strong><br>
+                                <a href="maketimetable.html" class="manual-link-btn">専用マニュアルを開く</a>
+                            </li>
                             <li><strong>コーヒーマシン片付け：</strong>コーヒーかすをゴミ箱に捨てて、水もシンクに流す。水で洗って干す</li>
                         </ul>
                     </div>
@@ -168,7 +175,7 @@
                     </div>
                     <div class="route-step">
                         <span class="route-label">⑨ 郵便物確認</span>
-                        <span class="highlight-blue">時計回りで3、反時計回りで4</span>で開くので中身確認
+                        時計回りで3、反時計回りで4で開くので中身確認
                     </div>
                     <div class="route-step">
                         <span class="route-label">⑩ スタジオA、アリーナ施錠確認</span>
@@ -199,12 +206,12 @@
                 <div class="step-box">
                     <span class="step-title">🚨 ALSOK操作</span>
                     <div class="step-details">
-                        <div class="alsok-flow">
-                            <span class="alsok-item">1. 消火器置き場から<strong>ALSOKキー</strong>をとる</span>
-                            <span class="alsok-item">2. 機械の<strong>戸締り確認</strong>が消えたら<strong>警備開始</strong>を押す</span>
-                            <span class="alsok-item">3. <strong>ALSOKキー</strong>をかざす</span>
-                            <span class="alsok-item">4. ALSOKキーを戻してドアの鍵を閉める</span>
-                        </div>
+                        <ul class="alsok-list">
+                            <li><span class="alsok-num">1.</span>消火器置き場から<strong>ALSOKキー</strong>をとる</li>
+                            <li><span class="alsok-num">2.</span>機械の<strong>戸締り確認</strong>が消えたら<strong>警備開始</strong>を押す</li>
+                            <li><span class="alsok-num">3.</span><strong>ALSOKキー</strong>をかざす</li>
+                            <li><span class="alsok-num">4.</span>ALSOKキーを戻してドアの鍵を閉める</li>
+                        </ul>
                         <span class="highlight-red" style="display: block; margin-top: 10px;">※オリーブさんがいればやらない、翌日の早番にチャットをする</span>
                     </div>
                 </div>
