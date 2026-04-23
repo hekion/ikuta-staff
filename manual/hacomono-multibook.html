@@ -13,20 +13,14 @@
         .step-title { font-weight: bold; color: #35A0D9; margin-bottom: 8px; display: block; }
         .step-details { font-size: 0.95rem; line-height: 1.6; color: #333; margin-top: 5px; }
 
-        .image-placeholder { 
-            width: 100%; 
-            max-width: 500px; 
-            height: 150px; 
-            background: #eee; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            border: 2px dashed #ccc; 
-            border-radius: 5px; 
-            margin: 10px 0; 
-            color: #666; 
-            font-size: 0.85rem; 
-            text-align: center; 
+        .manual-image {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin: 12px 0;
+            display: block;
         }
 
         .important-box { 
@@ -39,7 +33,7 @@
         }
         .important-label { color: #d9534f; font-weight: bold; display: block; margin-bottom: 3px; }
 
-        .memo-box { background: #fff9e6; padding: 15px; border-radius: 5px; border: 1px solid #ffeeba; margin-top: 20px; }
+        .memo-box { background: #eef7fc; padding: 15px; border-radius: 5px; border: 1px solid #35A0D9; margin-bottom: 20px; }
         .sub-step { list-style-type: disc; margin-left: 20px; font-size: 0.9rem; color: #444; margin-top: 5px; }
 
         .back-btn { display: inline-block; margin-top: 20px; color: #35A0D9; text-decoration: none; font-weight: bold; }
@@ -69,9 +63,9 @@
 <main class="container">
     <div class="manual-content">
         <h2>一括予約のやり方 (hacomono)</h2>
-        <p style="font-size: 0.85rem; color: #666; margin-bottom: 20px;">更新日：2026/04/22</p>
+        <p style="font-size: 0.85rem; color: #666; margin-bottom: 20px;">更新日：2026/04/23</p>
 
-        <div class="memo-box" style="background: #eef7fc; border-color: #35A0D9; margin-top: 0;">
+        <div class="memo-box">
             <p><strong>対象プログラム（2026年3月時点）</strong></p>
             <ul class="sub-step">
                 <li>キッズチア、かけっこ、ヒップホップ</li>
@@ -85,8 +79,8 @@
                 <div class="step-details">
                     予約スケジュールの「インポート」から「予約」を選び、雛形をダウンロードします。
                 </div>
-                <div class="image-placeholder">画像1：インポート画面（準備中）</div>
-                <div class="image-placeholder">画像2：雛形DL手順（準備中）</div>
+                <img src="../assets/images/hacomono/multibook-1.png" alt="インポート画面" class="manual-image">
+                <img src="../assets/images/hacomono/multibook-2.png" alt="雛形DL手順" class="manual-image">
             </div>
 
             <div class="step-box">
@@ -94,27 +88,12 @@
                 <div class="step-details">
                     <ul class="sub-step">
                         <li><strong>メールアドレス：</strong>hacomonoに登録されているメールアドレス</li>
-                        <li><strong>予約カテゴリ：</strong>プログラムの開催場所の分類
-                            <ul style="list-style: none; padding-left: 10px; margin-top: 5px; font-size: 0.85rem; color: #666;">
-                                <li>・スタジオA：S0001_R0001</li>
-                                <li>・スタジオB：S0001_R0002</li>
-                                <li>・アリーナ：S0001_R0003</li>
-                                <li>・ウエイトルーム：S0001_R0004</li>
-                                <li>・イベント：S0001_R0005</li>
-                            </ul>
-                        </li>
+                        <li><strong>予約カテゴリ：</strong>プログラムの開催場所の分類（スタジオA：S0001_R0001 など）</li>
                         <li><strong>開始日時：</strong>プログラムが始まる時間</li>
-                        <li><strong>スペースNo：</strong>なくても予約は入れられる。</li>
-                        <li><strong>チケットコード：</strong>各プログラムの該当チケットコード
-                            <ul style="list-style: none; padding-left: 10px; margin-top: 5px; font-size: 0.85rem; color: #666;">
-                                <li>・キッズチア：T0051</li>
-                                <li>・かけっこ（小学生）：T0010</li>
-                                <li>・ヒップホップ：T0051</li>
-                            </ul>
-                        </li>
+                        <li><strong>チケットコード：</strong>各プログラムの該当チケットコード（キッズチア：T0051 など）</li>
                     </ul>
                 </div>
-                <div class="image-placeholder">画像：CSV入力例（準備中）</div>
+                <img src="../assets/images/hacomono/multibook-3.png" alt="CSV入力例" class="manual-image">
                 
                 <div class="important-box">
                     <span class="important-label">《重要》</span>
@@ -132,9 +111,8 @@
                 <div class="step-details">
                     メンバー詳細画面から、該当チケットをレッスンの回数分あらかじめ付与しておきます。
                 </div>
-                <div class="image-placeholder">画像1：メンバー検索（準備中）</div>
-                <div class="image-placeholder">画像2：チケット付与画面（準備中）</div>
-                <div class="image-placeholder">画像3：付与完了の確認（準備中）</div>
+                <img src="../assets/images/hacomono/multibook-4.png" alt="メンバー検索・チケット付与" class="manual-image">
+                <img src="../assets/images/hacomono/multibook-5.png" alt="付与完了の確認" class="manual-image">
             </div>
         </section>
 
@@ -144,8 +122,8 @@
                 <div class="step-details">
                     「インポート検証」でエラーがないか確認してから実行し、スケジュールへの反映を確認して完了です。
                 </div>
-                <div class="image-placeholder">画像1：インポート検証画面（準備中）</div>
-                <div class="image-placeholder">画像2：スケジュール反映確認（準備中）</div>
+                <img src="../assets/images/hacomono/multibook-6.png" alt="インポート検証画面" class="manual-image">
+                <img src="../assets/images/hacomono/multibook-7.png" alt="スケジュール反映確認" class="manual-image">
             </div>
         </section>
 
