@@ -17,19 +17,14 @@
         .highlight-blue { color: #35A0D9; font-weight: bold; }
         .highlight-red { color: #d9534f; font-weight: bold; }
 
-        .sub-step { list-style-type: none; padding-left: 0; margin-top: 5px; }
-        .sub-step li { position: relative; padding-left: 1.5em; margin-bottom: 4px; }
-        .sub-step li::before { content: "・"; position: absolute; left: 0; color: #35A0D9; font-weight: bold; }
-
-        /* 外回りフロー用 */
-        .flow-route { background: #f8f9fa; border: 1px solid #dee2e6; padding: 15px; border-radius: 8px; }
-        .route-step { position: relative; padding-bottom: 15px; }
-        .route-step:last-child { padding-bottom: 0; }
-        .route-step::after { content: "▼"; position: absolute; bottom: -2px; left: 0; font-size: 0.8rem; color: #ccc; }
-        .route-step:last-child::after { content: ""; }
-        .route-label { font-weight: bold; color: #35A0D9; display: block; }
-
         .back-btn { display: inline-block; margin-top: 20px; color: #35A0D9; text-decoration: none; font-weight: bold; }
+
+        /* 外回りフロー用（早番のレイアウトに準拠） */
+        .flow-route { background: #f8f9fa; border: 1px solid #dee2e6; padding: 15px; border-radius: 8px; margin-top: 10px; }
+        .route-item { position: relative; padding-bottom: 15px; }
+        .route-item:last-child { padding-bottom: 0; }
+        .route-item::after { content: "↓"; position: absolute; bottom: -2px; left: 0; font-weight: bold; color: #35A0D9; }
+        .route-item:last-child::after { content: ""; }
     </style>
 </head>
 <body>
@@ -56,153 +51,174 @@
 
     <main class="container">
         <div class="manual-content">
-            <h2>遅番業務マニュアル</h2>
+            <h2>遅番業務について</h2>
             <p style="font-size: 0.85rem; color: #666; margin-bottom: 20px;">更新日：2026/04/24</p>
 
             <section>
-                <span class="category-title">1. 出勤後の外回り</span>
-                <p style="font-size: 0.9rem; margin-bottom: 15px;">※自販機横ゴミ箱用のゴミ袋を持っていく</p>
-                
+                <span class="category-title">出勤後の外回り</span>
                 <div class="step-box">
-                    <span class="step-title">📋 外回り確認・注意項目</span>
+                    <span class="step-title">外回り準備</span>
+                    <div class="step-details">自販機横ゴミ箱用のゴミ袋を持っていく</div>
+                </div>
+
+                <div class="step-box">
+                    <span class="step-title">自販機横ゴミ箱チェック</span>
+                    <div class="step-details">ゴミ箱がいっぱいになっていたら持っていったゴミ袋に付け替える</div>
+                </div>
+
+                <div class="step-box">
+                    <span class="step-title">各エリアの確認</span>
                     <div class="step-details">
-                        <ul class="sub-step">
-                            <li><strong>自販機横ゴミ箱チェック：</strong>いっぱいならゴミ袋を付け替え</li>
-                            <li><strong>バスケコート利用状況：</strong>中学生がいないか含めて確認</li>
-                            <li><strong>駐車場利用状況確認</strong></li>
-                            <li><strong>各グラウンドのベンチ数：</strong>Anker〇脚、Nebula〇脚を確認（足りなければ周囲を確認）</li>
-                            <li><strong>バナー・POP確認：</strong>切れかけ、汚れているものがないか確認</li>
-                            <li><strong>ゴミ・落とし物：</strong>回収して事務所で分別・登録</li>
-                            <li><strong>ふれあい広場・芝生エリア：</strong>ボール遊び禁止の注意</li>
-                            <li><strong>ジョギングコース：</strong>立ち止まり、荷物放置の注意</li>
-                        </ul>
+                        ・<strong>バスケコート利用状況確認：</strong>中学生がいないか含めて確認する<br>
+                        ・<strong>駐車場利用状況確認</strong><br>
+                        ・<strong>各グラウンドのテープ付きベンチの数：</strong>Anker〇脚、Nebula〇脚なので足りなければ周りを確認する<br>
+                        ・<strong>バナー、POP確認：</strong>切れかけ、汚れているものがないか確認する<br>
+                        ・<strong>ゴミ、落とし物チェック：</strong>回収して事務所で分別や落とし物登録する<br>
+                        ・<strong>芝生エリア利用状況</strong>
+                    </div>
+                </div>
+
+                <div class="step-box">
+                    <span class="step-title">広場・コースでの注意</span>
+                    <div class="step-details">
+                        ・<strong>ふれあい広場でのボール注意：</strong>ふれあい広場や芝生エリアでのボール遊びは禁止なので注意する<br>
+                        ・<strong>ジョギングコースの立ち止まり注意：</strong>青いコースに立ち止まっている人や荷物等があれば注意する
                     </div>
                 </div>
             </section>
 
             <section>
-                <span class="category-title">2. 締め前の作業</span>
-                
+                <span class="category-title">締め前の作業</span>
                 <div class="step-box">
-                    <span class="step-title">💻 サイネージ・コーヒーマシン</span>
-                    <div class="step-details">
-                        <ul class="sub-step">
-                            <li><strong>タイムテーブル＆サイネージ：</strong><a href="./maketimetable.html" class="highlight-blue">専用マニュアル</a>を確認</li>
-                            <li><strong>コーヒーマシン片付け：</strong>かすを捨て、給水を抜き、水洗いして干す</li>
-                        </ul>
-                    </div>
+                    <span class="step-title">タイムテーブル作成＆サイネージ準備</span>
+                    <div class="step-details">詳しくは、manual/maketimetable.htmlを確認</div>
                 </div>
 
                 <div class="step-box">
-                    <span class="step-title">🚿 更衣室の締め</span>
-                    <div class="step-details">
-                        1. コインシャワーのお金を確認<br>
-                        2. ロッカー内を全て確認（汚ければ床清掃）<br>
-                        3. 中の仕切りを開けて隣の更衣室も確認<br>
-                        4. 空気清浄機、空調、電気をオフにする<br>
-                        5. 更衣室の鍵を閉める
-                    </div>
+                    <span class="step-title">コーヒーマシン片付け</span>
+                    <div class="step-details">コーヒーかすをゴミ箱に捨てて、水もシンクに流す。水で洗って干す</div>
                 </div>
-            </section>
 
-            <section>
-                <span class="category-title">3. 建物周り・ネットの施錠</span>
-                
                 <div class="step-box">
-                    <span class="step-title">🔒 各棟の施錠確認</span>
+                    <span class="step-title">更衣室の締め</span>
                     <div class="step-details">
-                        <ul class="sub-step">
-                            <li><strong>アカデミー棟：</strong>出入り口、ウェイトルーム、食堂など全て施錠</li>
-                            <li><strong>アカデミー倉庫：</strong>落とし物を保管。ミーティングルーム・製氷室等の施錠</li>
-                            <li><strong>トーカン：</strong>屋上ドアの施錠を確認してから出入り口を閉める</li>
-                            <li><strong>アリーナ裏トイレ：</strong>中を確認し、みんなのトイレを施錠</li>
-                            <li><strong>グラウンド：</strong>ネットカーテンや出入り口の開きを閉じる</li>
-                        </ul>
+                        ・コインシャワーのお金を確認<br>
+                        ・ロッカーの中身を全て確認<br>
+                        ・汚ければ床を掃除<br>
+                        ・中の仕切りを開けて隣の更衣室も確認する<br>
+                        ・空気清浄機、空調、電気をオフにする<br>
+                        ・更衣室の鍵を閉める
                     </div>
                 </div>
             </section>
 
             <section>
-                <span class="category-title">4. 締めの外回り（2人で実施）</span>
-                <p style="font-size: 0.9rem; margin-bottom: 10px;">※トランシーバー2台、懐中電灯を持参。1台は事務所、1台は持ち歩く</p>
-                
+                <span class="category-title">建物周り</span>
+                <div class="step-box">
+                    <span class="step-title">落とし物の保管と施錠</span>
+                    <div class="step-details">アカデミー倉庫に落とし物を保管する。ミーティングルーム＆製氷室＆ウェイトルームの出入り口の施錠をする</div>
+                </div>
+
+                <div class="step-box">
+                    <span class="step-title">アカデミー棟施錠</span>
+                    <div class="step-details">アカデミーの出入り口やウェイトルームからの出入り口、食堂からの出入り口など全てを施錠確認する</div>
+                </div>
+
+                <div class="step-box">
+                    <span class="step-title">トーカン出入り口施錠</span>
+                    <div class="step-details">中に入って屋上ドアの施錠も確認してから鍵を閉める</div>
+                </div>
+
+                <div class="step-box">
+                    <span class="step-title">アリーナ裏トイレ施錠</span>
+                    <div class="step-details">男子トイレ、女子トイレとともに中を確認してみんなのトイレを施錠する</div>
+                </div>
+
+                <div class="step-box">
+                    <span class="step-title">グラウンドネット閉め</span>
+                    <div class="step-details">出入り口やネットカーテンが開いているところがあれば閉じる</div>
+                </div>
+            </section>
+
+            <section>
+                <span class="category-title">締めの外回り(2人で)</span>
+                <div class="step-box">
+                    <span class="step-title">外回り準備</span>
+                    <div class="step-details">トランシーバーの電源を2台ともつけて、1台は事務所、もう1台は持ち歩く。合わせて懐中電灯も持っていく</div>
+                </div>
+
                 <div class="flow-route">
-                    <div class="route-step">
-                        <span class="route-label">① 受付側自動ドア施錠</span>
-                        カウンター側から閉めると鍵が抜けやすい
+                    <div class="route-item">
+                        <strong>受付側自動ドア施錠：</strong>カウンター側から閉めると鍵は抜けやすい
                     </div>
-                    <div class="route-step">
-                        <span class="route-label">② Nebula ネットカーテン</span>
-                        開いていることが多いので閉める
+                    <div class="route-item">
+                        <strong>Nebulaのネットカーテン確認：</strong>開いてることが多いので閉める
                     </div>
-                    <div class="route-step">
-                        <span class="route-label">③ 南門施錠</span>
+                    <div class="route-item">
+                        <strong>南門施錠：</strong>特になし
                     </div>
-                    <div class="route-step">
-                        <span class="route-label">④ バスケコート確認</span>
-                        POP・ゴミの確認
+                    <div class="route-item">
+                        <strong>バスケコート確認：</strong>POP類の確認とゴミの確認をする
                     </div>
-                    <div class="route-step">
-                        <span class="route-label">⑤ 駐車場確認</span>
-                        23時までの団体の車がどこに止まっているか把握
+                    <div class="route-item">
+                        <strong>駐車場確認：</strong>23時までの団体がいる日もあるので、その場合どこに車止まってるか把握する
                     </div>
-                    <div class="route-step">
-                        <span class="route-label">⑥ 駐車場入口・正門</span>
-                        入り口を施錠し、正門を半分以上閉じる（自分たちの退路確保）
+                    <div class="route-item">
+                        <strong>駐車場入り口施錠＆正門を半分以上閉じる：</strong>正門は23時までの利用者と自分たちが出る時などに通るので開けておく
                     </div>
-                    <div class="route-step">
-                        <span class="route-label">⑦ 噴水・公園見回り</span>
-                        落とし物、ゴミの確認
+                    <div class="route-item">
+                        <strong>噴水ベンチ、公園見回り：</strong>落とし物、ゴミがないか確認する
                     </div>
-                    <div class="route-step">
-                        <span class="route-label">⑧ みんなのトイレ見回り・施錠</span>
-                        男子・女子トイレ内も確認する
+                    <div class="route-item">
+                        <strong>みんなのトイレ見回り、施錠：</strong>トイレの中は男子女子トイレ含めて確認する
                     </div>
-                    <div class="route-step">
-                        <span class="route-label">⑨ 郵便物確認</span>
-                        <span class="highlight-blue">時計回り3、反時計回り4</span>で開く
+                    <div class="route-item">
+                        <strong>郵便物確認：</strong>時計回りで3、反時計回りで4で開くので中身確認
                     </div>
-                    <div class="route-step">
-                        <span class="route-label">⑩ スタジオA・アリーナ施錠</span>
-                        窓の施錠を要チェック
+                    <div class="route-item">
+                        <strong>スタジオA、アリーナ施錠確認：</strong>外回り行く前に利用が終わっていれば済ましておく。窓の施錠も要チェック
                     </div>
-                    <div class="route-step">
-                        <span class="route-label">⑪ エレベーター前自動ドア施錠</span>
-                        23時利用者がいなければ閉める
+                    <div class="route-item">
+                        <strong>エレベーター前自動ドア施錠：</strong>23時までのアリーナ利用者がいたらまだ閉めない
                     </div>
                 </div>
             </section>
 
             <section>
-                <span class="category-title">5. 退勤直前</span>
-                
+                <span class="category-title">退勤直前</span>
                 <div class="step-box">
-                    <span class="step-title">🔑 最終チェック</span>
+                    <span class="step-title">マスターキー片付け</span>
+                    <div class="step-details">マスターキー2個を入れて階段下のハンガー掛けに引っ掛けてしまう</div>
+                </div>
+
+                <div class="step-box">
+                    <span class="step-title">事務所・2階の確認</span>
                     <div class="step-details">
-                        <ul class="sub-step">
-                            <li><strong>マスターキー：</strong>2個を階段下のハンガー掛けへ</li>
-                            <li><strong>事務所空調：</strong>空気清浄機、エアコン、電気をオフ</li>
-                            <li><strong>2階サーバー室前：</strong>サーバー室以外を全てオフ</li>
-                            <li><strong>その他施錠：</strong>洗濯スペース周辺、事務所裏、会議室の窓</li>
-                        </ul>
+                        ・<strong>受付事務所の空調オフ：</strong>空気清浄機、エアコンなどオフにする<br>
+                        ・<strong>2階で空調、電源関係確認：</strong>サーバー室前のところで不要な空調、電源をオフする。空調はサーバー室は切らないで残りは全部オフにする
                     </div>
                 </div>
 
                 <div class="step-box">
-                    <span class="step-title">🚨 ALSOKをかける</span>
+                    <span class="step-title">施錠最終確認</span>
                     <div class="step-details">
-                        1. 消火器置き場から<span class="highlight-blue">ALSOKキー</span>をとる<br>
-                        2. 機械の「戸締り確認」が消えたら<span class="highlight-blue">警備開始</span>を押す<br>
-                        3. ALSOKキーをかざす<br>
-                        4. キーを戻してドアの鍵を閉める<br>
+                        ・<strong>洗濯スペース周辺の施錠確認：</strong>洗濯機前のスペースのカギと事務所から外に出るドアのカギを閉じる<br>
+                        ・<strong>窓施錠確認：</strong>会議室の窓を施錠する
+                    </div>
+                </div>
+
+                <div class="step-box">
+                    <span class="step-title">ALSOKをかける</span>
+                    <div class="step-details">
+                        消火器置き場からALSOKキーをとる→機械の戸締り確認が消えたら警備開始を押してからALSOKキーをかざす→ALSOKキーを戻してドアの鍵を閉める<br>
                         <span class="highlight-red">※オリーブさんがいればやらない、翌日の早番にチャットをする</span>
                     </div>
                 </div>
 
                 <div class="step-box">
-                    <span class="step-title">🚪 正門・車両出口施錠</span>
+                    <span class="step-title">正門施錠＆車両出口施錠</span>
                     <div class="step-details">
-                        駐車場に残っている車がいないか最終確認して、車両出口を閉める<br>
+                        駐車場に残っている車がいないか確認して車両出口を閉める<br>
                         <span class="highlight-red">※正門はオリーブさんがいればやらない</span>
                     </div>
                 </div>
