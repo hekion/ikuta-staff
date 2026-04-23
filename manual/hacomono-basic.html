@@ -13,17 +13,6 @@
         .step-title { font-weight: bold; color: #35A0D9; margin-bottom: 8px; display: block; }
         .step-details { font-size: 0.95rem; line-height: 1.6; color: #333; margin-top: 5px; }
 
-        .manual-img { 
-            width: 100%; 
-            max-width: 400px; 
-            display: block; 
-            margin: 12px 0 20px 0; 
-            border: 1px solid #ddd; 
-            border-radius: 5px; 
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            cursor: zoom-in;
-        }
-
         .important-box { 
             background: #fdf2f2; 
             border: 1px solid #f5c6cb; 
@@ -34,35 +23,9 @@
         }
         .important-label { color: #d9534f; font-weight: bold; display: block; margin-bottom: 3px; }
         
-        .memo-box { background: #fff9e6; padding: 15px; border-radius: 5px; border: 1px solid #ffeeba; margin-top: 20px; }
         .sub-step { list-style-type: disc; margin-left: 20px; font-size: 0.9rem; color: #444; line-height: 1.6; margin-top: 5px; }
-
         .back-btn { display: inline-block; margin-top: 20px; color: #35A0D9; text-decoration: none; font-weight: bold; }
         .section-divider { border: 0; border-top: 2px solid #eee; margin: 30px 0; }
-        .important-note { color: #d9534f; font-weight: bold; }
-
-        /* 画像拡大（モーダル）のスタイル */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 2000;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background-color: rgba(0,0,0,0.8);
-            cursor: zoom-out;
-            align-items: center;
-            justify-content: center;
-        }
-        .modal-content {
-            max-width: 95%;
-            max-height: 95%;
-            object-fit: contain;
-            animation: zoom 0.3s;
-        }
-        @keyframes zoom {
-            from {transform: scale(0.8); opacity: 0;}
-            to {transform: scale(1); opacity: 1;}
-        }
     </style>
 </head>
 <body>
@@ -88,8 +51,8 @@
 
     <main class="container">
         <div class="manual-content">
-            <h2>基本的な操作 (hacomono)</h2>
-            <p style="font-size: 0.85rem; color: #666; margin-bottom: 20px;">更新日：2026/04/23</p>
+            <h2>hacomono：基本的な操作</h2>
+            <p style="font-size: 0.85rem; color: #666; margin-bottom: 20px;">更新日：2026/04/24</p>
 
             <section>
                 <span class="category-title">hacomonoの主な用途</span>
@@ -99,55 +62,6 @@
                             <li>フロンタウンフィットネスの予約管理・決済確認</li>
                         </ul>
                     </div>
-                </div>
-            </section>
-
-            <section id="walk-in">
-                <span class="category-title">予約なし当日参加の対応</span>
-                
-                <p style="font-weight: bold; color: #35A0D9; margin: 15px 0 10px 5px;">① hacomono登録済みの方</p>
-                
-                <div class="step-box">
-                    <span class="step-title">1. 数字選択</span>
-                    <div class="step-details">hacomonoの空いている数字を選択します。</div>
-                    <img src="../assets/images/hacomono/basic-1.png" alt="数字選択" class="manual-img">
-                </div>
-
-                <div class="step-box">
-                    <span class="step-title">2. メンバー検索</span>
-                    <div class="step-details">「メンバー検索」ボタンから、お客様を検索します。</div>
-                    <img src="../assets/images/hacomono/basic-2.png" alt="メンバー検索" class="manual-img">
-                </div>
-
-                <div class="step-box">
-                    <span class="step-title">3. 支払い方法・予約確定</span>
-                    <div class="step-details">支払い方法にチェックを入れ、チケット商品を確認して「チケット予約」を押します。</div>
-                    <img src="../assets/images/hacomono/basic-3.png" alt="支払い方法・予約確定" class="manual-img">
-                </div>
-
-                <p style="font-weight: bold; color: #35A0D9; margin: 30px 0 10px 5px;">② hacomono登録がない方</p>
-                
-                <div class="step-box">
-                    <span class="step-title">(1) ダミー登録を行う場合</span>
-                    <div class="step-details">
-                        「運営タブ」の「メンバー」を開き、「新規登録」ボタンを押します。<br>
-                        氏名、メールアドレス、パスワード（<span class="important-note">12345678</span>）、電話番号を入力します。
-                    </div>
-                    <img src="../assets/images/hacomono/basic-4.png" alt="運営タブ・メンバー" class="manual-img">
-                    <img src="../assets/images/hacomono/basic-5.png" alt="新規登録ボタン" class="manual-img">
-                    <img src="../assets/images/hacomono/basic-6.png" alt="メンバー情報入力" class="manual-img">
-                    
-                    <div class="memo-box" style="margin-top: 15px; background: #eef7fc; border-color: #35A0D9;">
-                        <strong>★ 保存完了後の流れ</strong>
-                        <p style="font-size: 0.85rem; margin-top: 5px;">
-                            上記「①登録済みの方」の流れに戻って予約を進めてください。
-                        </p>
-                    </div>
-                </div>
-
-                <div class="step-box">
-                    <span class="step-title">(2) お客様ご自身で登録する場合</span>
-                    <div class="step-details">LINEのQRコードを読み込んでいただき、ご自身で登録作業をしていただきます。</div>
                 </div>
             </section>
 
@@ -189,22 +103,6 @@
         </div>
     </main>
 
-    <div id="imageModal" class="modal" onclick="this.style.display='none'">
-        <img class="modal-content" id="modalImg">
-    </div>
-
     <footer><p>&copy; 2026 FRONTOWN IKUTA</p></footer>
-
-    <script>
-        // 画像拡大機能
-        document.querySelectorAll('.manual-img').forEach(img => {
-            img.onclick = function() {
-                const modal = document.getElementById("imageModal");
-                const modalImg = document.getElementById("modalImg");
-                modal.style.display = "flex";
-                modalImg.src = this.src;
-            }
-        });
-    </script>
 </body>
 </html>
