@@ -18,30 +18,45 @@
         .today-header { 
             font-size: 1.5rem; 
             font-weight: bold; 
-            margin-bottom: 10px; 
+            margin-bottom: 15px; 
             color: #333;
         }
 
-        /* トピックス：水色のボックス形式 */
+        /* トピックスエリアの構成 */
         .topics-container {
-            margin-bottom: 20px;
-        }
-        .topics-box {
+            margin-bottom: 25px;
             display: inline-block;
-            background-color: #e3f2fd; /* 薄い水色 */
-            border: 1px solid #90caf9; /* 水色の枠線 */
-            color: #333; /* 黒色の文字 */
-            padding: 10px 25px;
+            text-align: left; /* ラベルを左寄せにするため */
+            min-width: 300px;
+        }
+
+        /* ボックスの上の「INFO」ラベル */
+        .info-label {
+            font-size: 0.75rem;
+            font-weight: bold;
+            color: #78909c; /* 控えめなブルーグレー */
+            margin-left: 5px;
+            margin-bottom: 2px;
+            display: block;
+            letter-spacing: 0.05em;
+        }
+
+        /* トピックス本体の水色ボックス */
+        .topics-box {
+            background-color: #e3f2fd; 
+            border: 1px solid #90caf9; 
+            color: #333; 
+            padding: 12px 25px;
             border-radius: 8px;
             font-weight: bold;
             font-size: 1.1rem;
-            min-width: 300px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            text-align: center; /* 中の文字は中央 */
         }
 
         .shift-grid {
             display: flex;
-            flex-direction: column; /* 各シフトボックスを縦に並べる */
+            flex-direction: column; 
             align-items: center;
             gap: 15px;
         }
@@ -64,24 +79,22 @@
             font-size: 1rem;
         }
         
-        /* シフトごとのアクセントカラー */
-        .early { border-color: #f0ad4e; color: #8a6d3b; }   /* 早番: 黄色系 */
-        .late { border-color: #5bc0de; color: #31708f; }    /* 遅番: 青色系 */
-        .tomorrow { border-color: #5cb85c; color: #3c763d; } /* 明日: 緑色系 */
+        .early { border-color: #f0ad4e; color: #8a6d3b; }   
+        .late { border-color: #5bc0de; color: #31708f; }    
+        .tomorrow { border-color: #5cb85c; color: #3c763d; } 
 
-        /* スタッフ名を横並びにする設定 */
         .staff-list { 
             font-size: 1rem; 
             line-height: 1.6;
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 20px; /* 名前と名前の間隔 */
+            gap: 20px; 
             color: #444;
         }
         
         .staff-list span {
-            white-space: nowrap; /* 名前が途中で改行されないようにする */
+            white-space: nowrap; 
         }
     </style>
 </head>
@@ -111,6 +124,7 @@
         <div class="today-header" id="today-date">読み込み中...</div>
         
         <div class="topics-container" id="topics-area" style="display: none;">
+            <span class="info-label">INFO</span>
             <div class="topics-box" id="today-topics"></div>
         </div>
         
@@ -182,7 +196,6 @@
     </footer>
 
     <script>
-        // 指定された新しいGAS URLをセット
         const GAS_URL = "https://script.google.com/macros/s/AKfycbyQAFS2Qc4tiq10VleXZV9ZNjIX9AltRW4L4xMF5GlUaeRQxjoggV2LhZ3CQih-RWZMIA/exec";
 
         async function fetchShift() {
@@ -190,27 +203,24 @@
                 const response = await fetch(GAS_URL);
                 const data = await response.json();
                 
-                // GASからのエラーハンドリング
                 if (data.error) {
                     document.getElementById('today-date').textContent = data.error;
-                    console.error("GAS Error:", data.error);
                     return;
                 }
 
-                // 日付表示
                 document.getElementById('today-date').textContent = data.date;
                 
-                // トピックス表示（内容がある時だけ表示）
                 const topicsArea = document.getElementById('topics-area');
                 const topicsBox = document.getElementById('today-topics');
+                
                 if (data.topics && data.topics.trim() !== "") {
+                    // ボックスの中はスプシの文字だけを表示
                     topicsBox.textContent = data.topics;
-                    topicsArea.style.display = "block";
+                    topicsArea.style.display = "inline-block";
                 } else {
                     topicsArea.style.display = "none";
                 }
                 
-                // スタッフリストの反映（<span>で囲って横並び）
                 const formatStaff = (list) => {
                     return list && list.length > 0 
                         ? list.map(name => `<span>${name}</span>`).join('') 
@@ -227,9 +237,7 @@
             }
         }
 
-        // ページ読み込み時に実行
         fetchShift();
     </script>
-
 </body>
 </html>
