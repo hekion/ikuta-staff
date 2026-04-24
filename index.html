@@ -6,7 +6,7 @@
     <title>Ikuta-Portal</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* シフト表示用の追加スタイル */
+        /* シフト表示エリアのスタイル設定 */
         .daily-info {
             text-align: center;
             background: #fff;
@@ -30,9 +30,9 @@
             min-width: 200px;
         }
         .shift-title { font-weight: bold; border-bottom: 2px solid; margin-bottom: 8px; padding-bottom: 3px; }
-        .early { border-color: #f0ad4e; color: #8a6d3b; } /* 早番: 黄色系 */
-        .late { border-color: #5bc0de; color: #31708f; }  /* 遅番: 青色系 */
-        .tomorrow { border-color: #5cb85c; color: #3c763d; } /* 明日: 緑系 */
+        .early { border-color: #f0ad4e; color: #8a6d3b; } /* 早番: 黄色 */
+        .late { border-color: #5bc0de; color: #31708f; }  /* 遅番: 青色 */
+        .tomorrow { border-color: #5cb85c; color: #3c763d; } /* 明日: 緑色 */
         .staff-list { font-size: 0.95rem; line-height: 1.6; }
     </style>
 </head>
@@ -129,24 +129,29 @@
     </footer>
 
     <script>
-        // ★ここにGoogle Apps ScriptでデプロイしたウェブアプリのURLを貼り付けてください
-        const GAS_URL = "ここにURLをペースト";
+        // 先ほど発行されたGASのURLをセット
+        const GAS_URL = "https://script.google.com/macros/s/AKfycbyHzkWGafLGPmP5JxJ9JhBSh8JGx81cbBzOCyAk-aTxts_jp6TFFUc6Uxa-QCnMhQLm9w/exec";
 
         async function fetchShift() {
             try {
                 const response = await fetch(GAS_URL);
                 const data = await response.json();
                 
-                document.getElementById('today-date').textContent = data.date;
+                // データの流し込み
+                document.getElementById('today-date').textContent = data.date || "日付未取得";
                 document.getElementById('today-topics').textContent = data.topics || "";
-                document.getElementById('early-staff').innerHTML = data.early.join('<br>') || "ー";
-                document.getElementById('late-staff').innerHTML = data.late.join('<br>') || "ー";
-                document.getElementById('tomorrow-early').innerHTML = data.tomorrowEarly.join('<br>') || "ー";
+                
+                // スタッフリストが空の場合は「ー」を表示
+                document.getElementById('early-staff').innerHTML = data.early.length > 0 ? data.early.join('<br>') : "ー";
+                document.getElementById('late-staff').innerHTML = data.late.length > 0 ? data.late.join('<br>') : "ー";
+                document.getElementById('tomorrow-early').innerHTML = data.tomorrowEarly.length > 0 ? data.tomorrowEarly.join('<br>') : "ー";
             } catch (e) {
-                console.error("Shift load error:", e);
+                console.error("データの取得に失敗しました:", e);
                 document.getElementById('today-date').textContent = "データ取得失敗";
             }
         }
+
+        // ページ読み込み時に実行
         fetchShift();
     </script>
 </body>
