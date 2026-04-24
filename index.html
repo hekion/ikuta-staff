@@ -6,6 +6,7 @@
     <title>Ikuta-Portal</title>
     <link rel="stylesheet" href="style.css">
     <style>
+        /* --- シフト・トピックス表示エリアのスタイル --- */
         .daily-info {
             text-align: center;
             background: #fff;
@@ -13,69 +14,91 @@
             margin: 10px 0 25px 0;
             border-bottom: 2px solid #eee;
         }
+        
         .today-header { 
             font-size: 1.5rem; 
             font-weight: bold; 
             margin-bottom: 15px; 
             color: #333;
         }
+
+        /* トピックスエリアの構成 */
         .topics-container {
             margin-bottom: 25px;
             display: inline-block;
             text-align: left;
-            min-width: 320px;
+            width: 95%;        /* シフトボックスと同じ幅感に設定 */
+            max-width: 800px;  /* シフトボックスの最大幅と一致させる */
         }
+
         .info-label {
             font-size: 0.75rem;
             font-weight: bold;
             color: #78909c;
             margin-left: 5px;
-            margin-bottom: 2px;
+            margin-bottom: 4px;
             display: block;
+            letter-spacing: 0.05em;
         }
+
         .topics-box {
             background-color: #e3f2fd; 
             border: 1px solid #90caf9; 
             color: #333; 
-            padding: 12px 25px;
+            padding: 15px 25px;
             border-radius: 8px;
             font-weight: bold;
             font-size: 1.1rem;
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
             text-align: center;
-            line-height: 1.5; /* 改行した時の行間 */
+            line-height: 1.6;
+            width: 100%;       /* 親要素いっぱいに広げる */
+            box-sizing: border-box; 
         }
+
         .shift-grid {
             display: flex;
             flex-direction: column; 
             align-items: center;
             gap: 15px;
         }
+
         .shift-box {
             background: #f9f9f9;
             border: 1px solid #ddd;
             border-radius: 8px;
             padding: 12px 20px;
             width: 95%; 
-            max-width: 800px;
+            max-width: 800px; /* INFOボックスと共通の最大幅 */
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            box-sizing: border-box;
         }
+
         .shift-title { 
             font-weight: bold; 
             border-bottom: 2px solid; 
             margin-bottom: 10px; 
             padding-bottom: 5px;
+            font-size: 1rem;
         }
+        
         .early { border-color: #f0ad4e; color: #8a6d3b; }   
         .late { border-color: #5bc0de; color: #31708f; }    
         .tomorrow { border-color: #5cb85c; color: #3c763d; } 
+
         .staff-list { 
             font-size: 1rem; 
+            line-height: 1.6;
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             gap: 20px; 
+            color: #444;
         }
-        .staff-list span { white-space: nowrap; }
+        
+        .staff-list span {
+            white-space: nowrap; 
+        }
     </style>
 </head>
 <body>
@@ -139,9 +162,44 @@
                 </a>
             </div>
         </section>
+
+        <section class="internal-links">
+            <h2>業務メニュー</h2>
+            <div class="grid">
+                <a href="manual/" class="card">
+                    <div class="icon">📖</div>
+                    <span>マニュアル</span>
+                </a>
+                <a href="setup/" class="card">
+                    <div class="icon">📋</div>
+                    <span>準備物</span>
+                </a>
+                <a href="roster/" class="card">
+                    <div class="icon">👥</div>
+                    <span>名簿</span>
+                </a>
+                <a href="inventory/" class="card">
+                    <div class="icon">🔍</div>
+                    <span>備品・物品検索</span>
+                </a>
+                <a href="pop/" class="card">
+                    <div class="icon">🖼️</div>
+                    <span>掲示物</span>
+                </a>
+                <a href="contacts/" class="card">
+                    <div class="icon">📞</div>
+                    <span>連絡先</span>
+                </a>
+            </div>
+        </section>
     </main>
 
+    <footer>
+        <p>&copy; 2026 FRONTOWN IKUTA</p>
+    </footer>
+
     <script>
+        // 新しいGAS URL
         const GAS_URL = "https://script.google.com/macros/s/AKfycbwejV5wra9fncEbHKpfO3l9DxWdiUA_8KYiA-V4n7cpNMUDvf6UkdXilJ_Lnvd1exYzAQ/exec";
 
         async function fetchShift() {
@@ -160,10 +218,9 @@
                 const topicsBox = document.getElementById('today-topics');
                 
                 if (data.topics && data.topics.trim() !== "") {
-                    // ★記号（, や / や 、）を改行タグに変換する処理
-                    // 正規表現で一気に置換します
+                    // カンマ、スラッシュ、句読点を改行に変換
                     const formattedTopics = data.topics.replace(/[,，/／、]/g, '<br>');
-                    topicsBox.innerHTML = formattedTopics; // textContentではなくinnerHTMLを使う
+                    topicsBox.innerHTML = formattedTopics;
                     topicsArea.style.display = "inline-block";
                 } else {
                     topicsArea.style.display = "none";
