@@ -6,7 +6,7 @@
     <title>Ikuta-Portal</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* シフト表示エリアのスタイル設定 */
+        /* --- シフト・トピックス表示エリアのスタイル --- */
         .daily-info {
             text-align: center;
             background: #fff;
@@ -14,26 +14,75 @@
             margin: 10px 0 25px 0;
             border-bottom: 2px solid #eee;
         }
-        .today-header { font-size: 1.5rem; font-weight: bold; margin-bottom: 5px; }
-        .topics { color: #d9534f; font-weight: bold; margin-bottom: 15px; font-size: 1.1rem; }
+        
+        .today-header { 
+            font-size: 1.5rem; 
+            font-weight: bold; 
+            margin-bottom: 10px; 
+            color: #333;
+        }
+
+        /* トピックス：水色のボックス形式 */
+        .topics-container {
+            margin-bottom: 20px;
+        }
+        .topics-box {
+            display: inline-block;
+            background-color: #e3f2fd; /* 薄い水色 */
+            border: 1px solid #90caf9; /* 水色の枠線 */
+            color: #333; /* 黒色の文字 */
+            padding: 10px 25px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            min-width: 300px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
         .shift-grid {
             display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
+            flex-direction: column; /* 各シフトボックスを縦に並べる */
+            align-items: center;
+            gap: 15px;
         }
+
         .shift-box {
             background: #f9f9f9;
             border: 1px solid #ddd;
             border-radius: 8px;
-            padding: 10px 20px;
-            min-width: 200px;
+            padding: 12px 20px;
+            width: 95%; 
+            max-width: 800px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
-        .shift-title { font-weight: bold; border-bottom: 2px solid; margin-bottom: 8px; padding-bottom: 3px; }
-        .early { border-color: #f0ad4e; color: #8a6d3b; } /* 早番: 黄色 */
-        .late { border-color: #5bc0de; color: #31708f; }  /* 遅番: 青色 */
-        .tomorrow { border-color: #5cb85c; color: #3c763d; } /* 明日: 緑色 */
-        .staff-list { font-size: 0.95rem; line-height: 1.6; }
+
+        .shift-title { 
+            font-weight: bold; 
+            border-bottom: 2px solid; 
+            margin-bottom: 10px; 
+            padding-bottom: 5px;
+            font-size: 1rem;
+        }
+        
+        /* シフトごとのアクセントカラー */
+        .early { border-color: #f0ad4e; color: #8a6d3b; }   /* 早番: 黄色系 */
+        .late { border-color: #5bc0de; color: #31708f; }    /* 遅番: 青色系 */
+        .tomorrow { border-color: #5cb85c; color: #3c763d; } /* 明日: 緑色系 */
+
+        /* スタッフ名を横並びにする設定 */
+        .staff-list { 
+            font-size: 1rem; 
+            line-height: 1.6;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px; /* 名前と名前の間隔 */
+            color: #444;
+        }
+        
+        .staff-list span {
+            white-space: nowrap; /* 名前が途中で改行されないようにする */
+        }
     </style>
 </head>
 <body>
@@ -60,7 +109,11 @@
 
     <div class="daily-info" id="shift-display">
         <div class="today-header" id="today-date">読み込み中...</div>
-        <div class="topics" id="today-topics"></div>
+        
+        <div class="topics-container" id="topics-area" style="display: none;">
+            <div class="topics-box" id="today-topics"></div>
+        </div>
+        
         <div class="shift-grid">
             <div class="shift-box">
                 <div class="shift-title early">今日の早番</div>
@@ -129,7 +182,7 @@
     </footer>
 
     <script>
-        // 先ほど発行されたGASのURLをセット
+        // 指定された新しいGAS URLをセット
         const GAS_URL = "https://script.google.com/macros/s/AKfycbyQAFS2Qc4tiq10VleXZV9ZNjIX9AltRW4L4xMF5GlUaeRQxjoggV2LhZ3CQih-RWZMIA/exec";
 
         async function fetchShift() {
@@ -137,16 +190,39 @@
                 const response = await fetch(GAS_URL);
                 const data = await response.json();
                 
-                // データの流し込み
-                document.getElementById('today-date').textContent = data.date || "日付未取得";
-                document.getElementById('today-topics').textContent = data.topics || "";
+                // GASからのエラーハンドリング
+                if (data.error) {
+                    document.getElementById('today-date').textContent = data.error;
+                    console.error("GAS Error:", data.error);
+                    return;
+                }
+
+                // 日付表示
+                document.getElementById('today-date').textContent = data.date;
                 
-                // スタッフリストが空の場合は「ー」を表示
-                document.getElementById('early-staff').innerHTML = data.early.length > 0 ? data.early.join('<br>') : "ー";
-                document.getElementById('late-staff').innerHTML = data.late.length > 0 ? data.late.join('<br>') : "ー";
-                document.getElementById('tomorrow-early').innerHTML = data.tomorrowEarly.length > 0 ? data.tomorrowEarly.join('<br>') : "ー";
+                // トピックス表示（内容がある時だけ表示）
+                const topicsArea = document.getElementById('topics-area');
+                const topicsBox = document.getElementById('today-topics');
+                if (data.topics && data.topics.trim() !== "") {
+                    topicsBox.textContent = data.topics;
+                    topicsArea.style.display = "block";
+                } else {
+                    topicsArea.style.display = "none";
+                }
+                
+                // スタッフリストの反映（<span>で囲って横並び）
+                const formatStaff = (list) => {
+                    return list && list.length > 0 
+                        ? list.map(name => `<span>${name}</span>`).join('') 
+                        : "ー";
+                };
+
+                document.getElementById('early-staff').innerHTML = formatStaff(data.early);
+                document.getElementById('late-staff').innerHTML = formatStaff(data.late);
+                document.getElementById('tomorrow-early').innerHTML = formatStaff(data.tomorrowEarly);
+
             } catch (e) {
-                console.error("データの取得に失敗しました:", e);
+                console.error("Fetch Error:", e);
                 document.getElementById('today-date').textContent = "データ取得失敗";
             }
         }
@@ -154,5 +230,6 @@
         // ページ読み込み時に実行
         fetchShift();
     </script>
+
 </body>
 </html>
