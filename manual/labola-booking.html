@@ -25,8 +25,24 @@
         
         .sub-step { list-style-type: decimal; margin-left: 20px; font-size: 0.9rem; color: #444; line-height: 1.6; margin-top: 5px; }
         .back-btn { display: inline-block; margin-top: 20px; color: #35A0D9; text-decoration: none; font-weight: bold; }
-
         .highlight-red { color: #d9534f; font-weight: bold; }
+
+        .link-box {
+            margin-top: 10px;
+            padding: 10px;
+            background: #eef7fc;
+            border-radius: 5px;
+            display: inline-block;
+        }
+        .link-box a {
+            color: #35A0D9;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        .link-box a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -52,24 +68,40 @@
 
     <main class="container">
         <div class="manual-content">
-            <h2>予約受付・管理手順 (LaBOLA)</h2>
+            <h2>一般予約の受付・管理手順</h2>
             <p style="font-size: 0.85rem; color: #666; margin-bottom: 20px;">更新日：2026/04/24</p>
 
             <section>
-                <span class="category-title">電話での一般予約受付</span>
+                <span class="category-title">予約の基本ステップ</span>
                 <div class="step-box">
-                    <span class="step-title">1. 基本情報のヒアリングと枠確保</span>
                     <div class="step-details">
-                        希望の<strong>時間・場所（コート）・競技</strong>を聞き、該当する空き枠（「○」表示）を選択して枠を確保する。
+                        <ol class="sub-step">
+                            <li>空き枠（「○」表示）を選択</li>
+                            <li>会員確認（会員番号の有無を確認。編集画面から行う）</li>
+                            <li>お客様情報の入力（名前、営利・非営利の区分など）</li>
+                        </ol>
                     </div>
                 </div>
+            </section>
+
+            <section>
+                <span class="category-title">会員番号がある場合</span>
                 <div class="step-box">
-                    <span class="step-title">2. 会員確認と詳細入力</span>
                     <div class="step-details">
-                        「編集」から会員番号の有無を確認する。番号がある場合は読み込みを行う。
+                        番号入力後、<strong>「会員データを読み込む」</strong>を押すと情報が自動反映されます。
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <span class="category-title">電話で予約を受けた場合</span>
+                <div class="step-box">
+                    <span class="step-title">■ ヒアリングと入力事項</span>
+                    <div class="step-details">
+                        時間・場所・競技を聞いて枠を確保し、以下の詳細を確認する。
                         <ul class="sub-step" style="list-style-type: disc;">
-                            <li><strong>確認メール希望の場合：</strong>メールアドレスを聞き取る。</li>
-                            <li><strong>必須ヒアリング項目：</strong>電話番号、利用用途（練習・練習試合など）、営利・非営利の区分。</li>
+                            <li>確認メール希望時はメールアドレスを聞き取る。</li>
+                            <li>電話番号、用途（練習・練習試合など）を聞き、営利・非営利を確定させる。</li>
                         </ul>
                     </div>
                 </div>
@@ -78,48 +110,49 @@
             <section>
                 <span class="category-title">アカデミー・スクール・保守予約</span>
                 <div class="step-box">
-                    <span class="step-title">予約不可枠の作成</span>
+                    <span class="step-title">■ 予約不可枠の作成</span>
                     <div class="step-details">
-                        一般予約を受け付けない枠（アカデミー利用やコート保守等）は、<strong>「予約不可」</strong>から作成して枠を埋める。
+                        <strong>「予約不可」</strong>から作成して枠を埋める。
                         <ul class="sub-step" style="list-style-type: disc;">
-                            <li><strong>繰り返し設定：</strong>平日のスクール等、定期的な利用は繰り返し設定で一括登録する。</li>
-                            <li><span class="highlight-red">【注意】</span>「予約不可」で作成すると「メモ欄」が表示されないため、スタッフ間の引き継ぎ事項は<strong>「備考欄」</strong>に記入すること。</li>
+                            <li>平日の利用等は「繰り返し設定」で登録可能。</li>
+                            <li><span class="highlight-red">【重要】</span>予約不可枠は「メモ欄」が表示されないため、引き継ぎは<strong>「備考欄」</strong>に記入する。</li>
                         </ul>
+                        <div class="link-box">
+                            <a href="labola-academy.html">→ アカデミー予約の詳しい方法はこちら</a>
+                        </div>
                     </div>
                 </div>
             </section>
 
             <section>
-                <span class="category-title">メモ欄と備考欄の使い分け</span>
+                <span class="category-title">情報の記録（メモと備考）</span>
                 <div class="step-box">
-                    <span class="step-title">■ メモ欄（スタッフ共有用）</span>
+                    <span class="step-title">■ メモ欄（スタッフ用）</span>
                     <div class="step-details">
-                        お客様には届かない情報。引き継ぎ事項を記入する。
+                        スタッフ間の共有事項を記入。お客様には届きません。
                         <div class="important-box">
                             <span class="important-label">《徹底事項》</span>
-                            記入時は必ず <strong>「記入日」と「記入者名」</strong> を添えること。
+                            記入時は必ず<strong>「記入日」</strong>と<strong>「記入者名」</strong>を添えてください。
                         </div>
                     </div>
                 </div>
 
                 <div class="step-box">
-                    <span class="step-title">■ 備考欄（対外案内用）</span>
+                    <span class="step-title">■ 備考欄（対外用）</span>
                     <div class="step-details">
-                        <span class="highlight-red">お客様への自動返信メールに内容が反映される。</span><br>
-                        外部に見えても良い案内のみを記入する。※予約不可枠の場合はここをメモ代わりに使う。
+                        お客様へのメールに反映されます。対外的な案内のみを記入してください。
                     </div>
                 </div>
             </section>
 
             <section>
-                <span class="category-title">遅番での予約確認業務</span>
+                <span class="category-title">遅番での予約確認</span>
                 <div class="step-box">
-                    <span class="step-title">前日・当日分の精査</span>
                     <div class="step-details">
-                        前日および当日のその時間までに入っている予約をすべて確認する。
+                        前日および当日のその時間までに入っている予約を確認する。
                         <ul class="sub-step" style="list-style-type: disc;">
-                            <li><strong>確認項目：</strong>備考欄の内容、営利・非営利の区分に間違いがないか。</li>
-                            <li><strong>利用者への確認：</strong>不明点や確認事項があれば利用者に直接確認を行い、その結果を必ず<strong>メモ欄</strong>に記録しておくこと。</li>
+                            <li>備考欄の内容と、営利・非営利の区分に間違いがないかチェック。</li>
+                            <li>必要に応じて利用者に直接確認を行い、結果を必ず<strong>メモ欄</strong>に残す。</li>
                         </ul>
                     </div>
                 </div>
