@@ -5,6 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ikuta-Portal</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* シフト表示用の追加スタイル */
+        .daily-info {
+            text-align: center;
+            background: #fff;
+            padding: 20px;
+            margin: 10px 0 25px 0;
+            border-bottom: 2px solid #eee;
+        }
+        .today-header { font-size: 1.5rem; font-weight: bold; margin-bottom: 5px; }
+        .topics { color: #d9534f; font-weight: bold; margin-bottom: 15px; font-size: 1.1rem; }
+        .shift-grid {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .shift-box {
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 10px 20px;
+            min-width: 200px;
+        }
+        .shift-title { font-weight: bold; border-bottom: 2px solid; margin-bottom: 8px; padding-bottom: 3px; }
+        .early { border-color: #f0ad4e; color: #8a6d3b; } /* 早番: 黄色系 */
+        .late { border-color: #5bc0de; color: #31708f; }  /* 遅番: 青色系 */
+        .tomorrow { border-color: #5cb85c; color: #3c763d; } /* 明日: 緑系 */
+        .staff-list { font-size: 0.95rem; line-height: 1.6; }
+    </style>
 </head>
 <body>
 
@@ -26,6 +56,25 @@
                 <li><a href="contacts/">連絡先</a></li>
             </ul>
         </nav>
+    </div>
+
+    <div class="daily-info" id="shift-display">
+        <div class="today-header" id="today-date">読み込み中...</div>
+        <div class="topics" id="today-topics"></div>
+        <div class="shift-grid">
+            <div class="shift-box">
+                <div class="shift-title early">今日の早番</div>
+                <div class="staff-list" id="early-staff">ー</div>
+            </div>
+            <div class="shift-box">
+                <div class="shift-title late">今日の遅番</div>
+                <div class="staff-list" id="late-staff">ー</div>
+            </div>
+            <div class="shift-box">
+                <div class="shift-title tomorrow">明日の早番</div>
+                <div class="staff-list" id="tomorrow-early">ー</div>
+            </div>
+        </div>
     </div>
 
     <main class="container">
@@ -79,5 +128,26 @@
         <p>&copy; 2026 FRONTOWN IKUTA</p>
     </footer>
 
+    <script>
+        // ★ここにGoogle Apps ScriptでデプロイしたウェブアプリのURLを貼り付けてください
+        const GAS_URL = "ここにURLをペースト";
+
+        async function fetchShift() {
+            try {
+                const response = await fetch(GAS_URL);
+                const data = await response.json();
+                
+                document.getElementById('today-date').textContent = data.date;
+                document.getElementById('today-topics').textContent = data.topics || "";
+                document.getElementById('early-staff').innerHTML = data.early.join('<br>') || "ー";
+                document.getElementById('late-staff').innerHTML = data.late.join('<br>') || "ー";
+                document.getElementById('tomorrow-early').innerHTML = data.tomorrowEarly.join('<br>') || "ー";
+            } catch (e) {
+                console.error("Shift load error:", e);
+                document.getElementById('today-date').textContent = "データ取得失敗";
+            }
+        }
+        fetchShift();
+    </script>
 </body>
 </html>
