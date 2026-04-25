@@ -14,6 +14,27 @@
         .step-title { font-weight: bold; color: #35A0D9; margin-bottom: 8px; display: block; }
         .step-details { font-size: 0.95rem; line-height: 1.6; color: #333; margin-top: 5px; }
 
+        /* 営業時間用スタイル */
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+            font-size: 1rem;
+        }
+        .info-table th {
+            width: 40%;
+            text-align: left;
+            padding: 8px 10px;
+            background: #f0f7ff;
+            border-bottom: 2px solid #fff;
+            color: #35A0D9;
+        }
+        .info-table td {
+            padding: 8px 10px;
+            border-bottom: 1px solid #eee;
+            font-weight: bold;
+        }
+
         /* 操作ラベルの強調 */
         .status-badge {
             display: inline-block;
@@ -24,38 +45,8 @@
             font-size: 0.9rem;
             color: #fff;
         }
-        .bg-hacomono { background-color: #35A0D9; } /* hacomono用 */
-        .bg-labola { background-color: #28a745; }   /* LaBOLA用 */
-
-        .important-box { 
-            background: #fdf2f2; 
-            border: 1px solid #f5c6cb; 
-            padding: 12px; 
-            border-radius: 5px; 
-            margin: 10px 0; 
-            font-size: 0.9rem;
-        }
-        .important-label { color: #d9534f; font-weight: bold; display: block; margin-bottom: 3px; }
-
-        .password-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-            font-size: 0.9rem;
-        }
-        .password-table th, .password-table td {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: left;
-        }
-        .password-table th {
-            background-color: #f8f9fa;
-            width: 40%;
-        }
-        .password-table td {
-            font-family: monospace;
-            background-color: #fff;
-        }
+        .bg-hacomono { background-color: #35A0D9; }
+        .bg-labola { background-color: #28a745; }
 
         .sub-step { list-style-type: disc; margin-left: 20px; font-size: 0.9rem; color: #444; margin-top: 5px; }
         .back-btn { display: inline-block; margin-top: 20px; color: #35A0D9; text-decoration: none; font-weight: bold; }
@@ -86,6 +77,27 @@
         <div class="manual-content">
             <h2>基本的なもの</h2>
             <p style="font-size: 0.85rem; color: #666; margin-bottom: 20px;">更新日：2026/04/24</p>
+
+            <section>
+                <span class="category-title">営業時間・受付時間</span>
+                <div class="step-box">
+                    <table class="info-table">
+                        <tr>
+                            <th>営業時間</th>
+                            <td>8:00 〜 23:00</td>
+                        </tr>
+                        <tr>
+                            <th>電話受付時間</th>
+                            <td>9:00 〜 20:00</td>
+                        </tr>
+                        <tr>
+                            <th>サイレントタイム</th>
+                            <td>8:00 〜 9:00 / 21:00 〜 22:00</td>
+                        </tr>
+                    </table>
+                    <p style="font-size: 0.85rem; color: #666; margin-top: 10px;">※サイレントタイム：近隣住民への配慮のため、放送や大きな音が出る活動を制限する時間帯です。</p>
+                </div>
+            </section>
 
             <section>
                 <span class="category-title">主な業務</span>
@@ -166,37 +178,6 @@
                         </ul>
                     </div>
                 </div>
-            </section>
-
-            <section>
-                <span class="category-title">各種パスワード・ログイン情報</span>
-                <div class="important-box">
-                    <span class="important-label">※取り扱い注意</span>
-                    パスワード情報は外部に漏れないよう厳重に管理してください。
-                </div>
-                
-                <table class="password-table">
-                    <tr><th>PC ログイン</th><td>kawasaki#1997</td></tr>
-                    <tr><th>レジ用 iPad</th><td>001997</td></tr>
-                    <tr><th>落とし物 iPad</th><td>1997</td></tr>
-                    <tr><th>門（南京錠）</th><td>0073</td></tr>
-                    <tr><th>マスターキーケース</th><td>1997</td></tr>
-                    <tr><th>スマートロック</th><td>0608</td></tr>
-                </table>
-
-                <h3 style="font-size: 1rem; margin: 20px 0 10px 0; color: #333;">システムログイン</h3>
-                <table class="password-table">
-                    <tr>
-                        <th rowspan="2">hacomono</th>
-                        <td>ID: ikuta-frontown@frontale.co.jp</td>
-                    </tr>
-                    <tr><td>PW: Ikuta#2023</td></tr>
-                    <tr>
-                        <th rowspan="2">LaBOLA</th>
-                        <td>ID: ikuta-frontown@frontale.co.jp</td>
-                    </tr>
-                    <tr><td>PW: kawasaki#1997</td></tr>
-                </table>
             </section>
 
             <a href="./" class="back-btn">← マニュアル一覧に戻る</a>
