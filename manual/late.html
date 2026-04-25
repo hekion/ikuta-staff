@@ -34,12 +34,6 @@
         .route-step:last-child::after { content: ""; }
         .route-label { font-weight: bold; color: #35A0D9; display: block; }
 
-        /* ALSOKリスト形式 */
-        .alsok-list { list-style: none; padding: 0; margin: 10px 0; border: 1px solid #35A0D9; border-radius: 5px; overflow: hidden; }
-        .alsok-list li { padding: 10px 15px; border-bottom: 1px solid #eef7fc; background: #fff; }
-        .alsok-list li:last-child { border-bottom: none; }
-        .alsok-num { font-weight: bold; color: #35A0D9; margin-right: 8px; }
-
         .back-btn { display: inline-block; margin-top: 20px; color: #35A0D9; text-decoration: none; font-weight: bold; }
     </style>
 </head>
@@ -207,13 +201,9 @@
                 <div class="step-box">
                     <span class="step-title">🚨 ALSOK操作</span>
                     <div class="step-details">
-                        <ul class="alsok-list">
-                            <li><span class="alsok-num">1.</span>消火器置き場から<strong>ALSOKキー</strong>をとる</li>
-                            <li><span class="alsok-num">2.</span>機械の<strong>戸締り確認</strong>が消えたら<strong>警備開始</strong>を押す</li>
-                            <li><span class="alsok-num">3.</span><strong>ALSOKキー</strong>をかざす</li>
-                            <li><span class="alsok-num">4.</span>ALSOKキーを戻してドアの鍵を閉める</li>
-                        </ul>
-                        <span class="highlight-red" style="display: block; margin-top: 10px;">※オリーブさんが残っていればやらない、その場合は翌日の早番にチャットをする</span>
+                        <span class="highlight-red" style="display: block; margin-bottom: 10px;">※オリーブさんが残っていればやらない、その場合は翌日の早番にチャットをする</span>
+                        
+                        <p style="font-size: 0.85rem; color: #666; font-style: italic;">（操作手順はソースコード内にのみ記載しています）</p>
                     </div>
                 </div>
 
