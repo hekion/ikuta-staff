@@ -60,7 +60,7 @@
             font-weight: bold;
             color: #333;
             margin-bottom: 5px;
-            padding-right: 100px; /* ラベルと重ならないように */
+            padding-right: 100px; 
         }
 
         /* 料金のスタイル */
@@ -75,7 +75,7 @@
             margin-left: 5px;
         }
 
-        /* 場所ラベル（薄い色味の枠） */
+        /* 場所ラベル */
         .place-label {
             position: absolute;
             top: 15px;
@@ -87,13 +87,13 @@
             border: 1px solid transparent;
         }
 
-        /* エリア別カラー定義（薄い色味） */
-        .label-studio-a { background: #E3F2FD; border-color: #BBDEFB; color: #1976D2; } /* 水色 */
-        .label-studio-b { background: #FFF3E0; border-color: #FFE0B2; color: #EF6C00; } /* オレンジ */
-        .label-arena    { background: #F3E5F5; border-color: #E1BEE7; color: #7B1FA2; } /* 紫 */
-        .label-ground   { background: #E8F5E9; border-color: #C8E6C9; color: #388E3C; } /* 緑 */
-        .label-weight   { background: #F5F5F5; border-color: #E0E0E0; color: #616161; } /* グレー */
-        .label-multi    { background: #FFFDE7; border-color: #FFF9C4; color: #FBC02D; } /* 黄色 */
+        /* エリア別カラー定義 */
+        .label-studio-a { background: #E3F2FD; border-color: #BBDEFB; color: #1976D2; } 
+        .label-studio-b { background: #FFF3E0; border-color: #FFE0B2; color: #EF6C00; } 
+        .label-arena    { background: #F3E5F5; border-color: #E1BEE7; color: #7B1FA2; } 
+        .label-ground   { background: #E8F5E9; border-color: #C8E6C9; color: #388E3C; } 
+        .label-weight   { background: #F5F5F5; border-color: #E0E0E0; color: #616161; } 
+        .label-multi    { background: #FFFDE7; border-color: #FFF9C4; color: #FBC02D; } 
 
         /* 準備リストのスタイル */
         .item-list-box {
@@ -247,7 +247,16 @@
                 <div class="setup-price">1,100円/回 <span class="trial-price">(体験：550円)</span></div>
                 <div class="item-list-box">
                     <div class="item-list-title">📦 準備リスト</div>
-                    <div class="item-list-content">スピーカー、トランポリン</div>
+                    <div class="item-list-content">マイク、トランポリン</div>
+                </div>
+                <div class="item-list-box" style="background: #fff9f9; border-top: 1px dashed #ffcdd2;">
+                    <div class="item-list-title" style="color: #d32f2f;">⚠️ 注意事項</div>
+                    <div class="item-list-content" style="font-size: 0.85rem;">
+                        ・トランポリンは鏡の幅に合わせて置く<br>
+                        ・一列の中でも半分ずらしで交互に配置する<br>
+                        ・マイクとスピーカーを事前に充電しておく<br>
+                        ・スタジオ利用がなければ早番が準備しておく
+                    </div>
                 </div>
             </div>
 
