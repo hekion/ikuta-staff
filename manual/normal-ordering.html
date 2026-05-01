@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <script src="../auth.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>備品・送り状の発注 | Ikuta-Portal</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .manual-content { background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .category-title { font-size: 1.1rem; font-weight: bold; background: #35A0D9; color: #fff; padding: 5px 15px; border-radius: 20px; display: inline-block; margin: 20px 0 15px 0; }
+        
+        .step-box { margin-bottom: 25px; border-left: 4px solid #35A0D9; padding-left: 15px; }
+        .step-title { font-weight: bold; color: #35A0D9; margin-bottom: 8px; display: block; }
+        .step-details { font-size: 0.95rem; line-height: 1.6; color: #333; margin-top: 5px; }
+
+        /* 入力項目のリストデザイン */
+        .input-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        .input-item {
+            background: #f0f7ff;
+            border: 1px solid #35A0D9;
+            color: #35A0D9;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+
+        .sub-step { list-style-type: disc; margin-left: 20px; font-size: 0.9rem; color: #444; margin-top: 5px; }
+        .important-note {
+            background: #fff9e6;
+            border: 1px solid #ffcc00;
+            padding: 12px;
+            border-radius: 5px;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .location-badge {
+            background: #d9534f;
+            color: #fff;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+
+        .back-btn { display: inline-block; margin-top: 20px; color: #35A0D9; text-decoration: none; font-weight: bold; }
+        .link-btn {
+            display: inline-block;
+            background: #35A0D9;
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+        .link-btn:hover { opacity: 0.8; }
+    </style>
+</head>
+<body>
+
+    <div class="sticky-header">
+        <header>
+            <a href="../" style="text-decoration: none; display: inline-block;">
+                <img src="../assets/images/ikutalogo.png" alt="FRONTOWN IKUTA">
+                <div class="sub-title">STAFF PORTAL</div>
+            </a>
+        </header>
+        <nav class="nav-menu">
+            <ul>
+                <li><a href="../manual/">マニュアル</a></li>
+                <li><a href="../setup/">準備物</a></li>
+                <li><a href="../roster/">名簿</a></li>
+                <li><a href="../inventory/">備品検索</a></li>
+                <li><a href="../pop/">掲示物</a></li>
+                <li><a href="../contacts/">連絡先</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <main class="container">
+        <div class="manual-content">
+            <h2>備品・送り状の発注</h2>
+            <p style="font-size: 0.85rem; color: #666; margin-bottom: 20px;">更新日：2026/04/24</p>
+
+            <section>
+                <span class="category-title">1. 備品の発注手順</span>
+                <div class="step-box">
+                    <span class="step-title">スプレッドシートへの記入</span>
+                    <div class="step-details">
+                        「備品発注リスト【最新】」を開き、以下の項目を漏れなく記入してください。
+                        
+                        <div class="input-list">
+                            <span class="input-item">品名</span>
+                            <span class="input-item">数量</span>
+                            <span class="input-item">商品URL (Amazon等)</span>
+                            <span class="input-item">依頼日</span>
+                            <span class="input-item">依頼者</span>
+                            <span class="input-item">使用用途</span>
+                            <span class="input-item">購入理由</span>
+                            <span class="input-item">金額</span>
+                        </div>
+
+                        <a href="#" class="link-btn">備品発注リストを開く</a>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <span class="category-title">2. 送り状（ヤマト伝票）の補充</span>
+                <div class="step-box">
+                    <span class="step-title">在庫場所</span>
+                    <div class="step-details">
+                        <span class="location-badge">保管場所</span> <strong>冷蔵庫側の棚・一番下の段</strong>
+                    </div>
+                </div>
+
+                <div class="step-box">
+                    <span class="step-title">補充方法（在庫がなくなった場合）</span>
+                    <div class="step-details">
+                        以下のいずれかの方法で速やかに補充を行ってください。
+                        <ul class="sub-step">
+                            <li><strong>近隣で入手：</strong>セブンイレブンなどのコンビニエンスストアでもらう。</li>
+                            <li><strong>電話で依頼：</strong>集荷依頼用のドライバー直通電話に連絡する。</li>
+                            <li><strong>対面で依頼：</strong>荷物を持ってきてくださったタイミングで、補充が欲しい旨を伝える。</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <div class="important-note">
+                <strong>💡 ポイント：</strong><br>
+                備品は在庫が完全に切れる前に余裕を持って発注依頼を行いましょう。
+            </div>
+
+            <a href="./" class="back-btn">← マニュアル一覧に戻る</a>
+        </div>
+    </main>
+
+    <footer><p>&copy; 2026 FRONTOWN IKUTA</p></footer>
+</body>
+</html>
