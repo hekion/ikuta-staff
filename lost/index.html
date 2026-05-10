@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <script src="../auth.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>落とし物管理 | Ikuta-Portal</title>
     <link rel="stylesheet" href="../style.css">
     <style>
@@ -34,22 +34,45 @@
         .zoom-modal img { max-width: 95%; max-height: 95%; border-radius: 8px; }
 
         /* モーダル本体 */
-        .modal { display: none; position: fixed; z-index: 3000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); overflow-y: auto; }
-        .modal-content { background: #fff; margin: 20px auto; padding: 20px; width: 92%; max-width: 500px; border-radius: 12px; box-sizing: border-box; }
+        .modal { display: none; position: fixed; z-index: 3000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); overflow-y: auto; padding-bottom: 50px; }
+        .modal-content { 
+            background: #fff; 
+            margin: 20px auto; 
+            padding: 20px; 
+            width: 90%; 
+            max-width: 450px; 
+            border-radius: 12px; 
+            box-sizing: border-box; 
+            overflow: hidden; /* 中身のはみ出しをカット */
+        }
         
-        /* 入力欄のはみ出し防止 */
-        .form-group { margin-bottom: 15px; width: 100%; box-sizing: border-box; }
+        /* 入力欄のはみ出し防止（超強化版） */
+        .form-group { 
+            margin-bottom: 15px; 
+            width: 100%; 
+            box-sizing: border-box; 
+        }
         .form-group label { display: block; font-weight: bold; margin-bottom: 5px; font-size: 0.9rem; color: #333; }
+        
+        /* 日付・テキスト・セレクトすべてに適用 */
         .form-group input, 
         .form-group select { 
             width: 100% !important; 
+            max-width: 100% !important; /* 絶対に親を超えない */
             padding: 12px; 
             border: 1px solid #ccc; 
             border-radius: 6px; 
-            box-sizing: border-box; /* これでpaddingを含めて100%になる */
-            font-size: 1rem; 
+            box-sizing: border-box !important; 
+            font-size: 16px; /* iPhoneでズームされないためのサイズ */
             display: block; 
             background-color: #fff;
+            -webkit-appearance: none; /* iOSブラウザのデフォルトスタイルをリセット */
+            appearance: none;
+        }
+
+        /* 日付入力欄のiPhone用微調整 */
+        input[type="date"] {
+            min-height: 45px;
         }
 
         .submit-btn { background: #35A0D9; color: #fff; border: none; width: 100%; padding: 16px; border-radius: 8px; font-weight: bold; font-size: 1.1rem; cursor: pointer; }
@@ -108,11 +131,12 @@
             <h3 id="modalTitle" style="border-bottom: 3px solid #35A0D9; padding-bottom: 10px; margin-top: 0;">落とし物登録</h3>
             <form id="lostItemForm">
                 <input type="hidden" id="f-rowId">
+                
                 <div class="form-group"><label>日付</label><input type="date" id="f-date" required></div>
                 
                 <div class="form-group">
                     <label>担当者</label>
-                    <input type="text" id="f-staff" list="staff-list" placeholder="名前を入力または選択" required>
+                    <input type="text" id="f-staff" list="staff-list" placeholder="入力または選択" required>
                     <datalist id="staff-list">
                         <option value="スタッフA">
                         <option value="スタッフB">
@@ -121,7 +145,7 @@
 
                 <div class="form-group">
                     <label>拾得場所</label>
-                    <input type="text" id="f-place" list="place-list" placeholder="場所を入力または選択" required>
+                    <input type="text" id="f-place" list="place-list" placeholder="入力または選択" required>
                     <datalist id="place-list">
                         <option value="受付">
                         <option value="ラウンジ">
@@ -139,12 +163,12 @@
                         <option value="衣類">衣類</option>
                         <option value="スポーツ用品">スポーツ用品</option>
                         <option value="雑貨・その他">雑貨・その他</option>
-                        </select>
+                    </select>
                 </div>
 
                 <div class="form-group">
                     <label>保管場所</label>
-                    <input type="text" id="f-storage" list="storage-list" placeholder="保管場所を入力または選択" required>
+                    <input type="text" id="f-storage" list="storage-list" placeholder="入力または選択" required>
                     <datalist id="storage-list">
                         <option value="事務室棚">
                         <option value="受付カウンター下">
@@ -163,10 +187,10 @@
 
                 <div class="form-group"><label>写真（撮影/選択）</label><input type="file" id="f-photo" accept="image/*"></div>
                 
-                <div style="background:#f9f9f9; padding:15px; border-radius:8px; margin-bottom:15px; border: 1px solid #eee;">
+                <div style="background:#f9f9f9; padding:12px; border-radius:8px; margin-bottom:15px; border: 1px solid #eee; width:100%; box-sizing:border-box;">
                     <p style="margin:0 0 10px 0; font-size: 0.8rem; font-weight: bold; color: #888;">返却用情報</p>
-                    <div class="form-group"><label>持ち主の名前</label><input type="text" id="f-owner"></div>
-                    <div class="form-group"><label>連絡先</label><input type="text" id="f-contact"></div>
+                    <div class="form-group"><label>持ち主の名前</label><input type="text" id="f-owner" placeholder="名前"></div>
+                    <div class="form-group"><label>連絡先</label><input type="text" id="f-contact" placeholder="電話番号など"></div>
                     <div class="form-group"><label>引取り予定日</label><input type="date" id="f-returnDate"></div>
                 </div>
 
@@ -206,7 +230,7 @@
                 let imgUrl = i.photo;
                 if (imgUrl && imgUrl.includes('id=')) {
                     const id = imgUrl.split('id=')[1];
-                    imgUrl = `https://lh3.googleusercontent.com/d/${id}=s200`;
+                    imgUrl = `https://lh3.googleusercontent.com/d/$${id}=s200`;
                 }
                 const fallback = 'https://via.placeholder.com/60?text=No+Photo';
                 const tr = document.createElement('tr');
@@ -249,7 +273,7 @@
 
         function filterItems() {
             const q = document.getElementById('search-input').value.toLowerCase();
-            render(lostData.filter(i => i.name.toLowerCase().includes(q) || i.place.toLowerCase().includes(q) || i.owner.toLowerCase().includes(q)));
+            render(lostData.filter(i => i.name.toLowerCase().includes(q) || i.place.toLowerCase().includes(q) || (i.owner && i.owner.toLowerCase().includes(q))));
         }
 
         document.getElementById('lostItemForm').addEventListener('submit', async (e) => {
