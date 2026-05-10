@@ -29,6 +29,7 @@
         .filter-item.half { flex: 1 1 calc(50% - 4px); min-width: 0; }
 
         .filter-item label { display: block; font-size: 0.75rem; font-weight: bold; color: #555; margin-bottom: 3px; }
+        /* フィルター内のinput/selectのスタイルを統一 */
         .filter-item input, .filter-item select { 
             width: 100%; padding: 8px 6px; border: 1px solid #ccc; border-radius: 6px; font-size: 0.9rem; 
             box-sizing: border-box; background: #fff; height: 40px; min-width: 0; appearance: none; -webkit-appearance: none;
@@ -62,7 +63,7 @@
         .form-group { margin-bottom: 12px; width: 100%; box-sizing: border-box; }
         .form-group label { display: block; font-weight: bold; margin-bottom: 4px; font-size: 0.9rem; color: #333; }
         
-        /* 入力欄の突き抜け防止徹底 */
+        /* 入力欄の突き抜け徹底防止スタイル（維持） */
         .form-group input, .form-group select, .form-group textarea { 
             width: 100% !important; 
             max-width: 100% !important;
@@ -76,10 +77,9 @@
             display: block;
             margin: 0;
             background-color: #fff;
-            -webkit-appearance: none; /* iOSデフォルトスタイル解除 */
+            -webkit-appearance: none;
         }
 
-        /* 日付入力欄のiPhone用調整 */
         input[type="date"] {
             min-height: 44px;
         }
@@ -107,7 +107,15 @@
                 </div>
                 <div class="filter-item half">
                     <label>場所</label>
-                    <input type="text" id="filter-place" placeholder="キーワード..." oninput="filterItems()">
+                    <select id="filter-place" onchange="filterItems()">
+                        <option value="">すべて</option>
+                        <option value="ふれあい広場">ふれあい広場</option><option value="多目的広場">多目的広場</option><option value="Ankerフィールド">Ankerフィールド</option>
+                        <option value="Nebulaフィールド">Nebulaフィールド</option><option value="Soundcoreアリーナ">Soundcoreアリーナ</option><option value="スタジオＡ">スタジオＡ</option>
+                        <option value="スタジオＢ">スタジオＢ</option><option value="駐車場">駐車場</option><option value="ジョギングコース">ジョギングコース</option>
+                        <option value="マルチスペース">マルチスペース</option><option value="ミーティングルーム">ミーティングルーム</option><option value="テニスコート">テニスコート</option>
+                        <option value="駐輪場(北側)">駐輪場(北側)</option><option value="駐輪場(南側)">駐輪場(南側)</option><option value="バイク専用駐輪場(駐車場内)">バイク専用駐輪場(駐車場内)</option>
+                        <option value="バイク専用駐輪場(南側駐輪場内)">バイク専用駐輪場(南側駐輪場内)</option><option value="その他">その他</option>
+                    </select>
                 </div>
                 <div class="filter-item half">
                     <label>カテゴリ</label>
@@ -163,7 +171,16 @@
                 </div>
 
                 <div class="form-group"><label>拾得物名</label><input type="text" id="f-name" required></div>
-                <div class="form-group"><label>カテゴリ</label><select id="f-category"><option>衣類</option><option>カバン類</option><option>スポーツ用品</option><option>貴重品</option><option>かさ</option><option>カギ</option><option>カメラ・眼鏡</option><option>おもちゃ</option><option>電化製品</option><option>その他</option></select></div>
+                
+                <div class="form-group">
+                    <label>カテゴリ</label>
+                    <select id="f-category" required>
+                        <option value="">選択してください</option>
+                        <option value="衣類">衣類</option><option value="カバン類">カバン類</option><option value="スポーツ用品">スポーツ用品</option>
+                        <option value="貴重品">貴重品</option><option value="かさ">かさ</option><option value="カギ">カギ</option>
+                        <option value="カメラ・眼鏡">カメラ・眼鏡</option><option value="おもちゃ">おもちゃ</option><option value="電化製品">電化製品</option><option value="その他">その他</option>
+                    </select>
+                </div>
                 
                 <div class="form-group">
                     <label>保管場所</label>
@@ -178,7 +195,17 @@
                 </div>
 
                 <div class="form-group"><label>写真を追加</label><input type="file" id="f-photo" accept="image/*"></div>
-                <div class="form-group"><label>状態</label><select id="f-status"><option value="保管中">保管中</option><option value="引取予定">引取予定</option><option value="返却済">返却済</option></select></div>
+                
+                <div class="form-group">
+                    <label>状態</label>
+                    <select id="f-status" required>
+                        <option value="">選択してください</option>
+                        <option value="保管中">保管中</option>
+                        <option value="引取予定">引取予定</option>
+                        <option value="返却済">返却済</option>
+                    </select>
+                </div>
+                
                 <div class="form-group"><label>メモ</label><textarea id="f-memo" rows="2" placeholder="詳細な特徴など"></textarea></div>
 
                 <div style="background:#f9f9f9; padding:12px; border-radius:10px; margin-bottom:15px; border:1px solid #eee;">
@@ -275,13 +302,13 @@
         function filterItems() {
             const searchKeyword = document.getElementById('search-input').value.toLowerCase();
             const filterDate = document.getElementById('filter-date').value;
-            const filterPlace = document.getElementById('filter-place').value.toLowerCase();
+            const filterPlace = document.getElementById('filter-place').value;
             const filterCategory = document.getElementById('filter-category').value;
             const filtered = lostData.filter(i => {
                 const matchKeyword = (i.name && i.name.toLowerCase().includes(searchKeyword)) || (i.owner && i.owner.toLowerCase().includes(searchKeyword));
                 const formattedItemDate = formatDateForInput(i.date);
                 const matchDate = !filterDate || formattedItemDate === filterDate;
-                const matchPlace = !filterPlace || (i.place && i.place.toLowerCase().includes(filterPlace));
+                const matchPlace = !filterPlace || i.place === filterPlace;
                 const matchCategory = !filterCategory || i.category === filterCategory;
                 return matchKeyword && matchDate && matchPlace && matchCategory;
             });
