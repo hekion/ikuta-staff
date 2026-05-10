@@ -45,13 +45,14 @@
         .form-group { margin-bottom: 15px; }
         .form-group label { display: block; font-weight: bold; margin-bottom: 6px; font-size: 0.95rem; color: #333; }
         
-        /* ⚠️ 日付入力等の「資格」がはみ出ないように設定 */
+        /* ⚠️ はみ出しを完全に防ぐ設定 */
         .form-group input, .form-group select, .form-group textarea { 
             width: 100% !important; 
+            max-width: 100% !important; /* 横幅を親要素に固定 */
             padding: 12px; 
             border: 2px solid #e0e0e0; 
             border-radius: 8px; 
-            box-sizing: border-box !important; 
+            box-sizing: border-box !important; /* パディングを含める */
             font-size: 16px; 
             outline: none;
             display: block;
@@ -90,7 +91,7 @@
                 <div class="form-group"><label>日付</label><input type="date" id="f-date" required></div>
                 <div class="form-group"><label>担当者</label><input type="text" id="f-staff" required></div>
                 <div class="form-group"><label>拾得場所</label><input type="text" id="f-place" required></div>
-                <div class="form-group"><label>名前</label><input type="text" id="f-name" required></div>
+                <div class="form-group"><label>拾得物名</label><input type="text" id="f-name" required></div>
                 <div class="form-group"><label>カテゴリ</label><select id="f-category"><option>貴重品</option><option>衣類</option><option>スポーツ用品</option><option>雑貨・その他</option></select></div>
                 <div class="form-group"><label>保管場所</label><input type="text" id="f-storage" required></div>
                 
@@ -164,6 +165,7 @@
         function editItem(rowId) {
             const item = lostData.find(i => i.rowId === rowId);
             if (!item) return;
+            // 既存データのセット（日付含むすべて）
             document.getElementById('f-rowId').value = item.rowId;
             document.getElementById('f-date').value = item.date;
             document.getElementById('f-staff').value = item.staff;
@@ -198,11 +200,11 @@
                 name: document.getElementById('f-name').value,
                 category: document.getElementById('f-category').value,
                 storage: document.getElementById('f-storage').value,
-                status: document.getElementById('f-status').value, // 最新の状態を取得
+                status: document.getElementById('f-status').value,
                 memo: document.getElementById('f-memo').value || "",
                 owner: document.getElementById('f-owner').value || "",
                 contact: document.getElementById('f-contact').value || "",
-                returnDate: document.getElementById('f-returnDate').value || "", // 最新の引取予定日を取得
+                returnDate: document.getElementById('f-returnDate').value || "",
                 photoBase64: base64, photoName: file ? file.name : null
             };
 
