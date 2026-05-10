@@ -13,12 +13,29 @@
         .search-box { flex: 1; padding: 12px; border: 2px solid #35A0D9; border-radius: 8px; outline: none; box-sizing: border-box; font-size: 16px; }
         .add-btn { background: #35A0D9; color: #fff; border: none; padding: 0 15px; border-radius: 8px; font-weight: bold; cursor: pointer; height: 48px; white-space: nowrap; }
 
-        /* 詳細フィルタエリア */
-        .filter-row { display: flex; gap: 8px; flex-wrap: wrap; background: #f0f4f8; padding: 10px; border-radius: 8px; }
-        .filter-item { flex: 1; min-width: 100px; }
-        .filter-item label { display: block; font-size: 0.75rem; font-weight: bold; color: #555; margin-bottom: 2px; }
+        /* 詳細フィルタエリア（修正箇所） */
+        .filter-row { 
+            display: flex; 
+            gap: 10px; 
+            flex-wrap: wrap; /* スマホで入り切らない時に改行させる */
+            background: #f0f4f8; 
+            padding: 12px; 
+            border-radius: 8px; 
+        }
+        .filter-item { 
+            flex: 1; 
+            min-width: 140px; /* 極端に狭くならないよう最小幅を設定 */
+            box-sizing: border-box;
+        }
+        .filter-item label { display: block; font-size: 0.75rem; font-weight: bold; color: #555; margin-bottom: 4px; }
         .filter-item input, .filter-item select { 
-            width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 0.85rem; box-sizing: border-box; 
+            width: 100%; 
+            padding: 10px 6px; 
+            border: 1px solid #ccc; 
+            border-radius: 6px; 
+            font-size: 0.9rem; 
+            box-sizing: border-box; 
+            background: #fff;
         }
 
         /* リストデザイン */
@@ -74,6 +91,11 @@
         .zoom-modal { display: none; position: fixed; z-index: 4000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; }
         .zoom-modal img { max-width: 95%; max-height: 95%; }
         .loading-visible { display: block; text-align: center; padding: 40px; font-weight: bold; color: #666; }
+
+        /* モバイル用のメディアクエリ（念のための補強） */
+        @media screen and (max-width: 480px) {
+            .filter-item { flex: 1 1 100%; } /* 幅が狭いときは1項目1行にする */
+        }
     </style>
 </head>
 <body>
@@ -95,7 +117,7 @@
                 </div>
                 <div class="filter-item">
                     <label>拾得場所</label>
-                    <input type="text" id="filter-place" placeholder="場所..." oninput="filterItems()">
+                    <input type="text" id="filter-place" placeholder="キーワード..." oninput="filterItems()">
                 </div>
                 <div class="filter-item">
                     <label>カテゴリ</label>
@@ -126,20 +148,15 @@
                 <div class="form-group"><label>拾得物名</label><input type="text" id="f-name" required></div>
                 <div class="form-group"><label>カテゴリ</label><select id="f-category"><option>貴重品</option><option>衣類</option><option>スポーツ用品</option><option>雑貨・その他</option></select></div>
                 <div class="form-group"><label>保管場所</label><input type="text" id="f-storage" required></div>
-                
                 <div class="form-group"><label>写真を追加</label><input type="file" id="f-photo" accept="image/*"></div>
-
                 <div class="form-group"><label>状態</label><select id="f-status"><option value="保管中">保管中</option><option value="引取予定">引取予定</option><option value="返却済">返却済</option></select></div>
-                
                 <div class="form-group"><label>メモ</label><textarea id="f-memo" rows="2" placeholder="詳細な特徴など"></textarea></div>
-
                 <div style="background:#f9f9f9; padding:12px; border-radius:10px; margin-bottom:15px; border:1px solid #eee;">
                     <p style="margin:0 0 10px 0; font-size:0.8rem; font-weight:bold; color:#35A0D9;">持ち主・返却情報</p>
                     <div class="form-group"><label>持ち主の名前</label><input type="text" id="f-owner"></div>
                     <div class="form-group"><label>連絡先</label><input type="tel" id="f-contact"></div>
                     <div class="form-group"><label>引取り予定日</label><input type="date" id="f-returnDate"></div>
                 </div>
-
                 <button type="submit" class="submit-btn" id="submitBtn">保存する</button>
                 <button type="button" class="cancel-btn" onclick="closeModal()">キャンセル</button>
             </form>
@@ -224,24 +241,15 @@
 
         function filterItems() {
             const searchKeyword = document.getElementById('search-input').value.toLowerCase();
-            const filterDate = document.getElementById('filter-date').value; // yyyy-mm-dd
+            const filterDate = document.getElementById('filter-date').value;
             const filterPlace = document.getElementById('filter-place').value.toLowerCase();
             const filterCategory = document.getElementById('filter-category').value;
-
             const filtered = lostData.filter(i => {
-                // 1. キーワード検索（名前 or 持ち主）
                 const matchKeyword = i.name.toLowerCase().includes(searchKeyword) || i.owner.toLowerCase().includes(searchKeyword);
-                
-                // 2. 日付フィルタ（yyyy-mm-dd形式にして比較）
                 const formattedItemDate = formatDateForInput(i.date);
                 const matchDate = !filterDate || formattedItemDate === filterDate;
-                
-                // 3. 拾得場所フィルタ
                 const matchPlace = !filterPlace || i.place.toLowerCase().includes(filterPlace);
-                
-                // 4. カテゴリフィルタ
                 const matchCategory = !filterCategory || i.category === filterCategory;
-
                 return matchKeyword && matchDate && matchPlace && matchCategory;
             });
             render(filtered);
@@ -280,7 +288,6 @@
         function closeZoom() { document.getElementById('zoomModal').style.display = 'none'; }
         function openModal() { document.getElementById('itemModal').style.display = 'block'; }
         function closeModal() { document.getElementById('itemModal').style.display = 'none'; document.getElementById('lostItemForm').reset(); document.getElementById('f-rowId').value = ''; }
-
         loadData();
     </script>
 </body>
