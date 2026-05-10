@@ -1,43 +1,250 @@
-<nav class="nav-menu">
-    <ul>
-        <li><a href="manual/">マニュアル</a></li>
-        <li><a href="setup/">準備物</a></li>
-        <li><a href="roster/">名簿</a></li>
-        <li><a href="lost/">落とし物</a></li> <li><a href="inventory/">備品検索</a></li>
-        <li><a href="pop/">掲示物</a></li>
-        <li><a href="contacts/">連絡先</a></li>
-    </ul>
-</nav>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <script src="auth.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ikuta-Portal</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* --- シフト・トピックス表示エリアのスタイル --- */
+        .daily-info {
+            text-align: center;
+            background: #fff;
+            padding: 20px;
+            margin: 10px 0 25px 0;
+            border-bottom: 2px solid #eee;
+        }
+        
+        .today-header { 
+            font-size: 1.5rem; 
+            font-weight: bold; 
+            margin-bottom: 15px; 
+            color: #333;
+        }
 
-<section class="internal-links">
-    <h2>業務メニュー</h2>
-    <div class="grid">
-        <a href="manual/" class="card">
-            <div class="icon">📖</div>
-            <span>マニュアル</span>
-        </a>
-        <a href="setup/" class="card">
-            <div class="icon">📋</div>
-            <span>準備物</span>
-        </a>
-        <a href="lost/" class="card"> <div class="icon">🔍</div>
-            <span>落とし物管理</span>
-        </a>
-        <a href="roster/" class="card">
-            <div class="icon">👥</div>
-            <span>名簿</span>
-        </a>
-        <a href="inventory/" class="card">
-            <div class="icon">📦</div>
-            <span>備品・物品検索</span>
-        </a>
-        <a href="pop/" class="card">
-            <div class="icon">🖼️</div>
-            <span>掲示物</span>
-        </a>
-        <a href="contacts/" class="card">
-            <div class="icon">📞</div>
-            <span>連絡先</span>
-        </a>
+        /* トピックスエリアの構成 */
+        .topics-container {
+            margin-bottom: 25px;
+            display: inline-block;
+            text-align: left;
+            width: 95%;        
+            max-width: 800px;  
+        }
+
+        .info-label {
+            font-size: 0.75rem;
+            font-weight: bold;
+            color: #78909c;
+            margin-left: 5px;
+            margin-bottom: 4px;
+            display: block;
+            letter-spacing: 0.05em;
+        }
+
+        .topics-box {
+            background-color: #e3f2fd; 
+            border: 1px solid #90caf9; 
+            color: #333; 
+            padding: 15px 25px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            text-align: center;
+            line-height: 1.6;
+            width: 100%;       
+            box-sizing: border-box; 
+        }
+
+        .shift-grid {
+            display: flex;
+            flex-direction: column; 
+            align-items: center;
+            gap: 15px;
+        }
+
+        .shift-box {
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 12px 20px;
+            width: 95%; 
+            max-width: 800px; 
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            box-sizing: border-box;
+        }
+
+        .shift-title { 
+            font-weight: bold; 
+            border-bottom: 2px solid; 
+            margin-bottom: 10px; 
+            padding-bottom: 5px;
+            font-size: 1rem;
+        }
+        
+        .early { border-color: #f0ad4e; color: #8a6d3b; }   
+        .late { border-color: #5bc0de; color: #31708f; }    
+        .tomorrow { border-color: #5cb85c; color: #3c763d; } 
+
+        .staff-list { 
+            font-size: 1rem; 
+            line-height: 1.6;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px; 
+            color: #444;
+        }
+        
+        .staff-list span {
+            white-space: nowrap; 
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sticky-header">
+        <header>
+            <a href="./" style="text-decoration: none; display: inline-block;">
+                <img src="assets/images/ikutalogo.png" alt="FRONTOWN IKUTA">
+                <div class="sub-title">STAFF PORTAL</div>
+            </a>
+        </header>
+
+        <nav class="nav-menu">
+            <ul>
+                <li><a href="manual/">マニュアル</a></li>
+                <li><a href="setup/">準備物</a></li>
+                <li><a href="lost/">落とし物</a></li> <li><a href="roster/">名簿</a></li>
+                <li><a href="inventory/">備品検索</a></li>
+                <li><a href="pop/">掲示物</a></li>
+                <li><a href="contacts/">連絡先</a></li>
+            </ul>
+        </nav>
     </div>
-</section>
+
+    <div class="daily-info" id="shift-display">
+        <div class="today-header" id="today-date">読み込み中...</div>
+        
+        <div class="topics-container" id="topics-area" style="display: none;">
+            <span class="info-label">INFO</span>
+            <div class="topics-box" id="today-topics"></div>
+        </div>
+        
+        <div class="shift-grid">
+            <div class="shift-box">
+                <div class="shift-title early">今日の早番</div>
+                <div class="staff-list" id="early-staff">ー</div>
+            </div>
+            <div class="shift-box">
+                <div class="shift-title late">今日の遅番</div>
+                <div class="staff-list" id="late-staff">ー</div>
+            </div>
+            <div class="shift-box">
+                <div class="shift-title tomorrow">明日の早番</div>
+                <div class="staff-list" id="tomorrow-early">ー</div>
+            </div>
+        </div>
+    </div>
+
+    <main class="container">
+        <section class="tool-links">
+            <h2>外部ツール</h2>
+            <div class="grid">
+                <a href="https://ikuta-frontown-admin.hacomono.jp/#/schedule/tables/1/studio-rooms/4/" target="_blank" rel="noopener noreferrer" class="card">
+                    <img src="assets/images/hacomono.png" alt="hacomono" style="max-width: 150px; width: 100%; height: auto;">
+                </a>
+                <a href="https://yoyaku.labola.jp/r/shop/manage/top/" target="_blank" rel="noopener noreferrer" class="card">
+                    <img src="assets/images/LaBOLA.png" alt="LaBOLA" style="max-width: 150px; width: 100%; height: auto;">
+                </a>
+                <a href="https://www.chatwork.com/" target="_blank" rel="noopener noreferrer" class="card">
+                    <img src="assets/images/chatwork.png" alt="Chatwork" style="max-width: 150px; width: 100%; height: auto;">
+                </a>
+            </div>
+        </section>
+
+        <section class="internal-links">
+            <h2>業務メニュー</h2>
+            <div class="grid">
+                <a href="manual/" class="card">
+                    <div class="icon">📖</div>
+                    <span>マニュアル</span>
+                </a>
+                <a href="setup/" class="card">
+                    <div class="icon">📋</div>
+                    <span>準備物</span>
+                </a>
+                <a href="lost/" class="card"> <div class="icon">🔍</div>
+                    <span>落とし物管理</span>
+                </a>
+                <a href="roster/" class="card">
+                    <div class="icon">👥</div>
+                    <span>名簿</span>
+                </a>
+                <a href="inventory/" class="card">
+                    <div class="icon">📦</div>
+                    <span>備品・物品検索</span>
+                </a>
+                <a href="pop/" class="card">
+                    <div class="icon">🖼️</div>
+                    <span>掲示物</span>
+                </a>
+                <a href="contacts/" class="card">
+                    <div class="icon">📞</div>
+                    <span>連絡先</span>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 FRONTOWN IKUTA</p>
+    </footer>
+
+    <script>
+        const GAS_URL = "https://script.google.com/macros/s/AKfycbwejV5wra9fncEbHKpfO3l9DxWdiUA_8KYiA-V4n7cpNMUDvf6UkdXilJ_Lnvd1exYzAQ/exec";
+
+        async function fetchShift() {
+            try {
+                const response = await fetch(GAS_URL);
+                const data = await response.json();
+                
+                if (data.error) {
+                    document.getElementById('today-date').textContent = data.error;
+                    return;
+                }
+
+                document.getElementById('today-date').textContent = data.date;
+                
+                const topicsArea = document.getElementById('topics-area');
+                const topicsBox = document.getElementById('today-topics');
+                
+                if (data.topics && data.topics.trim() !== "") {
+                    const formattedTopics = data.topics.replace(/[,，/／、]/g, '<br>');
+                    topicsBox.innerHTML = formattedTopics;
+                    topicsArea.style.display = "inline-block";
+                } else {
+                    topicsArea.style.display = "none";
+                }
+                
+                const formatStaff = (list) => {
+                    return list && list.length > 0 
+                        ? list.map(name => `<span>${name}</span>`).join('') 
+                        : "ー";
+                };
+
+                document.getElementById('early-staff').innerHTML = formatStaff(data.early);
+                document.getElementById('late-staff').innerHTML = formatStaff(data.late);
+                document.getElementById('tomorrow-early').innerHTML = formatStaff(data.tomorrowEarly);
+
+            } catch (e) {
+                console.error("Fetch Error:", e);
+                document.getElementById('today-date').textContent = "データ取得失敗";
+            }
+        }
+
+        fetchShift();
+    </script>
+</body>
+</html>
