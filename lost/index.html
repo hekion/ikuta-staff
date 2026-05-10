@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <script src="../auth.js"></script>
+    <script src="../common.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>落とし物管理 | Ikuta-Portal</title>
     <link rel="stylesheet" href="../style.css">
@@ -13,7 +14,7 @@
         .search-box { flex: 1; padding: 12px; border: 2px solid #35A0D9; border-radius: 8px; outline: none; box-sizing: border-box; font-size: 16px; }
         .add-btn { background: #35A0D9; color: #fff; border: none; padding: 0 15px; border-radius: 8px; font-weight: bold; cursor: pointer; height: 48px; white-space: nowrap; }
 
-        /* 詳細フィルタエリア（レイアウト固定版） */
+        /* 詳細フィルタエリア（1段目：日付 / 2段目：場所・カテゴリ） */
         .filter-row { 
             display: flex; 
             flex-wrap: wrap; 
@@ -24,56 +25,29 @@
             box-sizing: border-box;
             width: 100%;
         }
-        /* 1段目：日付（全幅） */
-        .filter-item.full {
-            flex: 1 1 100%;
-            min-width: 0;
-        }
-        /* 2段目：場所・カテゴリ（半分ずつ） */
-        .filter-item.half {
-            flex: 1 1 calc(50% - 4px); /* gap分を引いて50% */
-            min-width: 0;
-        }
+        .filter-item.full { flex: 1 1 100%; min-width: 0; }
+        .filter-item.half { flex: 1 1 calc(50% - 4px); min-width: 0; }
 
-        .filter-item label { 
-            display: block; 
-            font-size: 0.75rem; 
-            font-weight: bold; 
-            color: #555; 
-            margin-bottom: 3px; 
-        }
+        .filter-item label { display: block; font-size: 0.75rem; font-weight: bold; color: #555; margin-bottom: 3px; }
         .filter-item input, .filter-item select { 
-            width: 100%; 
-            padding: 8px 6px; 
-            border: 1px solid #ccc; 
-            border-radius: 6px; 
-            font-size: 0.9rem; 
-            box-sizing: border-box; 
-            background: #fff;
-            height: 40px;
-            min-width: 0;
-            appearance: none; /* デフォルトスタイルを抑制 */
-            -webkit-appearance: none;
+            width: 100%; padding: 8px 6px; border: 1px solid #ccc; border-radius: 6px; font-size: 0.9rem; 
+            box-sizing: border-box; background: #fff; height: 40px; min-width: 0; appearance: none; -webkit-appearance: none;
         }
 
-        /* リストデザイン */
+        /* リスト・カードデザイン */
         #lost-items-body { display: flex; flex-direction: column; gap: 15px; }
         .item-card { background: #fff; border-radius: 12px; border: 1px solid #ddd; padding: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        
         .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px solid #f0f0f0; padding-bottom: 8px; }
         .header-left { display: flex; align-items: baseline; gap: 12px; }
         .display-date { font-size: 1.25rem; font-weight: bold; color: #333; }
         .display-staff { font-size: 0.9rem; color: #666; }
-
         .card-middle { display: flex; gap: 15px; align-items: flex-start; margin-bottom: 12px; }
         .display-img { width: 110px; height: 110px; object-fit: cover; border-radius: 8px; background: #eee; cursor: zoom-in; flex-shrink: 0; }
         .main-info { flex: 1; }
         .display-name { font-size: 1.5rem; font-weight: bold; color: #000; margin-bottom: 6px; display: block; line-height: 1.2; }
         .display-category { display: inline-block; background: #f0f4f8; color: #35A0D9; padding: 3px 10px; border-radius: 4px; font-size: 0.85rem; font-weight: bold; }
-
         .location-info { font-size: 1rem; color: #444; margin-bottom: 10px; }
         .memo-display { background: #fffde7; padding: 10px; border-radius: 6px; font-size: 0.95rem; margin-bottom: 12px; border-left: 5px solid #fbc02d; color: #333; }
-
         .return-info { margin-top: 10px; padding: 10px; border-radius: 8px; background: #fdfdfd; border-top: 1px dashed #ccc; font-size: 0.95rem; color: #444; line-height: 1.6; }
 
         .status-badge { padding: 6px 12px; border-radius: 6px; font-weight: bold; font-size: 0.85rem; color: #fff; }
@@ -85,23 +59,12 @@
         /* モーダル */
         .modal { display: none; position: fixed; z-index: 3000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); overflow-y: auto; }
         .modal-content { background: #fff; margin: 20px auto; padding: 15px; width: 94%; max-width: 450px; border-radius: 12px; box-sizing: border-box; }
-        
         .form-group { margin-bottom: 12px; width: 100%; box-sizing: border-box; }
         .form-group label { display: block; font-weight: bold; margin-bottom: 4px; font-size: 0.9rem; color: #333; }
-        
         .form-group input, .form-group select, .form-group textarea { 
-            width: 100% !important; 
-            max-width: 100% !important;
-            padding: 10px 8px; 
-            border: 2px solid #e0e0e0; 
-            border-radius: 8px; 
-            box-sizing: border-box !important; 
-            font-size: 16px; 
-            outline: none;
-            display: block;
-            margin: 0;
+            width: 100% !important; padding: 10px 8px; border: 2px solid #e0e0e0; border-radius: 8px; 
+            box-sizing: border-box !important; font-size: 16px; outline: none; display: block;
         }
-
         .submit-btn { background: #35A0D9; color: #fff; border: none; width: 100%; padding: 16px; border-radius: 10px; font-weight: bold; font-size: 1.1rem; cursor: pointer; margin-top: 10px; }
         .cancel-btn { background: none; border: none; color: #666; width: 100%; margin-top: 15px; cursor: pointer; text-align: center; display: block; font-size: 0.9rem; }
         
@@ -111,27 +74,6 @@
     </style>
 </head>
 <body>
-
-    <div class="sticky-header">
-        <header>
-            <a href="../" style="text-decoration: none; display: inline-block;">
-                <img src="../assets/images/ikutalogo.png" alt="FRONTOWN IKUTA">
-                <div class="sub-title">STAFF PORTAL</div>
-            </a>
-        </header>
-
-        <nav class="nav-menu">
-            <ul>
-                <li><a href="../manual/">マニュアル</a></li>
-                <li><a href="../setup/">準備物</a></li>
-                <li><a href="../lost/">落とし物</a></li>
-                <li><a href="../roster/">名簿</a></li>
-                <li><a href="../inventory/">備品検索</a></li>
-                <li><a href="../pop/">掲示物</a></li>
-                <li><a href="../contacts/">連絡先</a></li>
-            </ul>
-        </nav>
-    </div>
 
     <main class="container">
         <div class="search-container">
@@ -152,16 +94,9 @@
                     <label>カテゴリ</label>
                     <select id="filter-category" onchange="filterItems()">
                         <option value="">すべて</option>
-                        <option>衣類</option>
-                        <option>カバン類</option>
-                        <option>スポーツ用品</option>
-                        <option>貴重品</option>
-                        <option>かさ</option>
-                        <option>カギ</option>
-                        <option>カメラ・眼鏡</option>
-                        <option>おもちゃ</option>
-                        <option>電化製品</option>
-                        <option>その他</option>
+                        <option>衣類</option><option>カバン類</option><option>スポーツ用品</option>
+                        <option>貴重品</option><option>かさ</option><option>カギ</option>
+                        <option>カメラ・眼鏡</option><option>おもちゃ</option><option>電化製品</option><option>その他</option>
                     </select>
                 </div>
             </div>
@@ -178,14 +113,49 @@
             <form id="lostItemForm">
                 <input type="hidden" id="f-rowId">
                 <div class="form-group"><label>日付</label><input type="date" id="f-date" required></div>
-                <div class="form-group"><label>担当者</label><input type="text" id="f-staff" required></div>
-                <div class="form-group"><label>拾得場所</label><input type="text" id="f-place" required></div>
+                
+                <div class="form-group">
+                    <label>担当者</label>
+                    <input type="text" id="f-staff" list="staff-list" required placeholder="選択または入力">
+                    <datalist id="staff-list">
+                        <option value="杉本"></option><option value="出口"></option><option value="杉山"></option><option value="池田"></option>
+                        <option value="大平"></option><option value="久富"></option><option value="深澤"></option><option value="村上"></option>
+                        <option value="本村"></option><option value="藤井"></option><option value="佐藤"></option><option value="茂山"></option>
+                        <option value="竹江"></option><option value="土屋"></option><option value="深尾"></option><option value="関野"></option>
+                    </datalist>
+                </div>
+
+                <div class="form-group">
+                    <label>拾得場所</label>
+                    <input type="text" id="f-place" list="place-list" required placeholder="選択または入力">
+                    <datalist id="place-list">
+                        <option value="ふれあい広場"></option><option value="多目的広場"></option><option value="Ankerフィールド"></option>
+                        <option value="Nebulaフィールド"></option><option value="Soundcoreアリーナ"></option><option value="スタジオＡ"></option>
+                        <option value="スタジオＢ"></option><option value="駐車場"></option><option value="ジョギングコース"></option>
+                        <option value="マルチスペース"></option><option value="ミーティングルーム"></option><option value="テニスコート"></option>
+                        <option value="駐輪場(北側)"></option><option value="駐輪場(南側)"></option><option value="バイク専用駐輪場(駐車場内)"></option>
+                        <option value="バイク専用駐輪場(南側駐輪場内)"></option>
+                    </datalist>
+                </div>
+
                 <div class="form-group"><label>拾得物名</label><input type="text" id="f-name" required></div>
                 <div class="form-group"><label>カテゴリ</label><select id="f-category"><option>衣類</option><option>カバン類</option><option>スポーツ用品</option><option>貴重品</option><option>かさ</option><option>カギ</option><option>カメラ・眼鏡</option><option>おもちゃ</option><option>電化製品</option><option>その他</option></select></div>
-                <div class="form-group"><label>保管場所</label><input type="text" id="f-storage" required></div>
+                
+                <div class="form-group">
+                    <label>保管場所</label>
+                    <select id="f-storage" required>
+                        <option value="">選択してください</option>
+                        <option value="アカデミー倉庫">アカデミー倉庫</option>
+                        <option value="階段下の小物入れ">階段下の小物入れ</option>
+                        <option value="貴重品入れ">貴重品入れ</option>
+                        <option value="カウンター横">カウンター横</option>
+                    </select>
+                </div>
+
                 <div class="form-group"><label>写真を追加</label><input type="file" id="f-photo" accept="image/*"></div>
                 <div class="form-group"><label>状態</label><select id="f-status"><option value="保管中">保管中</option><option value="引取予定">引取予定</option><option value="返却済">返却済</option></select></div>
                 <div class="form-group"><label>メモ</label><textarea id="f-memo" rows="2" placeholder="詳細な特徴など"></textarea></div>
+
                 <div style="background:#f9f9f9; padding:12px; border-radius:10px; margin-bottom:15px; border:1px solid #eee;">
                     <p style="margin:0 0 10px 0; font-size:0.8rem; font-weight:bold; color:#35A0D9;">持ち主・返却情報</p>
                     <div class="form-group"><label>持ち主の名前</label><input type="text" id="f-owner"></div>
