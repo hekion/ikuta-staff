@@ -14,7 +14,7 @@
         .search-box { flex: 1; padding: 12px; border: 2px solid #35A0D9; border-radius: 8px; outline: none; box-sizing: border-box; font-size: 16px; }
         .add-btn { background: #35A0D9; color: #fff; border: none; padding: 0 15px; border-radius: 8px; font-weight: bold; cursor: pointer; height: 48px; white-space: nowrap; }
 
-        /* 詳細フィルタエリア（1段目：日付 / 2段目：場所・カテゴリ） */
+        /* 詳細フィルタエリア */
         .filter-row { 
             display: flex; 
             flex-wrap: wrap; 
@@ -61,10 +61,21 @@
         .modal-content { background: #fff; margin: 20px auto; padding: 15px; width: 94%; max-width: 450px; border-radius: 12px; box-sizing: border-box; }
         .form-group { margin-bottom: 12px; width: 100%; box-sizing: border-box; }
         .form-group label { display: block; font-weight: bold; margin-bottom: 4px; font-size: 0.9rem; color: #333; }
+        
+        /* 入力欄の幅修正：親要素（94%幅）を絶対にはみ出さない設定 */
         .form-group input, .form-group select, .form-group textarea { 
-            width: 100% !important; padding: 10px 8px; border: 2px solid #e0e0e0; border-radius: 8px; 
-            box-sizing: border-box !important; font-size: 16px; outline: none; display: block;
+            width: 100% !important; 
+            max-width: 100% !important;
+            min-width: 0 !important;
+            padding: 10px 8px; 
+            border: 2px solid #e0e0e0; 
+            border-radius: 8px; 
+            box-sizing: border-box !important; 
+            font-size: 16px; 
+            outline: none; 
+            display: block;
         }
+
         .submit-btn { background: #35A0D9; color: #fff; border: none; width: 100%; padding: 16px; border-radius: 10px; font-weight: bold; font-size: 1.1rem; cursor: pointer; margin-top: 10px; }
         .cancel-btn { background: none; border: none; color: #666; width: 100%; margin-top: 15px; cursor: pointer; text-align: center; display: block; font-size: 0.9rem; }
         
@@ -122,6 +133,7 @@
                         <option value="大平"></option><option value="久富"></option><option value="深澤"></option><option value="村上"></option>
                         <option value="本村"></option><option value="藤井"></option><option value="佐藤"></option><option value="茂山"></option>
                         <option value="竹江"></option><option value="土屋"></option><option value="深尾"></option><option value="関野"></option>
+                        <option value="その他"></option>
                     </datalist>
                 </div>
 
@@ -134,7 +146,7 @@
                         <option value="スタジオＢ"></option><option value="駐車場"></option><option value="ジョギングコース"></option>
                         <option value="マルチスペース"></option><option value="ミーティングルーム"></option><option value="テニスコート"></option>
                         <option value="駐輪場(北側)"></option><option value="駐輪場(南側)"></option><option value="バイク専用駐輪場(駐車場内)"></option>
-                        <option value="バイク専用駐輪場(南側駐輪場内)"></option>
+                        <option value="バイク専用駐輪場(南側駐輪場内)"></option><option value="その他"></option>
                     </datalist>
                 </div>
 
@@ -149,6 +161,7 @@
                         <option value="階段下の小物入れ">階段下の小物入れ</option>
                         <option value="貴重品入れ">貴重品入れ</option>
                         <option value="カウンター横">カウンター横</option>
+                        <option value="その他">その他</option>
                     </select>
                 </div>
 
@@ -250,10 +263,10 @@
             const filterPlace = document.getElementById('filter-place').value.toLowerCase();
             const filterCategory = document.getElementById('filter-category').value;
             const filtered = lostData.filter(i => {
-                const matchKeyword = i.name.toLowerCase().includes(searchKeyword) || i.owner.toLowerCase().includes(searchKeyword);
+                const matchKeyword = (i.name && i.name.toLowerCase().includes(searchKeyword)) || (i.owner && i.owner.toLowerCase().includes(searchKeyword));
                 const formattedItemDate = formatDateForInput(i.date);
                 const matchDate = !filterDate || formattedItemDate === filterDate;
-                const matchPlace = !filterPlace || i.place.toLowerCase().includes(filterPlace);
+                const matchPlace = !filterPlace || (i.place && i.place.toLowerCase().includes(filterPlace));
                 const matchCategory = !filterCategory || i.category === filterCategory;
                 return matchKeyword && matchDate && matchPlace && matchCategory;
             });
