@@ -7,7 +7,7 @@
     <title>落とし物管理 | Ikuta-Portal</title>
     <link rel="stylesheet" href="../style.css">
     <style>
-        /* 検索ボックス・操作エリア */
+        /* 検索・操作エリア */
         .search-container {
             display: flex;
             gap: 10px;
@@ -32,7 +32,7 @@
             white-space: nowrap;
         }
 
-        /* テーブル・リスト表示 */
+        /* テーブル表示 */
         .table-container {
             width: 100%;
             overflow-x: auto;
@@ -43,16 +43,15 @@
             width: 100%;
             border-collapse: collapse;
             background: #fff;
-            min-width: 800px; /* 横スクロール確保 */
+            min-width: 1000px;
         }
         .lost-table th {
             background: #35A0D9;
             color: #fff;
             text-align: left;
             padding: 12px;
-            font-size: 0.9rem;
-            position: sticky;
-            top: 0;
+            font-size: 0.85rem;
+            white-space: nowrap;
         }
         .lost-table td {
             padding: 12px;
@@ -63,32 +62,23 @@
 
         /* 状態バッジ */
         .status-badge {
-            display: inline-block;
-            padding: 4px 10px;
+            padding: 4px 8px;
             border-radius: 4px;
             font-weight: bold;
             font-size: 0.75rem;
             color: #fff;
         }
-        .status-storage { background: #35A0D9; }   /* 保管中 */
-        .status-scheduled { background: #F0AD4E; } /* 引取予定 */
-        .status-returned { background: #777; }     /* 返却済 */
+        .status-保管中 { background: #35A0D9; }
+        .status-引取予定 { background: #F0AD4E; }
+        .status-返却済 { background: #777; }
 
-        /* サムネイル画像 */
-        .thumb-img {
-            width: 60px;
-            height: 60px;
-            object-fit: cover;
-            border-radius: 4px;
-            cursor: zoom-in;
-            background: #f8f9fa;
-        }
+        .thumb-img { width: 50px; height: 50px; object-fit: cover; border-radius: 4px; }
 
-        /* モーダル（登録フォーム） */
+        /* --- 登録フォーム（モーダル） --- */
         .modal {
             display: none;
             position: fixed;
-            z-index: 2000;
+            z-index: 3000;
             top: 0; left: 0;
             width: 100%; height: 100%;
             background: rgba(0,0,0,0.7);
@@ -98,29 +88,71 @@
             background: #fff;
             margin: 20px auto;
             padding: 25px;
-            width: 90%;
-            max-width: 500px;
-            border-radius: 10px;
-        }
-        .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; font-weight: bold; margin-bottom: 5px; font-size: 0.9rem; }
-        .form-group input, .form-group select, .form-group textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            width: 95%;
+            max-width: 600px;
+            border-radius: 12px;
             box-sizing: border-box;
         }
+        .modal-header {
+            border-bottom: 3px solid #35A0D9;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+        }
+        .modal-header h3 { margin: 0; color: #333; }
+
+        /* フォームレイアウト */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        @media (max-width: 500px) { .form-grid { grid-template-columns: 1fr; } }
+
+        .form-group { margin-bottom: 15px; }
+        .form-group.full { grid-column: span 2; }
+        @media (max-width: 500px) { .form-group.full { grid-column: span 1; } }
+
+        .form-group label { display: block; font-weight: bold; margin-bottom: 5px; font-size: 0.85rem; color: #555; }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 1rem;
+        }
+        
+        .section-title {
+            grid-column: span 2;
+            background: #f8f9fa;
+            padding: 5px 10px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: #888;
+            margin-top: 10px;
+            border-radius: 4px;
+        }
+
         .submit-btn {
             background: #35A0D9;
             color: #fff;
             border: none;
             width: 100%;
-            padding: 15px;
-            border-radius: 5px;
+            padding: 16px;
+            border-radius: 8px;
             font-weight: bold;
-            margin-top: 10px;
+            font-size: 1.1rem;
             cursor: pointer;
+            margin-top: 20px;
+        }
+        .cancel-btn {
+            background: none;
+            border: none;
+            color: #999;
+            width: 100%;
+            margin-top: 15px;
+            cursor: pointer;
+            font-size: 0.9rem;
         }
 
         #loading { text-align: center; padding: 30px; color: #999; }
@@ -152,22 +184,26 @@
         <h2>落とし物管理システム</h2>
 
         <div class="search-container">
-            <input type="text" id="search-input" class="search-box" placeholder="アイテム名、場所、持ち主などで検索..." oninput="filterLostItems()">
+            <input type="text" id="search-input" class="search-box" placeholder="キーワードで検索..." oninput="filterItems()">
             <button class="add-btn" onclick="openModal()">＋ 新規登録</button>
         </div>
 
-        <div id="loading">データを読み込み中...</div>
+        <div id="loading">読み込み中...</div>
 
         <div class="table-container">
             <table class="lost-table hidden" id="lost-table">
                 <thead>
                     <tr>
-                        <th>画像</th>
+                        <th>写真</th>
                         <th>状態</th>
-                        <th>拾得物名 / カテゴリ</th>
-                        <th>日付 / 場所</th>
+                        <th>拾得物名</th>
+                        <th>カテゴリ</th>
+                        <th>日付</th>
+                        <th>拾得場所</th>
                         <th>保管場所</th>
-                        <th>持ち主 / 連絡先</th>
+                        <th>担当者</th>
+                        <th>持ち主</th>
+                        <th>連絡先 / 引取日</th>
                     </tr>
                 </thead>
                 <tbody id="lost-body"></tbody>
@@ -177,115 +213,127 @@
 
     <div id="registerModal" class="modal">
         <div class="modal-content">
-            <h3 style="margin-top:0; color:#35A0D9;">新規落とし物登録</h3>
+            <div class="modal-header">
+                <h3>落とし物 新規登録</h3>
+            </div>
             <form id="lostItemForm">
-                <div class="form-group">
-                    <label>拾得日</label>
-                    <input type="date" name="date" required>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>日付</label>
+                        <input type="date" id="f-date" required>
+                    </div>
+                    <div class="form-group">
+                        <label>担当者</label>
+                        <input type="text" id="f-staff" placeholder="スタッフ名" required>
+                    </div>
+                    <div class="form-group">
+                        <label>拾得場所</label>
+                        <input type="text" id="f-place" placeholder="例：アリーナA" required>
+                    </div>
+                    <div class="form-group">
+                        <label>拾得物の名前</label>
+                        <input type="text" id="f-name" placeholder="例：青色の水筒" required>
+                    </div>
+                    <div class="form-group">
+                        <label>カテゴリ</label>
+                        <select id="f-category">
+                            <option value="貴重品">貴重品</option>
+                            <option value="衣類">衣類</option>
+                            <option value="スポーツ用品">スポーツ用品</option>
+                            <option value="雑貨・その他">雑貨・その他</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>写真撮影 (iPadカメラ起動)</label>
+                        <input type="file" id="f-photo" accept="image/*" capture="environment">
+                    </div>
+                    <div class="form-group full">
+                        <label>保管場所</label>
+                        <input type="text" id="f-storage" placeholder="例：事務所内の貴重品BOX" required>
+                    </div>
+                    <div class="form-group">
+                        <label>現在の状態</label>
+                        <select id="f-status">
+                            <option value="保管中">保管中</option>
+                            <option value="引取予定">引取予定</option>
+                            <option value="返却済">返却済</option>
+                        </select>
+                    </div>
+
+                    <div class="section-title">持ち主・返却情報（任意入力）</div>
+                    <div class="form-group">
+                        <label>持ち主の名前</label>
+                        <input type="text" id="f-owner" placeholder="お名前">
+                    </div>
+                    <div class="form-group">
+                        <label>持ち主の連絡先</label>
+                        <input type="text" id="f-contact" placeholder="電話番号など">
+                    </div>
+                    <div class="form-group full">
+                        <label>引取り予定日</label>
+                        <input type="date" id="f-returnDate">
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label>拾得物名</label>
-                    <input type="text" name="item_name" placeholder="例：青色の水筒（サーモス）" required>
-                </div>
-                <div class="form-group">
-                    <label>場所</label>
-                    <input type="text" name="place" placeholder="例：アリーナA" required>
-                </div>
-                <div class="form-group">
-                    <label>写真撮影</label>
-                    <input type="file" name="photo" accept="image/*" capture="environment">
-                </div>
-                <button type="submit" class="submit-btn">システムへ登録（スプレッドシート連動予定）</button>
-                <button type="button" onclick="closeModal()" style="background:none; border:none; color:#999; width:100%; margin-top:10px; cursor:pointer;">キャンセル</button>
+
+                <button type="submit" class="submit-btn">スプレッドシートへ登録</button>
+                <button type="button" class="cancel-btn" onclick="closeModal()">キャンセル</button>
             </form>
         </div>
     </div>
 
-    <footer><p>© 2026 FRONTOWN IKUTA</p></footer>
+    <footer><p>&copy; 2026 FRONTOWN IKUTA</p></footer>
 
     <script>
-        // スプレッドシート設定（備品検索と同じ仕組み）
+        // 設定（備品検索と共通）
         const API_KEY = 'AIzaSyDecF0oQvA5i82U8dZR66YOQ_QdRPxGEOY'; 
-        const SPREADSHEET_ID = '1Fh4Z7f7Jau8d_FMT__sGjp-99Ks-IHKQl5kaGERM2Rg'; // 適宜落とし物用シートIDに変更
+        const SPREADSHEET_ID = '1Fh4Z7f7Jau8d_FMT__sGjp-99Ks-IHKQl5kaGERM2Rg'; 
         const RANGE = '落とし物リスト!A2:K500'; 
 
         let lostData = [];
 
-        async function loadLostItems() {
+        async function loadData() {
             try {
                 const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${encodeURIComponent(RANGE)}?key=${API_KEY}`;
                 const res = await fetch(url);
                 const json = await res.json();
-                
-                if (!json.values) {
-                    document.getElementById('loading').innerText = 'データがありません。';
-                    return;
-                }
+                if (!json.values) return;
 
-                // スプレッドシートのカラム順に合わせてマッピング
-                lostData = json.values.map(row => ({
-                    date: row[0] || '',
-                    staff: row[1] || '',
-                    place: row[2] || '',
-                    name: row[3] || '',
-                    category: row[4] || '',
-                    photo: row[5] || '', // 画像URLを想定
-                    storage: row[6] || '',
-                    status: row[7] || '保管中',
-                    owner: row[8] || '',
-                    contact: row[9] || '',
-                    returnDate: row[10] || ''
+                lostData = json.values.map(r => ({
+                    date: r[0]||'', staff: r[1]||'', place: r[2]||'', name: r[3]||'', category: r[4]||'',
+                    photo: r[5]||'', storage: r[6]||'', status: r[7]||'保管中',
+                    owner: r[8]||'', contact: r[9]||'', returnDate: r[10]||''
                 }));
-
-                displayResults(lostData);
-                document.getElementById('loading').classList.add('hidden');
+                render(lostData);
+                document.getElementById('loading').add('hidden');
                 document.getElementById('lost-table').classList.remove('hidden');
-
-            } catch (e) {
-                document.getElementById('loading').innerText = 'エラー：読み込みに失敗しました。';
-            }
+            } catch(e) {}
         }
 
-        function displayResults(data) {
-            const tbody = document.getElementById('lost-body');
-            tbody.innerHTML = '';
-
-            data.forEach(item => {
+        function render(data) {
+            const b = document.getElementById('lost-body');
+            b.innerHTML = '';
+            data.forEach(i => {
                 const tr = document.createElement('tr');
-                
-                // 状態に応じたクラス名
-                let statusClass = 'status-storage';
-                if(item.status === '引取予定') statusClass = 'status-scheduled';
-                if(item.status === '返却済') statusClass = 'status-returned';
-
                 tr.innerHTML = `
-                    <td><img src="${item.photo || 'https://via.placeholder.com/60?text=No+Img'}" class="thumb-img"></td>
-                    <td><span class="status-badge ${statusClass}">${item.status}</span></td>
-                    <td><strong>${item.name}</strong><br><small style="color:#888">${item.category}</small></td>
-                    <td>${item.date}<br>@${item.place}</td>
-                    <td>${item.storage}</td>
-                    <td>${item.owner}<br><small style="color:#888">${item.contact}</small></td>
+                    <td><img src="${i.photo||'https://via.placeholder.com/50?text=No'}" class="thumb-img"></td>
+                    <td><span class="status-badge status-${i.status}">${i.status}</span></td>
+                    <td><strong>${i.name}</strong></td>
+                    <td>${i.category}</td>
+                    <td>${i.date}</td>
+                    <td>${i.place}</td>
+                    <td>${i.storage}</td>
+                    <td>${i.staff}</td>
+                    <td>${i.owner}</td>
+                    <td>${i.contact}<br><small>${i.returnDate}</small></td>
                 `;
-                tbody.appendChild(tr);
+                b.appendChild(tr);
             });
         }
 
-        function filterLostItems() {
-            const query = document.getElementById('search-input').value.toLowerCase();
-            const filtered = lostData.filter(item => {
-                return item.name.toLowerCase().includes(query) || 
-                       item.place.toLowerCase().includes(query) ||
-                       item.owner.toLowerCase().includes(query) ||
-                       item.status.toLowerCase().includes(query);
-            });
-            displayResults(filtered);
-        }
-
-        // モーダル制御
         function openModal() { document.getElementById('registerModal').style.display = 'block'; }
         function closeModal() { document.getElementById('registerModal').style.display = 'none'; }
-
-        loadLostItems();
+        
+        loadData();
     </script>
 </body>
 </html>
