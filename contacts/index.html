@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <script src="../auth.js"></script>
+    <script src="../common.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="format-detection" content="telephone=no">
     <title>連絡先 | Ikuta-Portal</title>
@@ -12,7 +13,6 @@
             margin-bottom: 30px;
         }
         
-        /* セクション見出し：背景色とラインで視認性アップ */
         .contact-group-title {
             font-size: 1rem;
             font-weight: bold;
@@ -48,12 +48,10 @@
             font-size: 1.05rem;
             font-weight: bold;
             text-decoration: none !important;
-            /* 誤タップ防止 */
             pointer-events: none; 
             user-select: text;
         }
 
-        /* 施設セクションのライン色を変更 */
         .section-facility .contact-group-title {
             border-left-color: #666;
         }
@@ -61,38 +59,17 @@
 </head>
 <body>
 
-    <div class="sticky-header">
-        <header>
-            <a href="../" style="text-decoration: none; display: inline-block;">
-                <img src="../assets/images/ikutalogo.png" alt="FRONTOWN IKUTA">
-                <div class="sub-title">STAFF PORTAL</div>
-            </a>
-        </header>
-        <nav class="nav-menu">
-            <ul>
-                <li><a href="../manual/">マニュアル</a></li>
-                <li><a href="../setup/">準備物</a></li>
-                <li><a href="../roster/">名簿</a></li>
-                <li><a href="../inventory/">備品検索</a></li>
-                <li><a href="../pop/">掲示物</a></li>
-                <li><a href="../contacts/" class="active">連絡先</a></li>
-            </ul>
-        </nav>
-    </div>
-
     <main class="container">
         <section>
             <h2>連絡先一覧</h2>
 
-
             <div class="contact-section section-facility">
                 <div class="contact-group-title">施設関係</div>
-
 
                 <div class="contact-card">
                     <span class="contact-name">フロンタウン生田 外線</span>
                     <span class="contact-number">044-328-5771</span>
-                </div>       
+                </div>        
                 
                 <div class="contact-card">
                     <span class="contact-name">生田浄水場</span>
@@ -154,13 +131,8 @@
                     <span class="contact-number">080-5068-2183</span>
                 </div>
             </div>
-
         </section>
     </main>
 
-    <footer>
-        <p>&copy; 2026 FRONTOWN IKUTA</p>
-    </footer>
-
-</body>
+    </body>
 </html>
