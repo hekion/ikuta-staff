@@ -13,18 +13,18 @@
         .search-box { flex: 1; padding: 12px; border: 2px solid #35A0D9; border-radius: 8px; outline: none; box-sizing: border-box; font-size: 16px; }
         .add-btn { background: #35A0D9; color: #fff; border: none; padding: 0 15px; border-radius: 8px; font-weight: bold; cursor: pointer; height: 48px; white-space: nowrap; }
 
-        /* 詳細フィルタエリア（修正箇所） */
+        /* 詳細フィルタエリア */
         .filter-row { 
             display: flex; 
             gap: 10px; 
-            flex-wrap: wrap; /* スマホで入り切らない時に改行させる */
+            flex-wrap: wrap; 
             background: #f0f4f8; 
             padding: 12px; 
             border-radius: 8px; 
         }
         .filter-item { 
             flex: 1; 
-            min-width: 140px; /* 極端に狭くならないよう最小幅を設定 */
+            min-width: 140px; 
             box-sizing: border-box;
         }
         .filter-item label { display: block; font-size: 0.75rem; font-weight: bold; color: #555; margin-bottom: 4px; }
@@ -92,16 +92,32 @@
         .zoom-modal img { max-width: 95%; max-height: 95%; }
         .loading-visible { display: block; text-align: center; padding: 40px; font-weight: bold; color: #666; }
 
-        /* モバイル用のメディアクエリ（念のための補強） */
         @media screen and (max-width: 480px) {
-            .filter-item { flex: 1 1 100%; } /* 幅が狭いときは1項目1行にする */
+            .filter-item { flex: 1 1 100%; }
         }
     </style>
 </head>
 <body>
 
     <div class="sticky-header">
-        <header><a href="../" style="text-decoration: none;"><img src="../assets/images/ikutalogo.png" alt="FRONTOWN IKUTA"><div class="sub-title">STAFF PORTAL</div></a></header>
+        <header>
+            <a href="../" style="text-decoration: none; display: inline-block;">
+                <img src="../assets/images/ikutalogo.png" alt="FRONTOWN IKUTA">
+                <div class="sub-title">STAFF PORTAL</div>
+            </a>
+        </header>
+
+        <nav class="nav-menu">
+            <ul>
+                <li><a href="../manual/">マニュアル</a></li>
+                <li><a href="../setup/">準備物</a></li>
+                <li><a href="../lost/">落とし物</a></li>
+                <li><a href="../roster/">名簿</a></li>
+                <li><a href="../inventory/">備品検索</a></li>
+                <li><a href="../pop/">掲示物</a></li>
+                <li><a href="../contacts/">連絡先</a></li>
+            </ul>
+        </nav>
     </div>
 
     <main class="container">
