@@ -33,14 +33,23 @@
         .zoom-modal { display: none; position: fixed; z-index: 4000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; cursor: zoom-out; }
         .zoom-modal img { max-width: 95%; max-height: 95%; border-radius: 8px; }
 
-        /* モーダル */
+        /* モーダル本体 */
         .modal { display: none; position: fixed; z-index: 3000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); overflow-y: auto; }
         .modal-content { background: #fff; margin: 20px auto; padding: 20px; width: 92%; max-width: 500px; border-radius: 12px; box-sizing: border-box; }
         
+        /* 入力欄のはみ出し防止 */
         .form-group { margin-bottom: 15px; width: 100%; box-sizing: border-box; }
         .form-group label { display: block; font-weight: bold; margin-bottom: 5px; font-size: 0.9rem; color: #333; }
-        .form-group input, .form-group select { 
-            width: 100% !important; padding: 12px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 1rem; display: block; background-color: #fff;
+        .form-group input, 
+        .form-group select { 
+            width: 100% !important; 
+            padding: 12px; 
+            border: 1px solid #ccc; 
+            border-radius: 6px; 
+            box-sizing: border-box; /* これでpaddingを含めて100%になる */
+            font-size: 1rem; 
+            display: block; 
+            background-color: #fff;
         }
 
         .submit-btn { background: #35A0D9; color: #fff; border: none; width: 100%; padding: 16px; border-radius: 8px; font-weight: bold; font-size: 1.1rem; cursor: pointer; }
@@ -84,7 +93,7 @@
             <table class="lost-table hidden" id="lost-table">
                 <thead>
                     <tr>
-                        <th>操作</th><th>写真</th><th>状態</th><th>拾得物名</th><th>カテゴリ</th><th>日付</th><th>場所</th><th>保管場所</th><th>担当者</th><th>持ち主</th><th>連絡先</th>
+                        <th>操作</th><th>写真</th><th>状態</th><th>拾得物名</th><th>カテゴリ</th><th>日付</th><th>場所</th><th>保管場所</th><th>担当者</th><th>持ち主</th><th>連絡先 / 引取日</th>
                     </tr>
                 </thead>
                 <tbody id="lost-body"></tbody>
@@ -100,17 +109,67 @@
             <form id="lostItemForm">
                 <input type="hidden" id="f-rowId">
                 <div class="form-group"><label>日付</label><input type="date" id="f-date" required></div>
-                <div class="form-group"><label>担当者</label><input type="text" id="f-staff" required></div>
-                <div class="form-group"><label>拾得場所</label><input type="text" id="f-place" required></div>
-                <div class="form-group"><label>拾得物の名前</label><input type="text" id="f-name" required></div>
-                <div class="form-group"><label>カテゴリ</label><select id="f-category"><option>貴重品</option><option>衣類</option><option>スポーツ用品</option><option>雑貨・その他</option></select></div>
-                <div class="form-group"><label>保管場所</label><input type="text" id="f-storage" required></div>
-                <div class="form-group"><label>状態</label><select id="f-status"><option>保管中</option><option>引取予定</option><option>返却済</option></select></div>
-                <div class="form-group"><label>写真（撮影/選択）</label><input type="file" id="f-photo" accept="image/*"></div>
-                <div style="background:#f9f9f9; padding:10px; border-radius:8px; margin-bottom:15px;">
-                    <div class="form-group"><label>持ち主</label><input type="text" id="f-owner"></div>
-                    <div class="form-group"><label>連絡先/引取日</label><input type="text" id="f-contact"></div>
+                
+                <div class="form-group">
+                    <label>担当者</label>
+                    <input type="text" id="f-staff" list="staff-list" placeholder="名前を入力または選択" required>
+                    <datalist id="staff-list">
+                        <option value="スタッフA">
+                        <option value="スタッフB">
+                    </datalist>
                 </div>
+
+                <div class="form-group">
+                    <label>拾得場所</label>
+                    <input type="text" id="f-place" list="place-list" placeholder="場所を入力または選択" required>
+                    <datalist id="place-list">
+                        <option value="受付">
+                        <option value="ラウンジ">
+                        <option value="テニスコート">
+                        <option value="多目的広場">
+                    </datalist>
+                </div>
+
+                <div class="form-group"><label>拾得物の名前</label><input type="text" id="f-name" required></div>
+                
+                <div class="form-group">
+                    <label>カテゴリ</label>
+                    <select id="f-category">
+                        <option value="貴重品">貴重品</option>
+                        <option value="衣類">衣類</option>
+                        <option value="スポーツ用品">スポーツ用品</option>
+                        <option value="雑貨・その他">雑貨・その他</option>
+                        </select>
+                </div>
+
+                <div class="form-group">
+                    <label>保管場所</label>
+                    <input type="text" id="f-storage" list="storage-list" placeholder="保管場所を入力または選択" required>
+                    <datalist id="storage-list">
+                        <option value="事務室棚">
+                        <option value="受付カウンター下">
+                        <option value="貴重品ロッカー">
+                    </datalist>
+                </div>
+
+                <div class="form-group">
+                    <label>状態</label>
+                    <select id="f-status">
+                        <option value="保管中">保管中</option>
+                        <option value="引取予定">引取予定</option>
+                        <option value="返却済">返却済</option>
+                    </select>
+                </div>
+
+                <div class="form-group"><label>写真（撮影/選択）</label><input type="file" id="f-photo" accept="image/*"></div>
+                
+                <div style="background:#f9f9f9; padding:15px; border-radius:8px; margin-bottom:15px; border: 1px solid #eee;">
+                    <p style="margin:0 0 10px 0; font-size: 0.8rem; font-weight: bold; color: #888;">返却用情報</p>
+                    <div class="form-group"><label>持ち主の名前</label><input type="text" id="f-owner"></div>
+                    <div class="form-group"><label>連絡先</label><input type="text" id="f-contact"></div>
+                    <div class="form-group"><label>引取り予定日</label><input type="date" id="f-returnDate"></div>
+                </div>
+
                 <button type="submit" class="submit-btn" id="submitBtn">保存する</button>
                 <button type="button" class="cancel-btn" onclick="closeModal()">キャンセル</button>
             </form>
@@ -121,7 +180,7 @@
         const API_KEY = 'AIzaSyDecF0oQvA5i82U8dZR66YOQ_QdRPxGEOY'; 
         const SPREADSHEET_ID = '1Fh4Z7f7Jau8d_FMT__sGjp-99Ks-IHKQl5kaGERM2Rg'; 
         const RANGE = '落とし物リスト!A2:K500'; 
-        const GAS_URL = 'https://script.google.com/macros/s/AKfycbyNblFICpqoHl_z0RRe-i4zR3KjtDuXiStqG3seGzX2wGgf_CNGJJSVeRjzVr4iJI9_1w/exec'; 
+        const GAS_URL = 'ここに最新のURLを貼る'; 
 
         let lostData = [];
 
@@ -132,8 +191,9 @@
                 lostData = (json.values || []).map((r, index) => ({
                     rowId: index + 2,
                     date: r[0]||'', staff: r[1]||'', place: r[2]||'', name: r[3]||'', category: r[4]||'',
-                    photo: r[5]||'', storage: r[6]||'', status: r[7]||'保管中', owner: r[8]||'', contact: r[9]||''
-                })).reverse(); // 新しい順に表示
+                    photo: r[5]||'', storage: r[6]||'', status: r[7]||'保管中', 
+                    owner: r[8]||'', contact: r[9]||'', returnDate: r[10]||''
+                })).reverse();
                 render(lostData);
                 document.getElementById('loading-msg').classList.add('hidden');
                 document.getElementById('lost-table').classList.remove('hidden');
@@ -154,13 +214,18 @@
                     <td><button class="edit-btn" onclick="editItem(${i.rowId})">編集</button></td>
                     <td><img src="${imgUrl || fallback}" class="thumb-img" onerror="this.src='${fallback}'" onclick="zoomImg(this.src)"></td>
                     <td><span class="status-badge status-${i.status}">${i.status}</span></td>
-                    <td><strong>${i.name}</strong></td><td>${i.category}</td><td>${i.date}</td><td>${i.place}</td><td>${i.storage}</td><td>${i.staff}</td><td>${i.owner}</td><td>${i.contact}</td>
+                    <td><strong>${i.name}</strong></td><td>${i.category}</td><td>${i.date}</td><td>${i.place}</td><td>${i.storage}</td><td>${i.staff}</td><td>${i.owner}</td>
+                    <td>${i.contact}<br><small>${i.returnDate}</small></td>
                 `;
                 b.appendChild(tr);
             });
         }
 
-        function zoomImg(src) { if(src.includes('placeholder')) return; document.getElementById('zoomedImg').src = src.replace('=s200', '=s1000'); document.getElementById('zoomModal').style.display = 'flex'; }
+        function zoomImg(src) { 
+            if(src.includes('placeholder')) return; 
+            document.getElementById('zoomedImg').src = src.replace('=s200', '=s1000'); 
+            document.getElementById('zoomModal').style.display = 'flex'; 
+        }
         function closeZoom() { document.getElementById('zoomModal').style.display = 'none'; }
         function openModal() { document.getElementById('itemModal').style.display = 'block'; }
         function closeModal() { document.getElementById('itemModal').style.display = 'none'; document.getElementById('lostItemForm').reset(); document.getElementById('f-rowId').value = ''; }
@@ -178,12 +243,13 @@
             document.getElementById('f-status').value = item.status;
             document.getElementById('f-owner').value = item.owner;
             document.getElementById('f-contact').value = item.contact;
+            document.getElementById('f-returnDate').value = item.returnDate;
             openModal();
         }
 
         function filterItems() {
             const q = document.getElementById('search-input').value.toLowerCase();
-            render(lostData.filter(i => i.name.toLowerCase().includes(q) || i.place.toLowerCase().includes(q)));
+            render(lostData.filter(i => i.name.toLowerCase().includes(q) || i.place.toLowerCase().includes(q) || i.owner.toLowerCase().includes(q)));
         }
 
         document.getElementById('lostItemForm').addEventListener('submit', async (e) => {
@@ -204,8 +270,9 @@
                 category: document.getElementById('f-category').value,
                 storage: document.getElementById('f-storage').value,
                 status: document.getElementById('f-status').value,
-                owner: document.getElementById('f-owner').value,
-                contact: document.getElementById('f-contact').value,
+                owner: document.getElementById('f-owner').value || "",
+                contact: document.getElementById('f-contact').value || "",
+                returnDate: document.getElementById('f-returnDate').value || "",
                 photoBase64: base64, photoName: file ? file.name : null
             };
             try {
