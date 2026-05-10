@@ -10,13 +10,13 @@
         /* 検索・操作エリア */
         .search-container { display: flex; gap: 10px; margin-bottom: 20px; }
         .search-box { flex: 1; padding: 12px; border: 2px solid #35A0D9; border-radius: 8px; outline: none; box-sizing: border-box; }
-        .add-btn { background: #35A0D9; color: #fff; border: none; padding: 0 15px; border-radius: 8px; font-weight: bold; cursor: pointer; }
+        .add-btn { background: #35A0D9; color: #fff; border: none; padding: 0 15px; border-radius: 8px; font-weight: bold; cursor: pointer; height: 45px; }
 
         /* テーブル表示 */
-        .table-container { width: 100%; overflow-x: auto; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-        .lost-table { width: 100%; border-collapse: collapse; background: #fff; min-width: 1100px; }
+        .table-container { width: 100%; overflow-x: auto; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); background: #fff; min-height: 200px; }
+        .lost-table { width: 100%; border-collapse: collapse; min-width: 1100px; }
         .lost-table th, .lost-table td { padding: 12px; border-bottom: 1px solid #eee; font-size: 0.85rem; text-align: left; }
-        .lost-table th { background: #35A0D9; color: #fff; white-space: nowrap; }
+        .lost-table th { background: #35A0D9; color: #fff; white-space: nowrap; position: sticky; top: 0; }
 
         /* 状態バッジ */
         .status-badge { padding: 4px 8px; border-radius: 4px; font-weight: bold; font-size: 0.75rem; color: #fff; }
@@ -27,14 +27,13 @@
         .edit-btn { background: #eee; border: 1px solid #ddd; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 0.75rem; }
         
         /* 画像サムネイル */
-        .thumb-img { width: 60px; height: 60px; object-fit: cover; border-radius: 4px; cursor: zoom-in; transition: 0.2s; background: #f0f0f0; }
-        .thumb-img:hover { opacity: 0.8; }
+        .thumb-img { width: 60px; height: 60px; object-fit: cover; border-radius: 4px; cursor: zoom-in; background: #f9f9f9; }
 
         /* 画像拡大モーダル */
         .zoom-modal { display: none; position: fixed; z-index: 4000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; cursor: zoom-out; }
         .zoom-modal img { max-width: 95%; max-height: 95%; border-radius: 8px; }
 
-        /* 登録・編集モーダル */
+        /* モーダル */
         .modal { display: none; position: fixed; z-index: 3000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); overflow-y: auto; }
         .modal-content { background: #fff; margin: 20px auto; padding: 20px; width: 92%; max-width: 500px; border-radius: 12px; box-sizing: border-box; }
         
@@ -44,12 +43,11 @@
             width: 100% !important; padding: 12px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 1rem; display: block; background-color: #fff;
         }
 
-        .optional-section { background: #f9f9f9; padding: 15px; border-radius: 8px; margin-top: 20px; border: 1px solid #eee; box-sizing: border-box; }
-        .submit-btn { background: #35A0D9; color: #fff; border: none; width: 100%; padding: 16px; border-radius: 8px; font-weight: bold; font-size: 1.1rem; cursor: pointer; margin-top: 10px; }
-        .submit-btn:disabled { background: #ccc; cursor: not-allowed; }
+        .submit-btn { background: #35A0D9; color: #fff; border: none; width: 100%; padding: 16px; border-radius: 8px; font-weight: bold; font-size: 1.1rem; cursor: pointer; }
+        .submit-btn:disabled { background: #ccc; }
         .cancel-btn { background: none; border: none; color: #999; width: 100%; margin-top: 15px; cursor: pointer; display: block; text-align: center; }
 
-        #loading { text-align: center; padding: 30px; color: #999; }
+        #loading-msg { padding: 20px; text-align: center; color: #666; font-weight: bold; }
         .hidden { display: none; }
     </style>
 </head>
@@ -80,22 +78,13 @@
             <input type="text" id="search-input" class="search-box" placeholder="キーワードで検索..." oninput="filterItems()">
             <button class="add-btn" onclick="openModal()">＋ 新規登録</button>
         </div>
-        <div id="loading">データを取得中...</div>
+
         <div class="table-container">
+            <div id="loading-msg">データを取得中...</div>
             <table class="lost-table hidden" id="lost-table">
                 <thead>
                     <tr>
-                        <th>操作</th>
-                        <th>写真</th>
-                        <th>状態</th>
-                        <th>拾得物名</th>
-                        <th>カテゴリ</th>
-                        <th>日付</th>
-                        <th>場所</th>
-                        <th>保管場所</th>
-                        <th>担当者</th>
-                        <th>持ち主</th>
-                        <th>連絡先 / 引取日</th>
+                        <th>操作</th><th>写真</th><th>状態</th><th>拾得物名</th><th>カテゴリ</th><th>日付</th><th>場所</th><th>保管場所</th><th>担当者</th><th>持ち主</th><th>連絡先</th>
                     </tr>
                 </thead>
                 <tbody id="lost-body"></tbody>
@@ -114,29 +103,14 @@
                 <div class="form-group"><label>担当者</label><input type="text" id="f-staff" required></div>
                 <div class="form-group"><label>拾得場所</label><input type="text" id="f-place" required></div>
                 <div class="form-group"><label>拾得物の名前</label><input type="text" id="f-name" required></div>
-                <div class="form-group">
-                    <label>カテゴリ</label>
-                    <select id="f-category">
-                        <option value="貴重品">貴重品</option><option value="衣類">衣類</option>
-                        <option value="スポーツ用品">スポーツ用品</option><option value="雑貨・その他">雑貨・その他</option>
-                    </select>
-                </div>
+                <div class="form-group"><label>カテゴリ</label><select id="f-category"><option>貴重品</option><option>衣類</option><option>スポーツ用品</option><option>雑貨・その他</option></select></div>
                 <div class="form-group"><label>保管場所</label><input type="text" id="f-storage" required></div>
-                <div class="form-group">
-                    <label>現在の状態</label>
-                    <select id="f-status">
-                        <option value="保管中">保管中</option><option value="引取予定">引取予定</option><option value="返却済">返却済</option>
-                    </select>
+                <div class="form-group"><label>状態</label><select id="f-status"><option>保管中</option><option>引取予定</option><option>返却済</option></select></div>
+                <div class="form-group"><label>写真（撮影/選択）</label><input type="file" id="f-photo" accept="image/*"></div>
+                <div style="background:#f9f9f9; padding:10px; border-radius:8px; margin-bottom:15px;">
+                    <div class="form-group"><label>持ち主</label><input type="text" id="f-owner"></div>
+                    <div class="form-group"><label>連絡先/引取日</label><input type="text" id="f-contact"></div>
                 </div>
-                <div class="form-group"><label>写真（撮影または選択）</label><input type="file" id="f-photo" accept="image/*"></div>
-
-                <div class="optional-section">
-                    <p style="font-size:0.8rem; font-weight:bold; color:#888; margin:0 0 10px 0;">返却用情報（任意）</p>
-                    <div class="form-group"><label>持ち主の名前</label><input type="text" id="f-owner"></div>
-                    <div class="form-group"><label>連絡先</label><input type="text" id="f-contact"></div>
-                    <div class="form-group"><label>引取り予定日</label><input type="date" id="f-returnDate"></div>
-                </div>
-
                 <button type="submit" class="submit-btn" id="submitBtn">保存する</button>
                 <button type="button" class="cancel-btn" onclick="closeModal()">キャンセル</button>
             </form>
@@ -153,68 +127,95 @@
 
         async function loadData() {
             try {
-                const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${encodeURIComponent(RANGE)}?key=${API_KEY}`;
-                const res = await fetch(url);
+                const res = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${encodeURIComponent(RANGE)}?key=${API_KEY}`);
                 const json = await res.json();
-                if (!json.values) { render([]); return; }
-                lostData = json.values.map((r, index) => ({
+                lostData = (json.values || []).map((r, index) => ({
                     rowId: index + 2,
                     date: r[0]||'', staff: r[1]||'', place: r[2]||'', name: r[3]||'', category: r[4]||'',
-                    photo: r[5]||'', storage: r[6]||'', status: r[7]||'保管中',
-                    owner: r[8]||'', contact: r[9]||'', returnDate: r[10]||''
-                }));
+                    photo: r[5]||'', storage: r[6]||'', status: r[7]||'保管中', owner: r[8]||'', contact: r[9]||''
+                })).reverse(); // 新しい順に表示
                 render(lostData);
-                document.getElementById('loading').classList.add('hidden');
+                document.getElementById('loading-msg').classList.add('hidden');
                 document.getElementById('lost-table').classList.remove('hidden');
-            } catch(e) { console.error("データ読み込み失敗"); }
+            } catch(e) { document.getElementById('loading-msg').innerText = "取得失敗。リロードしてください"; }
         }
 
         function render(data) {
             const b = document.getElementById('lost-body'); b.innerHTML = '';
             data.forEach(i => {
-                // ドライブのURLをブラウザ表示用URLに強制変換
                 let imgUrl = i.photo;
-                if (imgUrl && imgUrl.includes('drive.google.com')) {
-                    const fileId = imgUrl.match(/id=([^&]+)/);
-                    if (fileId) imgUrl = `https://lh3.googleusercontent.com/d/${fileId[1]}=s200`;
+                if (imgUrl && imgUrl.includes('id=')) {
+                    const id = imgUrl.split('id=')[1];
+                    imgUrl = `https://lh3.googleusercontent.com/d/${id}=s200`;
                 }
-                const fallbackImg = 'https://via.placeholder.com/60?text=No+Photo';
-
+                const fallback = 'https://via.placeholder.com/60?text=No+Photo';
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
                     <td><button class="edit-btn" onclick="editItem(${i.rowId})">編集</button></td>
-                    <td><img src="${imgUrl || fallbackImg}" 
-                             class="thumb-img" 
-                             onerror="this.src='${fallbackImg}'"
-                             onclick="zoomImg(this.src)"></td>
+                    <td><img src="${imgUrl || fallback}" class="thumb-img" onerror="this.src='${fallback}'" onclick="zoomImg(this.src)"></td>
                     <td><span class="status-badge status-${i.status}">${i.status}</span></td>
-                    <td><strong>${i.name}</strong></td>
-                    <td>${i.category}</td>
-                    <td>${i.date}</td>
-                    <td>${i.place}</td>
-                    <td>${i.storage}</td>
-                    <td>${i.staff}</td>
-                    <td>${i.owner}</td>
-                    <td>${i.contact}<br><small>${i.returnDate}</small></td>
+                    <td><strong>${i.name}</strong></td><td>${i.category}</td><td>${i.date}</td><td>${i.place}</td><td>${i.storage}</td><td>${i.staff}</td><td>${i.owner}</td><td>${i.contact}</td>
                 `;
                 b.appendChild(tr);
             });
         }
 
-        function zoomImg(src) { 
-            if(src.includes('placeholder')) return; 
-            // 拡大時は高画質版を表示
-            let zoomSrc = src.replace('=s200', '=s1000');
-            document.getElementById('zoomedImg').src = zoomSrc; 
-            document.getElementById('zoomModal').style.display = 'flex'; 
-        }
+        function zoomImg(src) { if(src.includes('placeholder')) return; document.getElementById('zoomedImg').src = src.replace('=s200', '=s1000'); document.getElementById('zoomModal').style.display = 'flex'; }
         function closeZoom() { document.getElementById('zoomModal').style.display = 'none'; }
         function openModal() { document.getElementById('itemModal').style.display = 'block'; }
-        function closeModal() { document.getElementById('itemModal').style.display = 'none'; document.getElementById('lostItemForm').reset(); document.getElementById('f-rowId').value = ''; document.getElementById('modalTitle').innerText = "落とし物登録";}
+        function closeModal() { document.getElementById('itemModal').style.display = 'none'; document.getElementById('lostItemForm').reset(); document.getElementById('f-rowId').value = ''; }
 
         function editItem(rowId) {
             const item = lostData.find(i => i.rowId === rowId);
             if (!item) return;
-            document.getElementById('modalTitle').innerText = "登録内容の編集";
             document.getElementById('f-rowId').value = item.rowId;
             document.getElementById('f-date').value = item.date;
+            document.getElementById('f-staff').value = item.staff;
+            document.getElementById('f-place').value = item.place;
+            document.getElementById('f-name').value = item.name;
+            document.getElementById('f-category').value = item.category;
+            document.getElementById('f-storage').value = item.storage;
+            document.getElementById('f-status').value = item.status;
+            document.getElementById('f-owner').value = item.owner;
+            document.getElementById('f-contact').value = item.contact;
+            openModal();
+        }
+
+        function filterItems() {
+            const q = document.getElementById('search-input').value.toLowerCase();
+            render(lostData.filter(i => i.name.toLowerCase().includes(q) || i.place.toLowerCase().includes(q)));
+        }
+
+        document.getElementById('lostItemForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('submitBtn');
+            btn.disabled = true; btn.innerText = "送信中...";
+            const file = document.getElementById('f-photo').files[0];
+            let base64 = null;
+            if (file) {
+                base64 = await new Promise(r => { const rd = new FileReader(); rd.onload = () => r(rd.result); rd.readAsDataURL(file); });
+            }
+            const payload = {
+                rowId: document.getElementById('f-rowId').value,
+                date: document.getElementById('f-date').value,
+                staff: document.getElementById('f-staff').value,
+                place: document.getElementById('f-place').value,
+                name: document.getElementById('f-name').value,
+                category: document.getElementById('f-category').value,
+                storage: document.getElementById('f-storage').value,
+                status: document.getElementById('f-status').value,
+                owner: document.getElementById('f-owner').value,
+                contact: document.getElementById('f-contact').value,
+                photoBase64: base64, photoName: file ? file.name : null
+            };
+            try {
+                await fetch(GAS_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) });
+                alert("送信完了！"); closeModal(); loadData();
+            } catch (e) { alert("送信失敗"); }
+            btn.disabled = false; btn.innerText = "保存する";
+        });
+
+        loadData();
+    </script>
+</body>
+</html>
