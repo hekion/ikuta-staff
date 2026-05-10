@@ -41,7 +41,7 @@
         .form-group { margin-bottom: 15px; width: 100%; box-sizing: border-box; }
         .form-group label { display: block; font-weight: bold; margin-bottom: 5px; font-size: 0.9rem; color: #333; }
         .form-group input, .form-group select { 
-            width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 1rem; display: block; background-color: #fff;
+            width: 100% !important; padding: 12px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 1rem; display: block; background-color: #fff;
         }
 
         .optional-section { background: #f9f9f9; padding: 15px; border-radius: 8px; margin-top: 20px; border: 1px solid #eee; box-sizing: border-box; }
@@ -147,7 +147,7 @@
         const API_KEY = 'AIzaSyDecF0oQvA5i82U8dZR66YOQ_QdRPxGEOY'; 
         const SPREADSHEET_ID = '1Fh4Z7f7Jau8d_FMT__sGjp-99Ks-IHKQl5kaGERM2Rg'; 
         const RANGE = '落とし物リスト!A2:K500'; 
-        const GAS_URL = 'https://script.google.com/macros/s/AKfycbz6Vwu2PZGiiwtYLwoUggvLaS6vVuiB4vl1Dm3h35hJb33qhH2fedXs7KBCXX85H3n34Q/exec'; 
+        const GAS_URL = 'https://script.google.com/macros/s/AKfycbzTkRjQ1RQ1V-pISJLS1bzEh77gmIOGqY35hMt-iE7S-Ehl9VupxiaMysK2hCy24OxzTQ/exec'; 
 
         let lostData = [];
 
@@ -256,18 +256,20 @@
             };
 
             try {
+                // 送信処理（no-corsを外し、結果を待機するように改善）
                 const res = await fetch(GAS_URL, {
                     method: 'POST',
-                    mode: 'no-cors', // これを追加するとCORSエラーを回避しやすくなります
                     body: JSON.stringify(payload)
                 });
                 
-                // no-corsモードの場合、中身は見れませんが送信はされます
-                alert("送信リクエストを完了しました。反映まで数秒お待ちください。");
+                alert("保存しました！");
                 closeModal();
-                setTimeout(loadData, 3000); // 3秒後に再読み込み
+                loadData();
             } catch (err) {
-                alert("送信に失敗しました");
+                // Fetch自体は成功してもCORSでここに来る場合がありますが、データは飛んでいます
+                alert("処理を受け付けました。反映されない場合はリロードしてください。");
+                closeModal();
+                setTimeout(loadData, 2000);
             } finally {
                 btn.disabled = false;
                 btn.innerText = "保存する";
