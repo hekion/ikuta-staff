@@ -8,9 +8,18 @@
     <link rel="stylesheet" href="../style.css">
     <style>
         /* 検索・操作エリア */
-        .search-container { display: flex; gap: 10px; margin-bottom: 20px; }
+        .search-container { margin-bottom: 20px; display: flex; flex-direction: column; gap: 10px; }
+        .search-row-main { display: flex; gap: 10px; }
         .search-box { flex: 1; padding: 12px; border: 2px solid #35A0D9; border-radius: 8px; outline: none; box-sizing: border-box; font-size: 16px; }
         .add-btn { background: #35A0D9; color: #fff; border: none; padding: 0 15px; border-radius: 8px; font-weight: bold; cursor: pointer; height: 48px; white-space: nowrap; }
+
+        /* 詳細フィルタエリア */
+        .filter-row { display: flex; gap: 8px; flex-wrap: wrap; background: #f0f4f8; padding: 10px; border-radius: 8px; }
+        .filter-item { flex: 1; min-width: 100px; }
+        .filter-item label { display: block; font-size: 0.75rem; font-weight: bold; color: #555; margin-bottom: 2px; }
+        .filter-item input, .filter-item select { 
+            width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 0.85rem; box-sizing: border-box; 
+        }
 
         /* リストデザイン */
         #lost-items-body { display: flex; flex-direction: column; gap: 15px; }
@@ -45,7 +54,6 @@
         .form-group { margin-bottom: 12px; width: 100%; box-sizing: border-box; }
         .form-group label { display: block; font-weight: bold; margin-bottom: 4px; font-size: 0.9rem; color: #333; }
         
-        /* ⚠️ はみ出し防止の徹底：paddingも含めた100%制御 */
         .form-group input, .form-group select, .form-group textarea { 
             width: 100% !important; 
             max-width: 100% !important;
@@ -57,7 +65,7 @@
             outline: none;
             display: block;
             margin: 0;
-            -webkit-appearance: none; /* スマホ独自の装飾をリセット */
+            -webkit-appearance: none;
         }
 
         .submit-btn { background: #35A0D9; color: #fff; border: none; width: 100%; padding: 16px; border-radius: 10px; font-weight: bold; font-size: 1.1rem; cursor: pointer; margin-top: 10px; }
@@ -76,8 +84,30 @@
 
     <main class="container">
         <div class="search-container">
-            <input type="text" id="search-input" class="search-box" placeholder="名前・場所・持主で検索..." oninput="filterItems()">
-            <button class="add-btn" onclick="openModal()">＋ 新規登録</button>
+            <div class="search-row-main">
+                <input type="text" id="search-input" class="search-box" placeholder="名前・持主で検索..." oninput="filterItems()">
+                <button class="add-btn" onclick="openModal()">＋ 新規登録</button>
+            </div>
+            <div class="filter-row">
+                <div class="filter-item">
+                    <label>拾得日</label>
+                    <input type="date" id="filter-date" onchange="filterItems()">
+                </div>
+                <div class="filter-item">
+                    <label>拾得場所</label>
+                    <input type="text" id="filter-place" placeholder="場所..." oninput="filterItems()">
+                </div>
+                <div class="filter-item">
+                    <label>カテゴリ</label>
+                    <select id="filter-category" onchange="filterItems()">
+                        <option value="">すべて</option>
+                        <option>貴重品</option>
+                        <option>衣類</option>
+                        <option>スポーツ用品</option>
+                        <option>雑貨・その他</option>
+                    </select>
+                </div>
+            </div>
         </div>
         <div id="loading-msg" class="loading-visible">データを取得中...</div>
         <div id="lost-items-body"></div>
@@ -124,10 +154,8 @@
 
         let lostData = [];
 
-        // ⚠️ スプシの「年/月/日」形式を yyyy-mm-dd に確実に変換する
         function formatDateForInput(dateStr) {
             if (!dateStr) return '';
-            // / を - に置換してDateオブジェクトを作成
             const date = new Date(dateStr.replace(/\//g, '-'));
             if (isNaN(date.getTime())) return ''; 
             const y = date.getFullYear();
@@ -179,9 +207,7 @@
         function editItem(rowId) {
             const item = lostData.find(i => i.rowId === rowId);
             if (!item) return;
-
             document.getElementById('f-rowId').value = item.rowId;
-            // 既存データをセット
             document.getElementById('f-date').value = formatDateForInput(item.date);
             document.getElementById('f-staff').value = item.staff;
             document.getElementById('f-place').value = item.place;
@@ -193,21 +219,43 @@
             document.getElementById('f-owner').value = item.owner;
             document.getElementById('f-contact').value = item.contact;
             document.getElementById('f-returnDate').value = formatDateForInput(item.returnDate);
-            
             openModal();
+        }
+
+        function filterItems() {
+            const searchKeyword = document.getElementById('search-input').value.toLowerCase();
+            const filterDate = document.getElementById('filter-date').value; // yyyy-mm-dd
+            const filterPlace = document.getElementById('filter-place').value.toLowerCase();
+            const filterCategory = document.getElementById('filter-category').value;
+
+            const filtered = lostData.filter(i => {
+                // 1. キーワード検索（名前 or 持ち主）
+                const matchKeyword = i.name.toLowerCase().includes(searchKeyword) || i.owner.toLowerCase().includes(searchKeyword);
+                
+                // 2. 日付フィルタ（yyyy-mm-dd形式にして比較）
+                const formattedItemDate = formatDateForInput(i.date);
+                const matchDate = !filterDate || formattedItemDate === filterDate;
+                
+                // 3. 拾得場所フィルタ
+                const matchPlace = !filterPlace || i.place.toLowerCase().includes(filterPlace);
+                
+                // 4. カテゴリフィルタ
+                const matchCategory = !filterCategory || i.category === filterCategory;
+
+                return matchKeyword && matchDate && matchPlace && matchCategory;
+            });
+            render(filtered);
         }
 
         document.getElementById('lostItemForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = document.getElementById('submitBtn');
             btn.disabled = true; btn.innerText = "送信中...";
-            
             const file = document.getElementById('f-photo').files[0];
             let base64 = null;
             if (file) {
                 base64 = await new Promise(r => { const rd = new FileReader(); rd.onload = () => r(rd.result); rd.readAsDataURL(file); });
             }
-
             const payload = {
                 rowId: document.getElementById('f-rowId').value,
                 date: document.getElementById('f-date').value,
@@ -223,16 +271,10 @@
                 returnDate: document.getElementById('f-returnDate').value || "",
                 photoBase64: base64, photoName: file ? file.name : null
             };
-
             await fetch(GAS_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) });
             alert("保存しました。");
             location.reload();
         });
-
-        function filterItems() {
-            const q = document.getElementById('search-input').value.toLowerCase();
-            render(lostData.filter(i => i.name.toLowerCase().includes(q) || i.place.toLowerCase().includes(q) || i.owner.toLowerCase().includes(q)));
-        }
 
         function zoomImg(src) { document.getElementById('zoomedImg').src = src.replace('&sz=s400', '&sz=s1200'); document.getElementById('zoomModal').style.display = 'flex'; }
         function closeZoom() { document.getElementById('zoomModal').style.display = 'none'; }
