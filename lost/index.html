@@ -7,57 +7,62 @@
     <title>落とし物管理 | Ikuta-Portal</title>
     <link rel="stylesheet" href="../style.css">
     <style>
+        /* 検索・操作エリア */
         .search-container { display: flex; gap: 10px; margin-bottom: 20px; }
         .search-box { flex: 1; padding: 12px; border: 2px solid #35A0D9; border-radius: 8px; outline: none; box-sizing: border-box; font-size: 16px; }
         .add-btn { background: #35A0D9; color: #fff; border: none; padding: 0 15px; border-radius: 8px; font-weight: bold; cursor: pointer; height: 48px; white-space: nowrap; }
 
+        /* リストデザイン */
         #lost-items-body { display: flex; flex-direction: column; gap: 15px; }
-        .item-card { background: #fff; border-radius: 12px; border: 1px solid #ddd; padding: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); overflow: hidden; }
+        .item-card { background: #fff; border-radius: 12px; border: 1px solid #ddd; padding: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
         
         .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px solid #f0f0f0; padding-bottom: 8px; }
         .header-left { display: flex; align-items: baseline; gap: 12px; }
-        .display-date { font-size: 1.15rem; font-weight: bold; color: #333; }
-        .display-staff { font-size: 0.85rem; color: #666; }
+        .display-date { font-size: 1.25rem; font-weight: bold; color: #333; }
+        .display-staff { font-size: 0.9rem; color: #666; }
 
-        .card-middle { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 12px; }
-        .display-img { width: 100px; height: 100px; object-fit: cover; border-radius: 8px; background: #eee; cursor: zoom-in; flex-shrink: 0; }
-        .main-info { flex: 1; min-width: 0; }
-        .display-name { font-size: 1.3rem; font-weight: bold; color: #000; margin-bottom: 4px; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-        .display-category { display: inline-block; background: #f0f4f8; color: #35A0D9; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; }
+        .card-middle { display: flex; gap: 15px; align-items: flex-start; margin-bottom: 12px; }
+        .display-img { width: 110px; height: 110px; object-fit: cover; border-radius: 8px; background: #eee; cursor: zoom-in; flex-shrink: 0; }
+        .main-info { flex: 1; }
+        .display-name { font-size: 1.5rem; font-weight: bold; color: #000; margin-bottom: 6px; display: block; line-height: 1.2; }
+        .display-category { display: inline-block; background: #f0f4f8; color: #35A0D9; padding: 3px 10px; border-radius: 4px; font-size: 0.85rem; font-weight: bold; }
 
-        .location-info { font-size: 0.95rem; color: #444; margin-bottom: 8px; }
-        .memo-display { background: #fffde7; padding: 8px; border-radius: 6px; font-size: 0.9rem; margin-bottom: 10px; border-left: 4px solid #fbc02d; color: #333; }
-        .return-info { padding: 10px; border-radius: 8px; background: #fdfdfd; border-top: 1px dashed #ccc; font-size: 0.9rem; color: #444; }
+        .location-info { font-size: 1rem; color: #444; margin-bottom: 10px; }
+        .memo-display { background: #fffde7; padding: 10px; border-radius: 6px; font-size: 0.95rem; margin-bottom: 12px; border-left: 5px solid #fbc02d; color: #333; }
 
-        .status-badge { padding: 5px 10px; border-radius: 6px; font-weight: bold; font-size: 0.8rem; color: #fff; }
+        .return-info { margin-top: 10px; padding: 10px; border-radius: 8px; background: #fdfdfd; border-top: 1px dashed #ccc; font-size: 0.95rem; color: #444; line-height: 1.6; }
+
+        .status-badge { padding: 6px 12px; border-radius: 6px; font-weight: bold; font-size: 0.85rem; color: #fff; }
         .status-保管中 { background: #35A0D9; }
         .status-引取予定 { background: #F0AD4E; }
         .status-返却済 { background: #777; }
-        .edit-btn { background: #f8f8f8; border: 1px solid #ccc; padding: 6px 15px; border-radius: 6px; cursor: pointer; font-weight: bold; }
+        .edit-btn { background: #f8f8f8; border: 1px solid #ccc; padding: 8px 18px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.9rem; }
 
         /* モーダルとはみ出し防止 */
         .modal { display: none; position: fixed; z-index: 3000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); overflow-y: auto; }
-        .modal-content { background: #fff; margin: 15px auto; padding: 20px; width: 94%; max-width: 420px; border-radius: 12px; box-sizing: border-box; }
-        .form-group { margin-bottom: 12px; }
-        .form-group label { display: block; font-weight: bold; margin-bottom: 4px; font-size: 0.9rem; color: #333; }
+        .modal-content { background: #fff; margin: 20px auto; padding: 20px; width: 92%; max-width: 450px; border-radius: 12px; box-sizing: border-box; }
         
-        /* 日付入力欄などのサイズ固定 */
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; font-weight: bold; margin-bottom: 6px; font-size: 0.95rem; color: #333; }
+        
+        /* ⚠️ 日付入力等の「資格」がはみ出ないように設定 */
         .form-group input, .form-group select, .form-group textarea { 
             width: 100% !important; 
-            padding: 10px; 
-            border: 2px solid #ddd; 
-            border-radius: 6px; 
+            padding: 12px; 
+            border: 2px solid #e0e0e0; 
+            border-radius: 8px; 
             box-sizing: border-box !important; 
             font-size: 16px; 
             outline: none;
+            display: block;
         }
-        .form-group input:focus { border-color: #35A0D9; }
 
-        .submit-btn { background: #35A0D9; color: #fff; border: none; width: 100%; padding: 14px; border-radius: 8px; font-weight: bold; font-size: 1rem; cursor: pointer; }
-        .cancel-btn { background: none; border: none; color: #888; width: 100%; margin-top: 12px; cursor: pointer; text-align: center; font-size: 0.85rem; }
+        .submit-btn { background: #35A0D9; color: #fff; border: none; width: 100%; padding: 16px; border-radius: 10px; font-weight: bold; font-size: 1.1rem; cursor: pointer; margin-top: 10px; }
+        .cancel-btn { background: none; border: none; color: #666; width: 100%; margin-top: 15px; cursor: pointer; text-align: center; display: block; font-size: 0.9rem; }
         
         .zoom-modal { display: none; position: fixed; z-index: 4000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; }
         .zoom-modal img { max-width: 95%; max-height: 95%; }
+        .loading-visible { display: block; text-align: center; padding: 40px; font-weight: bold; color: #666; }
     </style>
 </head>
 <body>
@@ -68,18 +73,18 @@
 
     <main class="container">
         <div class="search-container">
-            <input type="text" id="search-input" class="search-box" placeholder="検索..." oninput="filterItems()">
-            <button class="add-btn" onclick="openModal()">＋ 新規</button>
+            <input type="text" id="search-input" class="search-box" placeholder="名前・場所・持主で検索..." oninput="filterItems()">
+            <button class="add-btn" onclick="openModal()">＋ 新規登録</button>
         </div>
-        <div id="loading-msg" style="text-align:center; padding:20px; font-weight:bold;">読込中...</div>
+        <div id="loading-msg" class="loading-visible">データを取得中...</div>
         <div id="lost-items-body"></div>
     </main>
 
-    <div id="zoomModal" class="zoom-modal" onclick="closeZoom()"><img id="zoomedImg"></div>
+    <div id="zoomModal" class="zoom-modal" onclick="closeZoom()"><img id="zoomedImg" src=""></div>
 
     <div id="itemModal" class="modal">
         <div class="modal-content">
-            <h3 id="modalTitle" style="margin:0 0 15px 0; border-bottom: 2px solid #35A0D9;">登録・編集</h3>
+            <h3 id="modalTitle" style="border-bottom: 3px solid #35A0D9; padding-bottom: 10px; margin-top: 0;">落とし物登録/編集</h3>
             <form id="lostItemForm">
                 <input type="hidden" id="f-rowId">
                 <div class="form-group"><label>日付</label><input type="date" id="f-date" required></div>
@@ -88,18 +93,21 @@
                 <div class="form-group"><label>名前</label><input type="text" id="f-name" required></div>
                 <div class="form-group"><label>カテゴリ</label><select id="f-category"><option>貴重品</option><option>衣類</option><option>スポーツ用品</option><option>雑貨・その他</option></select></div>
                 <div class="form-group"><label>保管場所</label><input type="text" id="f-storage" required></div>
-                <div class="form-group"><label>写真</label><input type="file" id="f-photo" accept="image/*"></div>
-                <div class="form-group"><label>状態</label><select id="f-status"><option value="保管中">保管中</option><option value="引取予定">引取予定</option><option value="返却済">返却済</option></select></div>
-                <div class="form-group"><label>メモ</label><textarea id="f-memo" rows="2"></textarea></div>
+                
+                <div class="form-group"><label>写真を追加</label><input type="file" id="f-photo" accept="image/*"></div>
 
-                <div style="background:#f4f4f4; padding:10px; border-radius:8px; margin-bottom:12px;">
-                    <p style="margin:0 0 8px 0; font-size:0.8rem; font-weight:bold; color:#35A0D9;">返却情報</p>
-                    <div class="form-group"><label>持ち主名</label><input type="text" id="f-owner"></div>
+                <div class="form-group"><label>状態</label><select id="f-status"><option value="保管中">保管中</option><option value="引取予定">引取予定</option><option value="返却済">返却済</option></select></div>
+                
+                <div class="form-group"><label>メモ</label><textarea id="f-memo" rows="2" placeholder="詳細な特徴など"></textarea></div>
+
+                <div style="background:#f9f9f9; padding:12px; border-radius:10px; margin-bottom:15px; border:1px solid #eee;">
+                    <p style="margin:0 0 10px 0; font-size:0.8rem; font-weight:bold; color:#35A0D9;">持ち主・返却情報</p>
+                    <div class="form-group"><label>持ち主の名前</label><input type="text" id="f-owner"></div>
                     <div class="form-group"><label>連絡先</label><input type="tel" id="f-contact"></div>
-                    <div class="form-group"><label>予定日</label><input type="date" id="f-returnDate"></div>
+                    <div class="form-group"><label>引取り予定日</label><input type="date" id="f-returnDate"></div>
                 </div>
 
-                <button type="submit" class="submit-btn" id="submitBtn">保存</button>
+                <button type="submit" class="submit-btn" id="submitBtn">保存する</button>
                 <button type="button" class="cancel-btn" onclick="closeModal()">キャンセル</button>
             </form>
         </div>
@@ -117,39 +125,40 @@
             try {
                 const res = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${encodeURIComponent(RANGE)}?key=${API_KEY}`);
                 const json = await res.json();
-                if (!json.values) return;
-                
-                // データ加工の高速化
-                lostData = json.values.map((r, i) => ({
-                    rowId: i + 2, date: r[0]||'', staff: r[1]||'', place: r[2]||'', name: r[3]||'', category: r[4]||'',
+                lostData = (json.values || []).map((r, index) => ({
+                    rowId: index + 2, date: r[0]||'', staff: r[1]||'', place: r[2]||'', name: r[3]||'', category: r[4]||'',
                     photo: r[5]||'', storage: r[6]||'', status: r[7]||'保管中', owner: r[8]||'', contact: r[9]||'', returnDate: r[10]||'', memo: r[11]||''
                 })).reverse();
-                
                 render(lostData);
                 document.getElementById('loading-msg').style.display = 'none';
-            } catch(e) { document.getElementById('loading-msg').innerText = "通信エラー"; }
+            } catch(e) { document.getElementById('loading-msg').innerText = "取得失敗"; }
         }
 
         function render(data) {
-            const container = document.getElementById('lost-items-body');
-            container.innerHTML = data.map(i => {
-                const img = i.photo ? `https://drive.google.com/thumbnail?id=${i.photo.split('id=')[1]}&sz=s400` : 'https://via.placeholder.com/150?text=No+Photo';
-                return `
-                <div class="item-card">
+            const container = document.getElementById('lost-items-body'); container.innerHTML = '';
+            data.forEach(i => {
+                let imgUrl = i.photo;
+                if (imgUrl && imgUrl.includes('id=')) {
+                    imgUrl = `https://drive.google.com/thumbnail?id=${imgUrl.split('id=')[1]}&sz=s400`;
+                }
+                const card = document.createElement('div');
+                card.className = 'item-card';
+                card.innerHTML = `
                     <div class="card-header">
-                        <div class="header-left"><span class="display-date">${i.date}</span><span class="display-staff">${i.staff}</span></div>
+                        <div class="header-left"><span class="display-date">${i.date}</span><span class="display-staff">担当: ${i.staff}</span></div>
                         <span class="status-badge status-${i.status}">${i.status}</span>
                     </div>
                     <div class="card-middle">
-                        <img src="${img}" class="display-img" onclick="zoomImg(this.src)">
+                        <img src="${imgUrl || 'https://via.placeholder.com/150?text=No+Photo'}" class="display-img" onclick="zoomImg(this.src)">
                         <div class="main-info"><span class="display-name">${i.name}</span><span class="display-category">${i.category}</span></div>
                     </div>
-                    <div class="location-info"><b>拾得:</b> ${i.place} / <b>保管:</b> ${i.storage}</div>
-                    ${i.memo ? `<div class="memo-display">${i.memo}</div>` : ''}
-                    ${(i.owner || i.contact || i.returnDate) ? `<div class="return-info"><b>受取人:</b> ${i.owner || '-'}<br><b>連絡:</b> ${i.contact || '-'} / <b>予定:</b> ${i.returnDate || '-'}</div>` : ''}
-                    <div style="text-align:right; margin-top:5px;"><button class="edit-btn" onclick="editItem(${i.rowId})">編集</button></div>
-                </div>`;
-            }).join('');
+                    <div class="location-info"><b>拾得場所/</b> ${i.place} &nbsp;&nbsp; <b>保管場所/</b> ${i.storage}</div>
+                    ${i.memo ? `<div class="memo-display"><b>メモ:</b> ${i.memo}</div>` : ''}
+                    ${(i.owner || i.contact || i.returnDate) ? `<div class="return-info"><div><b>名前:</b> ${i.owner || '-'}</div><div><b>連絡先:</b> ${i.contact || '-'} &nbsp;&nbsp; <b>引取日:</b> ${i.returnDate || '-'}</div></div>` : ''}
+                    <div style="text-align:right;"><button class="edit-btn" onclick="editItem(${i.rowId})">編集</button></div>
+                `;
+                container.appendChild(card);
+            });
         }
 
         function editItem(rowId) {
@@ -174,11 +183,13 @@
             e.preventDefault();
             const btn = document.getElementById('submitBtn');
             btn.disabled = true; btn.innerText = "送信中...";
+            
             const file = document.getElementById('f-photo').files[0];
             let base64 = null;
             if (file) {
                 base64 = await new Promise(r => { const rd = new FileReader(); rd.onload = () => r(rd.result); rd.readAsDataURL(file); });
             }
+
             const payload = {
                 rowId: document.getElementById('f-rowId').value,
                 date: document.getElementById('f-date').value,
@@ -187,14 +198,16 @@
                 name: document.getElementById('f-name').value,
                 category: document.getElementById('f-category').value,
                 storage: document.getElementById('f-storage').value,
-                status: document.getElementById('f-status').value,
+                status: document.getElementById('f-status').value, // 最新の状態を取得
                 memo: document.getElementById('f-memo').value || "",
                 owner: document.getElementById('f-owner').value || "",
                 contact: document.getElementById('f-contact').value || "",
-                returnDate: document.getElementById('f-returnDate').value || "",
+                returnDate: document.getElementById('f-returnDate').value || "", // 最新の引取予定日を取得
                 photoBase64: base64, photoName: file ? file.name : null
             };
+
             await fetch(GAS_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) });
+            alert("保存しました。");
             location.reload();
         });
 
@@ -202,10 +215,12 @@
             const q = document.getElementById('search-input').value.toLowerCase();
             render(lostData.filter(i => i.name.toLowerCase().includes(q) || i.place.toLowerCase().includes(q) || i.owner.toLowerCase().includes(q)));
         }
+
         function zoomImg(src) { document.getElementById('zoomedImg').src = src.replace('&sz=s400', '&sz=s1200'); document.getElementById('zoomModal').style.display = 'flex'; }
         function closeZoom() { document.getElementById('zoomModal').style.display = 'none'; }
         function openModal() { document.getElementById('itemModal').style.display = 'block'; }
-        function closeModal() { document.getElementById('itemModal').style.display = 'none'; document.getElementById('lostItemForm').reset(); }
+        function closeModal() { document.getElementById('itemModal').style.display = 'none'; document.getElementById('lostItemForm').reset(); document.getElementById('f-rowId').value = ''; }
+
         loadData();
     </script>
 </body>
