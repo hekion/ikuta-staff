@@ -28,14 +28,9 @@
         .display-category { display: inline-block; background: #f0f4f8; color: #35A0D9; padding: 3px 10px; border-radius: 4px; font-size: 0.85rem; font-weight: bold; }
 
         .location-info { font-size: 1rem; color: #444; margin-bottom: 10px; }
-        .location-info b { color: #888; font-weight: normal; margin-right: 4px; }
-
-        /* メモ表示（状態と持ち主の間） */
-        .memo-display { background: #fffde7; padding: 10px; border-radius: 6px; font-size: 0.95rem; margin-bottom: 12px; border-left: 5px solid #fbc02d; color: #333; line-height: 1.4; }
+        .memo-display { background: #fffde7; padding: 10px; border-radius: 6px; font-size: 0.95rem; margin-bottom: 12px; border-left: 5px solid #fbc02d; color: #333; }
 
         .return-info { margin-top: 10px; padding: 10px; border-radius: 8px; background: #fdfdfd; border-top: 1px dashed #ccc; font-size: 0.95rem; color: #444; line-height: 1.6; }
-
-        .action-area { display: flex; justify-content: flex-end; margin-top: 5px; }
 
         .status-badge { padding: 6px 12px; border-radius: 6px; font-weight: bold; font-size: 0.85rem; color: #fff; }
         .status-保管中 { background: #35A0D9; }
@@ -43,22 +38,23 @@
         .status-返却済 { background: #777; }
         .edit-btn { background: #f8f8f8; border: 1px solid #ccc; padding: 8px 18px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.9rem; }
 
-        /* 入力フォーム（モーダル）のモダンデザイン復元 */
+        /* 入力フォーム（モーダル）のデザイン修正 */
         .modal { display: none; position: fixed; z-index: 3000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); overflow-y: auto; }
-        .modal-content { background: #fff; margin: 20px auto; padding: 25px; width: 92%; max-width: 450px; border-radius: 15px; box-sizing: border-box; box-shadow: 0 5px 20px rgba(0,0,0,0.2); }
+        .modal-content { background: #fff; margin: 20px auto; padding: 20px; width: 92%; max-width: 450px; border-radius: 12px; box-sizing: border-box; }
+        
         .form-group { margin-bottom: 15px; }
         .form-group label { display: block; font-weight: bold; margin-bottom: 6px; font-size: 0.95rem; color: #333; }
         
-        /* 四角い入力欄のデザイン */
+        /* 日付入力欄などがはみ出さないように調整 */
         .form-group input, .form-group select, .form-group textarea { 
             width: 100%; 
             padding: 12px; 
             border: 2px solid #e0e0e0; 
             border-radius: 8px; 
-            box-sizing: border-box; 
+            box-sizing: border-box; /* paddingを含めて100%にする */
             font-size: 16px; 
             outline: none;
-            transition: border-color 0.2s;
+            -webkit-appearance: none; /* iOS対策 */
         }
         .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: #35A0D9; }
 
@@ -73,22 +69,7 @@
 <body>
 
     <div class="sticky-header">
-        <header>
-            <a href="../" style="text-decoration: none; display: inline-block;">
-                <img src="../assets/images/ikutalogo.png" alt="FRONTOWN IKUTA">
-                <div class="sub-title">STAFF PORTAL</div>
-            </a>
-        </header>
-        <nav class="nav-menu">
-            <ul>
-                <li><a href="../manual/">マニュアル</a></li>
-                <li><a href="../setup/">準備物</a></li>
-                <li><a href="../roster/">名簿</a></li>
-                <li><a href="../inventory/">備品検索</a></li>
-                <li><a href="../pop/">掲示物</a></li>
-                <li><a href="../contacts/">連絡先</a></li>
-            </ul>
-        </nav>
+        <header><a href="../" style="text-decoration: none;"><img src="../assets/images/ikutalogo.png" alt="FRONTOWN IKUTA"><div class="sub-title">STAFF PORTAL</div></a></header>
     </div>
 
     <main class="container">
@@ -104,28 +85,28 @@
 
     <div id="itemModal" class="modal">
         <div class="modal-content">
-            <h3 id="modalTitle" style="border-bottom: 3px solid #35A0D9; padding-bottom: 10px; margin-top: 0; margin-bottom: 20px;">落とし物登録</h3>
+            <h3 id="modalTitle" style="border-bottom: 3px solid #35A0D9; padding-bottom: 10px; margin-top: 0;">落とし物登録</h3>
             <form id="lostItemForm">
                 <input type="hidden" id="f-rowId">
                 <div class="form-group"><label>日付</label><input type="date" id="f-date" required></div>
-                <div class="form-group"><label>担当者</label><input type="text" id="f-staff" list="staff-list" required><datalist id="staff-list"><option value="スタッフA"><option value="スタッフB"></datalist></div>
-                <div class="form-group"><label>拾得場所</label><input type="text" id="f-place" list="place-list" required><datalist id="place-list"><option value="受付"><option value="ラウンジ"></datalist></div>
-                <div class="form-group"><label>拾得物の名前</label><input type="text" id="f-name" required></div>
+                <div class="form-group"><label>担当者</label><input type="text" id="f-staff" required></div>
+                <div class="form-group"><label>拾得場所</label><input type="text" id="f-place" required></div>
+                <div class="form-group"><label>名前</label><input type="text" id="f-name" required></div>
                 <div class="form-group"><label>カテゴリ</label><select id="f-category"><option>貴重品</option><option>衣類</option><option>スポーツ用品</option><option>雑貨・その他</option></select></div>
-                <div class="form-group"><label>保管場所</label><input type="text" id="f-storage" list="storage-list" required><datalist id="storage-list"><option value="事務室棚"></datalist></div>
+                <div class="form-group"><label>保管場所</label><input type="text" id="f-storage" required></div>
                 
-                <div class="form-group"><label>状態</label><select id="f-status"><option value="保管中">保管中</option><option value="引取予定">引取予定</option><option value="返却済">返却済</option></select></div>
+                <div class="form-group"><label>写真を追加</label><input type="file" id="f-photo" accept="image/*"></div>
 
+                <div class="form-group"><label>状態</label><select id="f-status"><option value="保管中">保管中</option><option value="引取予定">引取予定</option><option value="返却済">返却済</option></select></div>
+                
                 <div class="form-group"><label>メモ</label><textarea id="f-memo" rows="2" placeholder="詳細な特徴など"></textarea></div>
 
-                <div style="background:#f9f9f9; padding:15px; border-radius:10px; margin-bottom:15px; border:1px solid #eee;">
-                    <p style="margin:0 0 10px 0; font-size:0.85rem; font-weight:bold; color:#35A0D9;">持ち主・返却情報</p>
+                <div style="background:#f9f9f9; padding:12px; border-radius:10px; margin-bottom:15px; border:1px solid #eee;">
+                    <p style="margin:0 0 10px 0; font-size:0.8rem; font-weight:bold; color:#888;">持ち主・返却情報</p>
                     <div class="form-group"><label>持ち主の名前</label><input type="text" id="f-owner"></div>
                     <div class="form-group"><label>連絡先</label><input type="text" id="f-contact"></div>
                     <div class="form-group"><label>引取り予定日</label><input type="date" id="f-returnDate"></div>
                 </div>
-
-                <div class="form-group"><label>写真</label><input type="file" id="f-photo" accept="image/*"></div>
 
                 <button type="submit" class="submit-btn" id="submitBtn">保存する</button>
                 <button type="button" class="cancel-btn" onclick="closeModal()">キャンセル</button>
@@ -136,8 +117,8 @@
     <script>
         const API_KEY = 'AIzaSyDecF0oQvA5i82U8dZR66YOQ_QdRPxGEOY'; 
         const SPREADSHEET_ID = '1Fh4Z7f7Jau8d_FMT__sGjp-99Ks-IHKQl5kaGERM2Rg'; 
-        const RANGE = '落とし物リスト!A2:L500'; // メモ(L列)を含めるためLまで
-        const GAS_URL = 'ここに最新のURLを貼る'; 
+        const RANGE = '落とし物リスト!A2:L500'; 
+        const GAS_URL = 'https://script.google.com/macros/s/AKfycbxvUjCUTsUbfeRAdELuRuoCf5eMoP9D1mX8lKM8-AV9bth1mJpPbBCmZ21CO7Q0yS1j3w/exec'; 
 
         let lostData = [];
 
@@ -151,9 +132,7 @@
                 })).reverse();
                 render(lostData);
                 document.getElementById('loading-msg').style.display = 'none';
-            } catch(e) { 
-                document.getElementById('loading-msg').innerText = "取得失敗。再読み込みしてください。"; 
-            }
+            } catch(e) { document.getElementById('loading-msg').innerText = "取得失敗"; }
         }
 
         function render(data) {
@@ -163,46 +142,25 @@
                 if (imgUrl && imgUrl.includes('id=')) {
                     imgUrl = `https://drive.google.com/thumbnail?id=${imgUrl.split('id=')[1]}&sz=s400`;
                 }
-                const fallback = 'https://via.placeholder.com/150?text=No+Photo';
-                
                 const card = document.createElement('div');
                 card.className = 'item-card';
                 card.innerHTML = `
                     <div class="card-header">
-                        <div class="header-left">
-                            <span class="display-date">${i.date}</span>
-                            <span class="display-staff">担当: ${i.staff}</span>
-                        </div>
+                        <div class="header-left"><span class="display-date">${i.date}</span><span class="display-staff">担当: ${i.staff}</span></div>
                         <span class="status-badge status-${i.status}">${i.status}</span>
                     </div>
                     <div class="card-middle">
-                        <img src="${imgUrl || fallback}" class="display-img" onerror="this.src='${fallback}'" onclick="zoomImg(this.src)">
-                        <div class="main-info">
-                            <span class="display-name">${i.name}</span>
-                            <span class="display-category">${i.category}</span>
-                        </div>
+                        <img src="${imgUrl || 'https://via.placeholder.com/150?text=No+Photo'}" class="display-img" onclick="zoomImg(this.src)">
+                        <div class="main-info"><span class="display-name">${i.name}</span><span class="display-category">${i.category}</span></div>
                     </div>
-                    <div class="location-info">
-                        <b>拾得場所/</b> ${i.place} &nbsp;&nbsp; <b>保管場所/</b> ${i.storage}
-                    </div>
+                    <div class="location-info"><b>拾得場所/</b> ${i.place} &nbsp;&nbsp; <b>保管場所/</b> ${i.storage}</div>
                     ${i.memo ? `<div class="memo-display"><b>メモ:</b> ${i.memo}</div>` : ''}
-                    ${(i.owner || i.contact || i.returnDate) ? `
-                    <div class="return-info">
-                        <div><b>名前:</b> ${i.owner || '-'}</div>
-                        <div><b>連絡先:</b> ${i.contact || '-'} &nbsp;&nbsp; <b>引取日:</b> ${i.returnDate || '-'}</div>
-                    </div>` : ''}
-                    <div class="action-area">
-                        <button class="edit-btn" onclick="editItem(${i.rowId})">編集</button>
-                    </div>
+                    ${(i.owner || i.contact || i.returnDate) ? `<div class="return-info"><div><b>名前:</b> ${i.owner || '-'}</div><div><b>連絡先:</b> ${i.contact || '-'} &nbsp;&nbsp; <b>引取日:</b> ${i.returnDate || '-'}</div></div>` : ''}
+                    <div style="text-align:right;"><button class="edit-btn" onclick="editItem(${i.rowId})">編集</button></div>
                 `;
                 container.appendChild(card);
             });
         }
-
-        function zoomImg(src) { document.getElementById('zoomedImg').src = src.replace('&sz=s400', '&sz=s1200'); document.getElementById('zoomModal').style.display = 'flex'; }
-        function closeZoom() { document.getElementById('zoomModal').style.display = 'none'; }
-        function openModal() { document.getElementById('itemModal').style.display = 'block'; }
-        function closeModal() { document.getElementById('itemModal').style.display = 'none'; document.getElementById('lostItemForm').reset(); document.getElementById('f-rowId').value = ''; }
 
         function editItem(rowId) {
             const item = lostData.find(i => i.rowId === rowId);
@@ -222,41 +180,47 @@
             openModal();
         }
 
-        function filterItems() {
-            const q = document.getElementById('search-input').value.toLowerCase();
-            render(lostData.filter(i => i.name.toLowerCase().includes(q) || i.place.toLowerCase().includes(q) || i.owner.toLowerCase().includes(q)));
-        }
-
         document.getElementById('lostItemForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = document.getElementById('submitBtn');
             btn.disabled = true; btn.innerText = "送信中...";
+            
             const file = document.getElementById('f-photo').files[0];
             let base64 = null;
             if (file) {
                 base64 = await new Promise(r => { const rd = new FileReader(); rd.onload = () => r(rd.result); rd.readAsDataURL(file); });
             }
+
             const payload = {
-                rowId: document.getElementById('f-rowId').value, 
+                rowId: document.getElementById('f-rowId').value,
                 date: document.getElementById('f-date').value,
-                staff: document.getElementById('f-staff').value, 
+                staff: document.getElementById('f-staff').value,
                 place: document.getElementById('f-place').value,
-                name: document.getElementById('f-name').value, 
+                name: document.getElementById('f-name').value,
                 category: document.getElementById('f-category').value,
-                storage: document.getElementById('f-storage').value, 
-                status: document.getElementById('f-status').value,
-                memo: document.getElementById('f-memo').value || "", // メモ追加
-                owner: document.getElementById('f-owner').value || "", 
+                storage: document.getElementById('f-storage').value,
+                status: document.getElementById('f-status').value, // 状態を確実に取得
+                memo: document.getElementById('f-memo').value || "",
+                owner: document.getElementById('f-owner').value || "",
                 contact: document.getElementById('f-contact').value || "",
-                returnDate: document.getElementById('f-returnDate').value || "", 
+                returnDate: document.getElementById('f-returnDate').value || "",
                 photoBase64: base64, photoName: file ? file.name : null
             };
-            try {
-                await fetch(GAS_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) });
-                alert("送信完了！"); closeModal(); loadData();
-            } catch (e) { alert("送信に失敗しました"); }
-            btn.disabled = false; btn.innerText = "保存する";
+
+            await fetch(GAS_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) });
+            alert("保存しました。");
+            location.reload();
         });
+
+        function filterItems() {
+            const q = document.getElementById('search-input').value.toLowerCase();
+            render(lostData.filter(i => i.name.toLowerCase().includes(q) || i.place.toLowerCase().includes(q) || i.owner.toLowerCase().includes(q)));
+        }
+
+        function zoomImg(src) { document.getElementById('zoomedImg').src = src.replace('&sz=s400', '&sz=s1200'); document.getElementById('zoomModal').style.display = 'flex'; }
+        function closeZoom() { document.getElementById('zoomModal').style.display = 'none'; }
+        function openModal() { document.getElementById('itemModal').style.display = 'block'; }
+        function closeModal() { document.getElementById('itemModal').style.display = 'none'; document.getElementById('lostItemForm').reset(); }
 
         loadData();
     </script>
