@@ -56,26 +56,32 @@
         .status-返却済 { background: #777; }
         .edit-btn { background: #f8f8f8; border: 1px solid #ccc; padding: 8px 18px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.9rem; }
 
-        /* モーダル（ポップアップ） */
+        /* モーダル */
         .modal { display: none; position: fixed; z-index: 3000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); overflow-y: auto; }
         .modal-content { background: #fff; margin: 20px auto; padding: 15px; width: 94%; max-width: 450px; border-radius: 12px; box-sizing: border-box; }
         .form-group { margin-bottom: 12px; width: 100%; box-sizing: border-box; }
         .form-group label { display: block; font-weight: bold; margin-bottom: 4px; font-size: 0.9rem; color: #333; }
         
-        /* 入力欄（四角）が枠からはみ出さないための設定 */
+        /* 入力欄の突き抜け防止徹底 */
         .form-group input, .form-group select, .form-group textarea { 
             width: 100% !important; 
             max-width: 100% !important;
-            min-width: 0 !important; /* iPhone等での突き抜け防止 */
+            min-width: 0 !important; 
             padding: 10px 8px; 
             border: 2px solid #e0e0e0; 
             border-radius: 8px; 
-            box-sizing: border-box !important; /* paddingを幅に含める */
+            box-sizing: border-box !important; 
             font-size: 16px; 
             outline: none; 
             display: block;
             margin: 0;
             background-color: #fff;
+            -webkit-appearance: none; /* iOSデフォルトスタイル解除 */
+        }
+
+        /* 日付入力欄のiPhone用調整 */
+        input[type="date"] {
+            min-height: 44px;
         }
 
         .submit-btn { background: #35A0D9; color: #fff; border: none; width: 100%; padding: 16px; border-radius: 10px; font-weight: bold; font-size: 1.1rem; cursor: pointer; margin-top: 10px; }
@@ -133,27 +139,27 @@
                 
                 <div class="form-group">
                     <label>担当者</label>
-                    <input type="text" id="f-staff" list="staff-list" required placeholder="選択または入力">
-                    <datalist id="staff-list">
-                        <option value="杉本"></option><option value="出口"></option><option value="杉山"></option><option value="池田"></option>
-                        <option value="大平"></option><option value="久富"></option><option value="深澤"></option><option value="村上"></option>
-                        <option value="本村"></option><option value="藤井"></option><option value="佐藤"></option><option value="茂山"></option>
-                        <option value="竹江"></option><option value="土屋"></option><option value="深尾"></option><option value="関野"></option>
-                        <option value="その他"></option>
-                    </datalist>
+                    <select id="f-staff" required>
+                        <option value="">選択してください</option>
+                        <option value="杉本">杉本</option><option value="出口">出口</option><option value="杉山">杉山</option><option value="池田">池田</option>
+                        <option value="大平">大平</option><option value="久富">久富</option><option value="深澤">深澤</option><option value="村上">村上</option>
+                        <option value="本村">本村</option><option value="藤井">藤井</option><option value="佐藤">佐藤</option><option value="茂山">茂山</option>
+                        <option value="竹江">竹江</option><option value="土屋">土屋</option><option value="深尾">深尾</option><option value="関野">関野</option>
+                        <option value="その他">その他</option>
+                    </select>
                 </div>
 
                 <div class="form-group">
                     <label>拾得場所</label>
-                    <input type="text" id="f-place" list="place-list" required placeholder="選択または入力">
-                    <datalist id="place-list">
-                        <option value="ふれあい広場"></option><option value="多目的広場"></option><option value="Ankerフィールド"></option>
-                        <option value="Nebulaフィールド"></option><option value="Soundcoreアリーナ"></option><option value="スタジオＡ"></option>
-                        <option value="スタジオＢ"></option><option value="駐車場"></option><option value="ジョギングコース"></option>
-                        <option value="マルチスペース"></option><option value="ミーティングルーム"></option><option value="テニスコート"></option>
-                        <option value="駐輪場(北側)"></option><option value="駐輪場(南側)"></option><option value="バイク専用駐輪場(駐車場内)"></option>
-                        <option value="バイク専用駐輪場(南側駐輪場内)"></option><option value="その他"></option>
-                    </datalist>
+                    <select id="f-place" required>
+                        <option value="">選択してください</option>
+                        <option value="ふれあい広場">ふれあい広場</option><option value="多目的広場">多目的広場</option><option value="Ankerフィールド">Ankerフィールド</option>
+                        <option value="Nebulaフィールド">Nebulaフィールド</option><option value="Soundcoreアリーナ">Soundcoreアリーナ</option><option value="スタジオＡ">スタジオＡ</option>
+                        <option value="スタジオＢ">スタジオＢ</option><option value="駐車場">駐車場</option><option value="ジョギングコース">ジョギングコース</option>
+                        <option value="マルチスペース">マルチスペース</option><option value="ミーティングルーム">ミーティングルーム</option><option value="テニスコート">テニスコート</option>
+                        <option value="駐輪場(北側)">駐輪場(北側)</option><option value="駐輪場(南側)">駐輪場(南側)</option><option value="バイク専用駐輪場(駐車場内)">バイク専用駐輪場(駐車場内)</option>
+                        <option value="バイク専用駐輪場(南側駐輪場内)">バイク専用駐輪場(南側駐輪場内)</option><option value="その他">その他</option>
+                    </select>
                 </div>
 
                 <div class="form-group"><label>拾得物名</label><input type="text" id="f-name" required></div>
@@ -179,7 +185,6 @@
                     <p style="margin:0 0 10px 0; font-size:0.8rem; font-weight:bold; color:#35A0D9;">持ち主・返却情報</p>
                     <div class="form-group"><label>持ち主の名前</label><input type="text" id="f-owner"></div>
                     <div class="form-group"><label>連絡先</label><input type="tel" id="f-contact"></div>
-                    
                     <div class="form-group">
                         <label>引取り予定日</label>
                         <input type="date" id="f-returnDate">
