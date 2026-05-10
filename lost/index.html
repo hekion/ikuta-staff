@@ -12,7 +12,7 @@
         .search-box { flex: 1; padding: 12px; border: 2px solid #35A0D9; border-radius: 8px; outline: none; box-sizing: border-box; }
         .add-btn { background: #35A0D9; color: #fff; border: none; padding: 0 15px; border-radius: 8px; font-weight: bold; cursor: pointer; }
 
-        /* テーブル表示 */
+        /* テーブル表示（スマホでは横スクロール） */
         .table-container { width: 100%; overflow-x: auto; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
         .lost-table { width: 100%; border-collapse: collapse; background: #fff; min-width: 1100px; }
         .lost-table th, .lost-table td { padding: 12px; border-bottom: 1px solid #eee; font-size: 0.85rem; text-align: left; }
@@ -26,15 +26,15 @@
 
         .edit-btn { background: #eee; border: 1px solid #ddd; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 0.75rem; }
         
-        /* 画像サムネイル（クリック可能） */
+        /* 画像サムネイル */
         .thumb-img { width: 60px; height: 60px; object-fit: cover; border-radius: 4px; cursor: zoom-in; transition: 0.2s; }
         .thumb-img:hover { opacity: 0.8; }
 
-        /* --- 画像拡大モーダル --- */
+        /* 画像拡大モーダル */
         .zoom-modal { display: none; position: fixed; z-index: 4000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; cursor: zoom-out; }
-        .zoom-modal img { max-width: 95%; max-height: 95%; border-radius: 8px; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
+        .zoom-modal img { max-width: 95%; max-height: 95%; border-radius: 8px; }
 
-        /* --- 登録・編集モーダル --- */
+        /* 登録・編集モーダル（はみ出し防止・縦1列） */
         .modal { display: none; position: fixed; z-index: 3000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); overflow-y: auto; }
         .modal-content { background: #fff; margin: 20px auto; padding: 20px; width: 92%; max-width: 500px; border-radius: 12px; box-sizing: border-box; }
         
@@ -45,8 +45,10 @@
         }
 
         .optional-section { background: #f9f9f9; padding: 15px; border-radius: 8px; margin-top: 20px; border: 1px solid #eee; box-sizing: border-box; }
+
         .submit-btn { background: #35A0D9; color: #fff; border: none; width: 100%; padding: 16px; border-radius: 8px; font-weight: bold; font-size: 1.1rem; cursor: pointer; margin-top: 10px; }
-        .cancel-btn { background: none; border: none; color: #999; width: 100%; margin-top: 15px; cursor: pointer; display: block; text-align: center; width: 100%; }
+        .submit-btn:disabled { background: #ccc; cursor: not-allowed; }
+        .cancel-btn { background: none; border: none; color: #999; width: 100%; margin-top: 15px; cursor: pointer; display: block; text-align: center; }
 
         #loading { text-align: center; padding: 30px; color: #999; }
         .hidden { display: none; }
@@ -75,11 +77,14 @@
 
     <main class="container">
         <h2>落とし物管理システム</h2>
+
         <div class="search-container">
             <input type="text" id="search-input" class="search-box" placeholder="キーワードで検索..." oninput="filterItems()">
             <button class="add-btn" onclick="openModal()">＋ 新規登録</button>
         </div>
-        <div id="loading">読み込み中...</div>
+
+        <div id="loading">データを取得中...</div>
+
         <div class="table-container">
             <table class="lost-table hidden" id="lost-table">
                 <thead>
@@ -94,7 +99,7 @@
                         <th>保管場所</th>
                         <th>担当者</th>
                         <th>持ち主</th>
-                        <th>連絡先 / 引取予定</th>
+                        <th>連絡先 / 引取日</th>
                     </tr>
                 </thead>
                 <tbody id="lost-body"></tbody>
@@ -102,14 +107,13 @@
         </div>
     </main>
 
-    <div id="zoomModal" class="zoom-modal" onclick="closeZoom()">
-        <img id="zoomedImg" src="">
-    </div>
+    <div id="zoomModal" class="zoom-modal" onclick="closeZoom()"><img id="zoomedImg" src=""></div>
 
     <div id="itemModal" class="modal">
         <div class="modal-content">
             <h3 id="modalTitle" style="border-bottom: 3px solid #35A0D9; padding-bottom: 10px; margin-top: 0;">落とし物登録</h3>
             <form id="lostItemForm">
+                <input type="hidden" id="f-rowId">
                 <div class="form-group"><label>日付</label><input type="date" id="f-date" required></div>
                 <div class="form-group"><label>担当者</label><input type="text" id="f-staff" required></div>
                 <div class="form-group"><label>拾得場所</label><input type="text" id="f-place" required></div>
@@ -129,23 +133,25 @@
                     </select>
                 </div>
                 <div class="form-group"><label>写真撮影</label><input type="file" id="f-photo" accept="image/*" capture="environment"></div>
+
                 <div class="optional-section">
                     <p style="font-size:0.8rem; font-weight:bold; color:#888; margin:0 0 10px 0;">返却用情報（任意）</p>
                     <div class="form-group"><label>持ち主の名前</label><input type="text" id="f-owner"></div>
-                    <div class="form-group"><label>持ち主の連絡先</label><input type="text" id="f-contact"></div>
+                    <div class="form-group"><label>連絡先</label><input type="text" id="f-contact"></div>
                     <div class="form-group"><label>引取り予定日</label><input type="date" id="f-returnDate"></div>
                 </div>
-                <button type="submit" class="submit-btn" id="submitBtn">登録する</button>
+
+                <button type="submit" class="submit-btn" id="submitBtn">保存する</button>
                 <button type="button" class="cancel-btn" onclick="closeModal()">キャンセル</button>
             </form>
         </div>
     </div>
 
     <script>
-        // ★備品検索と同じスプシ情報を入れる
         const API_KEY = 'AIzaSyDecF0oQvA5i82U8dZR66YOQ_QdRPxGEOY'; 
         const SPREADSHEET_ID = '1Fh4Z7f7Jau8d_FMT__sGjp-99Ks-IHKQl5kaGERM2Rg'; 
         const RANGE = '落とし物リスト!A2:K500'; 
+        const GAS_URL = 'https://script.google.com/macros/s/AKfycbzv2M7kSAALgA3hfGtNqCvahpLCIxFdSXRk1waJGMXlmBkpdig1f1vjZzJ-tLbZMYC8Gw/exec'; // ★発行されたURLに書き換え
 
         let lostData = [];
 
@@ -154,7 +160,7 @@
                 const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${encodeURIComponent(RANGE)}?key=${API_KEY}`;
                 const res = await fetch(url);
                 const json = await res.json();
-                if (!json.values) return;
+                if (!json.values) { render([]); return; }
                 lostData = json.values.map((r, index) => ({
                     rowId: index + 2,
                     date: r[0]||'', staff: r[1]||'', place: r[2]||'', name: r[3]||'', category: r[4]||'',
@@ -164,7 +170,7 @@
                 render(lostData);
                 document.getElementById('loading').classList.add('hidden');
                 document.getElementById('lost-table').classList.remove('hidden');
-            } catch(e) {}
+            } catch(e) { console.error("データ読み込み失敗"); }
         }
 
         function render(data) {
@@ -173,7 +179,7 @@
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
                     <td><button class="edit-btn" onclick="editItem(${i.rowId})">編集</button></td>
-                    <td><img src="${i.photo||'https://via.placeholder.com/60?text=No'}" class="thumb-img" onclick="zoomImg(this.src)"></td>
+                    <td><img src="${i.photo||'https://via.placeholder.com/60?text=No+Photo'}" class="thumb-img" onclick="zoomImg(this.src)"></td>
                     <td><span class="status-badge status-${i.status}">${i.status}</span></td>
                     <td><strong>${i.name}</strong></td>
                     <td>${i.category}</td>
@@ -188,17 +194,90 @@
             });
         }
 
-        // 画像拡大
-        function zoomImg(src) {
-            if(src.includes('placeholder')) return;
-            document.getElementById('zoomedImg').src = src;
-            document.getElementById('zoomModal').style.display = 'flex';
-        }
+        function zoomImg(src) { if(src.includes('placeholder')) return; document.getElementById('zoomedImg').src = src; document.getElementById('zoomModal').style.display = 'flex'; }
         function closeZoom() { document.getElementById('zoomModal').style.display = 'none'; }
-
         function openModal() { document.getElementById('itemModal').style.display = 'block'; }
-        function closeModal() { document.getElementById('itemModal').style.display = 'none'; document.getElementById('lostItemForm').reset(); }
-        
+        function closeModal() { document.getElementById('itemModal').style.display = 'none'; document.getElementById('lostItemForm').reset(); document.getElementById('f-rowId').value = ''; }
+
+        function editItem(rowId) {
+            const item = lostData.find(i => i.rowId === rowId);
+            if (!item) return;
+            document.getElementById('modalTitle').innerText = "登録内容の編集";
+            document.getElementById('f-rowId').value = item.rowId;
+            document.getElementById('f-date').value = item.date;
+            document.getElementById('f-staff').value = item.staff;
+            document.getElementById('f-place').value = item.place;
+            document.getElementById('f-name').value = item.name;
+            document.getElementById('f-category').value = item.category;
+            document.getElementById('f-storage').value = item.storage;
+            document.getElementById('f-status').value = item.status;
+            document.getElementById('f-owner').value = item.owner;
+            document.getElementById('f-contact').value = item.contact;
+            document.getElementById('f-returnDate').value = item.returnDate;
+            openModal();
+        }
+
+        function filterItems() {
+            const q = document.getElementById('search-input').value.toLowerCase();
+            const f = lostData.filter(i => i.name.toLowerCase().includes(q) || i.place.toLowerCase().includes(q) || i.owner.toLowerCase().includes(q));
+            render(f);
+        }
+
+        // 保存・登録処理
+        document.getElementById('lostItemForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('submitBtn');
+            btn.disabled = true;
+            btn.innerText = "保存中...";
+
+            const fileInput = document.getElementById('f-photo');
+            let photoBase64 = null;
+            let photoName = null;
+
+            if (fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                photoName = file.name;
+                photoBase64 = await new Promise((resolve) => {
+                    const reader = new FileReader();
+                    reader.onload = () => resolve(reader.result);
+                    reader.readAsDataURL(file);
+                });
+            }
+
+            const payload = {
+                rowId: document.getElementById('f-rowId').value,
+                date: document.getElementById('f-date').value,
+                staff: document.getElementById('f-staff').value,
+                place: document.getElementById('f-place').value,
+                name: document.getElementById('f-name').value,
+                category: document.getElementById('f-category').value,
+                storage: document.getElementById('f-storage').value,
+                status: document.getElementById('f-status').value,
+                owner: document.getElementById('f-owner').value,
+                contact: document.getElementById('f-contact').value,
+                returnDate: document.getElementById('f-returnDate').value,
+                photoBase64: photoBase64,
+                photoName: photoName
+            };
+
+            try {
+                const res = await fetch(GAS_URL, {
+                    method: 'POST',
+                    body: JSON.stringify(payload)
+                });
+                if (res.ok) {
+                    alert("保存しました！");
+                    closeModal();
+                    loadData();
+                }
+            } catch (err) {
+                alert("エラーが発生しました");
+            } finally {
+                btn.disabled = false;
+                btn.innerText = "保存する";
+            }
+        });
+
         loadData();
     </script>
 </body>
