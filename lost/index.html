@@ -16,32 +16,35 @@
         #lost-items-body { display: flex; flex-direction: column; gap: 15px; }
         .item-card { background: #fff; border-radius: 12px; border: 1px solid #ddd; padding: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
         
-        /* 日付・担当者エリア */
-        .card-top { display: flex; align-items: baseline; gap: 12px; margin-bottom: 10px; border-bottom: 1px solid #f0f0f0; padding-bottom: 5px; }
-        .display-date { font-size: 1.2rem; font-weight: bold; color: #333; }
-        .display-staff { font-size: 0.85rem; color: #666; }
+        /* 最上段：日付・担当・ステータス */
+        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px solid #f0f0f0; padding-bottom: 8px; }
+        .header-left { display: flex; align-items: baseline; gap: 12px; }
+        .display-date { font-size: 1.25rem; font-weight: bold; color: #333; }
+        .display-staff { font-size: 0.9rem; color: #666; }
 
-        /* メイン情報（写真・名前） */
+        /* メイン：写真・名前 */
         .card-middle { display: flex; gap: 15px; align-items: flex-start; margin-bottom: 12px; }
-        .display-img { width: 100px; height: 100px; object-fit: cover; border-radius: 8px; background: #eee; cursor: zoom-in; flex-shrink: 0; }
+        .display-img { width: 110px; height: 110px; object-fit: cover; border-radius: 8px; background: #eee; cursor: zoom-in; flex-shrink: 0; }
         .main-info { flex: 1; }
-        .display-name { font-size: 1.4rem; font-weight: bold; color: #000; margin-bottom: 4px; display: block; }
-        .display-category { display: inline-block; background: #f0f4f8; color: #35A0D9; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; }
+        .display-name { font-size: 1.5rem; font-weight: bold; color: #000; margin-bottom: 6px; display: block; line-height: 1.2; }
+        .display-category { display: inline-block; background: #f0f4f8; color: #35A0D9; padding: 3px 10px; border-radius: 4px; font-size: 0.85rem; font-weight: bold; }
 
         /* 場所情報 */
-        .location-info { font-size: 0.95rem; color: #444; margin-bottom: 8px; line-height: 1.6; }
+        .location-info { font-size: 1rem; color: #444; margin-bottom: 10px; }
         .location-info b { color: #888; font-weight: normal; margin-right: 4px; }
 
-        /* 返却情報（持ち主） */
-        .return-info { margin-top: 10px; padding-top: 10px; border-top: 1px dashed #ccc; font-size: 0.9rem; color: #444; }
-        .status-area { margin-top: 12px; display: flex; justify-content: space-between; align-items: center; }
+        /* 返却情報 */
+        .return-info { margin-top: 10px; padding: 10px; border-radius: 8px; background: #fdfdfd; border-top: 1px dashed #ccc; font-size: 0.95rem; color: #444; line-height: 1.6; }
+
+        /* 編集ボタンエリア */
+        .action-area { display: flex; justify-content: flex-end; margin-top: 5px; }
 
         /* 共通パーツ */
-        .status-badge { padding: 5px 12px; border-radius: 6px; font-weight: bold; font-size: 0.85rem; color: #fff; }
+        .status-badge { padding: 6px 12px; border-radius: 6px; font-weight: bold; font-size: 0.85rem; color: #fff; }
         .status-保管中 { background: #35A0D9; }
         .status-引取予定 { background: #F0AD4E; }
         .status-返却済 { background: #777; }
-        .edit-btn { background: #f8f8f8; border: 1px solid #ccc; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: bold; }
+        .edit-btn { background: #f8f8f8; border: 1px solid #ccc; padding: 8px 18px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.9rem; }
 
         /* モーダル */
         .modal { display: none; position: fixed; z-index: 3000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); overflow-y: auto; }
@@ -55,6 +58,8 @@
 
         .submit-btn { background: #35A0D9; color: #fff; border: none; width: 100%; padding: 16px; border-radius: 8px; font-weight: bold; font-size: 1.1rem; }
         .cancel-btn { background: none; border: none; color: #999; width: 100%; margin-top: 15px; cursor: pointer; text-align: center; display: block; }
+        
+        .loading-visible { display: block; text-align: center; padding: 40px; font-weight: bold; color: #666; }
     </style>
 </head>
 <body>
@@ -84,7 +89,7 @@
             <button class="add-btn" onclick="openModal()">＋ 新規登録</button>
         </div>
 
-        <div id="loading-msg" style="text-align:center; padding:20px;">読み込み中...</div>
+        <div id="loading-msg" class="loading-visible">データを取得中...</div>
         <div id="lost-items-body"></div>
     </main>
 
@@ -97,10 +102,10 @@
                 <input type="hidden" id="f-rowId">
                 <div class="form-group"><label>日付</label><input type="date" id="f-date" required></div>
                 <div class="form-group"><label>担当者</label><input type="text" id="f-staff" list="staff-list" required><datalist id="staff-list"><option value="スタッフA"><option value="スタッフB"></datalist></div>
-                <div class="form-group"><label>拾得場所</label><input type="text" id="f-place" list="place-list" required><datalist id="place-list"><option value="受付"><option value="ラウンジ"><option value="テニスコート"></datalist></div>
+                <div class="form-group"><label>拾得場所</label><input type="text" id="f-place" list="place-list" required><datalist id="place-list"><option value="受付"><option value="ラウンジ"></datalist></div>
                 <div class="form-group"><label>拾得物の名前</label><input type="text" id="f-name" required></div>
                 <div class="form-group"><label>カテゴリ</label><select id="f-category"><option>貴重品</option><option>衣類</option><option>スポーツ用品</option><option>雑貨・その他</option></select></div>
-                <div class="form-group"><label>保管場所</label><input type="text" id="f-storage" list="storage-list" required><datalist id="storage-list"><option value="事務室棚"><option value="受付カウンター下"></datalist></div>
+                <div class="form-group"><label>保管場所</label><input type="text" id="f-storage" list="storage-list" required><datalist id="storage-list"><option value="事務室棚"></datalist></div>
                 <div class="form-group"><label>状態</label><select id="f-status"><option>保管中</option><option>引取予定</option><option>返却済</option></select></div>
                 <div class="form-group"><label>写真</label><input type="file" id="f-photo" accept="image/*"></div>
                 <div style="background:#f9f9f9; padding:12px; border-radius:8px; margin-bottom:15px; border:1px solid #eee;">
@@ -119,7 +124,7 @@
         const API_KEY = 'AIzaSyDecF0oQvA5i82U8dZR66YOQ_QdRPxGEOY'; 
         const SPREADSHEET_ID = '1Fh4Z7f7Jau8d_FMT__sGjp-99Ks-IHKQl5kaGERM2Rg'; 
         const RANGE = '落とし物リスト!A2:K500'; 
-        const GAS_URL = 'https://script.google.com/macros/s/AKfycbyNblFICpqoHl_z0RRe-i4zR3KjtDuXiStqG3seGzX2wGgf_CNGJJSVeRjzVr4iJI9_1w/exec'; 
+        const GAS_URL = 'ここに最新のURLを貼る'; 
 
         let lostData = [];
 
@@ -132,8 +137,10 @@
                     photo: r[5]||'', storage: r[6]||'', status: r[7]||'保管中', owner: r[8]||'', contact: r[9]||'', returnDate: r[10]||''
                 })).reverse();
                 render(lostData);
-                document.getElementById('loading-msg').classList.add('hidden');
-            } catch(e) { document.getElementById('loading-msg').innerText = "取得失敗"; }
+                document.getElementById('loading-msg').style.display = 'none'; // 読み込み完了で消す
+            } catch(e) { 
+                document.getElementById('loading-msg').innerText = "取得失敗。再読み込みしてください。"; 
+            }
         }
 
         function render(data) {
@@ -142,16 +149,19 @@
                 let imgUrl = i.photo;
                 if (imgUrl && imgUrl.includes('id=')) {
                     const id = imgUrl.split('id=')[1];
-                    imgUrl = `https://lh3.googleusercontent.com/u/0/d/${id}=s300`;
+                    imgUrl = `https://lh3.googleusercontent.com/u/0/d/${id}=s400`;
                 }
                 const fallback = 'https://via.placeholder.com/150?text=No+Photo';
                 
                 const card = document.createElement('div');
                 card.className = 'item-card';
                 card.innerHTML = `
-                    <div class="card-top">
-                        <span class="display-date">${i.date}</span>
-                        <span class="display-staff">担当: ${i.staff}</span>
+                    <div class="card-header">
+                        <div class="header-left">
+                            <span class="display-date">${i.date}</span>
+                            <span class="display-staff">担当: ${i.staff}</span>
+                        </div>
+                        <span class="status-badge status-${i.status}">${i.status}</span>
                     </div>
                     <div class="card-middle">
                         <img src="${imgUrl || fallback}" class="display-img" onerror="this.src='${fallback}'" onclick="zoomImg(this.src)">
@@ -161,15 +171,14 @@
                         </div>
                     </div>
                     <div class="location-info">
-                        <b>拾得場所/</b> ${i.place} &nbsp;&nbsp; <b>保管場所/</b> ${i.storage}
+                        <b>拾得場所/</b> ${i.place}    <b>保管場所/</b> ${i.storage}
                     </div>
                     ${(i.owner || i.contact || i.returnDate) ? `
                     <div class="return-info">
-                        <div><b>持ち主の名前</b> ${i.owner || '未記入'}</div>
-                        <div><b>連絡先</b> ${i.contact || '未記入'} &nbsp;&nbsp; <b>引取予定日</b> ${i.returnDate || '未記入'}</div>
+                        <div><b>持ち主の名前</b> ${i.owner || '-'}</div>
+                        <div><b>連絡先</b> ${i.contact || '-'}    <b>引取予定日</b> ${i.returnDate || '-'}</div>
                     </div>` : ''}
-                    <div class="status-area">
-                        <span class="status-badge status-${i.status}">${i.status}</span>
+                    <div class="action-area">
                         <button class="edit-btn" onclick="editItem(${i.rowId})">編集</button>
                     </div>
                 `;
@@ -224,7 +233,7 @@
             try {
                 await fetch(GAS_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) });
                 alert("送信完了！"); closeModal(); loadData();
-            } catch (e) { alert("失敗"); }
+            } catch (e) { alert("送信に失敗しました"); }
             btn.disabled = false; btn.innerText = "保存する";
         });
 
