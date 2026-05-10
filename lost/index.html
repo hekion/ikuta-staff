@@ -9,7 +9,7 @@
     <style>
         /* 検索・操作エリア */
         .search-container { display: flex; gap: 10px; margin-bottom: 20px; }
-        .search-box { flex: 1; padding: 12px; border: 2px solid #35A0D9; border-radius: 8px; outline: none; }
+        .search-box { flex: 1; padding: 12px; border: 2px solid #35A0D9; border-radius: 8px; outline: none; box-sizing: border-box; }
         .add-btn { background: #35A0D9; color: #fff; border: none; padding: 0 15px; border-radius: 8px; font-weight: bold; cursor: pointer; }
 
         /* テーブル表示（スマホでは横スクロール） */
@@ -24,23 +24,52 @@
         .status-引取予定 { background: #F0AD4E; }
         .status-返却済 { background: #777; }
 
-        /* 編集ボタン */
         .edit-btn { background: #eee; border: 1px solid #ddd; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 0.75rem; }
+        .thumb-img { width: 50px; height: 50px; object-fit: cover; border-radius: 4px; }
 
-        /* 登録・編集モーダル（1列縦並びに最適化） */
+        /* --- 登録・編集モーダル（はみ出し防止・縦1列） --- */
         .modal { display: none; position: fixed; z-index: 3000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); overflow-y: auto; }
-        .modal-content { background: #fff; margin: 20px auto; padding: 20px; width: 90%; max-width: 500px; border-radius: 12px; }
+        .modal-content { 
+            background: #fff; 
+            margin: 20px auto; 
+            padding: 20px; 
+            width: 92%; 
+            max-width: 500px; 
+            border-radius: 12px; 
+            box-sizing: border-box; /* 枠を絶対にはみ出さない設定 */
+        }
         
-        .form-group { margin-bottom: 15px; }
+        .form-group { margin-bottom: 15px; width: 100%; box-sizing: border-box; }
         .form-group label { display: block; font-weight: bold; margin-bottom: 5px; font-size: 0.9rem; color: #333; }
-        .form-group input, .form-group select, .form-group textarea { 
-            width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 1rem; 
+        
+        /* 全入力要素の幅を固定し、はみ出しを防止 */
+        .form-group input, 
+        .form-group select, 
+        .form-group textarea { 
+            width: 100%; 
+            padding: 12px; 
+            border: 1px solid #ccc; 
+            border-radius: 6px; 
+            box-sizing: border-box; /* パディングを含めて100% */
+            font-size: 1rem; 
+            display: block;
+            -webkit-appearance: none;
+            appearance: none;
+            background-color: #fff;
+        }
+
+        .optional-section { 
+            background: #f9f9f9; 
+            padding: 15px; 
+            border-radius: 8px; 
+            margin-top: 20px; 
+            border: 1px solid #eee;
+            box-sizing: border-box;
         }
 
         .submit-btn { background: #35A0D9; color: #fff; border: none; width: 100%; padding: 16px; border-radius: 8px; font-weight: bold; font-size: 1.1rem; cursor: pointer; margin-top: 10px; }
-        .cancel-btn { background: none; border: none; color: #999; width: 100%; margin-top: 15px; cursor: pointer; }
+        .cancel-btn { background: none; border: none; color: #999; width: 100%; margin-top: 15px; cursor: pointer; display: block; text-align: center; width: 100%; }
 
-        .thumb-img { width: 50px; height: 50px; object-fit: cover; border-radius: 4px; }
         #loading { text-align: center; padding: 30px; color: #999; }
         .hidden { display: none; }
     </style>
@@ -70,7 +99,7 @@
         <h2>落とし物管理システム</h2>
 
         <div class="search-container">
-            <input type="text" id="search-input" class="search-box" placeholder="検索ワードを入力..." oninput="filterItems()">
+            <input type="text" id="search-input" class="search-box" placeholder="キーワードで検索..." oninput="filterItems()">
             <button class="add-btn" onclick="openModal()">＋ 新規登録</button>
         </div>
 
@@ -86,11 +115,11 @@
                         <th>拾得物名</th>
                         <th>カテゴリ</th>
                         <th>日付</th>
-                        <th>場所</th>
+                        <th>拾得場所</th>
                         <th>保管場所</th>
                         <th>担当者</th>
                         <th>持ち主</th>
-                        <th>連絡先 / 引取予定日</th>
+                        <th>連絡先 / 引取日</th>
                     </tr>
                 </thead>
                 <tbody id="lost-body"></tbody>
@@ -100,7 +129,7 @@
 
     <div id="itemModal" class="modal">
         <div class="modal-content">
-            <h3 id="modalTitle" style="border-bottom: 3px solid #35A0D9; padding-bottom: 10px;">落とし物登録</h3>
+            <h3 id="modalTitle" style="border-bottom: 3px solid #35A0D9; padding-bottom: 10px; margin-top: 0;">落とし物登録</h3>
             <form id="lostItemForm">
                 <div class="form-group">
                     <label>日付</label>
@@ -144,14 +173,14 @@
                     <input type="file" id="f-photo" accept="image/*" capture="environment">
                 </div>
 
-                <div style="background:#f9f9f9; padding:10px; border-radius:8px; margin-top:20px;">
+                <div class="optional-section">
                     <p style="font-size:0.8rem; font-weight:bold; color:#888; margin:0 0 10px 0;">返却用情報（任意）</p>
                     <div class="form-group">
                         <label>持ち主の名前</label>
                         <input type="text" id="f-owner">
                     </div>
                     <div class="form-group">
-                        <label>連絡先</label>
+                        <label>持ち主の連絡先</label>
                         <input type="text" id="f-contact">
                     </div>
                     <div class="form-group">
@@ -165,6 +194,8 @@
             </form>
         </div>
     </div>
+
+    <footer><p>© 2026 FRONTOWN IKUTA</p></footer>
 
     <script>
         const API_KEY = 'AIzaSyDecF0oQvA5i82U8dZR66YOQ_QdRPxGEOY'; 
@@ -180,7 +211,7 @@
                 const json = await res.json();
                 if (!json.values) return;
                 lostData = json.values.map((r, index) => ({
-                    rowId: index + 2, // スプレッドシートの行番号
+                    rowId: index + 2,
                     date: r[0]||'', staff: r[1]||'', place: r[2]||'', name: r[3]||'', category: r[4]||'',
                     photo: r[5]||'', storage: r[6]||'', status: r[7]||'保管中',
                     owner: r[8]||'', contact: r[9]||'', returnDate: r[10]||''
@@ -212,13 +243,22 @@
             });
         }
 
+        function filterItems() {
+            const query = document.getElementById('search-input').value.toLowerCase();
+            const filtered = lostData.filter(i => 
+                i.name.toLowerCase().includes(query) || 
+                i.place.toLowerCase().includes(query) ||
+                i.owner.toLowerCase().includes(query)
+            );
+            render(filtered);
+        }
+
         function editItem(rowId) {
             const item = lostData.find(i => i.rowId === rowId);
             if (!item) return;
             document.getElementById('modalTitle').innerText = "登録内容の編集";
-            document.getElementById('submitBtn').innerText = "変更を保存（GAS連携が必要）";
+            document.getElementById('submitBtn').innerText = "変更を保存";
             
-            // フォームに値をセット
             document.getElementById('f-date').value = item.date;
             document.getElementById('f-staff').value = item.staff;
             document.getElementById('f-place').value = item.place;
