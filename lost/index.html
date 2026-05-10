@@ -27,7 +27,7 @@
         .edit-btn { background: #eee; border: 1px solid #ddd; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 0.75rem; }
         
         /* 画像サムネイル */
-        .thumb-img { width: 60px; height: 60px; object-fit: cover; border-radius: 4px; cursor: zoom-in; transition: 0.2s; }
+        .thumb-img { width: 60px; height: 60px; object-fit: cover; border-radius: 4px; cursor: zoom-in; transition: 0.2s; background: #f0f0f0; }
         .thumb-img:hover { opacity: 0.8; }
 
         /* 画像拡大モーダル */
@@ -172,10 +172,21 @@
         function render(data) {
             const b = document.getElementById('lost-body'); b.innerHTML = '';
             data.forEach(i => {
+                // ドライブのURLをブラウザ表示用URLに強制変換
+                let imgUrl = i.photo;
+                if (imgUrl && imgUrl.includes('drive.google.com')) {
+                    const fileId = imgUrl.match(/id=([^&]+)/);
+                    if (fileId) imgUrl = `https://lh3.googleusercontent.com/d/${fileId[1]}=s200`;
+                }
+                const fallbackImg = 'https://via.placeholder.com/60?text=No+Photo';
+
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
                     <td><button class="edit-btn" onclick="editItem(${i.rowId})">編集</button></td>
-                    <td><img src="${i.photo||'https://via.placeholder.com/60?text=No+Photo'}" class="thumb-img" onclick="zoomImg(this.src)"></td>
+                    <td><img src="${imgUrl || fallbackImg}" 
+                             class="thumb-img" 
+                             onerror="this.src='${fallbackImg}'"
+                             onclick="zoomImg(this.src)"></td>
                     <td><span class="status-badge status-${i.status}">${i.status}</span></td>
                     <td><strong>${i.name}</strong></td>
                     <td>${i.category}</td>
@@ -190,7 +201,13 @@
             });
         }
 
-        function zoomImg(src) { if(src.includes('placeholder')) return; document.getElementById('zoomedImg').src = src; document.getElementById('zoomModal').style.display = 'flex'; }
+        function zoomImg(src) { 
+            if(src.includes('placeholder')) return; 
+            // 拡大時は高画質版を表示
+            let zoomSrc = src.replace('=s200', '=s1000');
+            document.getElementById('zoomedImg').src = zoomSrc; 
+            document.getElementById('zoomModal').style.display = 'flex'; 
+        }
         function closeZoom() { document.getElementById('zoomModal').style.display = 'none'; }
         function openModal() { document.getElementById('itemModal').style.display = 'block'; }
         function closeModal() { document.getElementById('itemModal').style.display = 'none'; document.getElementById('lostItemForm').reset(); document.getElementById('f-rowId').value = ''; document.getElementById('modalTitle').innerText = "落とし物登録";}
@@ -201,82 +218,3 @@
             document.getElementById('modalTitle').innerText = "登録内容の編集";
             document.getElementById('f-rowId').value = item.rowId;
             document.getElementById('f-date').value = item.date;
-            document.getElementById('f-staff').value = item.staff;
-            document.getElementById('f-place').value = item.place;
-            document.getElementById('f-name').value = item.name;
-            document.getElementById('f-category').value = item.category;
-            document.getElementById('f-storage').value = item.storage;
-            document.getElementById('f-status').value = item.status;
-            document.getElementById('f-owner').value = item.owner;
-            document.getElementById('f-contact').value = item.contact;
-            document.getElementById('f-returnDate').value = item.returnDate;
-            openModal();
-        }
-
-        function filterItems() {
-            const q = document.getElementById('search-input').value.toLowerCase();
-            const f = lostData.filter(i => i.name.toLowerCase().includes(q) || i.place.toLowerCase().includes(q) || (i.owner && i.owner.toLowerCase().includes(q)));
-            render(f);
-        }
-
-        document.getElementById('lostItemForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const btn = document.getElementById('submitBtn');
-            btn.disabled = true;
-            btn.innerText = "送信中...";
-
-            const fileInput = document.getElementById('f-photo');
-            let photoBase64 = null;
-            let photoName = null;
-
-            if (fileInput.files.length > 0) {
-                const file = fileInput.files[0];
-                photoName = file.name;
-                photoBase64 = await new Promise((resolve) => {
-                    const reader = new FileReader();
-                    reader.onload = () => resolve(reader.result);
-                    reader.readAsDataURL(file);
-                });
-            }
-
-            const payload = {
-                rowId: document.getElementById('f-rowId').value,
-                date: document.getElementById('f-date').value,
-                staff: document.getElementById('f-staff').value,
-                place: document.getElementById('f-place').value,
-                name: document.getElementById('f-name').value,
-                category: document.getElementById('f-category').value,
-                storage: document.getElementById('f-storage').value,
-                status: document.getElementById('f-status').value,
-                owner: document.getElementById('f-owner').value || "",
-                contact: document.getElementById('f-contact').value || "",
-                returnDate: document.getElementById('f-returnDate').value || "",
-                photoBase64: photoBase64,
-                photoName: photoName
-            };
-
-            try {
-                // 送信処理（no-corsを外し、結果を待機するように改善）
-                const res = await fetch(GAS_URL, {
-                    method: 'POST',
-                    body: JSON.stringify(payload)
-                });
-                
-                alert("保存しました！");
-                closeModal();
-                loadData();
-            } catch (err) {
-                // Fetch自体は成功してもCORSでここに来る場合がありますが、データは飛んでいます
-                alert("処理を受け付けました。反映されない場合はリロードしてください。");
-                closeModal();
-                setTimeout(loadData, 2000);
-            } finally {
-                btn.disabled = false;
-                btn.innerText = "保存する";
-            }
-        });
-
-        loadData();
-    </script>
-</body>
-</html>
