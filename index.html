@@ -2,10 +2,10 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <script src="auth.js"></script>
-    <script src="common.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ikuta-Portal</title>
+    <script src="auth.js"></script>
+    <script src="common.js"></script>
     <link rel="stylesheet" href="style.css">
     <style>
         /* --- シフト・トピックス表示エリアのスタイル --- */
@@ -24,7 +24,6 @@
             color: #333;
         }
 
-        /* トピックスエリアの構成 */
         .topics-container {
             margin-bottom: 25px;
             display: inline-block;
@@ -100,6 +99,24 @@
         
         .staff-list span {
             white-space: nowrap; 
+        }
+
+        /* スマホ用SNSアイコン余白調整 */
+        @media (max-width: 768px) {
+            .sns-icons {
+                justify-content: space-between !important;
+                gap: 0 !important;
+                flex-wrap: nowrap !important;
+                max-width: 100% !important;
+                margin: 0 auto;
+                padding: 0 15px;
+            }
+            .sns-icons a {
+                font-size: 1.6rem;
+                flex: 1;
+                text-align: center;
+                padding: 10px 0;
+            }
         }
     </style>
 </head>
@@ -181,44 +198,64 @@
     </main>
 
     <script>
-        const GAS_URL = "https://script.google.com/macros/s/AKfycbwejV5wra9fncEbHKpfO3l9DxWdiUA_8KYiA-V4n7cpNMUDvf6UkdXilJ_Lnvd1exYzAQ/exec";
+        const GAS_URL = "https://script.google.com/macros/s/AKfycbyWuBClba0JI9xIm0ZuJVsrm10e4f65yutLWqfGZscmtAt_nC8gCeIHkO432HmURhBaaA/exec";
+
+        // 画面にデータを反映する関数
+        function updateDisplay(data) {
+            if (data.error) {
+                document.getElementById('today-date').textContent = data.error;
+                return;
+            }
+
+            document.getElementById('today-date').textContent = data.date;
+            
+            const topicsArea = document.getElementById('topics-area');
+            const topicsBox = document.getElementById('today-topics');
+            
+            if (data.topics && data.topics.trim() !== "") {
+                const formattedTopics = data.topics.replace(/[,，/／、]/g, '<br>');
+                topicsBox.innerHTML = formattedTopics;
+                topicsArea.style.display = "inline-block";
+            } else {
+                topicsArea.style.display = "none";
+            }
+            
+            const formatStaff = (list) => {
+                return list && list.length > 0 
+                    ? list.map(name => `<span>${name}</span>`).join('') 
+                    : "ー";
+            };
+
+            document.getElementById('early-staff').innerHTML = formatStaff(data.early);
+            document.getElementById('late-staff').innerHTML = formatStaff(data.late);
+            document.getElementById('tomorrow-early').innerHTML = formatStaff(data.tomorrowEarly);
+        }
 
         async function fetchShift() {
+            // 1. キャッシュがあれば即表示
+            const cache = localStorage.getItem('shift_cache');
+            if (cache) {
+                try {
+                    updateDisplay(JSON.parse(cache));
+                } catch (e) {
+                    console.error("Cache Parse Error:", e);
+                }
+            }
+
             try {
+                // 2. 裏で最新データを取得
                 const response = await fetch(GAS_URL);
                 const data = await response.json();
                 
-                if (data.error) {
-                    document.getElementById('today-date').textContent = data.error;
-                    return;
-                }
-
-                document.getElementById('today-date').textContent = data.date;
-                
-                const topicsArea = document.getElementById('topics-area');
-                const topicsBox = document.getElementById('today-topics');
-                
-                if (data.topics && data.topics.trim() !== "") {
-                    const formattedTopics = data.topics.replace(/[,，/／、]/g, '<br>');
-                    topicsBox.innerHTML = formattedTopics;
-                    topicsArea.style.display = "inline-block";
-                } else {
-                    topicsArea.style.display = "none";
-                }
-                
-                const formatStaff = (list) => {
-                    return list && list.length > 0 
-                        ? list.map(name => `<span>${name}</span>`).join('') 
-                        : "ー";
-                };
-
-                document.getElementById('early-staff').innerHTML = formatStaff(data.early);
-                document.getElementById('late-staff').innerHTML = formatStaff(data.late);
-                document.getElementById('tomorrow-early').innerHTML = formatStaff(data.tomorrowEarly);
-
+                // 3. キャッシュを更新して画面も更新
+                localStorage.setItem('shift_cache', JSON.stringify(data));
+                updateDisplay(data);
             } catch (e) {
                 console.error("Fetch Error:", e);
-                document.getElementById('today-date').textContent = "データ取得失敗";
+                // キャッシュもない場合のみエラー表示
+                if (!cache) {
+                    document.getElementById('today-date').textContent = "データ取得失敗";
+                }
             }
         }
 
