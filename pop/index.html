@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <script src="../auth.js"></script>
+    <script src="../common.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>掲示物 | Ikuta-Portal</title>
     <link rel="stylesheet" href="../style.css">
@@ -31,34 +32,17 @@
         .pop-card-info { padding: 10px; border-top: 1px solid #eee; }
         .pop-card-title { font-size: 0.85rem; font-weight: bold; display: block; margin-bottom: 4px; }
         
-        /* カテゴリラベルを表示するエリア */
         .cat-tags { display: flex; flex-wrap: wrap; gap: 4px; }
         .pop-card-cat { font-size: 0.65rem; color: #35A0D9; background: #eef7ff; padding: 1px 6px; border-radius: 4px; }
         
         #loading { text-align: center; padding: 30px; color: #999; }
         .hidden { display: none; }
+
+        /* 共通ヘッダーとの余白調整 */
+        main.container { padding-top: 20px; }
     </style>
 </head>
 <body>
-
-    <div class="sticky-header">
-        <header>
-            <a href="../" style="text-decoration: none; display: inline-block;">
-                <img src="../assets/images/ikutalogo.png" alt="FRONTOWN IKUTA">
-                <div class="sub-title">STAFF PORTAL</div>
-            </a>
-        </header>
-        <nav class="nav-menu">
-            <ul>
-                <li><a href="../manual/">マニュアル</a></li>
-                <li><a href="../setup/">準備物</a></li>
-                <li><a href="../roster/">名簿</a></li>
-                <li><a href="../inventory/">備品検索</a></li>
-                <li><a href="../pop/">掲示物</a></li>
-                <li><a href="../contacts/">連絡先</a></li>
-            </ul>
-        </nav>
-    </div>
 
     <main class="container">
         <section>
@@ -70,8 +54,6 @@
             <div id="pop-grid"></div>
         </section>
     </main>
-
-    <footer><p>© 2026 FRONTOWN IKUTA</p></footer>
 
     <script>
         const API_KEY = 'AIzaSyDecF0oQvA5i82U8dZR66YOQ_QdRPxGEOY'; 
@@ -101,7 +83,7 @@
 
                     return {
                         name: row[0],
-                        categories: categories, // 配列として保持
+                        categories: categories,
                         link: link,
                         thumb: thumbUrl
                     };
@@ -115,7 +97,6 @@
 
         function createFilterButtons() {
             const container = document.getElementById('filter-container');
-            // すべてのカテゴリをバラバラにして重複を消す
             const flatCats = allData.flatMap(d => d.categories);
             const uniqueCats = [...new Set(flatCats)];
             
@@ -138,7 +119,6 @@
             const grid = document.getElementById('pop-grid');
             grid.innerHTML = '';
             
-            // カテゴリ配列のなかに選択したカテゴリが含まれているかチェック
             const filtered = target === 'すべて' 
                 ? allData 
                 : allData.filter(d => d.categories.includes(target));
@@ -153,7 +133,6 @@
                     ? `<img src="${item.thumb}" alt="preview">` 
                     : `<div class="no-img">📄</div>`;
                 
-                // カード内のタグ表示用
                 const tagsHtml = item.categories.map(c => `<span class="pop-card-cat">${c}</span>`).join('');
 
                 card.innerHTML = `
