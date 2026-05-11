@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <script src="../auth.js"></script>
+    <script src="../common.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>キャンセル・雨天対応 | Ikuta-Portal</title>
     <link rel="stylesheet" href="../style.css">
     <style>
         .manual-content { background: #fff; padding: 15px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
         
-        /* 他のHTMLと共通のカテゴリータイトルスタイル */
         .category-title { font-size: 1.1rem; font-weight: bold; background: #35A0D9; color: #fff; padding: 5px 15px; border-radius: 20px; display: inline-block; margin: 20px 0 15px 0; }
         
         .step-box { margin-bottom: 20px; border-left: 4px solid #35A0D9; padding-left: 15px; }
@@ -18,7 +18,6 @@
         .memo-box { background: #fff9e6; padding: 15px; border-radius: 5px; border: 1px solid #ffeeba; margin-top: 20px; }
         .back-btn { display: inline-block; margin-top: 20px; color: #35A0D9; text-decoration: none; font-weight: bold; }
         
-        /* --- 枠からはみ出さないための修正 --- */
         .calc-container { 
             background: #f0f4f8; 
             border-radius: 8px; 
@@ -55,28 +54,12 @@
         
         .danger-text { font-weight: bold; color: #d9534f; }
         #calcResult { display: none; }
+
+        /* JSで挿入されるヘッダー分の余白確保 */
+        main.container { padding-top: 20px; }
     </style>
 </head>
 <body>
-
-    <div class="sticky-header">
-        <header>
-            <a href="../" style="text-decoration: none; display: inline-block;">
-                <img src="../assets/images/ikutalogo.png" alt="FRONTOWN IKUTA">
-                <div class="sub-title">STAFF PORTAL</div>
-            </a>
-        </header>
-        <nav class="nav-menu">
-            <ul>
-                <li><a href="../manual/">マニュアル</a></li>
-                <li><a href="../setup/">準備物</a></li>
-                <li><a href="../roster/">名簿</a></li>
-                <li><a href="../inventory/">備品検索</a></li>
-                <li><a href="../pop/">掲示物</a></li>
-                <li><a href="../contacts/">連絡先</a></li>
-            </ul>
-        </nav>
-    </div>
 
     <main class="container">
         <div class="manual-content">
@@ -235,6 +218,5 @@
         }
     </script>
 
-    <footer><p>&copy; 2026 FRONTOWN IKUTA</p></footer>
 </body>
 </html>
