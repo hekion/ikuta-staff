@@ -23,11 +23,10 @@
         .tomorrow { border-color: #5cb85c; color: #3c763d; } 
         .staff-list { font-size: 1rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; color: #444; }
 
-        /* --- メモエリア：落とし物管理準拠（スマホズーム防止16px） --- */
+        /* --- メモエリア：スマホズーム防止（16px） --- */
         .memo-section { width: 95%; max-width: 800px; margin: 20px auto 0; text-align: left; background: #fdfdfd; padding: 15px; border-radius: 10px; border: 1px solid #eee; box-sizing: border-box; }
         .memo-input-group { display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px; }
         
-        /* input, select, textareaを16px以上にすることで勝手なズームを防止 */
         .memo-input-group label { font-size: 0.8rem; font-weight: bold; color: #555; }
         .memo-input-group input, 
         .memo-input-group textarea { 
@@ -38,8 +37,7 @@
 
         .memo-item { background: white; border: 1px solid #e0e0e0; padding: 12px; border-radius: 8px; margin-bottom: 10px; }
         .memo-meta { font-size: 0.7rem; color: #999; display: flex; justify-content: space-between; margin-bottom: 5px; }
-        .status-badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; background: #eee; color: #666; }
-        .status-対応中 { background: #E3F2FD; color: #35A0D9; }
+        .status-badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; background: #E3F2FD; color: #35A0D9; }
     </style>
 </head>
 <body>
@@ -105,10 +103,8 @@
     </main>
 
     <script>
-        // 【重要】新しいデプロイ後のURLをここに貼り付けてください
         const GAS_URL = "https://script.google.com/macros/s/AKfycbzCxzBPhHNrIyFSHPi3SxCTq-0z4yqybueCr7jl7L_HdFS6qhavuLg_lQYlZ1__K80Yog/exec";
 
-        // 初期化：今日の日付をセット
         window.onload = () => {
             const today = new Date();
             const y = today.getFullYear();
@@ -136,22 +132,21 @@
                 document.getElementById('late-staff').innerHTML = fmt(data.late);
                 document.getElementById('tomorrow-early').innerHTML = fmt(data.tomorrowEarly);
 
-                // メモ表示
                 const listEl = document.getElementById('memo-list');
                 if (data.memos && data.memos.length > 0) {
                     listEl.innerHTML = data.memos.map(m => `
                         <div class="memo-item">
                             <div class="memo-meta">
                                 <span>${m.date} / ${m.author}</span>
-                                <span class="status-badge status-${m.status}">${m.status}</span>
+                                <span class="status-badge">${m.status}</span>
                             </div>
                             <div style="font-size:1rem; line-height:1.5; white-space:pre-wrap; color:#333;">${m.content}</div>
                         </div>
-                    `).reverse().join(''); // 新しい順に表示
+                    `).reverse().join('');
                 } else {
                     listEl.innerHTML = '<div style="text-align:center; color:#ccc; font-size:0.8rem; padding:10px;">現在メモはありません</div>';
                 }
-            } catch (e) { console.error("取得エラー:", e); }
+            } catch (e) { console.error("Fetch Error:", e); }
         }
 
         async function handleMemo(action) {
@@ -160,13 +155,12 @@
             const content = document.getElementById('memo-content').value.trim();
             const btn = document.getElementById('create-btn');
 
-            if (!date || !author || !content) return alert("日付・記入者・内容をすべて入力してください");
+            if (!date || !author || !content) return alert("すべて入力してください");
 
             btn.disabled = true;
             btn.textContent = "送信中...";
 
             try {
-                // 落とし物管理と同じ、mode: 'no-cors' で送信
                 await fetch(GAS_URL, {
                     method: "POST",
                     mode: "no-cors", 
@@ -177,7 +171,7 @@
                 location.reload(); 
 
             } catch (e) {
-                alert("送信エラーが発生しました");
+                alert("送信エラー");
                 btn.disabled = false;
                 btn.textContent = "スプシへ飛ばす";
             }
