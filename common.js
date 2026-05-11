@@ -1,7 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
     // 現在のページがトップ階層か、サブフォルダ階層かを判定
-    // pathnameの中に 'manual' などのフォルダ名が含まれているか、
-    // あるいは index.html 以外（階層が深い）かを確認します
     const isSubFolder = window.location.pathname.includes('/manual/') || 
                         window.location.pathname.includes('/setup/') || 
                         window.location.pathname.includes('/lost/') ||
@@ -37,8 +35,12 @@ document.addEventListener("DOMContentLoaded", function() {
     `;
 
     const footerHtml = `
-    <footer>
-        <p>&copy; 2026 FRONTOWN IKUTA</p>
+    <footer class="site-footer">
+        <div class="turf-line"></div>
+        <div class="footer-content">
+            <p class="footer-tagline">FOR THE BLUE. FOR THE FUTURE.</p>
+            <p class="copyright">&copy; 2026 FRONTOWN IKUTA</p>
+        </div>
     </footer>
     `;
 
