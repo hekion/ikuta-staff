@@ -13,6 +13,7 @@
         .topics-container { margin-bottom: 25px; display: inline-block; text-align: left; width: 95%; max-width: 800px; }
         .info-label { font-size: 0.75rem; font-weight: bold; color: #78909c; margin-bottom: 4px; display: block; }
         .topics-box { background-color: #e3f2fd; border: 1px solid #90caf9; padding: 15px; border-radius: 8px; font-weight: bold; text-align: center; }
+        
         .shift-grid { display: flex; flex-direction: column; align-items: center; gap: 15px; }
         .shift-box { background: #f9f9f9; border: 1px solid #ddd; border-radius: 8px; padding: 12px 20px; width: 95%; max-width: 800px; box-sizing: border-box; }
         .shift-title { font-weight: bold; border-bottom: 2px solid; margin-bottom: 10px; padding-bottom: 5px; }
@@ -21,22 +22,29 @@
         .tomorrow { border-color: #5cb85c; color: #3c763d; } 
         .staff-list { font-size: 1rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; color: #444; }
 
+        /* メモセクション */
         .memo-section { width: 95%; max-width: 800px; margin: 20px auto 0; text-align: left; background: #fdfdfd; padding: 15px; border-radius: 10px; border: 1px solid #eee; box-sizing: border-box; }
         .memo-input-group { display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px; }
-        .memo-input-group label { font-size: 0.8rem; font-weight: bold; color: #555; }
         .memo-input-group input, .memo-input-group textarea { 
             width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; box-sizing: border-box; 
             font-size: 16px !important; outline: none; background: #fff;
         }
-        .memo-input-group input[type="date"] { max-width: 100%; -webkit-appearance: none; }
         .create-btn { background: #35A0D9; color: #fff; border: none; padding: 15px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 16px; width: 100%; }
 
-        .memo-item { background: white; border: 1px solid #e0e0e0; padding: 12px; border-radius: 8px; margin-bottom: 10px; }
-        .memo-meta { font-size: 0.7rem; color: #999; display: flex; justify-content: space-between; margin-bottom: 5px; }
-        .status-badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; background: #E3F2FD; color: #35A0D9; }
-        .memo-btns { text-align: right; margin-top: 8px; }
-        .memo-btns button { font-size: 0.75rem; padding: 6px 12px; margin-left: 5px; border-radius: 4px; border: 1px solid #ccc; background: #fff; cursor: pointer; }
-        .edit-mode { background-color: #fffde7; border: 2px solid #fdd835 !important; }
+        /* メモアイテム */
+        .memo-item { background: white; border: 1px solid #e0e0e0; padding: 15px; border-radius: 8px; margin-bottom: 12px; }
+        .memo-meta { font-size: 0.9rem; font-weight: bold; color: #444; border-bottom: 1px solid #f0f0f0; padding-bottom: 5px; margin-bottom: 8px; }
+        .status-badge { float: right; padding: 2px 10px; border-radius: 20px; font-size: 0.7rem; font-weight: bold; }
+        .badge-wait { background: #E3F2FD; color: #35A0D9; border: 1px solid #35A0D9; }
+        .badge-done { background: #eee; color: #888; border: 1px solid #ccc; }
+        
+        .item-done { background-color: #f5f5f5 !important; border-color: #ddd; }
+        .item-done .memo-content { text-decoration: line-through; color: #aaa; }
+        .item-done .memo-meta { color: #888; }
+
+        .memo-btns { text-align: right; margin-top: 10px; }
+        .memo-btns button { font-size: 0.8rem; padding: 6px 12px; margin-left: 8px; border-radius: 4px; border: 1px solid #ccc; background: #fff; cursor: pointer; }
+        .edit-active { border: 2px solid #fdd835 !important; background: #fffde7; }
     </style>
 </head>
 <body>
@@ -56,12 +64,9 @@
         <section class="memo-section">
             <span class="info-label" id="memo-label">引き継ぎメモ登録</span>
             <div class="memo-input-group">
-                <label>日付</label>
                 <input type="date" id="memo-date">
-                <label>記入者</label>
-                <input type="text" id="memo-author" placeholder="氏名を入力">
-                <label>内容</label>
-                <textarea id="memo-content" rows="3" placeholder="共有事項を入力"></textarea>
+                <input type="text" id="memo-author" placeholder="記入者氏名">
+                <textarea id="memo-content" rows="3" placeholder="内容を入力"></textarea>
                 <input type="hidden" id="edit-old-content">
                 <button class="create-btn" id="create-btn" onclick="handleMemo('create')">スプシへ飛ばす</button>
             </div>
@@ -101,11 +106,15 @@
     </main>
 
     <script>
-        const GAS_URL = "https://script.google.com/macros/s/AKfycby1Xf1Xxe-ktC6hwfhtLJ3yoPbg6J0JZLg5USX7__197-GCWpUFgh-9ylUqjizz3DoPCQ/exec";
+        const GAS_URL = "https://script.google.com/macros/s/AKfycbwy_2yH40C3sMGOJ3JJ_XoSx9foRL0EzeWuN7KTRARv7dkeSrDnYZLQQaJOpXeQg3IISg/exec";
 
         window.onload = () => {
-            const today = new Date();
-            document.getElementById('memo-date').value = today.toISOString().split('T')[0];
+            // 当日の日付をセット
+            const now = new Date();
+            const y = now.getFullYear();
+            const m = String(now.getMonth() + 1).padStart(2, '0');
+            const d = String(now.getDate()).padStart(2, '0');
+            document.getElementById('memo-date').value = `${y}-${m}-${d}`;
             fetchShift();
         };
 
@@ -126,37 +135,39 @@
 
                 const listEl = document.getElementById('memo-list');
                 if (data.memos && data.memos.length > 0) {
-                    listEl.innerHTML = data.memos.map(m => `
-                        <div class="memo-item">
-                            <div class="memo-meta"><span>${m.date} / ${m.author}</span><span class="status-badge">${m.status}</span></div>
-                            <div style="font-size:1rem; line-height:1.5; white-space:pre-wrap; color:#333;">${m.content}</div>
+                    // 対応中が上、完了が下
+                    const sorted = data.memos.sort((a, b) => (a.status === '対応中' ? 0 : 1) - (b.status === '対応中' ? 0 : 1));
+                    listEl.innerHTML = sorted.map(m => {
+                        const isDone = m.status === '完了';
+                        return `
+                        <div class="memo-item ${isDone ? 'item-done' : ''}">
+                            <span class="status-badge ${isDone ? 'badge-done' : 'badge-wait'}">${m.status}</span>
+                            <div class="memo-meta">${m.date}　${m.author}</div>
+                            <div class="memo-content" style="white-space:pre-wrap;">${m.content}</div>
                             <div class="memo-btns">
-                                <button onclick="startEdit('${m.date}', '${m.author}', \`${m.content.replace(/`/g, '\\`')}\`)">編集</button>
-                                ${m.status === '対応中' ? `<button onclick="handleMemo('update', '${m.author}', '${m.content}')">完了</button>` : ''}
+                                ${!isDone ? `<button onclick="startEdit('${m.date}', '${m.author}', \`${m.content.replace(/`/g, '\\`')}\`)">編集</button>` : ''}
+                                ${!isDone ? `<button onclick="handleMemo('update', '${m.author}', '${m.content}')">完了</button>` : ''}
                                 <button onclick="handleMemo('delete', '${m.author}', '${m.content}')" style="color:red;">削除</button>
                             </div>
                         </div>
-                    `).reverse().join('');
+                        `;
+                    }).join('');
                 }
             } catch (e) { console.error(e); }
         }
 
-        // 編集モードへの切り替え
         function startEdit(date, author, content) {
-            document.getElementById('memo-label').textContent = "⚠️ メモを編集モード";
-            document.getElementById('memo-date').value = date.includes('-') ? date : new Date(date).toISOString().split('T')[0];
+            document.getElementById('memo-label').textContent = "⚠️ メモ編集モード";
             document.getElementById('memo-author').value = author;
             document.getElementById('memo-content').value = content;
             document.getElementById('edit-old-content').value = content;
-            
+            document.getElementById('memo-content').classList.add('edit-active');
             const btn = document.getElementById('create-btn');
             btn.textContent = "上書き保存する";
             btn.style.background = "#fdd835";
             btn.style.color = "#333";
             btn.onclick = () => handleMemo('edit_save');
-            
-            document.getElementById('memo-content').classList.add('edit-mode');
-            window.scrollTo(0, document.querySelector('.memo-section').offsetTop);
+            window.scrollTo(0, 0);
         }
 
         async function handleMemo(action, authorOverride, contentOverride) {
@@ -164,23 +175,15 @@
             const author = authorOverride || document.getElementById('memo-author').value.trim();
             const content = contentOverride || document.getElementById('memo-content').value.trim();
             const oldContent = document.getElementById('edit-old-content').value;
-            
             if (!author || !content) return alert("入力不足です");
-            if (action === 'delete' && !confirm('このメモを削除しますか？')) return;
-
-            const btn = document.getElementById('create-btn');
-            if(!authorOverride) { btn.disabled = true; btn.textContent = "送信中..."; }
-
+            if (action === 'delete' && !confirm('削除しますか？')) return;
             try {
                 await fetch(GAS_URL, {
                     method: "POST", mode: "no-cors",
                     body: JSON.stringify({ action, date, author, content, oldContent })
                 });
                 location.reload();
-            } catch (e) {
-                alert("エラーが発生しました");
-                if(!authorOverride) { btn.disabled = false; btn.textContent = "送信"; }
-            }
+            } catch (e) { alert("エラー"); }
         }
     </script>
 </body>
