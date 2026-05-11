@@ -54,7 +54,6 @@ document.addEventListener("DOMContentLoaded", function() {
                         <a href="https://www.facebook.com/kawasakifrontaleofficial" target="_blank" title="Facebook"><i class="fab fa-facebook"></i></a>
                     </div>
                 </div>
-
                 <div class="footer-section">
                     <h3>OFFICIAL FACILITIES</h3>
                     <ul class="facility-list">
@@ -89,7 +88,6 @@ document.addEventListener("DOMContentLoaded", function() {
                     </ul>
                 </div>
             </div>
-
             <div class="footer-bottom">
                 <p class="copyright">&copy; 2026 FRONTOWN IKUTA</p>
             </div>
