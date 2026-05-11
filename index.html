@@ -20,28 +20,35 @@
         .early { border-color: #f0ad4e; color: #8a6d3b; }   
         .late { border-color: #5bc0de; color: #31708f; }    
         .tomorrow { border-color: #5cb85c; color: #3c763d; } 
-        .staff-list { font-size: 1rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; color: #444; }
 
-        .memo-section { width: 95%; max-width: 800px; margin: 20px auto 0; text-align: left; background: #fdfdfd; padding: 15px; border-radius: 10px; border: 1px solid #eee; box-sizing: border-box; }
-        .memo-input-group { display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px; }
+        /* メモセクション（モバイルはみ出し防止） */
+        .memo-section { width: 95%; max-width: 800px; margin: 20px auto 0; text-align: left; background: #fdfdfd; padding: 15px; border-radius: 10px; border: 1px solid #eee; box-sizing: border-box; overflow: hidden; }
+        .memo-input-group { display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px; width: 100%; }
         
-        /* 日付入力欄のはみ出し防止 */
+        /* 入力欄の幅を100%に固定し、余計な余白をカット */
         .memo-input-group input, .memo-input-group textarea { 
-            width: 100%; max-width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; box-sizing: border-box; 
-            font-size: 16px !important; outline: none; background: #fff;
+            width: 100% !important; 
+            max-width: 100% !important;
+            padding: 12px; 
+            border: 2px solid #e0e0e0; 
+            border-radius: 8px; 
+            box-sizing: border-box; 
+            font-size: 16px !important; 
+            outline: none; 
+            background: #fff;
+            -webkit-appearance: none; /* iOSブラウザ対策 */
         }
-        .create-btn { background: #35A0D9; color: #fff; border: none; padding: 15px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 16px; width: 100%; }
+        
+        .create-btn { background: #35A0D9; color: #fff; border: none; padding: 15px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 16px; width: 100%; box-sizing: border-box; }
 
-        .memo-item { background: white; border: 1px solid #e0e0e0; padding: 15px; border-radius: 8px; margin-bottom: 12px; }
+        /* リスト表示 */
+        .memo-item { background: white; border: 1px solid #e0e0e0; padding: 15px; border-radius: 8px; margin-bottom: 12px; word-wrap: break-word; }
         .memo-meta { font-size: 0.9rem; font-weight: bold; color: #444; border-bottom: 1px solid #f0f0f0; padding-bottom: 5px; margin-bottom: 8px; }
         .status-badge { float: right; padding: 2px 10px; border-radius: 20px; font-size: 0.7rem; font-weight: bold; }
         .badge-wait { background: #E3F2FD; color: #35A0D9; border: 1px solid #35A0D9; }
         .badge-done { background: #eee; color: #888; border: 1px solid #ccc; }
-        
-        /* 完了済み：打ち消し線を削除し、グレーアウトのみ適用 */
         .item-done { background-color: #f5f5f5 !important; border-color: #ddd; }
         .item-done .memo-content { color: #888; }
-        .item-done .memo-meta { color: #888; }
 
         .memo-btns { text-align: right; margin-top: 10px; }
         .memo-btns button { font-size: 0.8rem; padding: 6px 12px; margin-left: 8px; border-radius: 4px; border: 1px solid #ccc; background: #fff; cursor: pointer; }
@@ -80,28 +87,23 @@
         <section class="tool-links">
             <h2>外部ツール</h2>
             <div class="grid">
-                <a href="https://ikuta-frontown-admin.hacomono.jp/#/schedule/tables/1/studio-rooms/4/" target="_blank" rel="noopener noreferrer" class="card"><img src="assets/images/hacomono.png" alt="hacomono" style="max-width: 150px; width: 100%;"></a>
-                <a href="https://yoyaku.labola.jp/r/shop/manage/top/" target="_blank" rel="noopener noreferrer" class="card"><img src="assets/images/LaBOLA.png" alt="LaBOLA" style="max-width: 150px; width: 100%;"></a>
-                <a href="https://www.chatwork.com/" target="_blank" rel="noopener noreferrer" class="card"><img src="assets/images/chatwork.png" alt="Chatwork" style="max-width: 150px; width: 100%;"></a>
+                <a href="https://ikuta-frontown-admin.hacomono.jp/#/schedule/tables/1/studio-rooms/4/" target="_blank" class="card"><img src="assets/images/hacomono.png" alt="hacomono" style="max-width: 150px; width: 100%;"></a>
+                <a href="https://yoyaku.labola.jp/r/shop/manage/top/" target="_blank" class="card"><img src="assets/images/LaBOLA.png" alt="LaBOLA" style="max-width: 150px; width: 100%;"></a>
+                <a href="https://www.chatwork.com/" target="_blank" class="card"><img src="assets/images/chatwork.png" alt="Chatwork" style="max-width: 150px; width: 100%;"></a>
             </div>
         </section>
-
         <section class="internal-links">
             <h2>業務メニュー</h2>
             <div class="grid">
                 <a href="manual/" class="card"><div class="icon">📖</div><span>マニュアル</span></a>
-                <a href="setup/" class="card"><div class="icon">📋</div><span>準備物</span></a>
                 <a href="lost/" class="card"><div class="icon">🔍</div><span>落とし物管理</span></a>
-                <a href="roster/" class="card"><div class="icon">👥</div><span>名簿</span></a>
-                <a href="inventory/" class="card"><div class="icon">📦</div><span>備品・物品検索</span></a>
-                <a href="pop/" class="card"><div class="icon">🖼️</div><span>掲示物</span></a>
                 <a href="contacts/" class="card"><div class="icon">📞</div><span>連絡先</span></a>
             </div>
         </section>
     </main>
 
     <script>
-        const GAS_URL = "https://script.google.com/macros/s/AKfycbw60npTCW9xZbnJB7q3ljqdVMlOLkk_jVXKwpbkfjvO65fqDkeBt1BkxdyRl53_9CxjlA/exec";
+        const GAS_URL = "https://script.google.com/macros/s/AKfycbx1EuwvpLSzIUvvydw5yDVoAbNOIRjygevKaApNygsVhaAzAOlFQkEU3UwvZVE2fEXeHQ/exec";
 
         window.onload = () => {
             const now = new Date();
@@ -123,9 +125,9 @@
                     topicsArea.style.display = "inline-block";
                 }
                 const fmt = (list) => list && list.length > 0 ? list.map(n => `<span>${n}</span>`).join('') : "ー";
-                document.getElementById('early-staff').innerHTML = fmt(data.early);
-                document.getElementById('late-staff').innerHTML = fmt(data.late);
-                document.getElementById('tomorrow-early').innerHTML = fmt(data.tomorrowEarly);
+                document.getElementById('early-staff').innerHTML = fmt(data.early || []);
+                document.getElementById('late-staff').innerHTML = fmt(data.late || []);
+                document.getElementById('tomorrow-early').innerHTML = fmt(data.tomorrowEarly || []);
 
                 const listEl = document.getElementById('memo-list');
                 if (data.memos && data.memos.length > 0) {
@@ -149,12 +151,24 @@
             } catch (e) { console.error(e); }
         }
 
+        // 編集モード：元の本文を隠しフィールドに保存
         function startEdit(date, author, content) {
             document.getElementById('memo-label').textContent = "⚠️ メモ編集モード";
+            
+            // 日付をYYYY-MM-DD形式に変換してセット（編集可能にする）
+            const dParts = date.split('/');
+            if(dParts.length === 2) {
+                const y = new Date().getFullYear();
+                const m = dParts[0].padStart(2, '0');
+                const d = dParts[1].padStart(2, '0');
+                document.getElementById('memo-date').value = `${y}-${m}-${d}`;
+            }
+
             document.getElementById('memo-author').value = author;
             document.getElementById('memo-content').value = content;
-            document.getElementById('edit-old-content').value = content;
+            document.getElementById('edit-old-content').value = content; // これが行特定キー
             document.getElementById('memo-content').classList.add('edit-active');
+            
             const btn = document.getElementById('create-btn');
             btn.textContent = "上書き保存する";
             btn.style.background = "#fdd835";
@@ -164,16 +178,28 @@
         }
 
         async function handleMemo(action, authorOverride, contentOverride) {
-            const date = document.getElementById('memo-date').value;
+            const dateInput = document.getElementById('memo-date').value;
+            // 表示用に M/D 形式に整える
+            const d = new Date(dateInput);
+            const formattedDate = (d.getMonth() + 1) + "/" + d.getDate();
+
             const author = authorOverride || document.getElementById('memo-author').value.trim();
             const content = contentOverride || document.getElementById('memo-content').value.trim();
             const oldContent = document.getElementById('edit-old-content').value;
+
             if (!author || !content) return alert("入力不足です");
             if (action === 'delete' && !confirm('削除しますか？')) return;
+
             try {
                 await fetch(GAS_URL, {
                     method: "POST", mode: "no-cors",
-                    body: JSON.stringify({ action, date, author, content, oldContent })
+                    body: JSON.stringify({ 
+                        action, 
+                        date: formattedDate, 
+                        author, 
+                        content, 
+                        oldContent 
+                    })
                 });
                 location.reload();
             } catch (e) { alert("エラー"); }
