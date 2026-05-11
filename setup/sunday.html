@@ -66,7 +66,7 @@
             font-weight: bold;
             color: #333;
             margin-bottom: 5px;
-            padding-right: 90px; /* ラベルとの重なり防止 */
+            padding-right: 90px;
         }
 
         .setup-price {
@@ -119,12 +119,12 @@
             font-weight: 500;
         }
 
-        /* 画像エリア（一番下に配置） */
+        /* 画像エリア：has-img クラスがない限り display: none で完全に隠れる */
         .setup-img {
             width: 100%;
             height: 200px;
             background: #f9f9f9;
-            display: none; /* デフォルト非表示 */
+            display: none; 
             border-top: 1px solid #eee;
         }
         .setup-img img {
@@ -132,7 +132,7 @@
             height: 100%;
             object-fit: cover;
         }
-        /* has-imgクラスがある時だけ画像を表示 */
+        /* has-img クラスが付与された時だけ表示 */
         .has-img .setup-img {
             display: block;
         }
@@ -171,7 +171,7 @@
                 <div class="setup-img"></div>
             </div>
 
-            <div class="setup-card has-img">
+            <div class="setup-card">
                 <span class="place-label label-studio-a">スタジオA</span>
                 <div class="setup-content">
                     <span class="setup-time">14:00 ~ 14:50</span>
@@ -185,8 +185,7 @@
                     </div>
                 </div>
                 <div class="setup-img">
-                    <img src="../assets/images/sample-setup.jpg" alt="準備イメージ">
-                </div>
+                    </div>
             </div>
 
         </section>
