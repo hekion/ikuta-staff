@@ -34,14 +34,49 @@ document.addEventListener("DOMContentLoaded", function() {
     </div>
     `;
 
+    // フッターのHTML（リンク充実版）
     const footerHtml = `
     <footer class="site-footer">
         <div class="turf-line"></div>
         <div class="footer-content">
-            <div class="footer-links">
-                <a href="https://www.frontale.co.jp/" target="_blank" rel="noopener noreferrer">川崎フロンターレ 公式</a>
-                <a href="https://ikuta.frontown.com/" target="_blank" rel="noopener noreferrer">フロンタウン生田 公式</a>
+            <div class="footer-group">
+                <p class="group-title">KAWASAKI FRONTALE</p>
+                <div class="footer-links">
+                    <a href="https://www.frontale.co.jp/" target="_blank">HP</a>
+                    <a href="https://www.youtube.com/user/frontalechannel" target="_blank">YouTube</a>
+                    <a href="https://x.com/frontale_staff" target="_blank">X</a>
+                    <a href="https://www.instagram.com/kawasaki_frontale/" target="_blank">Insta</a>
+                    <a href="https://www.tiktok.com/@kawasaki_frontale" target="_blank">TikTok</a>
+                    <a href="https://page.line.me/frontale" target="_blank">LINE</a>
+                    <a href="https://www.facebook.com/kawasakifrontaleofficial" target="_blank">FB</a>
+                </div>
             </div>
+
+            <div class="footer-group">
+                <p class="group-title">FACILITIES</p>
+                <div class="footer-links secondary">
+                    <div class="facility-unit">
+                        <span>生田:</span>
+                        <a href="https://ikuta.frontown.com/" target="_blank">HP</a>
+                        <a href="https://x.com/frontown_ikuta" target="_blank">X</a>
+                    </div>
+                    <div class="facility-unit">
+                        <span>鷺沼:</span>
+                        <a href="https://www.frontown.jp/" target="_blank">HP</a>
+                    </div>
+                    <div class="facility-unit">
+                        <span>富士通スタ:</span>
+                        <a href="https://kawasaki-fujimi.com/" target="_blank">HP</a>
+                        <a href="https://x.com/fujitsu_statadi" target="_blank">X</a>
+                    </div>
+                    <div class="facility-unit">
+                        <span>富士見公園:</span>
+                        <a href="https://www.fujimi-park.jp/" target="_blank">HP</a>
+                        <a href="https://x.com/fujimi_park" target="_blank">X</a>
+                    </div>
+                </div>
+            </div>
+
             <p class="footer-tagline">FOR THE BLUE. FOR THE FUTURE.</p>
             <p class="copyright">&copy; 2026 FRONTOWN IKUTA</p>
         </div>
