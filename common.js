@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-    // Font Awesomeの読み込み
+    // Font Awesomeの読み込み（最新版）
     const fontAwesome = document.createElement('link');
     fontAwesome.rel = 'stylesheet';
     fontAwesome.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css';
@@ -54,34 +54,35 @@ document.addEventListener("DOMContentLoaded", function() {
                         <a href="https://www.facebook.com/kawasakifrontaleofficial" target="_blank" title="Facebook"><i class="fab fa-facebook"></i></a>
                     </div>
                 </div>
+
                 <div class="footer-section">
                     <h3>OFFICIAL FACILITIES</h3>
                     <ul class="facility-list">
                         <li>
                             <span class="fac-name">フロンタウン生田</span>
                             <div class="fac-links">
-                                <a href="https://ikuta.frontown.com/" target="_blank">HP</a>
+                                <a href="https://ikuta.frontown.com/" target="_blank"><i class="fas fa-globe"></i></a>
                                 <a href="https://x.com/frontown_ikuta" target="_blank"><i class="fab fa-x-twitter"></i></a>
                             </div>
                         </li>
                         <li>
                             <span class="fac-name">フロンタウンさぎぬま</span>
                             <div class="fac-links">
-                                <a href="https://saginuma.frontown.com" target="_blank">HP</a>
+                                <a href="https://saginuma.frontown.com" target="_blank"><i class="fas fa-globe"></i></a>
                                 <a href="https://x.com/frontale_futsal" target="_blank"><i class="fab fa-x-twitter"></i></a>
                             </div>
                         </li>
                         <li>
                             <span class="fac-name">富士通スタジアム川崎</span>
                             <div class="fac-links">
-                                <a href="https://kawasaki-fujimi.com/" target="_blank">HP</a>
+                                <a href="https://kawasaki-fujimi.com/" target="_blank"><i class="fas fa-globe"></i></a>
                                 <a href="https://x.com/kawasaki_fujimi" target="_blank"><i class="fab fa-x-twitter"></i></a>
                             </div>
                         </li>
                         <li>
                             <span class="fac-name">富士見公園</span>
                             <div class="fac-links">
-                                <a href="https://fujimi-park.com" target="_blank">HP</a>
+                                <a href="https://fujimi-park.com" target="_blank"><i class="fas fa-globe"></i></a>
                                 <a href="https://x.com/fujimi_X" target="_blank"><i class="fab fa-x-twitter"></i></a>
                             </div>
                         </li>
