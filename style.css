@@ -86,7 +86,7 @@ header .sub-title {
 .nav-menu a:hover { background: rgba(0, 0, 0, 0.1); }
 
 /* =========================================
-   4. メインコンテンツ
+   4. メインコンテンツ（グリッド）
    ========================================= */
 .container {
     padding: 20px;
@@ -128,7 +128,7 @@ h2 {
 .card span { font-size: 0.9rem; font-weight: bold; }
 
 /* =========================================
-   5. フッターデザイン（PC版）
+   5. フッターデザイン
    ========================================= */
 .site-footer {
     margin-top: 80px;
@@ -164,13 +164,13 @@ h2 {
     display: inline-block;
 }
 
-.sns-icons {
+.sns-icons, .fac-links {
     display: flex;
-    gap: 22px;
+    gap: 20px;
     flex-wrap: wrap;
 }
 
-.sns-icons a {
+.sns-icons a, .fac-links a {
     color: #fff;
     font-size: 1.8rem;
     transition: transform 0.2s, opacity 0.2s;
@@ -179,7 +179,7 @@ h2 {
     padding: 5px;
 }
 
-.sns-icons a:hover {
+.sns-icons a:hover, .fac-links a:hover {
     transform: translateY(-3px);
     opacity: 0.8;
 }
@@ -194,20 +194,6 @@ h2 {
 }
 
 .fac-name { font-size: 0.9rem; font-weight: bold; }
-.fac-links { display: flex; gap: 15px; }
-
-.fac-links a {
-    color: #fff;
-    font-size: 1.4rem; /* 施設アイコンもSNS同様の大きさに */
-    transition: transform 0.2s, opacity 0.2s;
-    text-decoration: none;
-    padding: 5px;
-}
-
-.fac-links a:hover {
-    transform: translateY(-2px);
-    opacity: 0.8;
-}
 
 .footer-bottom {
     text-align: center;
@@ -227,27 +213,24 @@ h2 {
 
     .footer-grid { grid-template-columns: 1fr; gap: 40px; }
     
-    /* 文字を中央寄せ */
+    /* フッター見出しを中央寄せ */
     .footer-section {
         text-align: center;
     }
-    
     .footer-section h3 {
-        display: block; /* 中央寄せを効かせるため */
+        display: block;
         margin-left: auto;
         margin-right: auto;
         width: fit-content;
     }
 
+    /* SNSアイコンの中央寄せ */
     .sns-icons {
-        gap: 12px;
         justify-content: center;
-    }
-    .sns-icons a {
-        font-size: 1.6rem;
+        gap: 15px;
     }
 
-    /* 施設リスト：横並びをキープしつつ整理 */
+    /* 施設リスト：横並びを維持しつつ調整 */
     .facility-list li {
         flex-direction: row; 
         justify-content: space-between;
@@ -260,9 +243,10 @@ h2 {
         flex: 1;
     }
     .fac-links {
-        gap: 12px;
+        gap: 15px;
     }
     .fac-links a {
-        font-size: 1.3rem;
+        font-size: 1.5rem;
+        padding: 2px;
     }
 }
