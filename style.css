@@ -194,21 +194,20 @@ h2 {
 }
 
 .fac-name { font-size: 0.9rem; font-weight: bold; }
-.fac-links { display: flex; gap: 12px; }
+.fac-links { display: flex; gap: 15px; }
+
 .fac-links a {
     color: #fff;
+    font-size: 1.4rem; /* 施設アイコンもSNS同様の大きさに */
+    transition: transform 0.2s, opacity 0.2s;
     text-decoration: none;
-    font-size: 0.85rem;
-    background: rgba(255, 255, 255, 0.2);
-    padding: 8px 16px;
-    border-radius: 6px;
-    transition: background 0.2s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    padding: 5px;
 }
 
-.fac-links a:hover { background: rgba(255, 255, 255, 0.4); }
+.fac-links a:hover {
+    transform: translateY(-2px);
+    opacity: 0.8;
+}
 
 .footer-bottom {
     text-align: center;
@@ -226,42 +225,44 @@ h2 {
     .nav-menu a { font-size: 0.6rem; height: 48px; }
     .grid { grid-template-columns: 1fr; }
 
-    /* フッターの中央寄せ設定 */
-    .footer-grid { 
-        grid-template-columns: 1fr; 
-        gap: 50px; 
+    .footer-grid { grid-template-columns: 1fr; gap: 40px; }
+    
+    /* 文字を中央寄せ */
+    .footer-section {
+        text-align: center;
     }
     
-    .footer-section {
-        text-align: center; /* セクション全体を中央寄せ */
+    .footer-section h3 {
+        display: block; /* 中央寄せを効かせるため */
+        margin-left: auto;
+        margin-right: auto;
+        width: fit-content;
     }
 
     .sns-icons {
-        gap: 15px;
-        justify-content: center; /* SNSアイコンを中央に */
+        gap: 12px;
+        justify-content: center;
+    }
+    .sns-icons a {
+        font-size: 1.6rem;
     }
 
+    /* 施設リスト：横並びをキープしつつ整理 */
     .facility-list li {
         flex-direction: row; 
         justify-content: space-between;
         align-items: center;
-        padding: 15px 0;
-        text-align: left; /* リスト内テキストは左寄せで見やすく */
+        padding: 18px 0;
+        text-align: left;
     }
-
     .fac-name {
-        font-size: 0.75rem;
+        font-size: 0.8rem;
         flex: 1;
     }
-
     .fac-links {
-        gap: 8px;
-        justify-content: flex-end; /* ボタンは右側にまとめる（横並びキープ） */
+        gap: 12px;
     }
-
     .fac-links a {
-        padding: 6px 12px;
-        font-size: 0.75rem;
-        min-width: 40px;
+        font-size: 1.3rem;
     }
 }
