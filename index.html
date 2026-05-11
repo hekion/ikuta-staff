@@ -2,147 +2,48 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Ikuta-Portal</title>
     <script src="auth.js"></script>
     <script src="common.js"></script>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* --- シフト・トピックス表示エリアのスタイル --- */
-        .daily-info {
-            text-align: center;
-            background: #fff;
-            padding: 20px;
-            margin: 10px 0 25px 0;
-            border-bottom: 2px solid #eee;
-        }
-        
-        .today-header { 
-            font-size: 1.5rem; 
-            font-weight: bold; 
-            margin-bottom: 15px; 
-            color: #333;
-        }
-
-        .topics-container {
-            margin-bottom: 25px;
-            display: inline-block;
-            text-align: left;
-            width: 95%;        
-            max-width: 800px;  
-        }
-
-        .info-label {
-            font-size: 0.75rem;
-            font-weight: bold;
-            color: #78909c;
-            margin-left: 5px;
-            margin-bottom: 4px;
-            display: block;
-            letter-spacing: 0.05em;
-        }
-
-        .topics-box {
-            background-color: #e3f2fd; 
-            border: 1px solid #90caf9; 
-            color: #333; 
-            padding: 15px 25px;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 1.1rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            text-align: center;
-            line-height: 1.6;
-            width: 100%;       
-            box-sizing: border-box; 
-        }
-
-        .shift-grid {
-            display: flex;
-            flex-direction: column; 
-            align-items: center;
-            gap: 15px;
-        }
-
-        .shift-box {
-            background: #f9f9f9;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 12px 20px;
-            width: 95%; 
-            max-width: 800px; 
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-            box-sizing: border-box;
-        }
-
-        .shift-title { 
-            font-weight: bold; 
-            border-bottom: 2px solid; 
-            margin-bottom: 10px; 
-            padding-bottom: 5px;
-            font-size: 1rem;
-        }
-        
+        /* --- シフト・表示エリア（変更なし） --- */
+        .daily-info { text-align: center; background: #fff; padding: 20px; border-bottom: 2px solid #eee; }
+        .today-header { font-size: 1.5rem; font-weight: bold; margin-bottom: 15px; color: #333; }
+        .topics-container { margin-bottom: 25px; display: inline-block; text-align: left; width: 95%; max-width: 800px; }
+        .info-label { font-size: 0.75rem; font-weight: bold; color: #78909c; margin-bottom: 4px; display: block; }
+        .topics-box { background-color: #e3f2fd; border: 1px solid #90caf9; padding: 15px; border-radius: 8px; font-weight: bold; text-align: center; }
+        .shift-grid { display: flex; flex-direction: column; align-items: center; gap: 15px; }
+        .shift-box { background: #f9f9f9; border: 1px solid #ddd; border-radius: 8px; padding: 12px 20px; width: 95%; max-width: 800px; box-sizing: border-box; }
+        .shift-title { font-weight: bold; border-bottom: 2px solid; margin-bottom: 10px; padding-bottom: 5px; }
         .early { border-color: #f0ad4e; color: #8a6d3b; }   
         .late { border-color: #5bc0de; color: #31708f; }    
         .tomorrow { border-color: #5cb85c; color: #3c763d; } 
+        .staff-list { font-size: 1rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; color: #444; }
 
-        .staff-list { 
-            font-size: 1rem; 
-            line-height: 1.6;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px; 
-            color: #444;
-        }
+        /* --- メモエリア：落とし物管理方式のスタイル（スマホズーム防止） --- */
+        .memo-section { width: 95%; max-width: 800px; margin: 20px auto 0; text-align: left; background: #fdfdfd; padding: 15px; border-radius: 10px; border: 1px solid #eee; box-sizing: border-box; }
+        .memo-input-group { display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px; }
         
-        .staff-list span {
-            white-space: nowrap; 
+        /* 落とし物管理と同じ16px設定：これでズームを防ぐ */
+        .memo-input-group input, 
+        .memo-input-group textarea { 
+            width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; box-sizing: border-box; 
+            font-size: 16px !important; outline: none; background: #fff; -webkit-appearance: none;
         }
+        .create-btn { background: #35A0D9; color: #fff; border: none; padding: 15px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 16px; width: 100%; }
 
-        /* --- 追加：メモエリアのスタイル --- */
-        .memo-section {
-            width: 95%;
-            max-width: 800px;
-            margin: 20px auto 0;
-            text-align: left;
-            background: #fdfdfd;
-            padding: 15px;
-            border-radius: 10px;
-            border: 1px solid #eee;
-        }
-        .memo-input-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px; }
-        .memo-input-group input, .memo-input-group textarea { padding: 10px; border: 1px solid #ddd; border-radius: 5px; width: 100%; box-sizing: border-box; }
-        .create-btn { background: #35A0D9; color: white; border: none; padding: 12px; border-radius: 5px; font-weight: bold; cursor: pointer; }
         .memo-item { background: white; border: 1px solid #e0e0e0; padding: 12px; border-radius: 8px; margin-bottom: 10px; }
         .memo-item.completed { opacity: 0.5; background: #f9f9f9; }
         .memo-meta { font-size: 0.7rem; color: #999; display: flex; justify-content: space-between; margin-bottom: 5px; }
         .memo-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 10px; }
-        .action-btn { font-size: 0.7rem; padding: 5px 12px; border-radius: 4px; border: 1px solid #ddd; background: #fff; cursor: pointer; }
-
-        /* スマホ用SNSアイコン余白調整 */
-        @media (max-width: 768px) {
-            .sns-icons {
-                justify-content: space-between !important;
-                gap: 0 !important;
-                flex-wrap: nowrap !important;
-                max-width: 100% !important;
-                margin: 0 auto;
-                padding: 0 15px;
-            }
-            .sns-icons a {
-                font-size: 1.6rem;
-                flex: 1;
-                text-align: center;
-                padding: 10px 0;
-            }
-        }
+        .action-btn { font-size: 0.8rem; padding: 6px 15px; border-radius: 6px; border: 1px solid #ccc; background: #fff; cursor: pointer; font-weight: bold; }
     </style>
 </head>
 <body>
 
-    <div class="daily-info" id="shift-display">
+    <div class="daily-info">
         <div class="today-header" id="today-date">読み込み中...</div>
         
         <div class="topics-container" id="topics-area" style="display: none;">
@@ -151,26 +52,17 @@
         </div>
         
         <div class="shift-grid">
-            <div class="shift-box">
-                <div class="shift-title early">今日の早番</div>
-                <div class="staff-list" id="early-staff">ー</div>
-            </div>
-            <div class="shift-box">
-                <div class="shift-title late">今日の遅番</div>
-                <div class="staff-list" id="late-staff">ー</div>
-            </div>
-            <div class="shift-box">
-                <div class="shift-title tomorrow">明日の早番</div>
-                <div class="staff-list" id="tomorrow-early">ー</div>
-            </div>
+            <div class="shift-box"><div class="shift-title early">今日の早番</div><div class="staff-list" id="early-staff">ー</div></div>
+            <div class="shift-box"><div class="shift-title late">今日の遅番</div><div class="staff-list" id="late-staff">ー</div></div>
+            <div class="shift-box"><div class="shift-title tomorrow">明日の早番</div><div class="staff-list" id="tomorrow-early">ー</div></div>
         </div>
 
         <section class="memo-section">
             <span class="info-label">引き継ぎメモ</span>
             <div class="memo-input-group">
                 <input type="text" id="memo-author" placeholder="記入者名">
-                <textarea id="memo-content" placeholder="共有事項を入力..."></textarea>
-                <button class="create-btn" id="create-btn" onclick="handleMemo('create')">メモを作成</button>
+                <textarea id="memo-content" rows="2" placeholder="共有事項を入力..."></textarea>
+                <button class="create-btn" id="create-btn" onclick="handleMemo('create')">保存する</button>
             </div>
             <div id="memo-list"></div>
         </section>
@@ -207,84 +99,71 @@
     </main>
 
     <script>
-        const GAS_URL = "https://script.google.com/macros/s/AKfycbzWdsUcRh0mImQaOeo7vsnjjAIOi0kOs5UlYhhrhXz1R_0fLJmstYMU7Qfqbhb9Cso/exec";
-
-        function updateDisplay(data) {
-            if (data.error) {
-                document.getElementById('today-date').textContent = "データ取得エラー";
-                return;
-            }
-            document.getElementById('today-date').textContent = data.date;
-            
-            const topicsArea = document.getElementById('topics-area');
-            const topicsBox = document.getElementById('today-topics');
-            if (data.topics && data.topics.trim() !== "") {
-                topicsBox.innerHTML = data.topics.replace(/[,，/／、]/g, '<br>');
-                topicsArea.style.display = "inline-block";
-            } else {
-                topicsArea.style.display = "none";
-            }
-            
-            const formatStaff = (list) => list && list.length > 0 ? list.map(name => `<span>${name}</span>`).join('') : "ー";
-            document.getElementById('early-staff').innerHTML = formatStaff(data.early);
-            document.getElementById('late-staff').innerHTML = formatStaff(data.late);
-            document.getElementById('tomorrow-early').innerHTML = formatStaff(data.tomorrowEarly);
-
-            // メモ表示
-            const listEl = document.getElementById('memo-list');
-            if (data.memos && data.memos.length > 0) {
-                listEl.innerHTML = data.memos.map(m => `
-                    <div class="memo-item ${m.status === '完了' ? 'completed' : ''}">
-                        <div class="memo-meta"><span>${m.author}</span><span>${new Date(m.date).toLocaleDateString('ja-JP')}</span></div>
-                        <div style="font-size:0.95rem; line-height:1.5; white-space:pre-wrap;">${m.content}</div>
-                        <div class="memo-actions">
-                            ${m.status === '未完了' ? `<button class="action-btn" style="color:#5cb85c; border-color:#5cb85c;" onclick="handleMemo('complete', '${m.id}')">完了</button>` : ''}
-                            <button class="action-btn" style="color:#d9534f; border-color:#d9534f;" onclick="handleMemo('delete', '${m.id}')">削除</button>
-                        </div>
-                    </div>
-                `).join('');
-            } else {
-                listEl.innerHTML = '<div style="text-align:center; color:#ccc; font-size:0.8rem; padding:10px;">メモはありません</div>';
-            }
-        }
+        const GAS_URL = "https://script.google.com/macros/s/AKfycbxvMlHPemLNT3Mcj0-hrmK-L-kD4W9dy-Fl-oEwMVfxrPtRoVMwvRCEPBk4pyw-80bYtA/exec";
 
         async function fetchShift() {
             try {
                 const response = await fetch(GAS_URL);
                 const data = await response.json();
-                updateDisplay(data);
-            } catch (e) {
-                console.error("Fetch Error:", e);
-            }
+                
+                document.getElementById('today-date').textContent = data.date;
+                
+                const topicsArea = document.getElementById('topics-area');
+                if (data.topics) {
+                    document.getElementById('today-topics').innerHTML = data.topics.replace(/[,，/／、]/g, '<br>');
+                    topicsArea.style.display = "inline-block";
+                }
+
+                const fmt = (list) => list && list.length > 0 ? list.map(n => `<span>${n}</span>`).join('') : "ー";
+                document.getElementById('early-staff').innerHTML = fmt(data.early);
+                document.getElementById('late-staff').innerHTML = fmt(data.late);
+                document.getElementById('tomorrow-early').innerHTML = fmt(data.tomorrowEarly);
+
+                // メモ一覧表示
+                const listEl = document.getElementById('memo-list');
+                if (data.memos && data.memos.length > 0) {
+                    listEl.innerHTML = data.memos.map(m => `
+                        <div class="memo-item ${m.status === '完了' ? 'completed' : ''}">
+                            <div class="memo-meta"><span>${m.author}</span><span>${new Date(m.date).toLocaleDateString('ja-JP')}</span></div>
+                            <div style="font-size:1rem; line-height:1.5; white-space:pre-wrap;">${m.content}</div>
+                            <div class="memo-actions">
+                                ${m.status === '未完了' ? `<button class="action-btn" style="color:#5cb85c;" onclick="handleMemo('complete', '${m.id}')">完了</button>` : ''}
+                                <button class="action-btn" style="color:#d9534f;" onclick="handleMemo('delete', '${m.id}')">削除</button>
+                            </div>
+                        </div>
+                    `).join('');
+                } else {
+                    listEl.innerHTML = '<div style="text-align:center; color:#ccc; font-size:0.8rem; padding:10px;">現在メモはありません</div>';
+                }
+            } catch (e) { console.error(e); }
         }
 
+        // 落とし物管理と同じ「送信即リロード」方式
         async function handleMemo(action, id = null) {
             const author = document.getElementById('memo-author').value.trim();
             const content = document.getElementById('memo-content').value.trim();
             const btn = document.getElementById('create-btn');
 
-            if (action === 'create' && (!author || !content)) return alert("名前と内容を入力してください");
+            if (action === 'create' && (!author || !content)) return alert("記入者名と内容を入力してください");
 
             btn.disabled = true;
             btn.textContent = "送信中...";
 
             try {
+                // 落とし物管理と全く同じ fetch 方式（mode: 'no-cors'）
                 await fetch(GAS_URL, {
                     method: "POST",
-                    headers: { "Content-Type": "text/plain" },
+                    mode: "no-cors", 
                     body: JSON.stringify({ action, id, author, content })
                 });
 
-                setTimeout(async () => {
-                    if (action === 'create') document.getElementById('memo-content').value = '';
-                    btn.disabled = false;
-                    btn.textContent = "メモを作成";
-                    await fetchShift();
-                }, 1200);
+                alert("保存しました");
+                location.reload(); // 落とし物管理と同じくリロードして確実に最新化
+
             } catch (e) {
                 alert("送信エラー");
                 btn.disabled = false;
-                btn.textContent = "メモを作成";
+                btn.textContent = "保存する";
             }
         }
 
