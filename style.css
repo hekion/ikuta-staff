@@ -1,3 +1,6 @@
+/* =========================================
+   1. 基本設定・リセット
+   ========================================= */
 * {
     margin: 0;
     padding: 0;
@@ -11,6 +14,9 @@ body {
     padding-top: 135px; 
 }
 
+/* =========================================
+   2. 固定ヘッダー
+   ========================================= */
 .sticky-header {
     position: fixed;
     top: 0;
@@ -41,6 +47,9 @@ header .sub-title {
     letter-spacing: 0.05rem;
 }
 
+/* =========================================
+   3. ナビゲーションメニュー
+   ========================================= */
 .nav-menu {
     background-color: #35A0D9;
 }
@@ -76,6 +85,9 @@ header .sub-title {
 
 .nav-menu a:hover { background: rgba(0, 0, 0, 0.1); }
 
+/* =========================================
+   4. メインコンテンツ
+   ========================================= */
 .container {
     padding: 20px;
     width: 100%;
@@ -97,6 +109,9 @@ h2 {
     gap: 15px;
 }
 
+/* =========================================
+   5. カードデザイン
+   ========================================= */
 .card {
     background: white;
     text-decoration: none;
@@ -115,6 +130,9 @@ h2 {
 .card img { width: 100%; max-width: 110px; margin-bottom: 12px; }
 .card span { font-size: 0.9rem; font-weight: bold; }
 
+/* =========================================
+   6. フッターデザイン
+   ========================================= */
 .site-footer {
     margin-top: 80px;
     background-color: #0098d9; 
@@ -191,7 +209,6 @@ h2 {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-width: 44px;
 }
 
 .fac-links a:hover { background: rgba(255, 255, 255, 0.4); }
@@ -204,11 +221,44 @@ h2 {
 
 .copyright { font-size: 0.8rem; opacity: 0.7; }
 
+/* =========================================
+   7. レスポンシブ調整（スマホ特化）
+   ========================================= */
 @media (max-width: 768px) {
-    .footer-grid { grid-template-columns: 1fr; gap: 40px; }
     body { padding-top: 120px; }
     .nav-menu a { font-size: 0.6rem; height: 48px; }
     .grid { grid-template-columns: 1fr; }
-    .facility-list li { flex-direction: column; align-items: flex-start; gap: 10px; }
-    .fac-links { width: 100%; justify-content: flex-start; }
+
+    .footer-grid { grid-template-columns: 1fr; gap: 40px; }
+    
+    /* SNSアイコンを1行に収めるための調整 */
+    .sns-icons {
+        gap: 12px; /* 間隔を狭める */
+        justify-content: space-between; /* 均等に配置 */
+    }
+    .sns-icons a {
+        font-size: 1.5rem; /* アイコンを少し小さく */
+        padding: 2px;
+    }
+
+    /* 施設名とリンクを1行にキープするための調整 */
+    .facility-list li {
+        flex-direction: row; /* 横並びを強制 */
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 0;
+    }
+    .fac-name {
+        font-size: 0.75rem; /* 文字を少し小さくして幅を稼ぐ */
+        flex: 1;
+        padding-right: 5px;
+    }
+    .fac-links {
+        gap: 6px; /* ボタン同士の間隔を詰める */
+    }
+    .fac-links a {
+        padding: 6px 10px; /* ボタンの余白を削る */
+        font-size: 0.7rem;
+        min-width: 38px;
+    }
 }
