@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <script src="../auth.js"></script>
+    <script src="../common.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>共通業務 | Ikuta-Portal</title>
     <link rel="stylesheet" href="../style.css">
@@ -25,29 +26,12 @@
         .highlight-blue { color: #35A0D9; font-weight: bold; }
 
         .back-btn { display: inline-block; margin-top: 20px; color: #35A0D9; text-decoration: none; font-weight: bold; }
+
+        /* JSで挿入されるヘッダー分の余白確保 */
+        main.container { padding-top: 20px; }
     </style>
 </head>
 <body>
-
-    <div class="sticky-header">
-        <header>
-            <a href="../" style="text-decoration: none; display: inline-block;">
-                <img src="../assets/images/ikutalogo.png" alt="FRONTOWN IKUTA">
-                <div class="sub-title">STAFF PORTAL</div>
-            </a>
-        </header>
-
-        <nav class="nav-menu">
-            <ul>
-                <li><a href="../manual/">マニュアル</a></li>
-                <li><a href="../setup/">準備物</a></li>
-                <li><a href="../roster/">名簿</a></li>
-                <li><a href="../inventory/">備品検索</a></li>
-                <li><a href="../pop/">掲示物</a></li>
-                <li><a href="../contacts/">連絡先</a></li>
-            </ul>
-        </nav>
-    </div>
 
     <main class="container">
         <div class="manual-content">
@@ -133,6 +117,5 @@
         </div>
     </main>
 
-    <footer><p>&copy; 2026 FRONTOWN IKUTA</p></footer>
 </body>
 </html>
