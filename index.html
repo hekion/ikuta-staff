@@ -8,6 +8,7 @@
     <script src="common.js"></script>
     <link rel="stylesheet" href="style.css">
     <style>
+        /* --- 全体・ヘッダー --- */
         .daily-info {
             text-align: center;
             background: #fff;
@@ -23,7 +24,7 @@
             color: #333;
         }
 
-        /* シフトエリア */
+        /* --- シフトエリア（上配置） --- */
         .shift-grid {
             display: flex;
             flex-direction: column; 
@@ -40,6 +41,7 @@
             width: 95%; 
             max-width: 800px; 
             box-sizing: border-box;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
 
         .shift-title { 
@@ -47,6 +49,7 @@
             border-bottom: 2px solid; 
             margin-bottom: 10px; 
             padding-bottom: 5px;
+            font-size: 1rem;
         }
         
         .early { border-color: #f0ad4e; color: #8a6d3b; }   
@@ -55,18 +58,21 @@
 
         .staff-list { 
             font-size: 1rem; 
+            line-height: 1.6;
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             gap: 20px; 
             color: #444;
         }
+        
+        .staff-list span { white-space: nowrap; }
 
-        /* メモセクション（下配置） */
+        /* --- メモセクション（下配置） --- */
         .memo-section {
             width: 95%;
             max-width: 800px;
-            margin: 20px auto;
+            margin: 0 auto 25px;
             text-align: left;
             background: #fdfdfd;
             padding: 15px;
@@ -99,6 +105,11 @@
             box-sizing: border-box;
         }
 
+        .memo-input-group textarea {
+            height: 60px;
+            resize: none;
+        }
+
         .create-btn {
             background: #35A0D9;
             color: white;
@@ -109,22 +120,28 @@
             cursor: pointer;
         }
 
+        .create-btn:disabled { background: #ccc; }
+
         .memo-item {
             background: white;
             border: 1px solid #e0e0e0;
             padding: 12px;
             border-radius: 8px;
             margin-bottom: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
         }
 
-        .memo-item.completed { opacity: 0.5; background: #f9f9f9; }
+        .memo-item.completed {
+            opacity: 0.5;
+            background: #f9f9f9;
+        }
 
         .memo-meta {
             font-size: 0.7rem;
             color: #999;
+            margin-bottom: 5px;
             display: flex;
             justify-content: space-between;
-            margin-bottom: 5px;
         }
 
         .memo-actions {
@@ -139,13 +156,19 @@
             padding: 5px 12px;
             border-radius: 4px;
             border: 1px solid #ddd;
-            background: #fff;
+            background: white;
             cursor: pointer;
         }
 
+        /* --- 業務メニュー --- */
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 15px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 15px; margin-bottom: 30px; }
+        .card { text-decoration: none; color: #333; background: #fff; border: 1px solid #eee; border-radius: 8px; padding: 15px; text-align: center; display: flex; flex-direction: column; align-items: center; transition: 0.2s; }
+        .card:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        .icon { font-size: 1.5rem; margin-bottom: 8px; }
+
         @media (max-width: 768px) {
-            .sns-icons { justify-content: space-between !important; padding: 0 15px; }
-            .sns-icons a { font-size: 1.6rem; flex: 1; text-align: center; }
+            .grid { grid-template-columns: repeat(3, 1fr); }
         }
     </style>
 </head>
@@ -173,37 +196,52 @@
             <span class="info-label">引き継ぎメモ（共有・申し送り）</span>
             <div class="memo-input-group">
                 <input type="text" id="memo-author" placeholder="記入者名">
-                <textarea id="memo-content" placeholder="内容を入力..."></textarea>
+                <textarea id="memo-content" placeholder="共有事項を入力..."></textarea>
                 <button class="create-btn" id="create-btn" onclick="handleMemo('create')">メモを作成</button>
             </div>
-            <div id="memo-list"></div>
+            <div id="memo-list">
+                </div>
         </section>
     </div>
 
     <main class="container">
-        </main>
+        <section class="internal-links">
+            <div class="grid">
+                <a href="manual/" class="card"><div class="icon">📖</div><span>マニュアル</span></a>
+                <a href="setup/" class="card"><div class="icon">📋</div><span>準備物</span></a>
+                <a href="lost/" class="card"><div class="icon">🔍</div><span>落とし物管理</span></a>
+                <a href="roster/" class="card"><div class="icon">👥</div><span>名簿</span></a>
+                <a href="inventory/" class="card"><div class="icon">📦</div><span>備品・物品検索</span></a>
+                <a href="pop/" class="card"><div class="icon">🖼️</div><span>掲示物</span></a>
+                <a href="contacts/" class="card"><div class="icon">📞</div><span>連絡先</span></a>
+            </div>
+        </section>
+    </main>
 
     <script>
-        const GAS_URL = "https://script.google.com/macros/s/AKfycbxvu-TIXGlU8M2ifIQyUyz1GrzV_9mkpUd0whuvxf7yX29Cdrga33Fw_gqOwU-UfojxlA/exec";
+        const GAS_URL = "https://script.google.com/macros/s/AKfycbzWdsUcRh0mImQaOeo7vsnjjAIOi0kOs5UlYhhrhXz1R_0fLJmstYMU7Qfqbhb9Cso/exec";
 
         function updateUI(data) {
-            if (data.error) { document.getElementById('today-date').textContent = data.error; return; }
+            if (data.error) {
+                document.getElementById('today-date').textContent = "データ取得エラー";
+                return;
+            }
             document.getElementById('today-date').textContent = data.date;
             
-            const formatStaff = (list) => list && list.length > 0 ? list.map(n => `<span>${n}</span>`).join('') : "ー";
-            document.getElementById('early-staff').innerHTML = formatStaff(data.early);
-            document.getElementById('late-staff').innerHTML = formatStaff(data.late);
-            document.getElementById('tomorrow-early').innerHTML = formatStaff(data.tomorrowEarly);
+            const fmt = (list) => list && list.length > 0 ? list.map(n => `<span>${n}</span>`).join('') : "ー";
+            document.getElementById('early-staff').innerHTML = fmt(data.early);
+            document.getElementById('late-staff').innerHTML = fmt(data.late);
+            document.getElementById('tomorrow-early').innerHTML = fmt(data.tomorrowEarly);
 
             const listEl = document.getElementById('memo-list');
             if (data.memos && data.memos.length > 0) {
                 listEl.innerHTML = data.memos.map(m => `
                     <div class="memo-item ${m.status === '完了' ? 'completed' : ''}">
                         <div class="memo-meta">
-                            <span>${m.author}</span>
+                            <span>投稿者: ${m.author}</span>
                             <span>${new Date(m.date).toLocaleDateString('ja-JP')}</span>
                         </div>
-                        <div style="font-size:0.95rem; line-height:1.5;">${m.content}</div>
+                        <div style="font-size:0.95rem; line-height:1.5; white-space:pre-wrap;">${m.content}</div>
                         <div class="memo-actions">
                             ${m.status === '未完了' ? `<button class="action-btn" style="color:#5cb85c; border-color:#5cb85c;" onclick="handleMemo('complete', '${m.id}')">完了</button>` : ''}
                             <button class="action-btn" style="color:#d9534f; border-color:#d9534f;" onclick="handleMemo('delete', '${m.id}')">削除</button>
@@ -220,43 +258,53 @@
                 const response = await fetch(GAS_URL);
                 const data = await response.json();
                 updateUI(data);
-            } catch (e) { console.error(e); }
+            } catch (e) {
+                console.error("Fetch Error:", e);
+            }
         }
 
         async function handleMemo(action, id = null) {
-            const author = document.getElementById('memo-author').value.trim();
-            const content = document.getElementById('memo-content').value.trim();
+            const authorEl = document.getElementById('memo-author');
+            const contentEl = document.getElementById('memo-content');
             const btn = document.getElementById('create-btn');
 
-            if (action === 'create' && (!author || !content)) return alert("名前と内容を入力してください");
+            if (action === 'create' && (!authorEl.value.trim() || !contentEl.value.trim())) {
+                alert("名前と内容を入力してください");
+                return;
+            }
 
             btn.disabled = true;
-            btn.textContent = "送信中...";
+            btn.textContent = "処理中...";
 
             try {
-                // POST送信を確実に行うための設定
+                // text/plain で送ることで CORS エラーを回避して GAS に届けます
                 await fetch(GAS_URL, {
                     method: "POST",
-                    mode: "no-cors", // 重要：CORSエラー回避
                     headers: { "Content-Type": "text/plain" },
-                    body: JSON.stringify({ action, id, author, content })
+                    body: JSON.stringify({
+                        action: action,
+                        id: id,
+                        author: authorEl.value.trim(),
+                        content: contentEl.value.trim()
+                    })
                 });
 
-                // no-cors の場合レスポンスが取れないため、少し待ってから再取得
-                setTimeout(() => {
-                    if (action === 'create') document.getElementById('memo-content').value = '';
+                // スプシの反映を待ってから画面を更新
+                setTimeout(async () => {
+                    if (action === 'create') contentEl.value = '';
                     btn.disabled = false;
                     btn.textContent = "メモを作成";
-                    fetchAll();
-                }, 1000);
+                    await fetchAll();
+                }, 1200);
 
             } catch (e) {
-                alert("送信エラーが発生しました");
+                alert("エラーが発生しました");
                 btn.disabled = false;
                 btn.textContent = "メモを作成";
             }
         }
 
+        // 初回読み込み
         fetchAll();
     </script>
 </body>
