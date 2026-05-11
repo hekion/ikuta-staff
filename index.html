@@ -25,7 +25,7 @@
         }
 
         .topics-container {
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             display: inline-block;
             text-align: left;
             width: 95%;        
@@ -36,7 +36,6 @@
             font-size: 0.75rem;
             font-weight: bold;
             color: #78909c;
-            margin-left: 5px;
             margin-bottom: 4px;
             display: block;
             letter-spacing: 0.05em;
@@ -46,17 +45,117 @@
             background-color: #e3f2fd; 
             border: 1px solid #90caf9; 
             color: #333; 
-            padding: 15px 25px;
+            padding: 15px;
             border-radius: 8px;
             font-weight: bold;
             font-size: 1.1rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
             text-align: center;
             line-height: 1.6;
             width: 100%;       
             box-sizing: border-box; 
         }
 
+        /* --- 引き継ぎメモエリアのスタイル --- */
+        .memo-section {
+            width: 95%;
+            max-width: 800px;
+            margin: 0 auto 25px;
+            text-align: left;
+            background: #fdfdfd;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #eee;
+        }
+
+        .memo-input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .memo-input-group input, 
+        .memo-input-group textarea {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .memo-input-group textarea {
+            height: 60px;
+            resize: none;
+        }
+
+        .create-btn {
+            background: #35A0D9;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .create-btn:active { background: #2880b0; }
+
+        .memo-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .memo-item {
+            background: white;
+            border: 1px solid #e0e0e0;
+            padding: 12px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .memo-item.completed {
+            opacity: 0.5;
+            background: #f9f9f9;
+        }
+
+        .memo-meta {
+            font-size: 0.7rem;
+            color: #999;
+            margin-bottom: 5px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .memo-content {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #333;
+            margin-bottom: 10px;
+            white-space: pre-wrap;
+        }
+
+        .memo-actions {
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+        }
+
+        .action-btn {
+            font-size: 0.7rem;
+            padding: 4px 10px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            background: white;
+            cursor: pointer;
+        }
+
+        .btn-complete { border-color: #5cb85c; color: #5cb85c; }
+        .btn-delete { border-color: #d9534f; color: #d9534f; }
+
+        /* --- シフトエリアのスタイル --- */
         .shift-grid {
             display: flex;
             flex-direction: column; 
@@ -97,11 +196,8 @@
             color: #444;
         }
         
-        .staff-list span {
-            white-space: nowrap; 
-        }
+        .staff-list span { white-space: nowrap; }
 
-        /* スマホ用SNSアイコン余白調整 */
         @media (max-width: 768px) {
             .sns-icons {
                 justify-content: space-between !important;
@@ -122,13 +218,24 @@
 </head>
 <body>
 
-    <div class="daily-info" id="shift-display">
+    <div class="daily-info">
         <div class="today-header" id="today-date">読み込み中...</div>
         
         <div class="topics-container" id="topics-area" style="display: none;">
-            <span class="info-label">INFO</span>
+            <span class="info-label">重要トピックス</span>
             <div class="topics-box" id="today-topics"></div>
         </div>
+
+        <section class="memo-section">
+            <span class="info-label">引き継ぎメモ（共有・申し送り）</span>
+            <div class="memo-input-group">
+                <input type="text" id="memo-author" placeholder="記入者名">
+                <textarea id="memo-content" placeholder="共有事項を入力..."></textarea>
+                <button class="create-btn" id="create-btn" onclick="handleMemo('create')">メモを作成</button>
+            </div>
+            <div id="memo-list" class="memo-list">
+                </div>
+        </section>
         
         <div class="shift-grid">
             <div class="shift-box">
@@ -165,101 +272,127 @@
         <section class="internal-links">
             <h2>業務メニュー</h2>
             <div class="grid">
-                <a href="manual/" class="card">
-                    <div class="icon">📖</div>
-                    <span>マニュアル</span>
-                </a>
-                <a href="setup/" class="card">
-                    <div class="icon">📋</div>
-                    <span>準備物</span>
-                </a>
-                <a href="lost/" class="card">
-                    <div class="icon">🔍</div>
-                    <span>落とし物管理</span>
-                </a>
-                <a href="roster/" class="card">
-                    <div class="icon">👥</div>
-                    <span>名簿</span>
-                </a>
-                <a href="inventory/" class="card">
-                    <div class="icon">📦</div>
-                    <span>備品・物品検索</span>
-                </a>
-                <a href="pop/" class="card">
-                    <div class="icon">🖼️</div>
-                    <span>掲示物</span>
-                </a>
-                <a href="contacts/" class="card">
-                    <div class="icon">📞</div>
-                    <span>連絡先</span>
-                </a>
+                <a href="manual/" class="card"><div class="icon">📖</div><span>マニュアル</span></a>
+                <a href="setup/" class="card"><div class="icon">📋</div><span>準備物</span></a>
+                <a href="lost/" class="card"><div class="icon">🔍</div><span>落とし物管理</span></a>
+                <a href="roster/" class="card"><div class="icon">👥</div><span>名簿</span></a>
+                <a href="inventory/" class="card"><div class="icon">📦</div><span>備品・物品検索</span></a>
+                <a href="pop/" class="card"><div class="icon">🖼️</div><span>掲示物</span></a>
+                <a href="contacts/" class="card"><div class="icon">📞</div><span>連絡先</span></a>
             </div>
         </section>
     </main>
 
     <script>
-        const GAS_URL = "https://script.google.com/macros/s/AKfycbxZ_VrnaKLXiVQzMqWJYaZRFoWHl2JxIEAixIvur18ssazNgRqz6j-0BPRj-Q9qUJbFSw/exec";
+        const GAS_URL = "https://script.google.com/macros/s/AKfycbxvu-TIXGlU8M2ifIQyUyz1GrzV_9mkpUd0whuvxf7yX29Cdrga33Fw_gqOwU-UfojxlA/exec";
 
-        // 画面にデータを反映する関数
-        function updateDisplay(data) {
+        // データを反映する関数
+        function updateUI(data) {
             if (data.error) {
                 document.getElementById('today-date').textContent = data.error;
                 return;
             }
 
+            // 日付
             document.getElementById('today-date').textContent = data.date;
             
+            // トピックス
             const topicsArea = document.getElementById('topics-area');
             const topicsBox = document.getElementById('today-topics');
-            
             if (data.topics && data.topics.trim() !== "") {
-                const formattedTopics = data.topics.replace(/[,，/／、]/g, '<br>');
-                topicsBox.innerHTML = formattedTopics;
+                topicsBox.innerHTML = data.topics.replace(/[,，/／、]/g, '<br>');
                 topicsArea.style.display = "inline-block";
             } else {
                 topicsArea.style.display = "none";
             }
             
-            const formatStaff = (list) => {
-                return list && list.length > 0 
-                    ? list.map(name => `<span>${name}</span>`).join('') 
-                    : "ー";
-            };
-
+            // シフト
+            const formatStaff = (list) => list && list.length > 0 ? list.map(name => `<span>${name}</span>`).join('') : "ー";
             document.getElementById('early-staff').innerHTML = formatStaff(data.early);
             document.getElementById('late-staff').innerHTML = formatStaff(data.late);
             document.getElementById('tomorrow-early').innerHTML = formatStaff(data.tomorrowEarly);
+
+            // メモ表示
+            const listEl = document.getElementById('memo-list');
+            if (data.memos && data.memos.length > 0) {
+                listEl.innerHTML = data.memos.map(m => `
+                    <div class="memo-item ${m.status === '完了' ? 'completed' : ''}">
+                        <div class="memo-meta">
+                            <span>投稿者: ${m.author}</span>
+                            <span>${new Date(m.date).toLocaleDateString('ja-JP')}</span>
+                        </div>
+                        <div class="memo-content">${m.content}</div>
+                        <div class="memo-actions">
+                            ${m.status === '未完了' ? `<button class="action-btn btn-complete" onclick="handleMemo('complete', '${m.id}')">完了</button>` : ''}
+                            <button class="action-btn btn-delete" onclick="handleMemo('delete', '${m.id}')">削除</button>
+                        </div>
+                    </div>
+                `).join('');
+            } else {
+                listEl.innerHTML = '<div style="text-align:center; color:#ccc; font-size:0.8rem; padding:10px;">現在メモはありません</div>';
+            }
         }
 
-        async function fetchShift() {
-            // 1. キャッシュがあれば即表示
-            const cache = localStorage.getItem('shift_cache');
+        async function fetchAll() {
+            // キャッシュ表示
+            const cache = localStorage.getItem('portal_cache');
             if (cache) {
-                try {
-                    updateDisplay(JSON.parse(cache));
-                } catch (e) {
-                    console.error("Cache Parse Error:", e);
-                }
+                try { updateUI(JSON.parse(cache)); } catch (e) {}
             }
 
             try {
-                // 2. 裏で最新データを取得
                 const response = await fetch(GAS_URL);
                 const data = await response.json();
-                
-                // 3. キャッシュを更新して画面も更新
-                localStorage.setItem('shift_cache', JSON.stringify(data));
-                updateDisplay(data);
+                localStorage.setItem('portal_cache', JSON.stringify(data));
+                updateUI(data);
             } catch (e) {
                 console.error("Fetch Error:", e);
-                // キャッシュもない場合のみエラー表示
-                if (!cache) {
-                    document.getElementById('today-date').textContent = "データ取得失敗";
-                }
+                if (!cache) document.getElementById('today-date').textContent = "接続エラー";
             }
         }
 
-        fetchShift();
+        async function handleMemo(action, id = null) {
+            const authorEl = document.getElementById('memo-author');
+            const contentEl = document.getElementById('memo-content');
+            const btn = document.getElementById('create-btn');
+
+            if (action === 'create') {
+                if (!authorEl.value.trim() || !contentEl.value.trim()) {
+                    alert("名前と内容を入力してください");
+                    return;
+                }
+                btn.disabled = true;
+                btn.textContent = "作成中...";
+            }
+
+            try {
+                const response = await fetch(GAS_URL, {
+                    method: "POST",
+                    body: JSON.stringify({
+                        action: action,
+                        id: id,
+                        author: authorEl.value.trim(),
+                        content: contentEl.value.trim()
+                    })
+                });
+                
+                const result = await response.json();
+                if (result.success) {
+                    if (action === 'create') {
+                        contentEl.value = ''; // 内容だけクリア
+                    }
+                    await fetchAll(); // 再読み込みして反映
+                }
+            } catch (e) {
+                alert("通信エラーが発生しました");
+                console.error(e);
+            } finally {
+                btn.disabled = false;
+                btn.textContent = "メモを作成";
+            }
+        }
+
+        fetchAll();
     </script>
 </body>
 </html>
