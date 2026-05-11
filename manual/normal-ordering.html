@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <script src="../auth.js"></script>
+    <script src="../common.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>備品・送り状の発注 | Ikuta-Portal</title>
     <link rel="stylesheet" href="../style.css">
@@ -88,28 +89,12 @@
             to {transform: scale(1); opacity: 1;}
         }
         .manual-img { cursor: zoom-in; max-width: 100%; height: auto; border-radius: 5px; margin-top: 10px; border: 1px solid #ddd; }
+
+        /* JSで挿入されるヘッダー分の余白確保 */
+        main.container { padding-top: 20px; }
     </style>
 </head>
 <body>
-
-    <div class="sticky-header">
-        <header>
-            <a href="../" style="text-decoration: none; display: inline-block;">
-                <img src="../assets/images/ikutalogo.png" alt="FRONTOWN IKUTA">
-                <div class="sub-title">STAFF PORTAL</div>
-            </a>
-        </header>
-        <nav class="nav-menu">
-            <ul>
-                <li><a href="../manual/">マニュアル</a></li>
-                <li><a href="../setup/">準備物</a></li>
-                <li><a href="../roster/">名簿</a></li>
-                <li><a href="../inventory/">備品検索</a></li>
-                <li><a href="../pop/">掲示物</a></li>
-                <li><a href="../contacts/">連絡先</a></li>
-            </ul>
-        </nav>
-    </div>
 
     <main class="container">
         <div class="manual-content">
@@ -134,7 +119,6 @@
                             <span class="input-item">金額</span>
                         </div>
 
-                        <!-- target="_blank" を追加して別タブで開くように設定 -->
                         <a href="https://docs.google.com/spreadsheets/d/1vGhax1p8fNSCFkdqThb8vhufS2PifBxBTsNJqkov0hA/edit?usp=sharing" 
                            class="link-btn" 
                            target="_blank" 
@@ -177,8 +161,6 @@
     <div id="imageModal" class="modal" onclick="this.style.display='none'">
         <img class="modal-content" id="modalImg">
     </div>
-
-    <footer><p>&copy; 2026 FRONTOWN IKUTA</p></footer>
 
     <script>
         // 画像拡大機能
