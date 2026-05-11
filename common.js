@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-    // Font Awesomeの読み込み（アイコン用）
+    // Font Awesomeの読み込み
     const fontAwesome = document.createElement('link');
     fontAwesome.rel = 'stylesheet';
     fontAwesome.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css';
