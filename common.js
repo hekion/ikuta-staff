@@ -7,8 +7,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
     const isSubFolder = window.location.pathname.includes('/manual/') || 
                         window.location.pathname.includes('/setup/') || 
-                        window.location.pathname.includes('/lost/') ||
-                        window.location.pathname.includes('/roster/') ||
+                        window.location.pathname.includes('/lost/') || 
+                        window.location.pathname.includes('/roster/') || 
                         window.location.pathname.includes('/inventory/') || 
                         window.location.pathname.includes('/pop/') || 
                         window.location.pathname.includes('/contacts/');
@@ -41,7 +41,6 @@ document.addEventListener("DOMContentLoaded", function() {
     <footer class="site-footer">
         <div class="turf-line"></div>
         <div class="footer-content">
-            
             <div class="footer-grid">
                 <div class="footer-section">
                     <h3>KAWASAKI FRONTALE</h3>
@@ -92,7 +91,6 @@ document.addEventListener("DOMContentLoaded", function() {
             </div>
 
             <div class="footer-bottom">
-                <p class="footer-tagline">FOR THE BLUE. FOR THE FUTURE.</p>
                 <p class="copyright">&copy; 2026 FRONTOWN IKUTA</p>
             </div>
         </div>
