@@ -86,7 +86,7 @@ header .sub-title {
 .nav-menu a:hover { background: rgba(0, 0, 0, 0.1); }
 
 /* =========================================
-   4. メインコンテンツ（グリッド）
+   4. メインコンテンツ
    ========================================= */
 .container {
     padding: 20px;
@@ -167,7 +167,6 @@ h2 {
 .sns-icons, .fac-links {
     display: flex;
     gap: 20px;
-    flex-wrap: wrap;
 }
 
 .sns-icons a, .fac-links a {
@@ -213,10 +212,7 @@ h2 {
 
     .footer-grid { grid-template-columns: 1fr; gap: 40px; }
     
-    /* フッター見出しを中央寄せ */
-    .footer-section {
-        text-align: center;
-    }
+    .footer-section { text-align: center; }
     .footer-section h3 {
         display: block;
         margin-left: auto;
@@ -224,13 +220,17 @@ h2 {
         width: fit-content;
     }
 
-    /* SNSアイコンの中央寄せ */
+    /* 1行に収めるための重要設定 */
     .sns-icons {
         justify-content: center;
-        gap: 15px;
+        gap: 8px; /* 間隔を狭める */
+        flex-wrap: nowrap; /* 絶対に折り返さない */
+    }
+    .sns-icons a {
+        font-size: 1.4rem; /* サイズを少し絞る */
+        padding: 4px;
     }
 
-    /* 施設リスト：横並びを維持しつつ調整 */
     .facility-list li {
         flex-direction: row; 
         justify-content: space-between;
@@ -238,15 +238,7 @@ h2 {
         padding: 18px 0;
         text-align: left;
     }
-    .fac-name {
-        font-size: 0.8rem;
-        flex: 1;
-    }
-    .fac-links {
-        gap: 15px;
-    }
-    .fac-links a {
-        font-size: 1.5rem;
-        padding: 2px;
-    }
+    .fac-name { font-size: 0.8rem; flex: 1; }
+    .fac-links { gap: 12px; }
+    .fac-links a { font-size: 1.4rem; }
 }
