@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <script src="auth.js"></script>
+    <script src="common.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ikuta-Portal</title>
     <link rel="stylesheet" href="style.css">
@@ -104,26 +105,6 @@
 </head>
 <body>
 
-    <div class="sticky-header">
-        <header>
-            <a href="./" style="text-decoration: none; display: inline-block;">
-                <img src="assets/images/ikutalogo.png" alt="FRONTOWN IKUTA">
-                <div class="sub-title">STAFF PORTAL</div>
-            </a>
-        </header>
-
-        <nav class="nav-menu">
-            <ul>
-                <li><a href="manual/">マニュアル</a></li>
-                <li><a href="setup/">準備物</a></li>
-                <li><a href="lost/">落とし物</a></li> <li><a href="roster/">名簿</a></li>
-                <li><a href="inventory/">備品検索</a></li>
-                <li><a href="pop/">掲示物</a></li>
-                <li><a href="contacts/">連絡先</a></li>
-            </ul>
-        </nav>
-    </div>
-
     <div class="daily-info" id="shift-display">
         <div class="today-header" id="today-date">読み込み中...</div>
         
@@ -175,7 +156,8 @@
                     <div class="icon">📋</div>
                     <span>準備物</span>
                 </a>
-                <a href="lost/" class="card"> <div class="icon">🔍</div>
+                <a href="lost/" class="card">
+                    <div class="icon">🔍</div>
                     <span>落とし物管理</span>
                 </a>
                 <a href="roster/" class="card">
@@ -197,10 +179,6 @@
             </div>
         </section>
     </main>
-
-    <footer>
-        <p>&copy; 2026 FRONTOWN IKUTA</p>
-    </footer>
 
     <script>
         const GAS_URL = "https://script.google.com/macros/s/AKfycbwejV5wra9fncEbHKpfO3l9DxWdiUA_8KYiA-V4n7cpNMUDvf6UkdXilJ_Lnvd1exYzAQ/exec";
