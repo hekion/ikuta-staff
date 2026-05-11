@@ -21,7 +21,6 @@
         .tomorrow { border-color: #5cb85c; color: #3c763d; } 
         .staff-list { font-size: 1rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; color: #444; }
 
-        /* メモエリア */
         .memo-section { width: 95%; max-width: 800px; margin: 20px auto 0; text-align: left; background: #fdfdfd; padding: 15px; border-radius: 10px; border: 1px solid #eee; box-sizing: border-box; }
         .memo-input-group { display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px; }
         .memo-input-group label { font-size: 0.8rem; font-weight: bold; color: #555; }
@@ -67,10 +66,37 @@
     </div>
 
     <main class="container">
-        </main>
+        <section class="tool-links">
+            <h2>外部ツール</h2>
+            <div class="grid">
+                <a href="https://ikuta-frontown-admin.hacomono.jp/#/schedule/tables/1/studio-rooms/4/" target="_blank" rel="noopener noreferrer" class="card">
+                    <img src="assets/images/hacomono.png" alt="hacomono" style="max-width: 150px; width: 100%; height: auto;">
+                </a>
+                <a href="https://yoyaku.labola.jp/r/shop/manage/top/" target="_blank" rel="noopener noreferrer" class="card">
+                    <img src="assets/images/LaBOLA.png" alt="LaBOLA" style="max-width: 150px; width: 100%; height: auto;">
+                </a>
+                <a href="https://www.chatwork.com/" target="_blank" rel="noopener noreferrer" class="card">
+                    <img src="assets/images/chatwork.png" alt="Chatwork" style="max-width: 150px; width: 100%; height: auto;">
+                </a>
+            </div>
+        </section>
+
+        <section class="internal-links">
+            <h2>業務メニュー</h2>
+            <div class="grid">
+                <a href="manual/" class="card"><div class="icon">📖</div><span>マニュアル</span></a>
+                <a href="setup/" class="card"><div class="icon">📋</div><span>準備物</span></a>
+                <a href="lost/" class="card"><div class="icon">🔍</div><span>落とし物管理</span></a>
+                <a href="roster/" class="card"><div class="icon">👥</div><span>名簿</span></a>
+                <a href="inventory/" class="card"><div class="icon">📦</div><span>備品・物品検索</span></a>
+                <a href="pop/" class="card"><div class="icon">🖼️</div><span>掲示物</span></a>
+                <a href="contacts/" class="card"><div class="icon">📞</div><span>連絡先</span></a>
+            </div>
+        </section>
+    </main>
 
     <script>
-        const GAS_URL = "https://script.google.com/macros/s/AKfycbyLmv7asvaH0kx_aCEEvkBdFXt1o_nHu_QNW6qtomtHSjbIbbctQdNhYMTs3AEEeh4z7w/exec";
+        const GAS_URL = "https://script.google.com/macros/s/AKfycbwFYlOasapK-Bi3q4UxnOceVmEzmztlVXOOFrKWNA52UvhXcf-4OqEs1xWzOknyYe4gOg/exec";
 
         window.onload = () => {
             const today = new Date();
@@ -113,24 +139,17 @@
             const author = document.getElementById('memo-author').value.trim();
             const content = document.getElementById('memo-content').value.trim();
             if (!date || !author || !content) return alert("入力不足です");
-
             const btn = document.getElementById('create-btn');
-            btn.disabled = true;
-            btn.textContent = "送信中...";
-
+            btn.disabled = true; btn.textContent = "送信中...";
             try {
-                // 落とし物管理と全く同じ送信方式
                 await fetch(GAS_URL, {
-                    method: "POST",
-                    mode: "no-cors", 
+                    method: "POST", mode: "no-cors",
                     body: JSON.stringify({ action, date, author, content })
                 });
                 alert("スプシへ飛ばしました！");
-                location.reload(); 
+                location.reload();
             } catch (e) {
-                alert("エラー");
-                btn.disabled = false;
-                btn.textContent = "スプシへ飛ばす";
+                alert("エラー"); btn.disabled = false; btn.textContent = "スプシへ飛ばす";
             }
         }
     </script>
