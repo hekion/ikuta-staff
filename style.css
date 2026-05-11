@@ -1,6 +1,3 @@
-/* =========================================
-   1. 基本設定・リセット
-   ========================================= */
 * {
     margin: 0;
     padding: 0;
@@ -14,9 +11,6 @@ body {
     padding-top: 135px; 
 }
 
-/* =========================================
-   2. 固定ヘッダー
-   ========================================= */
 .sticky-header {
     position: fixed;
     top: 0;
@@ -47,9 +41,6 @@ header .sub-title {
     letter-spacing: 0.05rem;
 }
 
-/* =========================================
-   3. ナビゲーションメニュー
-   ========================================= */
 .nav-menu {
     background-color: #35A0D9;
 }
@@ -79,15 +70,12 @@ header .sub-title {
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: 52px; /* 少し高さを出して押しやすく */
+    height: 52px;
     transition: background 0.2s;
 }
 
 .nav-menu a:hover { background: rgba(0, 0, 0, 0.1); }
 
-/* =========================================
-   4. メインコンテンツ
-   ========================================= */
 .container {
     padding: 20px;
     width: 100%;
@@ -109,9 +97,6 @@ h2 {
     gap: 15px;
 }
 
-/* =========================================
-   5. カードデザイン
-   ========================================= */
 .card {
     background: white;
     text-decoration: none;
@@ -121,20 +106,15 @@ h2 {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 25px 20px; /* 余白を広げて大きく見せる */
+    padding: 25px 20px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
     transition: transform 0.2s;
 }
 
 .card:active { transform: scale(0.98); }
-
 .card img { width: 100%; max-width: 110px; margin-bottom: 12px; }
-
 .card span { font-size: 0.9rem; font-weight: bold; }
 
-/* =========================================
-   6. フッターデザイン
-   ========================================= */
 .site-footer {
     margin-top: 80px;
     background-color: #0098d9; 
@@ -171,17 +151,17 @@ h2 {
 
 .sns-icons {
     display: flex;
-    gap: 22px; /* アイコン同士の間隔を広く */
+    gap: 22px;
     flex-wrap: wrap;
 }
 
 .sns-icons a {
     color: #fff;
-    font-size: 1.8rem; /* アイコンを大きく */
+    font-size: 1.8rem;
     transition: transform 0.2s, opacity 0.2s;
     text-decoration: none;
     display: inline-block;
-    padding: 5px; /* タップ範囲を拡大 */
+    padding: 5px;
 }
 
 .sns-icons a:hover {
@@ -189,49 +169,32 @@ h2 {
     opacity: 0.8;
 }
 
-.facility-list {
-    list-style: none;
-}
-
+.facility-list { list-style: none; }
 .facility-list li {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px 0; /* 行間を広げて押しやすく */
+    padding: 12px 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.fac-name {
-    font-size: 0.9rem;
-    font-weight: bold;
-}
-
-.fac-links {
-    display: flex;
-    gap: 12px;
-}
-
+.fac-name { font-size: 0.9rem; font-weight: bold; }
+.fac-links { display: flex; gap: 12px; }
 .fac-links a {
     color: #fff;
     text-decoration: none;
-    font-size: 0.85rem; /* 文字を少し大きく */
+    font-size: 0.85rem;
     background: rgba(255, 255, 255, 0.2);
-    padding: 8px 16px; /* ボタンを大きく */
+    padding: 8px 16px;
     border-radius: 6px;
     transition: background 0.2s;
     display: flex;
     align-items: center;
     justify-content: center;
-    min-width: 44px; /* 指で押しやすい最小幅 */
+    min-width: 44px;
 }
 
-.fac-links a i {
-    font-size: 1.1rem;
-}
-
-.fac-links a:hover {
-    background: rgba(255, 255, 255, 0.4);
-}
+.fac-links a:hover { background: rgba(255, 255, 255, 0.4); }
 
 .footer-bottom {
     text-align: center;
@@ -239,31 +202,13 @@ h2 {
     padding-top: 40px;
 }
 
-.copyright {
-    font-size: 0.8rem;
-    opacity: 0.7;
-    letter-spacing: 0.05em;
-}
+.copyright { font-size: 0.8rem; opacity: 0.7; }
 
-/* スマホ調整 */
 @media (max-width: 768px) {
-    .footer-grid {
-        grid-template-columns: 1fr;
-        gap: 40px;
-    }
-    
+    .footer-grid { grid-template-columns: 1fr; gap: 40px; }
     body { padding-top: 120px; }
     .nav-menu a { font-size: 0.6rem; height: 48px; }
     .grid { grid-template-columns: 1fr; }
-    
-    .facility-list li {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-    }
-    
-    .fac-links {
-        width: 100%;
-        justify-content: flex-start;
-    }
+    .facility-list li { flex-direction: column; align-items: flex-start; gap: 10px; }
+    .fac-links { width: 100%; justify-content: flex-start; }
 }
