@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
+    // Font Awesomeの読み込み（速度優先で非同期的に追加）
     const fontAwesome = document.createElement('link');
     fontAwesome.rel = 'stylesheet';
     fontAwesome.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css';
