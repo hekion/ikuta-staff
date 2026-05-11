@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <script src="../auth.js"></script>
+    <script src="../common.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>名簿　| Ikuta-Portal</title>
+    <title>名簿 | Ikuta-Portal</title>
     <link rel="stylesheet" href="../style.css">
     <style>
         /* テンプレエリアのスタイル */
@@ -51,28 +52,12 @@
         
         #loading { text-align: center; padding: 30px; color: #999; }
         .hidden { display: none; }
+
+        /* 共通ヘッダーとの余白調整 */
+        main.container { padding-top: 20px; }
     </style>
 </head>
 <body>
-
-    <div class="sticky-header">
-        <header>
-            <a href="../" style="text-decoration: none; display: inline-block;">
-                <img src="../assets/images/ikutalogo.png" alt="FRONTOWN IKUTA">
-                <div class="sub-title">STAFF PORTAL</div>
-            </a>
-        </header>
-        <nav class="nav-menu">
-            <ul>
-                <li><a href="../manual/">マニュアル</a></li>
-                <li><a href="../setup/">準備物</a></li>
-                <li><a href="../roster/" class="active">名簿</a></li>
-                <li><a href="../inventory/">備品検索</a></li>
-                <li><a href="../pop/">掲示物</a></li>
-                <li><a href="../contacts/">連絡先</a></li>
-            </ul>
-        </nav>
-    </div>
 
     <main class="container">
         <section>
@@ -102,8 +87,6 @@
         </section>
     </main>
 
-    <footer><p>© 2026 FRONTOWN IKUTA</p></footer>
-
     <script>
         const API_KEY = 'AIzaSyDecF0oQvA5i82U8dZR66YOQ_QdRPxGEOY'; 
         const SPREADSHEET_ID = '1Fh4Z7f7Jau8d_FMT__sGjp-99Ks-IHKQl5kaGERM2Rg';
@@ -126,11 +109,9 @@
                     const categories = row[1] ? row[1].split(',').map(s => s.trim()) : ['未分類'];
                     let thumbUrl = '';
                     
-                    // URLからファイルIDを抽出してサムネイルURLを作成
                     if (link.includes('drive.google.com') || link.includes('docs.google.com')) {
                         const fileIdMatch = link.match(/\/d\/([^/]+)/);
                         if (fileIdMatch && fileIdMatch[1]) {
-                            // ExcelであってもGoogleドライブが生成するプレビュー画像を取得
                             thumbUrl = `https://drive.google.com/thumbnail?id=${fileIdMatch[1]}&sz=w400`;
                         }
                     }
