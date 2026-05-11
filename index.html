@@ -28,11 +28,15 @@
             width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; box-sizing: border-box; 
             font-size: 16px !important; outline: none; background: #fff;
         }
+        /* スマホはみ出し対策 */
+        .memo-input-group input[type="date"] { max-width: 100%; -webkit-appearance: none; }
         .create-btn { background: #35A0D9; color: #fff; border: none; padding: 15px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 16px; width: 100%; }
 
         .memo-item { background: white; border: 1px solid #e0e0e0; padding: 12px; border-radius: 8px; margin-bottom: 10px; }
         .memo-meta { font-size: 0.7rem; color: #999; display: flex; justify-content: space-between; margin-bottom: 5px; }
         .status-badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; background: #E3F2FD; color: #35A0D9; }
+        .memo-btns { text-align: right; margin-top: 8px; }
+        .memo-btns button { font-size: 0.75rem; padding: 6px 12px; margin-left: 5px; border-radius: 4px; border: 1px solid #ccc; background: #fff; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -96,14 +100,11 @@
     </main>
 
     <script>
-        const GAS_URL = "https://script.google.com/macros/s/AKfycbybplCs0etMydA7skL8O0mIo6F015PPnbqiy8ac-CaR7812Tafa1XNBVBKu2IaCd7iD/exec";
+        const GAS_URL = "https://script.google.com/macros/s/AKfycbzCxzBPhHNrIyFSHPi3SxCTq-0z4yqybueCr7jl7L_HdFS6qhavuLg_lQYlZ1__K80Yog/exec";
 
         window.onload = () => {
             const today = new Date();
-            const y = today.getFullYear();
-            const m = ("0" + (today.getMonth() + 1)).slice(-2);
-            const d = ("0" + today.getDate()).slice(-2);
-            document.getElementById('memo-date').value = `${y}-${m}-${d}`;
+            document.getElementById('memo-date').value = today.toISOString().split('T')[0];
             fetchShift();
         };
 
@@ -128,28 +129,36 @@
                         <div class="memo-item">
                             <div class="memo-meta"><span>${m.date} / ${m.author}</span><span class="status-badge">${m.status}</span></div>
                             <div style="font-size:1rem; line-height:1.5; white-space:pre-wrap; color:#333;">${m.content}</div>
+                            <div class="memo-btns">
+                                ${m.status === '対応中' ? `<button onclick="handleMemo('update', '${m.author}', '${m.content}')">完了</button>` : ''}
+                                <button onclick="handleMemo('delete', '${m.author}', '${m.content}')" style="color:red;">削除</button>
+                            </div>
                         </div>
                     `).reverse().join('');
                 }
             } catch (e) { console.error(e); }
         }
 
-        async function handleMemo(action) {
+        async function handleMemo(action, authorOverride, contentOverride) {
             const date = document.getElementById('memo-date').value;
-            const author = document.getElementById('memo-author').value.trim();
-            const content = document.getElementById('memo-content').value.trim();
-            if (!date || !author || !content) return alert("入力不足です");
+            const author = authorOverride || document.getElementById('memo-author').value.trim();
+            const content = contentOverride || document.getElementById('memo-content').value.trim();
+            
+            if (!author || !content) return alert("入力不足です");
+            if (action === 'delete' && !confirm('このメモを削除しますか？')) return;
+
             const btn = document.getElementById('create-btn');
-            btn.disabled = true; btn.textContent = "送信中...";
+            if(!authorOverride) { btn.disabled = true; btn.textContent = "送信中..."; }
+
             try {
                 await fetch(GAS_URL, {
                     method: "POST", mode: "no-cors",
                     body: JSON.stringify({ action, date, author, content })
                 });
-                alert("スプシへ飛ばしました！");
                 location.reload();
             } catch (e) {
-                alert("エラー"); btn.disabled = false; btn.textContent = "スプシへ飛ばす";
+                alert("エラーが発生しました");
+                if(!authorOverride) { btn.disabled = false; btn.textContent = "スプシへ飛ばす"; }
             }
         }
     </script>
