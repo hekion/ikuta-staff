@@ -128,7 +128,7 @@ h2 {
 .card span { font-size: 0.9rem; font-weight: bold; }
 
 /* =========================================
-   5. フッターデザイン
+   5. フッターデザイン（PC版）
    ========================================= */
 .site-footer {
     margin-top: 80px;
@@ -212,7 +212,11 @@ h2 {
 
     .footer-grid { grid-template-columns: 1fr; gap: 40px; }
     
-    .footer-section { text-align: center; }
+    /* セクション内のテキスト（H3含む）を中央寄せ */
+    .footer-section {
+        text-align: center;
+    }
+
     .footer-section h3 {
         display: block;
         margin-left: auto;
@@ -220,25 +224,39 @@ h2 {
         width: fit-content;
     }
 
-    /* 1行に収めるための重要設定 */
+    /* チーム公式SNSアイコン：1行に強制収容 */
     .sns-icons {
         justify-content: center;
-        gap: 8px; /* 間隔を狭める */
-        flex-wrap: nowrap; /* 絶対に折り返さない */
+        gap: 8px;        /* アイコン間の隙間を狭く */
+        flex-wrap: nowrap; /* 折り返し禁止 */
     }
+
     .sns-icons a {
-        font-size: 1.4rem; /* サイズを少し絞る */
+        font-size: 1.4rem; /* 1行に収まるようにサイズを微調整 */
         padding: 4px;
     }
 
+    /* 施設リスト：横並びを維持しつつ調整 */
     .facility-list li {
         flex-direction: row; 
         justify-content: space-between;
         align-items: center;
         padding: 18px 0;
-        text-align: left;
+        text-align: left; /* リスト内は左寄せが自然 */
     }
-    .fac-name { font-size: 0.8rem; flex: 1; }
-    .fac-links { gap: 12px; }
-    .fac-links a { font-size: 1.4rem; }
+
+    .fac-name {
+        font-size: 0.8rem;
+        flex: 1;
+    }
+
+    .fac-links {
+        gap: 12px;
+        flex-wrap: nowrap;
+    }
+
+    .fac-links a {
+        font-size: 1.4rem;
+        padding: 2px;
+    }
 }
