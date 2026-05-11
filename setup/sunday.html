@@ -40,32 +40,17 @@
             background: #fff;
             border: 1px solid #eee;
             border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.02);
             position: relative;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
 
-        /* ★将来的な画像用エリア */
-        .setup-img {
-            width: 100%;
-            height: 150px;
-            background: #f0f0f0;
-            margin: -15px -15px 15px -15px; /* パディングを打ち消して上部に密着 */
-            display: none; /* 画像がある時だけJSやクラスで表示させる想定 */
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-        .setup-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        /* 画像を表示したいカードにこのクラスを付与する */
-        .has-img .setup-img {
-            display: flex;
+        /* コンテンツエリア（テキスト部分） */
+        .setup-content {
+            padding: 15px;
         }
 
         .setup-time {
@@ -81,20 +66,22 @@
             font-weight: bold;
             color: #333;
             margin-bottom: 5px;
-            padding-right: 100px;
+            padding-right: 90px; /* ラベルとの重なり防止 */
         }
 
         .setup-price {
             font-size: 0.85rem;
             color: #444;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
         }
+
         .trial-price {
             color: #888;
             font-size: 0.8rem;
             margin-left: 5px;
         }
 
+        /* 場所ラベル */
         .place-label {
             position: absolute;
             top: 15px;
@@ -108,24 +95,46 @@
         }
         .label-studio-a { background: #E3F2FD; border-color: #BBDEFB; color: #1976D2; }
 
+        /* 準備物リストエリア */
         .item-list-box {
-            background: #fafafa;
-            border-top: 1px dashed #ddd;
-            padding-top: 10px;
+            background: #fdfdfd;
+            border: 1px solid #f0f0f0;
+            border-radius: 8px;
+            padding: 12px;
             margin-top: 5px;
         }
         .item-list-title {
             font-size: 0.75rem;
             font-weight: bold;
-            color: #999;
-            margin-bottom: 5px;
+            color: #35A0D9;
+            margin-bottom: 6px;
             display: flex;
             align-items: center;
+            gap: 4px;
         }
         .item-list-content {
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             color: #333;
             line-height: 1.5;
+            font-weight: 500;
+        }
+
+        /* 画像エリア（一番下に配置） */
+        .setup-img {
+            width: 100%;
+            height: 200px;
+            background: #f9f9f9;
+            display: none; /* デフォルト非表示 */
+            border-top: 1px solid #eee;
+        }
+        .setup-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        /* has-imgクラスがある時だけ画像を表示 */
+        .has-img .setup-img {
+            display: block;
         }
 
         /* 共通ヘッダーとの余白調整 */
@@ -149,27 +158,34 @@
             </div>
 
             <div class="setup-card">
-                <div class="setup-img"></div> <span class="place-label label-studio-a">スタジオA</span>
-                <span class="setup-time">12:30 ~ 13:30</span>
-                <div class="setup-title">楽ちん体操でカラダ楽々</div>
-                <div class="setup-price">600円/回</div>
-                <div class="item-list-box">
-                    <div class="item-list-title">📦 準備リスト</div>
-                    <div class="item-list-content">ヨガマット</div>
+                <span class="place-label label-studio-a">スタジオA</span>
+                <div class="setup-content">
+                    <span class="setup-time">12:30 ~ 13:30</span>
+                    <div class="setup-title">楽ちん体操でカラダ楽々</div>
+                    <div class="setup-price">600円/回</div>
+                    <div class="item-list-box">
+                        <div class="item-list-title">📦 準備するもの</div>
+                        <div class="item-list-content">ヨガマット</div>
+                    </div>
                 </div>
+                <div class="setup-img"></div>
             </div>
 
             <div class="setup-card has-img">
-                <div class="setup-img">
-                    <img src="../assets/images/sample-trampoline.jpg" alt="準備物イメージ">
-                </div>
                 <span class="place-label label-studio-a">スタジオA</span>
-                <span class="setup-time">14:00 ~ 14:50</span>
-                <div class="setup-title">カラダの動かし方教室</div>
-                <div class="setup-price">1,650円/回 <span class="trial-price">(体験：550円)</span></div>
-                <div class="item-list-box">
-                    <div class="item-list-title">📦 準備リスト</div>
-                    <div class="item-list-content">スピーカー、運動用具・トランポリン(参加者分)</div>
+                <div class="setup-content">
+                    <span class="setup-time">14:00 ~ 14:50</span>
+                    <div class="setup-title">カラダの動かし方教室</div>
+                    <div class="setup-price">1,650円/回 <span class="trial-price">(体験：550円)</span></div>
+                    <div class="item-list-box">
+                        <div class="item-list-title">📦 準備するもの</div>
+                        <div class="item-list-content">
+                            スピーカー、運動用具・トランポリン(参加者分)
+                        </div>
+                    </div>
+                </div>
+                <div class="setup-img">
+                    <img src="../assets/images/sample-setup.jpg" alt="準備イメージ">
                 </div>
             </div>
 
