@@ -22,24 +22,25 @@
         .tomorrow { border-color: #5cb85c; color: #3c763d; } 
         .staff-list { font-size: 1rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; color: #444; }
 
-        /* メモセクション */
         .memo-section { width: 95%; max-width: 800px; margin: 20px auto 0; text-align: left; background: #fdfdfd; padding: 15px; border-radius: 10px; border: 1px solid #eee; box-sizing: border-box; }
         .memo-input-group { display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px; }
+        
+        /* 日付入力欄のはみ出し防止 */
         .memo-input-group input, .memo-input-group textarea { 
-            width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; box-sizing: border-box; 
+            width: 100%; max-width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; box-sizing: border-box; 
             font-size: 16px !important; outline: none; background: #fff;
         }
         .create-btn { background: #35A0D9; color: #fff; border: none; padding: 15px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 16px; width: 100%; }
 
-        /* メモアイテム */
         .memo-item { background: white; border: 1px solid #e0e0e0; padding: 15px; border-radius: 8px; margin-bottom: 12px; }
         .memo-meta { font-size: 0.9rem; font-weight: bold; color: #444; border-bottom: 1px solid #f0f0f0; padding-bottom: 5px; margin-bottom: 8px; }
         .status-badge { float: right; padding: 2px 10px; border-radius: 20px; font-size: 0.7rem; font-weight: bold; }
         .badge-wait { background: #E3F2FD; color: #35A0D9; border: 1px solid #35A0D9; }
         .badge-done { background: #eee; color: #888; border: 1px solid #ccc; }
         
+        /* 完了済み：打ち消し線を削除し、グレーアウトのみ適用 */
         .item-done { background-color: #f5f5f5 !important; border-color: #ddd; }
-        .item-done .memo-content { text-decoration: line-through; color: #aaa; }
+        .item-done .memo-content { color: #888; }
         .item-done .memo-meta { color: #888; }
 
         .memo-btns { text-align: right; margin-top: 10px; }
@@ -79,15 +80,9 @@
         <section class="tool-links">
             <h2>外部ツール</h2>
             <div class="grid">
-                <a href="https://ikuta-frontown-admin.hacomono.jp/#/schedule/tables/1/studio-rooms/4/" target="_blank" rel="noopener noreferrer" class="card">
-                    <img src="assets/images/hacomono.png" alt="hacomono" style="max-width: 150px; width: 100%; height: auto;">
-                </a>
-                <a href="https://yoyaku.labola.jp/r/shop/manage/top/" target="_blank" rel="noopener noreferrer" class="card">
-                    <img src="assets/images/LaBOLA.png" alt="LaBOLA" style="max-width: 150px; width: 100%; height: auto;">
-                </a>
-                <a href="https://www.chatwork.com/" target="_blank" rel="noopener noreferrer" class="card">
-                    <img src="assets/images/chatwork.png" alt="Chatwork" style="max-width: 150px; width: 100%; height: auto;">
-                </a>
+                <a href="https://ikuta-frontown-admin.hacomono.jp/#/schedule/tables/1/studio-rooms/4/" target="_blank" rel="noopener noreferrer" class="card"><img src="assets/images/hacomono.png" alt="hacomono" style="max-width: 150px; width: 100%;"></a>
+                <a href="https://yoyaku.labola.jp/r/shop/manage/top/" target="_blank" rel="noopener noreferrer" class="card"><img src="assets/images/LaBOLA.png" alt="LaBOLA" style="max-width: 150px; width: 100%;"></a>
+                <a href="https://www.chatwork.com/" target="_blank" rel="noopener noreferrer" class="card"><img src="assets/images/chatwork.png" alt="Chatwork" style="max-width: 150px; width: 100%;"></a>
             </div>
         </section>
 
@@ -106,10 +101,9 @@
     </main>
 
     <script>
-        const GAS_URL = "https://script.google.com/macros/s/AKfycbwy_2yH40C3sMGOJ3JJ_XoSx9foRL0EzeWuN7KTRARv7dkeSrDnYZLQQaJOpXeQg3IISg/exec";
+        const GAS_URL = "https://script.google.com/macros/s/AKfycbw60npTCW9xZbnJB7q3ljqdVMlOLkk_jVXKwpbkfjvO65fqDkeBt1BkxdyRl53_9CxjlA/exec";
 
         window.onload = () => {
-            // 当日の日付をセット
             const now = new Date();
             const y = now.getFullYear();
             const m = String(now.getMonth() + 1).padStart(2, '0');
@@ -135,7 +129,6 @@
 
                 const listEl = document.getElementById('memo-list');
                 if (data.memos && data.memos.length > 0) {
-                    // 対応中が上、完了が下
                     const sorted = data.memos.sort((a, b) => (a.status === '対応中' ? 0 : 1) - (b.status === '対応中' ? 0 : 1));
                     listEl.innerHTML = sorted.map(m => {
                         const isDone = m.status === '完了';
