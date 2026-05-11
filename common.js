@@ -4,8 +4,8 @@ document.addEventListener("DOMContentLoaded", function() {
                         window.location.pathname.includes('/setup/') || 
                         window.location.pathname.includes('/lost/') ||
                         window.location.pathname.includes('/roster/') ||
-                        window.location.pathname.includes('/inventory/') ||
-                        window.location.pathname.includes('/pop/') ||
+                        window.location.pathname.includes('/inventory/') || 
+                        window.location.pathname.includes('/pop/') || 
                         window.location.pathname.includes('/contacts/');
 
     // 階層に応じてパスの接頭辞を切り替え
@@ -38,6 +38,10 @@ document.addEventListener("DOMContentLoaded", function() {
     <footer class="site-footer">
         <div class="turf-line"></div>
         <div class="footer-content">
+            <div class="footer-links">
+                <a href="https://www.frontale.co.jp/" target="_blank" rel="noopener noreferrer">川崎フロンターレ 公式</a>
+                <a href="https://ikuta.frontown.com/" target="_blank" rel="noopener noreferrer">フロンタウン生田 公式</a>
+            </div>
             <p class="footer-tagline">FOR THE BLUE. FOR THE FUTURE.</p>
             <p class="copyright">&copy; 2026 FRONTOWN IKUTA</p>
         </div>
