@@ -109,9 +109,6 @@ h2 {
     gap: 15px;
 }
 
-/* =========================================
-   5. カードデザイン
-   ========================================= */
 .card {
     background: white;
     text-decoration: none;
@@ -131,7 +128,7 @@ h2 {
 .card span { font-size: 0.9rem; font-weight: bold; }
 
 /* =========================================
-   6. フッターデザイン
+   5. フッターデザイン（PC版）
    ========================================= */
 .site-footer {
     margin-top: 80px;
@@ -222,43 +219,49 @@ h2 {
 .copyright { font-size: 0.8rem; opacity: 0.7; }
 
 /* =========================================
-   7. レスポンシブ調整（スマホ特化）
+   6. レスポンシブ調整（スマホ特化）
    ========================================= */
 @media (max-width: 768px) {
     body { padding-top: 120px; }
     .nav-menu a { font-size: 0.6rem; height: 48px; }
     .grid { grid-template-columns: 1fr; }
 
-    .footer-grid { grid-template-columns: 1fr; gap: 40px; }
-    
-    /* SNSアイコンを1行に収めるための調整 */
-    .sns-icons {
-        gap: 12px; /* 間隔を狭める */
-        justify-content: space-between; /* 均等に配置 */
+    /* フッターの中央寄せ設定 */
+    .footer-grid { 
+        grid-template-columns: 1fr; 
+        gap: 50px; 
     }
-    .sns-icons a {
-        font-size: 1.5rem; /* アイコンを少し小さく */
-        padding: 2px;
+    
+    .footer-section {
+        text-align: center; /* セクション全体を中央寄せ */
     }
 
-    /* 施設名とリンクを1行にキープするための調整 */
+    .sns-icons {
+        gap: 15px;
+        justify-content: center; /* SNSアイコンを中央に */
+    }
+
     .facility-list li {
-        flex-direction: row; /* 横並びを強制 */
+        flex-direction: row; 
         justify-content: space-between;
         align-items: center;
         padding: 15px 0;
+        text-align: left; /* リスト内テキストは左寄せで見やすく */
     }
+
     .fac-name {
-        font-size: 0.75rem; /* 文字を少し小さくして幅を稼ぐ */
+        font-size: 0.75rem;
         flex: 1;
-        padding-right: 5px;
     }
+
     .fac-links {
-        gap: 6px; /* ボタン同士の間隔を詰める */
+        gap: 8px;
+        justify-content: flex-end; /* ボタンは右側にまとめる（横並びキープ） */
     }
+
     .fac-links a {
-        padding: 6px 10px; /* ボタンの余白を削る */
-        font-size: 0.7rem;
-        min-width: 38px;
+        padding: 6px 12px;
+        font-size: 0.75rem;
+        min-width: 40px;
     }
 }
