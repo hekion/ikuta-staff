@@ -28,7 +28,6 @@
             width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; box-sizing: border-box; 
             font-size: 16px !important; outline: none; background: #fff;
         }
-        /* スマホはみ出し対策 */
         .memo-input-group input[type="date"] { max-width: 100%; -webkit-appearance: none; }
         .create-btn { background: #35A0D9; color: #fff; border: none; padding: 15px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 16px; width: 100%; }
 
@@ -37,6 +36,7 @@
         .status-badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; background: #E3F2FD; color: #35A0D9; }
         .memo-btns { text-align: right; margin-top: 8px; }
         .memo-btns button { font-size: 0.75rem; padding: 6px 12px; margin-left: 5px; border-radius: 4px; border: 1px solid #ccc; background: #fff; cursor: pointer; }
+        .edit-mode { background-color: #fffde7; border: 2px solid #fdd835 !important; }
     </style>
 </head>
 <body>
@@ -54,7 +54,7 @@
         </div>
 
         <section class="memo-section">
-            <span class="info-label">引き継ぎメモ登録</span>
+            <span class="info-label" id="memo-label">引き継ぎメモ登録</span>
             <div class="memo-input-group">
                 <label>日付</label>
                 <input type="date" id="memo-date">
@@ -62,6 +62,7 @@
                 <input type="text" id="memo-author" placeholder="氏名を入力">
                 <label>内容</label>
                 <textarea id="memo-content" rows="3" placeholder="共有事項を入力"></textarea>
+                <input type="hidden" id="edit-old-content">
                 <button class="create-btn" id="create-btn" onclick="handleMemo('create')">スプシへ飛ばす</button>
             </div>
             <hr style="border:0; border-top:1px solid #eee; margin: 20px 0;">
@@ -100,7 +101,7 @@
     </main>
 
     <script>
-        const GAS_URL = "https://script.google.com/macros/s/AKfycbxWPUHdVNfXHWlFZp2IgFK5POc7so6Of8V9VA1Ynuo2pP1JNiXNtDiwkGMJglTFs8oh5g/exec";
+        const GAS_URL = "https://script.google.com/macros/s/AKfycbw9Eo68NVUKrrnro2GFw6KkwnMOyW3BeCYrPlOgimwXuoFgX-Hwpey6ZZwM7BQ9xUz91A/exec";
 
         window.onload = () => {
             const today = new Date();
@@ -130,6 +131,7 @@
                             <div class="memo-meta"><span>${m.date} / ${m.author}</span><span class="status-badge">${m.status}</span></div>
                             <div style="font-size:1rem; line-height:1.5; white-space:pre-wrap; color:#333;">${m.content}</div>
                             <div class="memo-btns">
+                                <button onclick="startEdit('${m.date}', '${m.author}', \`${m.content.replace(/`/g, '\\`')}\`)">編集</button>
                                 ${m.status === '対応中' ? `<button onclick="handleMemo('update', '${m.author}', '${m.content}')">完了</button>` : ''}
                                 <button onclick="handleMemo('delete', '${m.author}', '${m.content}')" style="color:red;">削除</button>
                             </div>
@@ -139,10 +141,29 @@
             } catch (e) { console.error(e); }
         }
 
+        // 編集モードへの切り替え
+        function startEdit(date, author, content) {
+            document.getElementById('memo-label').textContent = "⚠️ メモを編集モード";
+            document.getElementById('memo-date').value = date.includes('-') ? date : new Date(date).toISOString().split('T')[0];
+            document.getElementById('memo-author').value = author;
+            document.getElementById('memo-content').value = content;
+            document.getElementById('edit-old-content').value = content;
+            
+            const btn = document.getElementById('create-btn');
+            btn.textContent = "上書き保存する";
+            btn.style.background = "#fdd835";
+            btn.style.color = "#333";
+            btn.onclick = () => handleMemo('edit_save');
+            
+            document.getElementById('memo-content').classList.add('edit-mode');
+            window.scrollTo(0, document.querySelector('.memo-section').offsetTop);
+        }
+
         async function handleMemo(action, authorOverride, contentOverride) {
             const date = document.getElementById('memo-date').value;
             const author = authorOverride || document.getElementById('memo-author').value.trim();
             const content = contentOverride || document.getElementById('memo-content').value.trim();
+            const oldContent = document.getElementById('edit-old-content').value;
             
             if (!author || !content) return alert("入力不足です");
             if (action === 'delete' && !confirm('このメモを削除しますか？')) return;
@@ -153,12 +174,12 @@
             try {
                 await fetch(GAS_URL, {
                     method: "POST", mode: "no-cors",
-                    body: JSON.stringify({ action, date, author, content })
+                    body: JSON.stringify({ action, date, author, content, oldContent })
                 });
                 location.reload();
             } catch (e) {
                 alert("エラーが発生しました");
-                if(!authorOverride) { btn.disabled = false; btn.textContent = "スプシへ飛ばす"; }
+                if(!authorOverride) { btn.disabled = false; btn.textContent = "送信"; }
             }
         }
     </script>
