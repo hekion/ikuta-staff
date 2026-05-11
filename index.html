@@ -8,12 +8,13 @@
     <script src="common.js"></script>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* --- シフト・表示エリア（変更なし） --- */
+        /* --- シフト・表示エリア --- */
         .daily-info { text-align: center; background: #fff; padding: 20px; border-bottom: 2px solid #eee; }
         .today-header { font-size: 1.5rem; font-weight: bold; margin-bottom: 15px; color: #333; }
         .topics-container { margin-bottom: 25px; display: inline-block; text-align: left; width: 95%; max-width: 800px; }
         .info-label { font-size: 0.75rem; font-weight: bold; color: #78909c; margin-bottom: 4px; display: block; }
         .topics-box { background-color: #e3f2fd; border: 1px solid #90caf9; padding: 15px; border-radius: 8px; font-weight: bold; text-align: center; }
+        
         .shift-grid { display: flex; flex-direction: column; align-items: center; gap: 15px; }
         .shift-box { background: #f9f9f9; border: 1px solid #ddd; border-radius: 8px; padding: 12px 20px; width: 95%; max-width: 800px; box-sizing: border-box; }
         .shift-title { font-weight: bold; border-bottom: 2px solid; margin-bottom: 10px; padding-bottom: 5px; }
@@ -22,23 +23,23 @@
         .tomorrow { border-color: #5cb85c; color: #3c763d; } 
         .staff-list { font-size: 1rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; color: #444; }
 
-        /* --- メモエリア：落とし物管理方式のスタイル（スマホズーム防止） --- */
+        /* --- メモエリア：落とし物管理準拠（スマホズーム防止16px） --- */
         .memo-section { width: 95%; max-width: 800px; margin: 20px auto 0; text-align: left; background: #fdfdfd; padding: 15px; border-radius: 10px; border: 1px solid #eee; box-sizing: border-box; }
         .memo-input-group { display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px; }
         
-        /* 落とし物管理と同じ16px設定：これでズームを防ぐ */
+        /* input, select, textareaを16px以上にすることで勝手なズームを防止 */
+        .memo-input-group label { font-size: 0.8rem; font-weight: bold; color: #555; }
         .memo-input-group input, 
         .memo-input-group textarea { 
             width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; box-sizing: border-box; 
             font-size: 16px !important; outline: none; background: #fff; -webkit-appearance: none;
         }
-        .create-btn { background: #35A0D9; color: #fff; border: none; padding: 15px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 16px; width: 100%; }
+        .create-btn { background: #35A0D9; color: #fff; border: none; padding: 15px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 16px; width: 100%; margin-top: 5px; }
 
         .memo-item { background: white; border: 1px solid #e0e0e0; padding: 12px; border-radius: 8px; margin-bottom: 10px; }
-        .memo-item.completed { opacity: 0.5; background: #f9f9f9; }
         .memo-meta { font-size: 0.7rem; color: #999; display: flex; justify-content: space-between; margin-bottom: 5px; }
-        .memo-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 10px; }
-        .action-btn { font-size: 0.8rem; padding: 6px 15px; border-radius: 6px; border: 1px solid #ccc; background: #fff; cursor: pointer; font-weight: bold; }
+        .status-badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; background: #eee; color: #666; }
+        .status-対応中 { background: #E3F2FD; color: #35A0D9; }
     </style>
 </head>
 <body>
@@ -58,12 +59,17 @@
         </div>
 
         <section class="memo-section">
-            <span class="info-label">引き継ぎメモ</span>
+            <span class="info-label">引き継ぎメモ登録</span>
             <div class="memo-input-group">
-                <input type="text" id="memo-author" placeholder="記入者名">
-                <textarea id="memo-content" rows="2" placeholder="共有事項を入力..."></textarea>
-                <button class="create-btn" id="create-btn" onclick="handleMemo('create')">保存する</button>
+                <label>日付</label>
+                <input type="date" id="memo-date">
+                <label>記入者</label>
+                <input type="text" id="memo-author" placeholder="氏名を入力">
+                <label>内容</label>
+                <textarea id="memo-content" rows="3" placeholder="共有事項を入力してください"></textarea>
+                <button class="create-btn" id="create-btn" onclick="handleMemo('create')">スプシへ飛ばす</button>
             </div>
+            <hr style="border:0; border-top:1px solid #eee; margin: 20px 0;">
             <div id="memo-list"></div>
         </section>
     </div>
@@ -99,7 +105,18 @@
     </main>
 
     <script>
-        const GAS_URL = "https://script.google.com/macros/s/AKfycbzXVtcgiczvTyoQdcbF0AWpI5k6qv1YUibe4HzoxiHdi-tKevPl7WuOaNDUIuz2JwZvTg/exec";
+        // 【重要】新しいデプロイ後のURLをここに貼り付けてください
+        const GAS_URL = "https://script.google.com/macros/s/AKfycbwKf81JD0AtEw4eQ-nFso3nG6vEs6IcEkMFa4Tp4G4BUYUMVxfqGXo_-RevHq8j7aYOUg/exec";
+
+        // 初期化：今日の日付をセット
+        window.onload = () => {
+            const today = new Date();
+            const y = today.getFullYear();
+            const m = ("0" + (today.getMonth() + 1)).slice(-2);
+            const d = ("0" + today.getDate()).slice(-2);
+            document.getElementById('memo-date').value = `${y}-${m}-${d}`;
+            fetchShift();
+        };
 
         async function fetchShift() {
             try {
@@ -109,7 +126,7 @@
                 document.getElementById('today-date').textContent = data.date;
                 
                 const topicsArea = document.getElementById('topics-area');
-                if (data.topics) {
+                if (data.topics && data.topics.trim() !== "" && data.topics !== ",") {
                     document.getElementById('today-topics').innerHTML = data.topics.replace(/[,，/／、]/g, '<br>');
                     topicsArea.style.display = "inline-block";
                 }
@@ -119,55 +136,52 @@
                 document.getElementById('late-staff').innerHTML = fmt(data.late);
                 document.getElementById('tomorrow-early').innerHTML = fmt(data.tomorrowEarly);
 
-                // メモ一覧表示
+                // メモ表示
                 const listEl = document.getElementById('memo-list');
                 if (data.memos && data.memos.length > 0) {
                     listEl.innerHTML = data.memos.map(m => `
-                        <div class="memo-item ${m.status === '完了' ? 'completed' : ''}">
-                            <div class="memo-meta"><span>${m.author}</span><span>${new Date(m.date).toLocaleDateString('ja-JP')}</span></div>
-                            <div style="font-size:1rem; line-height:1.5; white-space:pre-wrap;">${m.content}</div>
-                            <div class="memo-actions">
-                                ${m.status === '未完了' ? `<button class="action-btn" style="color:#5cb85c;" onclick="handleMemo('complete', '${m.id}')">完了</button>` : ''}
-                                <button class="action-btn" style="color:#d9534f;" onclick="handleMemo('delete', '${m.id}')">削除</button>
+                        <div class="memo-item">
+                            <div class="memo-meta">
+                                <span>${m.date} / ${m.author}</span>
+                                <span class="status-badge status-${m.status}">${m.status}</span>
                             </div>
+                            <div style="font-size:1rem; line-height:1.5; white-space:pre-wrap; color:#333;">${m.content}</div>
                         </div>
-                    `).join('');
+                    `).reverse().join(''); // 新しい順に表示
                 } else {
                     listEl.innerHTML = '<div style="text-align:center; color:#ccc; font-size:0.8rem; padding:10px;">現在メモはありません</div>';
                 }
-            } catch (e) { console.error(e); }
+            } catch (e) { console.error("取得エラー:", e); }
         }
 
-        // 落とし物管理と同じ「送信即リロード」方式
-        async function handleMemo(action, id = null) {
+        async function handleMemo(action) {
+            const date = document.getElementById('memo-date').value;
             const author = document.getElementById('memo-author').value.trim();
             const content = document.getElementById('memo-content').value.trim();
             const btn = document.getElementById('create-btn');
 
-            if (action === 'create' && (!author || !content)) return alert("記入者名と内容を入力してください");
+            if (!date || !author || !content) return alert("日付・記入者・内容をすべて入力してください");
 
             btn.disabled = true;
             btn.textContent = "送信中...";
 
             try {
-                // 落とし物管理と全く同じ fetch 方式（mode: 'no-cors'）
+                // 落とし物管理と同じ、mode: 'no-cors' で送信
                 await fetch(GAS_URL, {
                     method: "POST",
                     mode: "no-cors", 
-                    body: JSON.stringify({ action, id, author, content })
+                    body: JSON.stringify({ action, date, author, content })
                 });
 
-                alert("保存しました");
-                location.reload(); // 落とし物管理と同じくリロードして確実に最新化
+                alert("スプシへ飛ばしました！");
+                location.reload(); 
 
             } catch (e) {
-                alert("送信エラー");
+                alert("送信エラーが発生しました");
                 btn.disabled = false;
-                btn.textContent = "保存する";
+                btn.textContent = "スプシへ飛ばす";
             }
         }
-
-        fetchShift();
     </script>
 </body>
 </html>
