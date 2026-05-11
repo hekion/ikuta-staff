@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-    // Font Awesomeの読み込み（アイコン表示用）
+    // Font Awesomeの読み込み
     const fontAwesome = document.createElement('link');
     fontAwesome.rel = 'stylesheet';
     fontAwesome.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css';
@@ -45,16 +45,15 @@ document.addEventListener("DOMContentLoaded", function() {
                 <div class="footer-section">
                     <h3>KAWASAKI FRONTALE</h3>
                     <div class="sns-icons">
-                        <a href="https://www.frontale.co.jp/" target="_blank" title="公式サイト"><i class="fas fa-globe"></i></a>
-                        <a href="https://www.youtube.com/user/frontalechannel" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
-                        <a href="https://x.com/frontale_staff" target="_blank" title="X"><i class="fab fa-x-twitter"></i></a>
-                        <a href="https://www.instagram.com/kawasaki_frontale/" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="https://www.tiktok.com/@frontale.official" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
-                        <a href="https://page.line.me/frontale" target="_blank" title="LINE"><i class="fab fa-line"></i></a>
-                        <a href="https://www.facebook.com/kawasakifrontaleofficial" target="_blank" title="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="https://www.frontale.co.jp/" target="_blank"><i class="fas fa-globe"></i></a>
+                        <a href="https://www.youtube.com/user/frontalechannel" target="_blank"><i class="fab fa-youtube"></i></a>
+                        <a href="https://x.com/frontale_staff" target="_blank"><i class="fab fa-x-twitter"></i></a>
+                        <a href="https://www.instagram.com/kawasaki_frontale/" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.tiktok.com/@frontale.official" target="_blank"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://page.line.me/frontale" target="_blank"><i class="fab fa-line"></i></a>
+                        <a href="https://www.facebook.com/kawasakifrontaleofficial" target="_blank"><i class="fab fa-facebook"></i></a>
                     </div>
                 </div>
-
                 <div class="footer-section">
                     <h3>OFFICIAL FACILITIES</h3>
                     <ul class="facility-list">
