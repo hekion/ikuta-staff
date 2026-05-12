@@ -21,15 +21,12 @@
         .late { border-color: #5bc0de; color: #31708f; }    
         .tomorrow { border-color: #5cb85c; color: #3c763d; } 
 
-        /* スタッフリストの余白調整 */
         .staff-list { font-size: 1rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 15px 25px; color: #444; }
         .staff-list span { white-space: nowrap; }
 
-        /* メモセクション */
         .memo-section { width: 95%; max-width: 800px; margin: 20px auto 0; text-align: left; background: #fdfdfd; padding: 15px; border-radius: 10px; border: 1px solid #eee; box-sizing: border-box; overflow: hidden; }
         .memo-input-group { display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px; width: 100%; }
         
-        /* スマホはみ出し対策 */
         .memo-input-group input, .memo-input-group textarea { 
             width: 100% !important; 
             max-width: 100% !important;
@@ -50,8 +47,8 @@
         .status-badge { float: right; padding: 2px 10px; border-radius: 20px; font-size: 0.7rem; font-weight: bold; }
         .badge-wait { background: #E3F2FD; color: #35A0D9; border: 1px solid #35A0D9; }
         .badge-done { background: #eee; color: #888; border: 1px solid #ccc; }
-        .item-done { background-color: #f5f5f5 !important; border-color: #ddd; }
-        .item-done .memo-content { color: #888; }
+        .item-done { background-color: #f5f5f5 !important; border-color: #ddd; opacity: 0.8; }
+        .item-done .memo-content { color: #888; text-decoration: none; }
 
         .memo-btns { text-align: right; margin-top: 10px; }
         .memo-btns button { font-size: 0.8rem; padding: 6px 12px; margin-left: 8px; border-radius: 4px; border: 1px solid #ccc; background: #fff; cursor: pointer; }
@@ -139,15 +136,16 @@
 
                 const listEl = document.getElementById('memo-list');
                 if (data.memos && data.memos.length > 0) {
-                    // 日付順（降順）かつ、同一日付内ではステータス「対応中」優先でソート
+                    // ソート処理の修正
                     const sorted = data.memos.sort((a, b) => {
+                        // 1. まずステータスで比較（「対応中」を上、「完了」を下にする）
+                        if (a.status === '対応中' && b.status === '完了') return -1;
+                        if (a.status === '完了' && b.status === '対応中') return 1;
+
+                        // 2. ステータスが同じなら、日付の新しい順にする
                         const dateA = new Date(a.date.includes('/') ? `${new Date().getFullYear()}/${a.date}` : a.date);
                         const dateB = new Date(b.date.includes('/') ? `${new Date().getFullYear()}/${b.date}` : b.date);
-                        
-                        if (dateB - dateA !== 0) {
-                            return dateB - dateA; 
-                        }
-                        return (a.status === '対応中' ? 0 : 1) - (b.status === '対応中' ? 0 : 1);
+                        return dateB - dateA;
                     });
 
                     listEl.innerHTML = sorted.map(m => {
