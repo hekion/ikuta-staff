@@ -11,10 +11,8 @@ body {
     font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
     background-color: #f4f7f6;
     color: #333;
-    padding-top: 135px; 
-    /* サイト全体の横幅を制限し、左右の空白（背景のみの空間）を削る */
-    max-width: 1100px; 
-    margin: 0 auto;
+    padding-top: 135px;
+    width: 100%; /* 画面幅いっぱいを使用 */
 }
 
 /* =========================================
@@ -23,8 +21,7 @@ body {
 .sticky-header {
     position: fixed;
     top: 0;
-    /* 親要素(body)の幅に合わせる */
-    max-width: 1100px;
+    left: 0;
     width: 100%;
     z-index: 1000;
     background-color: #ffffff;
@@ -56,13 +53,14 @@ header .sub-title {
    ========================================= */
 .nav-menu {
     background-color: #35A0D9;
+    width: 100%;
 }
 
 .nav-menu ul {
     list-style: none;
     display: flex;
-    width: 100%;
-    margin: 0 auto;
+    width: 100%; /* 横幅いっぱい */
+    margin: 0;
 }
 
 .nav-menu li {
@@ -76,13 +74,13 @@ header .sub-title {
 .nav-menu a {
     color: #fff;
     text-decoration: none;
-    font-size: 0.7rem; 
+    font-size: 0.9rem; /* 画面に合わせて少し大きく */
     font-weight: bold;
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: 52px;
+    height: 60px; /* 高さを少し出して存在感をアップ */
     transition: background 0.2s;
 }
 
@@ -92,43 +90,42 @@ header .sub-title {
    4. メインコンテンツ
    ========================================= */
 .container {
-    padding: 20px;
+    padding: 30px 5%; /* 左右に5%の余白を持たせつつ広がる */
     width: 100%;
-    margin: 0 auto;
     min-height: 60vh;
 }
 
 h2 {
-    font-size: 1.1rem;
-    border-left: 5px solid #35A0D9;
-    padding-left: 12px;
-    margin: 1.5rem 0 1rem 0;
+    font-size: 1.3rem; /* 見出しも少し大きく */
+    border-left: 6px solid #35A0D9;
+    padding-left: 15px;
+    margin: 2rem 0 1.5rem 0;
 }
 
 .grid {
     display: grid;
-    /* PCでは横に2個ずつ並ぶスタイルを保持 */
+    /* PCでは横に2個並ぶスタイルを保持 */
     grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
+    gap: 25px; /* カードの間隔も広げてゆったりさせる */
 }
 
 .card {
     background: white;
     text-decoration: none;
     color: #333;
-    border-radius: 10px;
+    border-radius: 12px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 25px 20px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    padding: 40px 20px; /* 上下パディングを増やして大きく見せる */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
     transition: transform 0.2s;
 }
 
 .card:active { transform: scale(0.98); }
-.card img { width: 100%; max-width: 110px; margin-bottom: 12px; }
-.card span { font-size: 0.9rem; font-weight: bold; }
+.card img { width: 100%; max-width: 140px; margin-bottom: 15px; } /* ロゴも大きく */
+.card span { font-size: 1.1rem; font-weight: bold; } /* テキストも大きく */
 
 /* =========================================
    5. フッターデザイン
@@ -141,13 +138,13 @@ h2 {
 }
 
 .turf-line {
-    height: 8px;
+    height: 10px;
     background: linear-gradient(90deg, #4caf50, #81c784);
 }
 
 .footer-content {
     width: 100%;
-    padding: 60px 25px 40px;
+    padding: 60px 5% 40px; /* コンテンツと同じく左右5% */
 }
 
 .footer-grid {
@@ -158,7 +155,7 @@ h2 {
 }
 
 .footer-section h3 {
-    font-size: 0.9rem;
+    font-size: 1rem;
     letter-spacing: 0.1em;
     margin-bottom: 25px;
     border-bottom: 2px solid rgba(255, 255, 255, 0.3);
@@ -168,12 +165,12 @@ h2 {
 
 .sns-icons, .fac-links {
     display: flex;
-    gap: 20px;
+    gap: 25px;
 }
 
 .sns-icons a, .fac-links a {
     color: #fff;
-    font-size: 1.8rem;
+    font-size: 2.2rem; /* SNSアイコンを大きく */
     transition: transform 0.2s, opacity 0.2s;
     text-decoration: none;
     display: inline-block;
@@ -193,31 +190,23 @@ h2 {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 15px;
 }
 
 .facility-card {
     background-color: #ffffff;
-    border-radius: 8px;
+    border-radius: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 5px 15px;
+    padding: 8px 20px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    min-height: 50px;
-}
-
-.fac-logo-container {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    height: 100%;
+    min-height: 60px;
 }
 
 .fac-logo {
-    height: 40px;
+    height: 45px; /* 施設ロゴをさらに大きく */
     width: auto;
-    max-width: 180px;
     display: block;
     object-fit: contain;
 }
@@ -228,26 +217,16 @@ h2 {
     padding-top: 40px;
 }
 
-.copyright { font-size: 0.8rem; opacity: 0.7; }
+.copyright { font-size: 1rem; opacity: 0.7; }
 
 /* =========================================
    6. レスポンシブ調整（スマホ特化）
    ========================================= */
-@media (max-width: 1100px) {
-    body {
-        max-width: 100%;
-    }
-    .sticky-header {
-        max-width: 100%;
-    }
-}
-
 @media (max-width: 768px) {
     body { padding-top: 120px; }
     .nav-menu a { font-size: 0.6rem; height: 48px; }
     
-    /* スマホでは横に1個ずつ並ぶスタイルを保持 */
-    .grid { grid-template-columns: 1fr; }
+    .grid { grid-template-columns: 1fr; } /* スマホは1列 */
 
     .footer-grid { grid-template-columns: 1fr; gap: 40px; }
     
@@ -267,7 +246,7 @@ h2 {
         margin: 0 auto;
     }
     .sns-icons a {
-        font-size: 1.4rem;
+        font-size: 1.6rem;
         flex: 1;
         padding: 5px 0;
     }
