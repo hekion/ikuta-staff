@@ -178,21 +178,34 @@ h2 {
     padding: 5px;
 }
 
+/* 施設用アイコンカラー：水色 */
+.blue-icons a {
+    color: #35A0D9 !important;
+}
+
 .sns-icons a:hover, .fac-links a:hover {
     transform: translateY(-3px);
     opacity: 0.8;
 }
 
-.facility-list { list-style: none; }
-.facility-list li {
+.facility-list { 
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* 施設カードのデザイン */
+.facility-card {
+    background-color: #ffffff;
+    border-radius: 8px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 10px 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-/* 施設ロゴ用設定 */
 .fac-logo-container {
     flex: 1;
     display: flex;
@@ -200,7 +213,7 @@ h2 {
 }
 
 .fac-logo {
-    height: 28px;
+    height: 24px; /* カードに合わせて少し調整 */
     width: auto;
     display: block;
 }
@@ -244,14 +257,11 @@ h2 {
         padding: 5px 0;
     }
 
-    .facility-list li {
-        flex-direction: row; 
-        justify-content: space-between;
-        align-items: center;
-        padding: 15px 0;
+    .facility-card {
+        padding: 12px 15px;
     }
-    .fac-logo-container { text-align: left; }
-    .fac-logo { height: 24px; } 
+    
+    .fac-logo { height: 20px; }
     .fac-links { gap: 15px; }
     .fac-links a { font-size: 1.5rem; }
 }
