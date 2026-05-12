@@ -57,38 +57,38 @@ document.addEventListener("DOMContentLoaded", function() {
                 <div class="footer-section">
                     <h3>OFFICIAL FACILITIES</h3>
                     <ul class="facility-list">
-                        <li>
+                        <li class="facility-card">
                             <div class="fac-logo-container">
                                 <img src="${pathPrefix}assets/images/footer/frontownikuta.png" alt="フロンタウン生田" class="fac-logo">
                             </div>
-                            <div class="fac-links">
+                            <div class="fac-links blue-icons">
                                 <a href="https://ikuta.frontown.com/" target="_blank"><i class="fas fa-globe"></i></a>
                                 <a href="https://x.com/frontown_ikuta" target="_blank"><i class="fab fa-x-twitter"></i></a>
                             </div>
                         </li>
-                        <li>
+                        <li class="facility-card">
                             <div class="fac-logo-container">
                                 <img src="${pathPrefix}assets/images/footer/frontownsaginuma.png" alt="フロンタウンさぎぬま" class="fac-logo">
                             </div>
-                            <div class="fac-links">
+                            <div class="fac-links blue-icons">
                                 <a href="https://saginuma.frontown.com" target="_blank"><i class="fas fa-globe"></i></a>
                                 <a href="https://x.com/frontale_futsal" target="_blank"><i class="fab fa-x-twitter"></i></a>
                             </div>
                         </li>
-                        <li>
+                        <li class="facility-card">
                             <div class="fac-logo-container">
                                 <img src="${pathPrefix}assets/images/footer/fujitsustadium.png" alt="富士通スタジアム川崎" class="fac-logo">
                             </div>
-                            <div class="fac-links">
+                            <div class="fac-links blue-icons">
                                 <a href="https://kawasaki-fujimi.com/" target="_blank"><i class="fas fa-globe"></i></a>
                                 <a href="https://x.com/kawasaki_fujimi" target="_blank"><i class="fab fa-x-twitter"></i></a>
                             </div>
                         </li>
-                        <li>
+                        <li class="facility-card">
                             <div class="fac-logo-container">
                                 <img src="${pathPrefix}assets/images/footer/fujimipark.png" alt="富士見公園" class="fac-logo">
                             </div>
-                            <div class="fac-links">
+                            <div class="fac-links blue-icons">
                                 <a href="https://fujimi-park.com" target="_blank"><i class="fas fa-globe"></i></a>
                                 <a href="https://x.com/fujimi_X" target="_blank"><i class="fab fa-x-twitter"></i></a>
                             </div>
