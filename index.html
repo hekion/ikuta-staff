@@ -136,13 +136,9 @@
 
                 const listEl = document.getElementById('memo-list');
                 if (data.memos && data.memos.length > 0) {
-                    // ソート処理の修正
                     const sorted = data.memos.sort((a, b) => {
-                        // 1. まずステータスで比較（「対応中」を上、「完了」を下にする）
                         if (a.status === '対応中' && b.status === '完了') return -1;
                         if (a.status === '完了' && b.status === '対応中') return 1;
-
-                        // 2. ステータスが同じなら、日付の新しい順にする
                         const dateA = new Date(a.date.includes('/') ? `${new Date().getFullYear()}/${a.date}` : a.date);
                         const dateB = new Date(b.date.includes('/') ? `${new Date().getFullYear()}/${b.date}` : b.date);
                         return dateB - dateA;
@@ -163,6 +159,8 @@
                         </div>
                         `;
                     }).join('');
+                } else {
+                    listEl.innerHTML = "";
                 }
             } catch (e) { console.error(e); }
         }
@@ -195,14 +193,42 @@
             const author = authorOverride || document.getElementById('memo-author').value.trim();
             const content = contentOverride || document.getElementById('memo-content').value.trim();
             const oldContent = document.getElementById('edit-old-content').value;
+
             if (!author || !content) return alert("入力不足です");
             if (action === 'delete' && !confirm('削除しますか？')) return;
+
+            const messages = {
+                'create': '登録が完了しました',
+                'edit_save': '上書き保存しました',
+                'update': '対応を完了にしました',
+                'delete': '削除が完了しました'
+            };
+
             try {
                 await fetch(GAS_URL, {
                     method: "POST", mode: "no-cors",
                     body: JSON.stringify({ action, date: formattedDate, author, content, oldContent })
                 });
-                location.reload();
+
+                if (messages[action]) {
+                    alert(messages[action]);
+                }
+
+                if (action === 'create' || action === 'edit_save') {
+                    document.getElementById('memo-content').value = "";
+                    document.getElementById('edit-old-content').value = "";
+                    document.getElementById('memo-label').textContent = "引き継ぎメモ登録";
+                    document.getElementById('memo-content').classList.remove('edit-active');
+                    const btn = document.getElementById('create-btn');
+                    btn.textContent = "登録する";
+                    btn.style.background = "#35A0D9";
+                    btn.style.color = "#fff";
+                    btn.onclick = () => handleMemo('create');
+                }
+
+                // リロード(location.reload)を廃止し、データ表示のみ更新
+                fetchShift();
+
             } catch (e) { alert("エラー"); }
         }
     </script>
