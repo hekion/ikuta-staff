@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-    // Font Awesomeの読み込み（速度優先で非同期的に追加）
+    // Font Awesomeの読み込み
     const fontAwesome = document.createElement('link');
     fontAwesome.rel = 'stylesheet';
     fontAwesome.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css';
@@ -58,28 +58,36 @@ document.addEventListener("DOMContentLoaded", function() {
                     <h3>OFFICIAL FACILITIES</h3>
                     <ul class="facility-list">
                         <li>
-                            <span class="fac-name">フロンタウン生田</span>
+                            <div class="fac-logo-container">
+                                <img src="${pathPrefix}assets/images/footer/frontownikuta.png" alt="フロンタウン生田" class="fac-logo">
+                            </div>
                             <div class="fac-links">
                                 <a href="https://ikuta.frontown.com/" target="_blank"><i class="fas fa-globe"></i></a>
                                 <a href="https://x.com/frontown_ikuta" target="_blank"><i class="fab fa-x-twitter"></i></a>
                             </div>
                         </li>
                         <li>
-                            <span class="fac-name">フロンタウンさぎぬま</span>
+                            <div class="fac-logo-container">
+                                <img src="${pathPrefix}assets/images/footer/frontownsaginuma.png" alt="フロンタウンさぎぬま" class="fac-logo">
+                            </div>
                             <div class="fac-links">
                                 <a href="https://saginuma.frontown.com" target="_blank"><i class="fas fa-globe"></i></a>
                                 <a href="https://x.com/frontale_futsal" target="_blank"><i class="fab fa-x-twitter"></i></a>
                             </div>
                         </li>
                         <li>
-                            <span class="fac-name">富士通スタジアム川崎</span>
+                            <div class="fac-logo-container">
+                                <img src="${pathPrefix}assets/images/footer/fujitsustadium.png" alt="富士通スタジアム川崎" class="fac-logo">
+                            </div>
                             <div class="fac-links">
                                 <a href="https://kawasaki-fujimi.com/" target="_blank"><i class="fas fa-globe"></i></a>
                                 <a href="https://x.com/kawasaki_fujimi" target="_blank"><i class="fab fa-x-twitter"></i></a>
                             </div>
                         </li>
                         <li>
-                            <span class="fac-name">富士見公園</span>
+                            <div class="fac-logo-container">
+                                <img src="${pathPrefix}assets/images/footer/fujimipark.png" alt="富士見公園" class="fac-logo">
+                            </div>
                             <div class="fac-links">
                                 <a href="https://fujimi-park.com" target="_blank"><i class="fas fa-globe"></i></a>
                                 <a href="https://x.com/fujimi_X" target="_blank"><i class="fab fa-x-twitter"></i></a>
