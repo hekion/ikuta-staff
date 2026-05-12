@@ -243,8 +243,9 @@
             try {
                 const res = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${encodeURIComponent(RANGE)}?key=${API_KEY}`);
                 const json = await res.json();
-                // メモ欄（L列 = インデックス11）を確実に取得するようにマッピング
-                lostData = (json.values || []).map((r, index) => ({
+                
+                // データをオブジェクト形式にマッピング
+                const rawItems = (json.values || []).map((r, index) => ({
                     rowId: index + 2,
                     date: r[0]||'',
                     staff: r[1]||'',
@@ -257,8 +258,19 @@
                     owner: r[8]||'',
                     contact: r[9]||'',
                     returnDate: r[10]||'',
-                    memo: r[11]||'' // インデックス11がL列
-                })).reverse();
+                    memo: r[11]||''
+                }));
+
+                // 日付が新しい順（降順）にソート
+                lostData = rawItems.sort((a, b) => {
+                    const dateA = new Date(a.date.replace(/\//g, '-'));
+                    const dateB = new Date(b.date.replace(/\//g, '-'));
+                    // 無効な日付の場合は後ろに送る
+                    if (isNaN(dateA.getTime())) return 1;
+                    if (isNaN(dateB.getTime())) return -1;
+                    return dateB - dateA;
+                });
+
                 render(lostData);
                 document.getElementById('loading-msg').style.display = 'none';
             } catch(e) { document.getElementById('loading-msg').innerText = "取得失敗"; }
@@ -343,7 +355,7 @@
                 category: document.getElementById('f-category').value,
                 storage: document.getElementById('f-storage').value,
                 status: document.getElementById('f-status').value,
-                memo: document.getElementById('f-memo').value || "", // メモをペイロードに追加
+                memo: document.getElementById('f-memo').value || "",
                 owner: document.getElementById('f-owner').value || "",
                 contact: document.getElementById('f-contact').value || "",
                 returnDate: document.getElementById('f-returnDate').value || "",
