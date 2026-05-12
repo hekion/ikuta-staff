@@ -15,6 +15,20 @@ document.addEventListener("DOMContentLoaded", function() {
 
     const pathPrefix = isSubFolder ? '../' : './';
 
+    // --- ファビコンの設定（ここを追加） ---
+    const favicon = document.createElement('link');
+    favicon.rel = 'icon';
+    favicon.type = 'image/png';
+    favicon.href = `${pathPrefix}assets/images/frontown.png`;
+    document.head.appendChild(favicon);
+
+    // スマホ用アイコン（apple-touch-icon）も同じ画像に設定
+    const appleTouchIcon = document.createElement('link');
+    appleTouchIcon.rel = 'apple-touch-icon';
+    appleTouchIcon.href = `${pathPrefix}assets/images/frontown.png`;
+    document.head.appendChild(appleTouchIcon);
+    // ------------------------------------
+
     const headerHtml = `
     <div class="sticky-header">
         <header>
