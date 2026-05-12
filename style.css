@@ -12,6 +12,9 @@ body {
     background-color: #f4f7f6;
     color: #333;
     padding-top: 135px; 
+    /* サイト全体の横幅を制限し、左右の空白（背景のみの空間）を削る */
+    max-width: 1100px; 
+    margin: 0 auto;
 }
 
 /* =========================================
@@ -20,7 +23,8 @@ body {
 .sticky-header {
     position: fixed;
     top: 0;
-    left: 0;
+    /* 親要素(body)の幅に合わせる */
+    max-width: 1100px;
     width: 100%;
     z-index: 1000;
     background-color: #ffffff;
@@ -58,7 +62,6 @@ header .sub-title {
     list-style: none;
     display: flex;
     width: 100%;
-    max-width: 900px; 
     margin: 0 auto;
 }
 
@@ -91,7 +94,6 @@ header .sub-title {
 .container {
     padding: 20px;
     width: 100%;
-    max-width: 900px;
     margin: 0 auto;
     min-height: 60vh;
 }
@@ -105,6 +107,7 @@ h2 {
 
 .grid {
     display: grid;
+    /* PCでは横に2個ずつ並ぶスタイルを保持 */
     grid-template-columns: repeat(2, 1fr);
     gap: 15px;
 }
@@ -143,8 +146,7 @@ h2 {
 }
 
 .footer-content {
-    max-width: 1000px;
-    margin: 0 auto;
+    width: 100%;
     padding: 60px 25px 40px;
 }
 
@@ -178,7 +180,6 @@ h2 {
     padding: 5px;
 }
 
-/* 施設用アイコンカラー：水色 */
 .blue-icons a {
     color: #35A0D9 !important;
 }
@@ -195,16 +196,15 @@ h2 {
     gap: 12px;
 }
 
-/* 施設カードのデザイン調整 */
 .facility-card {
     background-color: #ffffff;
     border-radius: 8px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 5px 15px; /* 上下パディングを最小限に */
+    padding: 5px 15px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    min-height: 50px;   /* カード自体の高さを固定 */
+    min-height: 50px;
 }
 
 .fac-logo-container {
@@ -215,11 +215,11 @@ h2 {
 }
 
 .fac-logo {
-    height: 40px;       /* 画像をカードいっぱいに大きく */
+    height: 40px;
     width: auto;
-    max-width: 180px;   /* 横に広がりすぎないよう制限 */
+    max-width: 180px;
     display: block;
-    object-fit: contain; /* アスペクト比を維持して収める */
+    object-fit: contain;
 }
 
 .footer-bottom {
@@ -233,9 +233,20 @@ h2 {
 /* =========================================
    6. レスポンシブ調整（スマホ特化）
    ========================================= */
+@media (max-width: 1100px) {
+    body {
+        max-width: 100%;
+    }
+    .sticky-header {
+        max-width: 100%;
+    }
+}
+
 @media (max-width: 768px) {
     body { padding-top: 120px; }
     .nav-menu a { font-size: 0.6rem; height: 48px; }
+    
+    /* スマホでは横に1個ずつ並ぶスタイルを保持 */
     .grid { grid-template-columns: 1fr; }
 
     .footer-grid { grid-template-columns: 1fr; gap: 40px; }
@@ -263,10 +274,10 @@ h2 {
 
     .facility-card {
         padding: 5px 12px;
-        min-height: 44px; /* スマホでもカード高さを維持 */
+        min-height: 44px;
     }
     
-    .fac-logo { height: 34px; } /* スマホでもロゴを大きく表示 */
+    .fac-logo { height: 34px; }
     .fac-links { gap: 15px; }
     .fac-links a { font-size: 1.5rem; }
 }
