@@ -188,11 +188,22 @@ h2 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px 0;
+    padding: 15px 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.fac-name { font-size: 0.9rem; font-weight: bold; }
+/* 施設ロゴ用設定 */
+.fac-logo-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.fac-logo {
+    height: 28px;
+    width: auto;
+    display: block;
+}
 
 .footer-bottom {
     text-align: center;
@@ -220,17 +231,16 @@ h2 {
         width: fit-content;
     }
 
-    /* チームSNS：1行に収めて余白を均等に広げる */
     .sns-icons {
-        justify-content: space-between; /* 両端まで広げて間隔を自動調整 */
+        justify-content: space-between;
         gap: 4px;
         flex-wrap: nowrap;
-        max-width: 340px; /* 画面端まで行き過ぎないよう制限 */
+        max-width: 340px;
         margin: 0 auto;
     }
     .sns-icons a {
         font-size: 1.4rem;
-        flex: 1; /* 各アイコンが均等に場所を確保 */
+        flex: 1;
         padding: 5px 0;
     }
 
@@ -238,10 +248,10 @@ h2 {
         flex-direction: row; 
         justify-content: space-between;
         align-items: center;
-        padding: 18px 0;
-        text-align: left;
+        padding: 15px 0;
     }
-    .fac-name { font-size: 0.85rem; flex: 1; }
+    .fac-logo-container { text-align: left; }
+    .fac-logo { height: 24px; } 
     .fac-links { gap: 15px; }
     .fac-links a { font-size: 1.5rem; }
 }
