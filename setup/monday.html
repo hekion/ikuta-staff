@@ -132,21 +132,42 @@
         .notice-title { color: #d32f2f; }
         .notice-content { font-size: 0.85rem; color: #d32f2f; }
 
-        /* 画像エリア：has-img クラスがない限り非表示 */
+        /* 画像エリアの修正：PCでも高さを維持 */
         .setup-img {
             width: 100%;
-            height: 200px;
+            height: auto; /* 固定値を解除 */
+            max-height: 400px; /* PCでの伸びすぎ防止 */
             background: #f9f9f9;
             display: none; 
             border-top: 1px solid #eee;
+            cursor: zoom-in; /* クリックできることがわかるように */
         }
         .setup-img img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            max-height: 400px;
+            object-fit: contain; /* 全体が表示されるように変更 */
         }
         .has-img .setup-img {
             display: block;
+        }
+
+        /* 拡大表示用（モーダル）のスタイル */
+        #image-viewer {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            justify-content: center;
+            align-items: center;
+            cursor: zoom-out;
+        }
+        #image-viewer img {
+            max-width: 95%;
+            max-height: 95%;
+            border-radius: 4px;
         }
 
         main.container { padding-top: 20px; }
@@ -193,7 +214,7 @@
                         <div class="item-list-content">CDプレーヤー</div>
                     </div>
                 </div>
-                <div class="setup-img">
+                <div class="setup-img" onclick="viewImage(this)">
                     <img src="../assets/images/setup/太極拳.JPG" alt="太極拳の準備">
                 </div>
             </div>
@@ -209,7 +230,7 @@
                         <div class="item-list-content">スピーカー、ヨガマット、おしりバンド</div>
                     </div>
                 </div>
-                <div class="setup-img">
+                <div class="setup-img" onclick="viewImage(this)">
                     <img src="../assets/images/setup/おしり体操.jpeg" alt="おしり体操の準備">
                 </div>
             </div>
@@ -234,7 +255,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="setup-img">
+                <div class="setup-img" onclick="viewImage(this)">
                     <img src="../assets/images/setup/UBOUND月.JPG" alt="UBOUNDの準備">
                 </div>
             </div>
@@ -264,13 +285,29 @@
                         <div class="item-list-content">スピーカー</div>
                     </div>
                 </div>
-                <div class="setup-img">
+                <div class="setup-img" onclick="viewImage(this)">
                     <img src="../assets/images/setup/FIGHTDO月.JPG" alt="FIGHT DOの準備">
                 </div>
             </div>
 
         </section>
     </main>
+
+    <div id="image-viewer" onclick="closeImage()">
+        <img id="full-image" src="">
+    </div>
+
+    <script>
+        function viewImage(element) {
+            const imgSrc = element.querySelector('img').src;
+            document.getElementById('full-image').src = imgSrc;
+            document.getElementById('image-viewer').style.display = 'flex';
+        }
+
+        function closeImage() {
+            document.getElementById('image-viewer').style.display = 'none';
+        }
+    </script>
 
 </body>
 </html>
