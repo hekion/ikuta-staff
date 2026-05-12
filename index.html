@@ -214,8 +214,10 @@
                     alert(messages[action]);
                 }
 
+                // 登録または上書き保存が完了した時、入力欄をすべてクリアする
                 if (action === 'create' || action === 'edit_save') {
-                    document.getElementById('memo-content').value = "";
+                    document.getElementById('memo-author').value = ""; // 氏名を空にする
+                    document.getElementById('memo-content').value = ""; // 内容を空にする
                     document.getElementById('edit-old-content').value = "";
                     document.getElementById('memo-label').textContent = "引き継ぎメモ登録";
                     document.getElementById('memo-content').classList.remove('edit-active');
@@ -226,7 +228,6 @@
                     btn.onclick = () => handleMemo('create');
                 }
 
-                // リロード(location.reload)を廃止し、データ表示のみ更新
                 fetchShift();
 
             } catch (e) { alert("エラー"); }
