@@ -195,27 +195,31 @@ h2 {
     gap: 12px;
 }
 
-/* 施設カードのデザイン */
+/* 施設カードのデザイン調整 */
 .facility-card {
     background-color: #ffffff;
     border-radius: 8px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 15px;
+    padding: 5px 15px; /* 上下パディングを最小限に */
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    min-height: 50px;   /* カード自体の高さを固定 */
 }
 
 .fac-logo-container {
     flex: 1;
     display: flex;
     align-items: center;
+    height: 100%;
 }
 
 .fac-logo {
-    height: 24px; /* カードに合わせて少し調整 */
+    height: 40px;       /* 画像をカードいっぱいに大きく */
     width: auto;
+    max-width: 180px;   /* 横に広がりすぎないよう制限 */
     display: block;
+    object-fit: contain; /* アスペクト比を維持して収める */
 }
 
 .footer-bottom {
@@ -258,10 +262,11 @@ h2 {
     }
 
     .facility-card {
-        padding: 12px 15px;
+        padding: 5px 12px;
+        min-height: 44px; /* スマホでもカード高さを維持 */
     }
     
-    .fac-logo { height: 20px; }
+    .fac-logo { height: 34px; } /* スマホでもロゴを大きく表示 */
     .fac-links { gap: 15px; }
     .fac-links a { font-size: 1.5rem; }
 }
