@@ -139,7 +139,17 @@
 
                 const listEl = document.getElementById('memo-list');
                 if (data.memos && data.memos.length > 0) {
-                    const sorted = data.memos.sort((a, b) => (a.status === '対応中' ? 0 : 1) - (b.status === '対応中' ? 0 : 1));
+                    // 日付順（降順）かつ、同一日付内ではステータス「対応中」優先でソート
+                    const sorted = data.memos.sort((a, b) => {
+                        const dateA = new Date(a.date.includes('/') ? `${new Date().getFullYear()}/${a.date}` : a.date);
+                        const dateB = new Date(b.date.includes('/') ? `${new Date().getFullYear()}/${b.date}` : b.date);
+                        
+                        if (dateB - dateA !== 0) {
+                            return dateB - dateA; 
+                        }
+                        return (a.status === '対応中' ? 0 : 1) - (b.status === '対応中' ? 0 : 1);
+                    });
+
                     listEl.innerHTML = sorted.map(m => {
                         const isDone = m.status === '完了';
                         return `
