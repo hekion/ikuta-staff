@@ -21,18 +21,18 @@
         /* 準備物カード */
         .setup-card {
             background: #fff; border: 1px solid #eee; border-radius: 12px; margin-bottom: 20px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02); position: relative; overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05); position: relative; overflow: hidden;
             display: flex; flex-direction: column;
         }
-        .setup-content { padding: 15px; }
+        .setup-content { padding: 12px 15px; }
         .setup-time { font-size: 0.9rem; font-weight: bold; color: #666; margin-bottom: 5px; display: block; }
-        .setup-title { font-size: 1.1rem; font-weight: bold; color: #333; margin-bottom: 5px; padding-right: 90px; }
+        .setup-title { font-size: 1.2rem; font-weight: bold; color: #333; margin: 4px 0; padding-right: 90px; }
         .setup-price { font-size: 0.85rem; color: #444; margin-bottom: 15px; }
         .trial-price { color: #888; font-size: 0.8rem; margin-left: 5px; }
 
         /* 場所ラベル */
         .place-label {
-            position: absolute; top: 15px; right: 15px; padding: 4px 10px; border-radius: 6px;
+            position: absolute; top: 12px; right: 15px; padding: 4px 10px; border-radius: 6px;
             font-size: 0.75rem; font-weight: bold; border: 1px solid transparent; z-index: 10;
         }
         .label-studio-a { background: #E3F2FD; border-color: #BBDEFB; color: #1976D2; }
@@ -41,29 +41,33 @@
         .label-weight   { background: #F5F5F5; border-color: #E0E0E0; color: #616161; }
 
         /* 準備物リスト */
-        .item-list-box { background: #fdfdfd; border: 1px solid #f0f0f0; border-radius: 8px; padding: 12px; margin-top: 5px; }
-        .item-list-title { font-size: 0.75rem; font-weight: bold; color: #35A0D9; margin-bottom: 6px; display: flex; align-items: center; gap: 4px; }
-        .item-list-content { font-size: 0.95rem; color: #333; line-height: 1.5; font-weight: 500; }
+        .item-list-box { background: #fdfdfd; border: 1px solid #f0f0f0; border-radius: 8px; padding: 10px; margin-top: 5px; }
+        .item-list-title { font-size: 0.75rem; font-weight: bold; color: #35A0D9; margin-bottom: 4px; display: flex; align-items: center; gap: 4px; }
+        .item-list-content { font-size: 1rem; color: #333; line-height: 1.4; font-weight: 600; }
         
         .notice-box { background: #fff9f9; border: 1px dashed #ffcdd2; margin-top: 8px; }
         .notice-title { color: #d32f2f; }
         .notice-content { font-size: 0.85rem; color: #d32f2f; }
 
-        /* 画像エリア */
+        /* 画像エリア：PC版で大きく表示し、余白を削る設定 */
         .setup-img-container {
-            display: flex; width: 100%; background: #f9f9f9; border-top: 1px solid #eee;
-            flex-wrap: wrap; justify-content: center;
+            display: flex; width: 100%; background: #222; border-top: 1px solid #eee;
+            flex-wrap: wrap; gap: 2px;
         }
         .setup-img {
-            flex: 1; min-width: 280px; max-width: 100%; height: 250px; 
+            flex: 1; min-width: 45%; height: 450px; 
             cursor: zoom-in; overflow: hidden; position: relative;
         }
-        .setup-img:only-child { max-width: 600px; }
+        
+        /* スマホ用調整 */
+        @media (max-width: 768px) {
+            .setup-img { min-width: 100%; height: 300px; }
+        }
         
         .setup-img img {
             width: 100%; height: 100%; object-fit: contain; transition: transform 0.3s;
         }
-        .setup-img img:hover { transform: scale(1.05); }
+        .setup-img img:hover { transform: scale(1.03); }
 
         /* 拡大表示用 */
         #image-viewer {
@@ -71,7 +75,7 @@
             width: 100%; height: 100%; background-color: rgba(0,0,0,0.9);
             justify-content: center; align-items: center; cursor: zoom-out;
         }
-        #image-viewer img { max-width: 95%; max-height: 95%; border-radius: 4px; }
+        #image-viewer img { max-width: 98%; max-height: 98%; border-radius: 4px; }
 
         main.container { padding-top: 20px; }
     </style>
@@ -258,6 +262,7 @@
                     </div>
                 </div>
                 <div class="setup-img-container">
+                    <div class="setup-img" onclick="viewImage(this)"><img src="../assets/images/lesson/FIGHTDO月2024.JPG"></div>
                     <div class="setup-img" onclick="viewImage(this)"><img src="../assets/images/setup/FIGHTDO月.JPG"></div>
                 </div>
             </div>
