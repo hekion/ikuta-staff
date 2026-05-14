@@ -49,15 +49,18 @@
         .notice-title { color: #d32f2f; }
         .notice-content { font-size: 0.85rem; color: #d32f2f; }
 
-        /* 画像エリア：複数枚対応 */
+        /* 画像エリア */
         .setup-img-container {
             display: flex; width: 100%; background: #f9f9f9; border-top: 1px solid #eee;
-            flex-wrap: wrap; /* スマホでは縦並び、PCでは横並びの基礎 */
+            flex-wrap: wrap; justify-content: center;
         }
         .setup-img {
-            flex: 1; min-width: 200px; /* 画像が2枚ある時、PCでは横並び */
-            height: 250px; cursor: zoom-in; overflow: hidden;
+            flex: 1; min-width: 280px; max-width: 100%; height: 250px; 
+            cursor: zoom-in; overflow: hidden; position: relative;
         }
+        /* 画像が1枚だけの時は広がりすぎないように制限 */
+        .setup-img:only-child { max-width: 600px; }
+        
         .setup-img img {
             width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s;
         }
@@ -116,7 +119,7 @@
                 </div>
                 <div class="setup-img-container">
                     <div class="setup-img" onclick="viewImage(this)"><img src="../assets/images/setup/太極拳.JPG"></div>
-                    </div>
+                </div>
             </div>
 
             <div class="setup-card">
@@ -177,7 +180,20 @@
             <div class="setup-card">
                 <span class="place-label label-weight">ウェイトルーム</span>
                 <div class="setup-content">
-                    <span class="setup-time">18:15 ~ 19:15 / 19:30 ~ 20:30</span>
+                    <span class="setup-time">18:15 ~ 19:15</span>
+                    <div class="setup-title">セミパーソナル・トレーニングジム</div>
+                    <div class="setup-price">13,200円/月 <span class="trial-price">(体験：1,650円)</span></div>
+                    <div class="item-list-box">
+                        <div class="item-list-title">📦 準備するもの</div>
+                        <div class="item-list-content">ダンベル(アカデミー棟倉庫内)、レジ横のスピーカー、ポール、ヨガマット</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="setup-card">
+                <span class="place-label label-weight">ウェイトルーム</span>
+                <div class="setup-content">
+                    <span class="setup-time">19:30 ~ 20:30</span>
                     <div class="setup-title">セミパーソナル・トレーニングジム</div>
                     <div class="setup-price">13,200円/月 <span class="trial-price">(体験：1,650円)</span></div>
                     <div class="item-list-box">
@@ -204,7 +220,7 @@
                 </div>
                 <div class="setup-img-container">
                     <div class="setup-img" onclick="viewImage(this)"><img src="../assets/images/setup/UBOUND月.JPG"></div>
-                    </div>
+                </div>
             </div>
 
             <div class="setup-card">
