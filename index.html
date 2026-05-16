@@ -53,6 +53,27 @@
         .memo-btns { text-align: right; margin-top: 10px; }
         .memo-btns button { font-size: 0.8rem; padding: 6px 12px; margin-left: 8px; border-radius: 4px; border: 1px solid #ccc; background: #fff; cursor: pointer; }
         .edit-active { border: 2px solid #fdd835 !important; background: #fffde7; }
+
+        /* PC版（画面幅769px以上）でカード内の中身を大きくする設定 */
+        @media (min-width: 769px) {
+            /* 外部ツールのロゴ画像を大きく表示 */
+            .tool-links .grid .card img {
+                max-width: 220px !important; /* 元の150pxから220pxに拡大 */
+            }
+            
+            /* 業務メニューのカード自体のパディングと文字・アイコンサイズを拡大 */
+            .internal-links .grid .card {
+                padding: 25px 15px !important; /* 上下の余白を広げてボタンを大きく */
+            }
+            .internal-links .grid .card .icon {
+                font-size: 2.5rem !important; /* 絵文字のアイコンサイズを大きく */
+                margin-bottom: 10px !important;
+            }
+            .internal-links .grid .card span {
+                font-size: 1.2rem !important; /* テキストの文字サイズを大きく */
+                font-weight: bold !important;
+            }
+        }
     </style>
 </head>
 <body>
