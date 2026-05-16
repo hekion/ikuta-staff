@@ -124,22 +124,33 @@
             font-weight: bold;
         }
 
-        /* 画像エリア */
+        /* 画像エリア：PC版で大きく表示し、余白を削る設定 */
+        .setup-img-container {
+            display: flex; width: 100%; background: #222; border-top: 1px solid #eee;
+            flex-wrap: wrap; gap: 2px;
+        }
         .setup-img {
-            width: 100%;
-            height: 200px;
-            background: #f9f9f9;
-            display: none; 
-            border-top: 1px solid #eee;
+            flex: 1; min-width: 45%; height: 450px; 
+            cursor: zoom-in; overflow: hidden; position: relative;
         }
+        
+        /* スマホ用調整 */
+        @media (max-width: 768px) {
+            .setup-img { min-width: 100%; height: 300px; }
+        }
+        
         .setup-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            width: 100%; height: 100%; object-fit: contain; transition: transform 0.3s;
         }
-        .has-img .setup-img {
-            display: block;
+        .setup-img img:hover { transform: scale(1.03); }
+
+        /* 拡大表示用 */
+        #image-viewer {
+            display: none; position: fixed; z-index: 9999; top: 0; left: 0;
+            width: 100%; height: 100%; background-color: rgba(0,0,0,0.9);
+            justify-content: center; align-items: center; cursor: zoom-out;
         }
+        #image-viewer img { max-width: 98%; max-height: 98%; border-radius: 4px; }
 
         main.container { padding-top: 20px; }
     </style>
@@ -160,7 +171,7 @@
                 <a href="saturday.html" class="day-btn">土</a>
             </div>
 
-            <div class="setup-card has-img">
+            <div class="setup-card">
                 <span class="place-label label-studio-b">スタジオB</span>
                 <div class="setup-content">
                     <span class="setup-time">9:45 ~ 11:00</span>
@@ -171,13 +182,13 @@
                         <div class="item-list-content">ヨガマット</div>
                     </div>
                 </div>
-                <div class="setup-img">
-                    <img src="assets/images/lesson　メンテナンス.jpeg" alt="メンテナンスヨガの紹介">
-                    <img src="assets/images/setup　メンテナンスヨガ.jpeg" alt="メンテナンスヨガの準備物">
+                <div class="setup-img-container">
+                    <div class="setup-img" onclick="viewImage(this)"><img src="assets/images/lesson　メンテナンス.jpeg"></div>
+                    <div class="setup-img" onclick="viewImage(this)"><img src="assets/images/setup　メンテナンスヨガ.jpeg"></div>
                 </div>
             </div>
 
-            <div class="setup-card has-img">
+            <div class="setup-card">
                 <span class="place-label label-studio-b">スタジオB</span>
                 <div class="setup-content">
                     <span class="setup-time">11:15 ~ 12:00</span>
@@ -188,13 +199,13 @@
                         <div class="item-list-content">（特になし）</div>
                     </div>
                 </div>
-                <div class="setup-img">
-                    <img src="assets/images/lesson　メガ2024.JPG" alt="メガダンスの紹介">
-                    <img src="assets/images/setup　メガダンス.jpeg" alt="メガダンスの準備物">
+                <div class="setup-img-container">
+                    <div class="setup-img" onclick="viewImage(this)"><img src="assets/images/lesson　メガ2024.JPG"></div>
+                    <div class="setup-img" onclick="viewImage(this)"><img src="assets/images/setup　メガダンス.jpeg"></div>
                 </div>
             </div>
 
-            <div class="setup-card has-img">
+            <div class="setup-card">
                 <span class="place-label label-studio-b">スタジオB</span>
                 <div class="setup-content">
                     <span class="setup-time">12:15 ~ 12:45</span>
@@ -207,13 +218,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="setup-img">
-                    <img src="assets/images/lesson　UNG2024.jpeg" alt="UNG jumpの紹介">
-                    <img src="assets/images/setup　UNG.JPG" alt="UNG jumpの準備物">
+                <div class="setup-img-container">
+                    <div class="setup-img" onclick="viewImage(this)"><img src="assets/images/lesson　UNG2024.jpeg"></div>
+                    <div class="setup-img" onclick="viewImage(this)"><img src="assets/images/setup　UNG.JPG"></div>
                 </div>
             </div>
 
-            <div class="setup-card has-img">
+            <div class="setup-card">
                 <span class="place-label label-studio-b">スタジオB</span>
                 <div class="setup-content">
                     <span class="setup-time">13:00 ~ 13:45</span>
@@ -224,13 +235,13 @@
                         <div class="item-list-content">ヨガマット</div>
                     </div>
                 </div>
-                <div class="setup-img">
-                    <img src="assets/images/lesson　ヨガEARTH2024.jpeg" alt="ヨガEARTHの紹介">
-                    <img src="assets/images/setup　ヨガEARTH.jpeg" alt="ヨガEARTHの準備物">
+                <div class="setup-img-container">
+                    <div class="setup-img" onclick="viewImage(this)"><img src="assets/images/lesson　ヨガEARTH2024.jpeg"></div>
+                    <div class="setup-img" onclick="viewImage(this)"><img src="assets/images/setup　ヨガEARTH.jpeg"></div>
                 </div>
             </div>
 
-            <div class="setup-card has-img">
+            <div class="setup-card">
                 <span class="place-label label-studio-a">スタジオA</span>
                 <div class="setup-content">
                     <span class="setup-time">15:30 ~ 16:30</span>
@@ -241,13 +252,13 @@
                         <div class="item-list-content">スピーカー、ボンボン</div>
                     </div>
                 </div>
-                <div class="setup-img">
-                    <img src="assets/images/lesson　キッズチア未就学2026.JPG" alt="キッズチア＆ダンス(未就学児)の紹介">
-                    <img src="assets/images/setup　キッズチア未就学.JPG" alt="キッズチア＆ダンス(未就学児)の準備物">
+                <div class="setup-img-container">
+                    <div class="setup-img" onclick="viewImage(this)"><img src="assets/images/lesson　キッズチア未就学2026.JPG"></div>
+                    <div class="setup-img" onclick="viewImage(this)"><img src="assets/images/setup　キッズチア未就学.JPG"></div>
                 </div>
             </div>
 
-            <div class="setup-card has-img">
+            <div class="setup-card">
                 <span class="place-label label-arena">アリーナ</span>
                 <div class="setup-content">
                     <span class="setup-time">16:10 ~ 17:10</span>
@@ -258,13 +269,13 @@
                         <div class="item-list-content"><span class="notice">A3で印刷したスプシの記録表</span></div>
                     </div>
                 </div>
-                <div class="setup-img">
-                    <img src="assets/images/lesson　かけっこ未就学2026.JPG" alt="かけっこ教室(未就学児)の紹介">
-                    <img src="assets/images/setup　かけっこ未就学.JPG" alt="かけっこ教室(未就学児)の準備物">
+                <div class="setup-img-container">
+                    <div class="setup-img" onclick="viewImage(this)"><img src="assets/images/lesson　かけっこ未就学2026.JPG"></div>
+                    <div class="setup-img" onclick="viewImage(this)"><img src="assets/images/setup　かけっこ未就学.JPG"></div>
                 </div>
             </div>
 
-            <div class="setup-card has-img">
+            <div class="setup-card">
                 <span class="place-label label-studio-a">スタジオA</span>
                 <div class="setup-content">
                     <span class="setup-time">16:40 ~ 17:40</span>
@@ -275,13 +286,13 @@
                         <div class="item-list-content">スピーカー、ボンボン</div>
                     </div>
                 </div>
-                <div class="setup-img">
-                    <img src="assets/images/lesson　キッズチア小学生2026.JPG" alt="キッズチア＆ダンス(小学生)の紹介">
-                    <img src="assets/images/setup　キッズチア小学生.JPG" alt="キッズチア＆ダンス(小学生)の準備物">
+                <div class="setup-img-container">
+                    <div class="setup-img" onclick="viewImage(this)"><img src="assets/images/lesson　キッズチア小学生2026.JPG"></div>
+                    <div class="setup-img" onclick="viewImage(this)"><img src="assets/images/setup　キッズチア小学生.JPG"></div>
                 </div>
             </div>
 
-            <div class="setup-card has-img">
+            <div class="setup-card">
                 <span class="place-label label-arena">アリーナ</span>
                 <div class="setup-content">
                     <span class="setup-time">17:15 ~ 18:45</span>
@@ -292,13 +303,13 @@
                         <div class="item-list-content"><span class="notice">A3で印刷したスプシの記録表</span></div>
                     </div>
                 </div>
-                <div class="setup-img">
-                    <img src="assets/images/lesson　かけっこ小学生2026.JPG" alt="かけっこ教室(小学生)の紹介">
-                    <img src="assets/images/setup　かけっこ小学生.JPG" alt="かけっこ教室(小学生)の準備物">
+                <div class="setup-img-container">
+                    <div class="setup-img" onclick="viewImage(this)"><img src="assets/images/lesson　かけっこ小学生2026.JPG"></div>
+                    <div class="setup-img" onclick="viewImage(this)"><img src="assets/images/setup　かけっこ小学生.JPG"></div>
                 </div>
             </div>
 
-            <div class="setup-card has-img">
+            <div class="setup-card">
                 <span class="place-label label-studio-b">スタジオB</span>
                 <div class="setup-content">
                     <span class="setup-time">19:30 ~ 20:30</span>
@@ -309,13 +320,13 @@
                         <div class="item-list-content">サーフボード、ポール、チューブ(緑)</div>
                     </div>
                 </div>
-                <div class="setup-img">
-                    <img src="assets/images/lesson　サーフHard2026.JPG" alt="サーフヨガHardの紹介">
-                    <img src="assets/images/setup　サーフHard.JPG" alt="サーフヨガHardの準備物">
+                <div class="setup-img-container">
+                    <div class="setup-img" onclick="viewImage(this)"><img src="assets/images/lesson　サーフHard2026.JPG"></div>
+                    <div class="setup-img" onclick="viewImage(this)"><img src="assets/images/setup　サーフHard.JPG"></div>
                 </div>
             </div>
 
-            <div class="setup-card has-img">
+            <div class="setup-card">
                 <span class="place-label label-studio-a">スタジオA</span>
                 <div class="setup-content">
                     <span class="setup-time">19:45 ~ 20:30</span>
@@ -328,13 +339,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="setup-img">
-                    <img src="assets/images/lesson　UBOUND2026.JPG" alt="UBOUNDの紹介">
-                    <img src="assets/images/setup　UBOUND.JPG" alt="UBOUNDの準備物">
+                <div class="setup-img-container">
+                    <div class="setup-img" onclick="viewImage(this)"><img src="assets/images/lesson　UBOUND2026.JPG"></div>
+                    <div class="setup-img" onclick="viewImage(this)"><img src="assets/images/setup　UBOUND.JPG"></div>
                 </div>
             </div>
 
-            <div class="setup-card has-img">
+            <div class="setup-card">
                 <span class="place-label label-studio-a">スタジオA</span>
                 <div class="setup-content">
                     <span class="setup-time">20:45 ~ 21:30</span>
@@ -345,14 +356,28 @@
                         <div class="item-list-content">スピーカー２つ</div>
                     </div>
                 </div>
-                <div class="setup-img">
-                    <img src="assets/images/lesson　FIGHTDO2026.JPG" alt="FIGHT DOの紹介">
-                    <img src="assets/images/setup　FIGHTDO水.JPG" alt="FIGHT DOの準備物">
+                <div class="setup-img-container">
+                    <div class="setup-img" onclick="viewImage(this)"><img src="assets/images/lesson　FIGHTDO2026.JPG"></div>
+                    <div class="setup-img" onclick="viewImage(this)"><img src="assets/images/setup　FIGHTDO水.JPG"></div>
                 </div>
             </div>
 
         </section>
     </main>
 
+    <div id="image-viewer" onclick="closeImage()">
+        <img id="full-image" src="">
+    </div>
+
+    <script>
+        function viewImage(element) {
+            const imgSrc = element.querySelector('img').src;
+            document.getElementById('full-image').src = imgSrc;
+            document.getElementById('image-viewer').style.display = 'flex';
+        }
+        function closeImage() {
+            document.getElementById('image-viewer').style.display = 'none';
+        }
+    </script>
 </body>
 </html>
