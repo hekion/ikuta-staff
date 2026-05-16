@@ -10,172 +10,73 @@
     <style>
         /* 曜日選択メニュー */
         .day-selector {
-            display: flex;
-            gap: 5px;
-            margin-bottom: 20px;
-            overflow-x: auto;
-            padding-bottom: 10px;
-            -webkit-overflow-scrolling: touch;
+            display: flex; gap: 5px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 10px;
         }
         .day-btn {
-            flex: 1;
-            min-width: 45px;
-            padding: 10px 0;
-            border: 1px solid #35A0D9;
-            background: #fff;
-            color: #35A0D9;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            font-size: 0.85rem;
-            text-align: center;
+            flex: 1; min-width: 45px; padding: 10px 0; border: 1px solid #35A0D9; background: #fff;
+            color: #35A0D9; text-decoration: none; border-radius: 5px; font-weight: bold; font-size: 0.85rem; text-align: center;
         }
-        .day-btn.active {
-            background: #35A0D9;
-            color: #fff;
-        }
+        .day-btn.active { background: #35A0D9; color: #fff; }
 
-        /* 準備物カードのデザイン */
+        /* 準備物カード */
         .setup-card {
-            background: #fff;
-            border: 1px solid #eee;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
+            background: #fff; border: 1px solid #eee; border-radius: 12px; margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05); position: relative; overflow: hidden;
+            display: flex; flex-direction: column;
         }
-
-        .setup-content {
-            padding: 12px 15px;
-        }
-
-        .setup-time {
-            font-size: 0.9rem;
-            font-weight: bold;
-            color: #666;
-            margin-bottom: 5px;
-            display: block;
-        }
-
-        .setup-title {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #333;
-            margin: 4px 0;
-            padding-right: 90px;
-        }
-
-        .setup-price {
-            font-size: 0.85rem;
-            color: #444;
-            margin-bottom: 15px;
-        }
-
-        .trial-price {
-            color: #888;
-            font-size: 0.8rem;
-            margin-left: 5px;
-        }
+        .setup-content { padding: 12px 15px; }
+        .setup-time { font-size: 0.9rem; font-weight: bold; color: #666; margin-bottom: 5px; display: block; }
+        .setup-title { font-size: 1.2rem; font-weight: bold; color: #333; margin: 4px 0; padding-right: 90px; }
+       .setup-price { font-size: 0.85rem; color: #444; margin-bottom: 15px; }
+        .trial-price { color: #888; font-size: 0.8rem; margin-left: 5px; }
 
         /* 場所ラベル */
         .place-label {
-            position: absolute;
-            top: 12px;
-            right: 15px;
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-size: 0.75rem;
-            font-weight: bold;
-            border: 1px solid transparent;
-            z-index: 10;
+            position: absolute; top: 12px; right: 15px; padding: 4px 10px; border-radius: 6px;
+            font-size: 0.75rem; font-weight: bold; border: 1px solid transparent; z-index: 10;
         }
         .label-studio-a { background: #E3F2FD; border-color: #BBDEFB; color: #1976D2; }
         .label-studio-b { background: #FFF3E0; border-color: #FFE0B2; color: #EF6C00; }
+        .label-ground   { background: #E8F5E9; border-color: #C8E6C9; color: #388E3C; }
+        .label-weight   { background: #F5F5F5; border-color: #E0E0E0; color: #616161; }
         .label-arena    { background: #F3E5F5; border-color: #E1BEE7; color: #7B1FA2; }
 
-        /* 準備物リストエリア */
-        .item-list-box {
-            background: #fdfdfd;
-            border: 1px solid #f0f0f0;
-            border-radius: 8px;
-            padding: 10px;
-            margin-top: 5px;
-        }
-        .item-list-title {
-            font-size: 0.75rem;
-            font-weight: bold;
-            color: #35A0D9;
-            margin-bottom: 4px;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-        .item-list-content {
-            font-size: 1rem;
-            color: #333;
-            line-height: 1.4;
-            font-weight: 600;
-        }
+        /* 準備物リスト */
+        .item-list-box { background: #fdfdfd; border: 1px solid #f0f0f0; border-radius: 8px; padding: 10px; margin-top: 5px; }
+        .item-list-title { font-size: 0.75rem; font-weight: bold; color: #35A0D9; margin-bottom: 4px; display: flex; align-items: center; gap: 4px; }
+        .item-list-content { font-size: 1rem; color: #333; line-height: 1.4; font-weight: 600; }
+        
+        .notice-box { background: #fff9f9; border: 1px dashed #ffcdd2; margin-top: 8px; }
+        .notice-title { color: #d32f2f; }
+        .notice-content { font-size: 0.85rem; color: #d32f2f; }
 
-        /* 画像エリア */
+        /* 画像エリア：PC版で大きく表示し、余白を削る設定 */
         .setup-img-container {
-            display: flex;
-            width: 100%;
-            background: #222;
-            border-top: 1px solid #eee;
-            flex-wrap: wrap;
-            gap: 2px;
-            justify-content: center;
+            display: flex; width: 100%; background: #222; border-top: 1px solid #eee;
+            flex-wrap: wrap; gap: 2px;
         }
         .setup-img {
-            flex: 1;
-            min-width: 45%;
-            height: 450px; 
-            cursor: zoom-in;
-            overflow: hidden;
-            position: relative;
+            flex: 1; min-width: 45%; height: 450px; 
+            cursor: zoom-in; overflow: hidden; position: relative;
         }
         
         /* スマホ用調整 */
         @media (max-width: 768px) {
-            .setup-img {
-                min-width: 100%;
-                height: 300px;
-            }
+            .setup-img { min-width: 100%; height: 300px; }
         }
         
         .setup-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            transition: transform 0.3s;
+            width: 100%; height: 100%; object-fit: contain; transition: transform 0.3s;
         }
-        .setup-img img:hover {
-            transform: scale(1.03);
-        }
+        .setup-img img:hover { transform: scale(1.03); }
 
         /* 拡大表示用 */
         #image-viewer {
-            display: none;
-            position: fixed;
-            z-index: 9999;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.9);
-            justify-content: center;
-            align-items: center;
-            cursor: zoom-out;
+            display: none; position: fixed; z-index: 9999; top: 0; left: 0;
+            width: 100%; height: 100%; background-color: rgba(0,0,0,0.9);
+            justify-content: center; align-items: center; cursor: zoom-out;
         }
-        #image-viewer img {
-            max-width: 98%;
-            max-height: 98%;
-            border-radius: 4px;
-        }
+        #image-viewer img { max-width: 98%; max-height: 98%; border-radius: 4px; }
 
         main.container { padding-top: 20px; }
     </style>
