@@ -124,22 +124,33 @@
             font-weight: bold;
         }
 
-        /* 画像エリア：has-img クラスがない限り非表示 */
+        /* 画像エリア：PC版で大きく表示し、余白を削る設定 */
+        .setup-img-container {
+            display: flex; width: 100%; background: #222; border-top: 1px solid #eee;
+            flex-wrap: wrap; gap: 2px;
+        }
         .setup-img {
-            width: 100%;
-            height: 200px;
-            background: #f9f9f9;
-            display: none; 
-            border-top: 1px solid #eee;
+            flex: 1; min-width: 45%; height: 450px; 
+            cursor: zoom-in; overflow: hidden; position: relative;
         }
+        
+        /* スマホ用調整 */
+        @media (max-width: 768px) {
+            .setup-img { min-width: 100%; height: 300px; }
+        }
+        
         .setup-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            width: 100%; height: 100%; object-fit: contain; transition: transform 0.3s;
         }
-        .has-img .setup-img {
-            display: block;
+        .setup-img img:hover { transform: scale(1.03); }
+
+        /* 拡大表示用 */
+        #image-viewer {
+            display: none; position: fixed; z-index: 9999; top: 0; left: 0;
+            width: 100%; height: 100%; background-color: rgba(0,0,0,0.9);
+            justify-content: center; align-items: center; cursor: zoom-out;
         }
+        #image-viewer img { max-width: 98%; max-height: 98%; border-radius: 4px; }
 
         main.container { padding-top: 20px; }
     </style>
@@ -160,7 +171,7 @@
                 <a href="saturday.html" class="day-btn">土</a>
             </div>
 
-            <div class="setup-card">
+            <div class="setup-card has-img">
                 <span class="place-label label-studio-b">スタジオB</span>
                 <div class="setup-content">
                     <span class="setup-time">9:45 ~ 10:30</span>
@@ -174,10 +185,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="setup-img"></div>
+                <div class="setup-img-container">
+                    <div class="setup-img" onclick="viewImage(this)"><img src="../assets/images/lesson/サーフLight.JPG"></div>
+                    <div class="setup-img" onclick="viewImage(this)"><img src="../assets/images/setup/サーフlight.JPG"></div>
+                </div>
             </div>
 
-            <div class="setup-card">
+            <div class="setup-card has-img">
                 <span class="place-label label-studio-a">スタジオA</span>
                 <div class="setup-content">
                     <span class="setup-time">10:00 ~ 12:00</span>
@@ -188,7 +202,10 @@
                         <div class="item-list-content">ヨガマット、ポール、ひも、除菌シート、スピーカー</div>
                     </div>
                 </div>
-                <div class="setup-img"></div>
+                <div class="setup-img-container">
+                    <div class="setup-img" onclick="viewImage(this)"><img src="../assets/images/lesson/ポールウォーキング2026.JPG"></div>
+                    <div class="setup-img" onclick="viewImage(this)"><img src="../assets/images/setup/ポールウォーキング.jpeg"></div>
+                </div>
             </div>
 
             <div class="setup-card">
@@ -204,10 +221,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="setup-img"></div>
             </div>
 
-            <div class="setup-card">
+            <div class="setup-card has-img">
                 <span class="place-label label-studio-b">スタジオB</span>
                 <div class="setup-content">
                     <span class="setup-time">11:00 ~ 11:45</span>
@@ -218,10 +234,13 @@
                         <div class="item-list-content">スピーカー</div>
                     </div>
                 </div>
-                <div class="setup-img"></div>
+                <div class="setup-img-container">
+                    <div class="setup-img" onclick="viewImage(this)"><img src="../assets/images/lesson/テーマパーク2026.JPG"></div>
+                    <div class="setup-img" onclick="viewImage(this)"><img src="../assets/images/setup/テーマパーク.JPG"></div>
+                </div>
             </div>
 
-            <div class="setup-card">
+            <div class="setup-card has-img">
                 <span class="place-label label-studio-a">スタジオA</span>
                 <div class="setup-content">
                     <span class="setup-time">19:30 ~ 20:30</span>
@@ -232,11 +251,28 @@
                         <div class="item-list-content">スピーカー、ヨガマット、霧吹き</div>
                     </div>
                 </div>
-                <div class="setup-img"></div>
+                <div class="setup-img-container">
+                    <div class="setup-img" onclick="viewImage(this)"><img src="../assets/images/lesson/リラックスヨガ2026.JPG"></div>
+                    <div class="setup-img" onclick="viewImage(this)"><img src="../assets/images/setup/リラックスヨガ.JPG"></div>
+                </div>
             </div>
 
         </section>
     </main>
 
+    <div id="image-viewer" onclick="closeImage()">
+        <img id="full-image" src="">
+    </div>
+
+    <script>
+        function viewImage(element) {
+            const imgSrc = element.querySelector('img').src;
+            document.getElementById('full-image').src = imgSrc;
+            document.getElementById('image-viewer').style.display = 'flex';
+        }
+        function closeImage() {
+            document.getElementById('image-viewer').style.display = 'none';
+        }
+    </script>
 </body>
 </html>
