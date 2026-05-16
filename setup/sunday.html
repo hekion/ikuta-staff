@@ -119,25 +119,34 @@
             font-weight: 500;
         }
 
-        /* 画像エリア：has-img クラスがない限り display: none で完全に隠れる */
+        /* 画像エリア：PC版で大きく表示し、余白を削る設定 */
+        .setup-img-container {
+            display: flex; width: 100%; background: #222; border-top: 1px solid #eee;
+            flex-wrap: wrap; gap: 2px;
+        }
         .setup-img {
-            width: 100%;
-            height: 200px;
-            background: #f9f9f9;
-            display: none; 
-            border-top: 1px solid #eee;
+            flex: 1; min-width: 45%; height: 450px; 
+            cursor: zoom-in; overflow: hidden; position: relative;
         }
+        
+        /* スマホ用調整 */
+        @media (max-width: 768px) {
+            .setup-img { min-width: 100%; height: 300px; }
+        }
+        
         .setup-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            width: 100%; height: 100%; object-fit: contain; transition: transform 0.3s;
         }
-        /* has-img クラスが付与された時だけ表示 */
-        .has-img .setup-img {
-            display: block;
-        }
+        .setup-img img:hover { transform: scale(1.03); }
 
-        /* 共通ヘッダーとの余白調整 */
+        /* 拡大表示用 */
+        #image-viewer {
+            display: none; position: fixed; z-index: 9999; top: 0; left: 0;
+            width: 100%; height: 100%; background-color: rgba(0,0,0,0.9);
+            justify-content: center; align-items: center; cursor: zoom-out;
+        }
+        #image-viewer img { max-width: 98%; max-height: 98%; border-radius: 4px; }
+
         main.container { padding-top: 20px; }
     </style>
 </head>
@@ -157,7 +166,7 @@
                 <a href="saturday.html" class="day-btn">土</a>
             </div>
 
-            <div class="setup-card">
+            <div class="setup-card has-img">
                 <span class="place-label label-studio-a">スタジオA</span>
                 <div class="setup-content">
                     <span class="setup-time">12:30 ~ 13:30</span>
@@ -168,10 +177,13 @@
                         <div class="item-list-content">ヨガマット</div>
                     </div>
                 </div>
-                <div class="setup-img"></div>
+                <div class="setup-img-container">
+                    <div class="setup-img" onclick="viewImage(this)"><img src="../assets/images/lesson/楽ちん体操2026.JPG"></div>
+                    <div class="setup-img" onclick="viewImage(this)"><img src="../assets/images/setup/楽ちん体操.JPG"></div>
+                </div>
             </div>
 
-            <div class="setup-card">
+            <div class="setup-card has-img">
                 <span class="place-label label-studio-a">スタジオA</span>
                 <div class="setup-content">
                     <span class="setup-time">14:00 ~ 14:50</span>
@@ -184,12 +196,28 @@
                         </div>
                     </div>
                 </div>
-                <div class="setup-img">
-                    </div>
+                <div class="setup-img-container">
+                    <div class="setup-img" onclick="viewImage(this)"><img src="../assets/images/lesson/運動教室2026.JPG"></div>
+                    <div class="setup-img" onclick="viewImage(this)"><img src="../assets/images/setup/運動教室.JPG"></div>
+                </div>
             </div>
 
         </section>
     </main>
 
+    <div id="image-viewer" onclick="closeImage()">
+        <img id="full-image" src="">
+    </div>
+
+    <script>
+        function viewImage(element) {
+            const imgSrc = element.querySelector('img').src;
+            document.getElementById('full-image').src = imgSrc;
+            document.getElementById('image-viewer').style.display = 'flex';
+        }
+        function closeImage() {
+            document.getElementById('image-viewer').style.display = 'none';
+        }
+    </script>
 </body>
 </html>
