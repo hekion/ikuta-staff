@@ -167,15 +167,17 @@
 
                     listEl.innerHTML = sorted.map(m => {
                         const isDone = m.status === '完了';
+                        // 改行やバッククォートの不具合対策用にエスケープ処理を定義
+                        const escapedContent = m.content.replace(/`/g, '\\`').replace(/\$/g, '\\$');
                         return `
                         <div class="memo-item ${isDone ? 'item-done' : ''}">
                             <span class="status-badge ${isDone ? 'badge-done' : 'badge-wait'}">${m.status}</span>
                             <div class="memo-meta">${m.date}　${m.author}</div>
                             <div class="memo-content" style="white-space:pre-wrap;">${m.content}</div>
                             <div class="memo-btns">
-                                ${!isDone ? `<button onclick="startEdit('${m.date}', '${m.author}', \`${m.content.replace(/`/g, '\\`')}\`)">編集</button>` : ''}
-                                ${!isDone ? `<button onclick="handleMemo('update', '${m.author}', '${m.content}')">完了</button>` : ''}
-                                <button onclick="handleMemo('delete', '${m.author}', '${m.content}')" style="color:red;">削除</button>
+                                ${!isDone ? `<button onclick="startEdit('${m.date}', '${m.author}', \`${escapedContent}\`)">編集</button>` : ''}
+                                ${!isDone ? `<button onclick="handleMemo('update', '${m.author}', \`${escapedContent}\`)">完了</button>` : ''}
+                                <button onclick="handleMemo('delete', '${m.author}', \`${escapedContent}\`)" style="color:red;">削除</button>
                             </div>
                         </div>
                         `;
